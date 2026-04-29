@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7119f28a206f8cb43bc38f3763d2f4ee, type: 3}
+  m_Name: Local Save
+  m_EditorClassIdentifier: Assembly-CSharp::GameSaveSO
+  Save:
+    Money: 82378
+    IsBoughtPurchase: 0
+    TutorialPassed: 1
+    Skins:
+    - Id: univesal
+    SkinWearId: univesal
+    Bonuses:
+    - Id: InvisibleBonus
+      Count: 84
+    - Id: SpeedBonus
+      Count: 33
+    - Id: BigJumpBonus
+      Count: 94
+    Tasks:
+    - Id: pass_bomb_10
+      Count: 18
+      IsGetReward: 0
+    - Id: pass_in_void_5
+      Count: 0
+      IsGetReward: 0
+    - Id: life_sec_100
+      Count: 0
+      IsGetReward: 0
+    - Id: life_round_15
+      Count: 34
+      IsGetReward: 0
+    - Id: win_count_5
+      Count: 2
+      IsGetReward: 0
+    - Id: use_speed_bonus_10
+      Count: 24
+      IsGetReward: 0
+    - Id: use_super_jump_bonus_10
+      Count: 5
+      IsGetReward: 0
+    - Id: use_invincible_bonus_10
+      Count: 15
+      IsGetReward: 0
+    - Id: parkour_count_1
+      Count: 0
+      IsGetReward: 0
+    Pets:
+    - Id: bugatti_pet
+      Count: 2
+    DailyRewardSave:
+      LastDateTimeReceived: 16.04.2026 15:18:54
+      LastDayNumber: -1
+    WheelFortuneSave:
+      CountSpinAllow: 5
+      LastDateTimeSpined: 07.04.2026 22:43:20
+    DailyQuestSave:
+      LastDateTimeEntered: 27.04.2026 14:50:07
+    SkinSave:
+      SkinSets:
+      - GroupId: 1
+        BoughtIds: 010000000200000003000000
+        EquippedId: 2
+      - GroupId: 2
+        BoughtIds: 01000000020000000300000004000000
+        EquippedId: 4
+      - GroupId: 3
+        BoughtIds: 01000000
+        EquippedId: 1
+      - GroupId: 4
+        BoughtIds: 010000000200000003000000
+        EquippedId: 1
+      - GroupId: 5
+        BoughtIds: 010000000200000003000000
+        EquippedId: 1

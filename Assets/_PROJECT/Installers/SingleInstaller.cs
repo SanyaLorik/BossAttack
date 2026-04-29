@@ -1,0 +1,56 @@
+using UnityEngine;
+using Zenject;
+
+public class SingleInstaller : MonoInstaller {
+    [SerializeField] private GameObject[] _canvasesToHide;
+    
+    public override void InstallBindings() {
+        Container.Bind<AdvHelper>().FromComponentInHierarchy().AsSingle().NonLazy();
+        Container.Bind<FallVoidCollider>().FromComponentInHierarchy().AsSingle().NonLazy();
+        Container.Bind<SpawnManager>().FromComponentInHierarchy().AsSingle().NonLazy();
+        BindCamera();
+        BindSettings();
+        BindValuteFormatter();
+        BindNicknameRandomizer();
+        Container.Bind<TasksManager>().FromComponentInHierarchy().AsSingle().NonLazy();
+        BindEconomy();
+        BindTurorial();
+        BindCanvasToHide();
+    }
+
+ 
+
+    private void BindEconomy() {
+        Container.Bind<EconomyCalculator>().FromComponentInHierarchy().AsSingle().NonLazy();
+    }
+
+    private void BindTurorial() {
+        Container.Bind<TutorialManager>().FromComponentInHierarchy().AsSingle().NonLazy();
+    }
+
+    private void BindCamera() {
+        Container.Bind<CameraOrbitalController>().FromComponentInHierarchy().AsSingle().NonLazy();
+    }
+    
+    private void BindSettings() {
+        Container.Bind<SettingsManager>().FromComponentInHierarchy().AsSingle().NonLazy();
+    } 
+    
+    private void BindValuteFormatter() {
+        Container.Bind<NumberFormatter>().AsSingle().NonLazy();
+    }
+    
+    private void BindNicknameRandomizer() {
+        Container.BindInterfacesAndSelfTo<NicknameRandomizer>().AsSingle().NonLazy();
+    }
+    
+    
+    private void BindCanvasToHide() {
+        Container.Bind<GameObject[]>()
+            .WithId("UiToHide")
+            .FromInstance(_canvasesToHide)
+            .AsSingle().NonLazy();
+    }
+    
+
+}
