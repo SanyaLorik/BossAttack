@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 
-public class AnimatedLinkTraversal : MonoBehaviour
-{
+public class AnimatedLinkTraversal : MonoBehaviour {
+    [SerializeField] private NavMeshAgent _agent;
+    
     public float jumpDuration = 0.8f;
     public float jumpHeight = 2.5f;
     public AnimationCurve horizontalCurve = AnimationCurve.Linear(0, 0, 1, 1);
 
-    private NavMeshAgent agent;
 
     public bool IsJumpingTraversal { get; private set; }
     private float timer;
@@ -15,42 +15,33 @@ public class AnimatedLinkTraversal : MonoBehaviour
     private Vector3 start;
     private Vector3 end;
 
-    void Start()
-    {
-        agent = GetComponent<NavMeshAgent>();
-    }
 
-    void Update()
-    {
-        if (agent.isOnOffMeshLink && !IsJumpingTraversal)
-        {
+
+    void Update() {
+        if (_agent.isOnOffMeshLink && !IsJumpingTraversal) {
             StartJump();
         }
 
-        if (IsJumpingTraversal)
-        {
+        if (IsJumpingTraversal) {
             UpdateJump();
         }
     }
 
-    void StartJump()
-    {
-        var link = agent.currentOffMeshLinkData;
+    void StartJump() {
+        var link = _agent.currentOffMeshLinkData;
 
         // Берём РЕАЛЬНУЮ позицию
         start = transform.position;
-        end = link.endPos + Vector3.up * agent.baseOffset;
+        end = link.endPos + Vector3.up * _agent.baseOffset;
 
         timer = 0f;
         IsJumpingTraversal = true;
 
-        agent.updatePosition = false;
+        _agent.updatePosition = false;
     }
 
     void UpdateJump()
     {
-        
-        
         timer += Time.deltaTime;
         float t = timer / jumpDuration;
 
@@ -74,7 +65,7 @@ public class AnimatedLinkTraversal : MonoBehaviour
             transform.rotation = Quaternion.Slerp(
                 transform.rotation,
                 targetRotation,
-                agent.angularSpeed * Time.deltaTime
+                _agent.angularSpeed * Time.deltaTime
             );
         }
 
@@ -86,12 +77,12 @@ public class AnimatedLinkTraversal : MonoBehaviour
 
     void FinishJump()
     {
-        if (agent.enabled && agent.isOnNavMesh && agent.isOnOffMeshLink)
+        if (_agent.enabled && _agent.isOnNavMesh && _agent.isOnOffMeshLink)
         {
-            agent.CompleteOffMeshLink();
+            _agent.CompleteOffMeshLink();
         }
 
-        agent.updatePosition = true;
+        _agent.updatePosition = true;
         IsJumpingTraversal = false;
     }
 }

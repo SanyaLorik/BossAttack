@@ -19,7 +19,7 @@ public class PointerToEnemy : MonoBehaviour  {
     [Inject] PlayerMovement _playerMovement;
     [Inject] BattleManager _battleManager;
     [Inject] MainGameStarter _mainGameStarter;
-    [Inject] Bomb _bomb;
+    // [Inject] Bomb _bomb;
     
     
     private void Awake() {
@@ -30,7 +30,7 @@ public class PointerToEnemy : MonoBehaviour  {
 
     private void OnEnable() {
         _battleManager.NewRoundStarted += BattleManagerOnNewRoundStarted;
-        _bomb.BombExploded += DisposeTask;
+        // _bomb.BombExploded += DisposeTask;
     }
 
     

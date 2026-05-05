@@ -3,7 +3,7 @@ using Zenject;
 
 public class FallPlayerRewarder : MonoBehaviour {
     [Inject] private FallVoidCollider _fallVoidCollider;
-    [Inject] private IPassBombPlayer _mainPlayer;
+    [Inject] private PlayerMovement _mainPlayer;
     [Inject] private PlayerBank _playerBank;
     [Inject] private EconomyCalculator _economyCalculator;
 
@@ -13,10 +13,10 @@ public class FallPlayerRewarder : MonoBehaviour {
     }
     
 
-    private void OnPlayerFalledInVoid(IPassBombPlayer faller) {
-        if(faller == _mainPlayer) return; // Соболезнуем
+    private void OnPlayerFalledInVoid(IPusher pusher) {
+        if(pusher == _mainPlayer.Pusher) return; // Соболезнуем
         
-        if (faller.RoleBehaviour.LastPlayerContact == _mainPlayer.RoleBehaviour) {
+        if (pusher.LastPlayerContact == _mainPlayer.Pusher) {
             RewardPlayerToKillInnocentBot();
         }
     }

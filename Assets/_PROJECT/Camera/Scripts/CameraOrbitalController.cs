@@ -61,7 +61,6 @@ public class CameraOrbitalController : MonoBehaviour {
     [Inject] private BattleManager _battleManager;
     [Inject] private MainGameStarter _gameStarter;
     [Inject] private PlayerMovement _playerMovement;
-    [Inject] private Bomb _bomb;
 
     private void Update() {
         _rotationHandler.Invoke();
@@ -73,7 +72,6 @@ public class CameraOrbitalController : MonoBehaviour {
         SystemEvents.WindowOpened += ForbidRotate;
         SystemEvents.ForbidZoomChanged += ForbidZoom;
         GameEvents.ShakeCamera += ShakeCamera;
-        _bomb.BombExploded += OnBombExploded;
         _playerMovement.PlayerTeleportToTarget += SetWalkToBack;
         _playerMovement.InitedToPlay += OnPlayerInitToPlay;
     }

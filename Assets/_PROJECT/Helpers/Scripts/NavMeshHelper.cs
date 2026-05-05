@@ -10,6 +10,13 @@ public class NavMeshHelper {
     }
     
     
+    public bool CanUseAgent(NavMeshAgent agent)  =>
+        agent != null &&
+        agent.enabled &&
+        agent.isOnNavMesh;
+    
+    
+    
     public Vector3 CalculateBotTargetPoint(Transform point, float yToFind) {
         Vector3 size = point.localScale;
         float offsetX = Random.Range(-size.x/2f, size.x/2f);

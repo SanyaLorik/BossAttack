@@ -6,9 +6,6 @@ public static class GameEvents {
     public static event Action TriggerUsed;
     public static event Action ShakeCamera;
     public static event Action NewItemReceived;
-    public static event Action<PlayerRoleBehaviour> PlayerStayHunter;
-    public static event Action<PlayerRoleBehaviour> PlayerPassedBomb;
-
 
     public static void BonusReloadedInvoke() {
         BonusReloaded?.Invoke();
@@ -30,12 +27,6 @@ public static class GameEvents {
         NewItemReceived?.Invoke();
     }
 
-    public static void PlayerStayHunterInvoke(PlayerRoleBehaviour player) {
-        PlayerStayHunter?.Invoke(player);
-    } 
-    
-    public static void PlayerPassBombInvoke(PlayerRoleBehaviour player) {
-        PlayerPassedBomb?.Invoke(player);
-    } 
+
     
 }

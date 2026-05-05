@@ -38,28 +38,30 @@ public class GameData : GameDataBase
     [field: Header("Главная Игра")]
     [field: SerializeField] public float NewGameTimer { get; private set; }
     [field: SerializeField] public float DelayAfterGameOverToNewTimer { get; private set; }
-    [field: SerializeField] public float TimeToBombExplode { get; private set; }
-    [field: SerializeField] public float TimeToInvinsibleAfterPass { get; private set; }
-    [field: SerializeField] public float TimeToInvinsibleAfterPassInTutor { get; private set; }
     [field: SerializeField] public float DefaultSpeedInRound { get; private set; }
-    [field: SerializeField] public float HunterSpeed { get; private set; }
+    [field: SerializeField] public float ColldownToStartRound { get; private set; }
+    [field: SerializeField] public float TimeToShowDieInfo { get; private set; }
+    [field: SerializeField] public float TimeAfterEndRound { get; private set; }
+    
+    
+    [field: Header("Бонусы")]
     [field: SerializeField] public float VelocityBonusSpeed { get; private set; }
+    [field: SerializeField] public float HunterSpeed { get; private set; }
     [field: SerializeField] public float JumpBonusHeight { get; private set; }
     [field: SerializeField] public float DoubleJumpBonusHeight { get; private set; }
     [field: SerializeField] public float BonusReload { get; private set; }
     [field: SerializeField] public float BonusDuration { get; private set; }
+    
+    
+    [field: Header("Толчки")]
     [field: SerializeField] public float BotPushForce { get; private set; }
     [field: SerializeField] public float BotUpPushRatio { get; private set; }   
     [field: SerializeField] public float PlayerPushForce { get; private set; }
     [field: SerializeField] public float PlayerUpPushRatio { get; private set; }
     [field: SerializeField] public float PushTime { get; private set; }
     [field: SerializeField] public float PushColldown { get; private set; }
-    [field: SerializeField, Range(0,1)] public float ChanceInitBombToPlayer { get; private set; }
     
-    [field: Header("Тайминги")]
-    [field: SerializeField] public float ColldownToStartGame { get; private set; }
-    [field: SerializeField] public float TimeAfterBombExplode { get; private set; }
-    [field: SerializeField] public float TimeToShowDieInfo { get; private set; }
+
     [field: Header("Птенцы")]
     [field: SerializeField] public int MaxPetsCount { get; private set; }
     [field: SerializeField] public PairedValue<int> BotPetCountDiapasone { get; private set; }

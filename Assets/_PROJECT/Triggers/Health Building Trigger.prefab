@@ -215,7 +215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DelayedTrigger
   _duration: 1
-  _progress: {fileID: 0}
+  _progress: {fileID: 147621517188980412}
   _notAvailableColor: {r: 1, g: 0, b: 0, a: 1}
   _availableColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!1 &4383300975249325238

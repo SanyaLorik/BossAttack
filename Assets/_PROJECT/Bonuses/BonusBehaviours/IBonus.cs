@@ -1,4 +1,4 @@
 public interface IBonus {
-    public void Use(IPassBombPlayer passBombPlayer);
-    public void StopWork(IPassBombPlayer passBombPlayer);
+    public void Use(IBonusUser player);
+    public void StopWork(IBonusUser player);
 }

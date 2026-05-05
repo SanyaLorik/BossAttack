@@ -10,15 +10,13 @@ public class BattleCanvasVisualiser : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI _countPlayersText;
 
     
-    [Inject] private Bomb _bomb;
-    [Inject] private MainGameStarter _gameStarter;
-    [Inject] private BattleManager _battleManager;
-    [Inject] IPassBombPlayer _mainPlayer;
+    [Inject] MainGameStarter _gameStarter;
+    [Inject] BattleManager _battleManager;
+    [Inject] PlayerMovement _mainPlayer;
 
 
     
     private void OnEnable() {
-        _bomb.PlayerBecameHunter += BombOnPlayerBecameHunter;
         _gameStarter.GameStarted += OnGameStarted;
         _battleManager.PlayersCountChanged += OnChangePlayersCount;
     }
@@ -38,15 +36,4 @@ public class BattleCanvasVisualiser : MonoBehaviour {
     }
 
 
-    private void BombOnPlayerBecameHunter(PlayerRoleBehaviour player) {
-        if (!_battleManager.MainPlayerPlay) return;
-        if (player == _mainPlayer.RoleBehaviour) {
-            _youHaveBomb.ActiveSelf();
-            _bombPointer.DisactiveSelf();
-        }
-        else {
-            _youHaveBomb.DisactiveSelf();
-            _bombPointer.ActiveSelf();
-        }
-    }
 }

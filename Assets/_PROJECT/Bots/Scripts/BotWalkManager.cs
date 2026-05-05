@@ -11,35 +11,23 @@ using Random = UnityEngine.Random;
 public class BotWalkManager : MonoBehaviour {
     private const float DESTINATION_CHANGE_THRESHOLD = 0.5f;
     [SerializeField] private Rigidbody _rb;
+    [SerializeField] private NavMeshAgent _agent;
     
     
     [Header("Партиклы")]
-    [SerializeField] private JumpParticlesController _jumpParticlesController;
-    [SerializeField] private JumpParticlesController _landParticleController;
     [SerializeField] private DualLegParticles _walkingParticles;
     [SerializeField] private Transform[] _spawnPlaces;
     [SerializeField] private float _yToFind;
     [SerializeField] private AnimatedLinkTraversal _animatedLinkTraversal;
-
-
+    [SerializeField] private BotJumpController jumpController;
     
     
     public Action<bool> StartWandering;
-    public Action<bool> Grounded;
-    public Action OnJump;
-    public Action OnDoubleJump;
-    public Action FallAfterPush;
 
     private CancellationTokenSource _botTokenSource;
-    private CancellationTokenSource _jumpTokenSource; 
-    private CancellationTokenSource _pushTokenSource;
-    private NavMeshAgent _agent;
     private Vector3 _lastDestination;
+    private bool CanUseAgent => _navMeshHelper.CanUseAgent(_agent);
     
-    private float _jumpForce;
-    private float _jumpDuration;
-    public bool IsPushed { get; private set; }
-    private bool _isJumping;
     
     [Inject] private GameData _gameData;
     [Inject] private NavMeshHelper _navMeshHelper;
@@ -48,31 +36,18 @@ public class BotWalkManager : MonoBehaviour {
     
     
     private void Awake() {
-        _agent = GetComponent<NavMeshAgent>();
-    }
-
-    private bool CanUseAgent =>
-        _agent != null &&
-        _agent.enabled &&
-        _agent.isOnNavMesh;
-    
-    private void Start() {
-        SetBigJump(false);
         _agent.updateRotation = false;
     }
 
     
     private void Update() {
-        if (IsPushed) return;
-        
         RotateByVelocity();
         MonitorMovement();
     }
     
     public void DisposeAllLogic() {
         UniTaskHelper.DisposeTask(ref _botTokenSource);
-        UniTaskHelper.DisposeTask(ref _jumpTokenSource);
-        UniTaskHelper.DisposeTask(ref _pushTokenSource);
+        jumpController.DisposeToken();
     }
         
     private async UniTask StartWanderingCycleAsync() {
@@ -97,7 +72,8 @@ public class BotWalkManager : MonoBehaviour {
             _agent.SetDestination(target);
             
             await UniTask.WaitUntil(() => !_agent.pathPending && _agent.hasPath, cancellationToken: token);
-            Jump(token).Forget();
+            
+            jumpController.Jump(token).Forget();
 
             await UniTask.WaitUntil(() => 
                     !_agent.pathPending && _agent.remainingDistance <= _agent.stoppingDistance,
@@ -109,191 +85,6 @@ public class BotWalkManager : MonoBehaviour {
             await UniTask.Delay(TimeSpan.FromSeconds(waitTime), cancellationToken: token);
         }
     }
-
-
-
-    private async UniTask EnterPushModeAsync()
-    {
-        IsPushed = true;
-
-        // стопаем всё игровое поведение
-        UniTaskHelper.DisposeTask(ref _jumpTokenSource);
-        UniTaskHelper.DisposeTask(ref _botTokenSource);
-
-        _agent.isStopped = true;
-        _agent.ResetPath();
-        _agent.velocity = Vector3.zero;
-
-        _agent.enabled = false;
-
-        await UniTask.Yield(PlayerLoopTiming.Update);
-    }
-
-    public void PushAway(Vector3 direction) {
-        if (IsPushed) return;
-
-        UniTaskHelper.DisposeTask(ref _pushTokenSource);
-        _pushTokenSource = new CancellationTokenSource();
-
-        PushAwayAsync(direction, _pushTokenSource.Token).Forget();
-    }
-    
-    private async UniTask PushAwayAsync(Vector3 direction, CancellationToken token) {
-        await EnterPushModeAsync();
-
-        await PushJump(direction, token);
-    }
-    
-    
-    private async UniTask PushJump(Vector3 direction, CancellationToken token) {
-        float height = _gameData.BotUpPushRatio;
-        float duration = _gameData.PushTime;
-        float force = _gameData.BotPushForce;
-
-        Vector3 startPos = transform.position;
-        Vector3 velocity = direction.normalized * force;
-
-        float startY = startPos.y;
-        float t = 0f;
-
-        Grounded?.Invoke(false);
-        _jumpParticlesController.Play();
-
-        // ПАРАБОЛА
-        _rb.isKinematic = true;
-        _rb.useGravity = false;
-
-        while (t < duration && !token.IsCancellationRequested) {
-            t += Time.deltaTime;
-            float n = t / duration;
-
-            Vector3 targetPos = startPos + velocity * t;
-            targetPos.y = startY + Mathf.Sin(n * Mathf.PI) * height;
-
-            Vector3 delta = targetPos - transform.position;
-            float dist = delta.magnitude;
-
-            if (dist > 0f) {
-                Vector3 dir = delta / dist;
-
-                float extra = 0.15f;
-                float castDist = dist + extra;
-
-                float radius = 0.3f;
-                float heightCapsule = 1.8f;
-
-                Vector3 center = transform.position;
-                Vector3 p1 = center + Vector3.up * (heightCapsule / 2 - radius);
-                Vector3 p2 = center - Vector3.up * (heightCapsule / 2 - radius);
-
-                if (Physics.CapsuleCast(p1, p2, radius, dir, out RaycastHit hit, castDist)) {
-                    Vector3 safePos = hit.point - dir * 0.05f;
-                    transform.position = safePos;
-
-                    break;
-                }
-            }
-
-            transform.position = targetPos;
-
-            await UniTask.Yield(PlayerLoopTiming.Update);
-        }
-
-        // ВКЛЮЧАЕМ ФИЗИКУ
-        await FallWithPhysics(token);
-    }
-    
-    private async UniTask FallWithPhysics(CancellationToken token)
-    {
-        float maxTime = 4f;
-        float t = 0f;
-
-        _rb.isKinematic = false;
-        _rb.useGravity = true;
-
-        _rb.angularVelocity = Vector3.zero;
-        _rb.linearVelocity = Vector3.down * _gameData.BotFallSpeed;
-        
-
-        while (!token.IsCancellationRequested)
-        {
-            t += Time.fixedDeltaTime;
-
-            Vector3 pos = _rb.position;
-
-            // ГЛАВНОЕ: ищем NavMesh напрямую (НЕ через коллайдер)
-            if (NavMesh.SamplePosition(pos, out NavMeshHit navHit, _mapsChanger.FallBotFindSamplePosition, NavMesh.AllAreas))
-            {
-                // приземляемся только если падаем вниз
-                if (_rb.linearVelocity.y <= 0f)
-                {
-                    FinishLanding(navHit.position);
-                    return;
-                }
-            }
-
-            // Дополнительная страховка (если уже ниже NavMesh)
-            if (!NavMesh.SamplePosition(pos, out _, _mapsChanger.FallBotFindSamplePosition, NavMesh.AllAreas))
-            {
-                if (NavMesh.SamplePosition(pos + Vector3.up * 5f, out NavMeshHit fallbackHit, 10f, NavMesh.AllAreas))
-                {
-                    FinishLanding(fallbackHit.position);
-                    return;
-                }
-            }
-
-            // выпали в бездну
-            if (t > maxTime || pos.y < -200f)
-            {
-                Debug.Log("Bot fell into void");
-                _mainManager.FellInVoidWanderer(this);
-
-                StopPhys();
-                Grounded?.Invoke(true);
-                return;
-            }
-
-            await UniTask.Yield(PlayerLoopTiming.FixedUpdate);
-        }
-    }
-    
-    
-    private void FinishLanding(Vector3 navMeshPos)
-    {
-        StopPhys();
-
-        _agent.enabled = true;
-
-        if (NavMesh.SamplePosition(navMeshPos, out var hit, 1f, NavMesh.AllAreas)) {
-            _agent.Warp(hit.position);
-        }
-
-        // ВАЖНО: проверка перед любыми действиями
-        if (_agent.isOnNavMesh) {
-            _agent.nextPosition = _agent.transform.position;
-            _agent.ResetPath();
-            _agent.isStopped = false;
-            FallAfterPush?.Invoke();
-        }
-        else {
-            Debug.LogWarning("Agent not on NavMesh after landing");
-            _mainManager.FellInVoidWanderer(this);
-            return;
-        }
-
-        Grounded?.Invoke(true);
-        _landParticleController.Play();
-    }
-
-    public void StopPhys() {
-        _rb.linearVelocity = Vector3.zero;
-        _rb.angularVelocity = Vector3.zero;
-        
-        _rb.isKinematic = true;
-        _rb.useGravity = false;
-        IsPushed = false;
-    }
-
 
     public void StopWanderSpawn() {
         ResetLogic();
@@ -310,8 +101,9 @@ public class BotWalkManager : MonoBehaviour {
     
     public void ResetLogic() {
         Debug.Log("StartWanderSpawn");
-        UniTaskHelper.DisposeTask(ref _botTokenSource);
-        UniTaskHelper.DisposeTask(ref _jumpTokenSource);
+        
+        DisposeAllLogic();
+
         if (_agent != null && _agent.enabled && _agent.isOnNavMesh) {
             _agent.velocity = Vector3.zero;
             _agent.ResetPath();
@@ -340,13 +132,6 @@ public class BotWalkManager : MonoBehaviour {
         Transform point =  points.GetRandomElement();
         return _navMeshHelper.CalculateBotTargetPoint(point, yToFind);
     }
-    
-    
-    public void SetBigJump(bool bigJump) {
-        _jumpForce = bigJump ? _gameData.BotJumpBonusHeight : _gameData.BotDefaultJumpHeight;
-        _jumpDuration = bigJump ? _gameData.BotJumpBonusDuration : _gameData.BotJumpDuration;
-    }
-    
 
 
     public void SetAgentGoToPoint(Vector3 point) {
@@ -373,7 +158,7 @@ public class BotWalkManager : MonoBehaviour {
 
         if (!CanUseAgent) return;
 
-        await Jump(token);
+        await jumpController.Jump(token);
 
         if (!CanUseAgent) return;
 
@@ -434,64 +219,7 @@ public class BotWalkManager : MonoBehaviour {
         }
     }
 
-    
-    private async UniTask Jump(CancellationToken token) {
-        if (Random.value > _gameData.ChanceToJump) return;
-        
-        float startPathLength = _agent.remainingDistance;
-        float jumpLength = startPathLength / Random.Range(1.5f, 2f);
-
-
-        UniTaskHelper.DisposeTask(ref _jumpTokenSource);
-        _jumpTokenSource = CancellationTokenSource.CreateLinkedTokenSource(token);
-        CancellationToken jumpToken = _jumpTokenSource.Token;
-
-        _isJumping = true;
-        await UniTask.WaitUntil(() => 
-                !_agent.pathPending &&
-                _agent.remainingDistance <= jumpLength &&
-                _agent.remainingDistance > _agent.stoppingDistance, 
-            cancellationToken: jumpToken);
-
-        FakeJump(jumpToken).Forget();
-    }
-    
-    
-    private async UniTask FakeJump(CancellationToken token) {
-        float height = _jumpForce;
-        float t = 0f;
-
-        _jumpParticlesController.Play();
-        if (Random.value > 0.7f) {
-            OnJump?.Invoke();
-        }
-        else {
-            OnDoubleJump?.Invoke();
-        }
-
-        float startY = transform.position.y;
-        Grounded?.Invoke(false);
-        while (t < _jumpDuration && !token.IsCancellationRequested) {
-            t += Time.deltaTime;
-            float normalized = t / _jumpDuration;
-            float yOffset = Mathf.Sin(normalized * Mathf.PI) * height;
-
-            Vector3 pos = transform.position;
-            pos.y = startY + yOffset;
-
-            transform.position = pos;
-
-            await UniTask.Yield(token);
-        }
-        Grounded?.Invoke(true);
-        _landParticleController.Play();
-        _isJumping = false;
-    }
-    
-    
     private void OnDestroy() {
-        UniTaskHelper.DisposeTask(ref _botTokenSource);
-        UniTaskHelper.DisposeTask(ref _jumpTokenSource);
+        DisposeAllLogic();
     }
-    
 }

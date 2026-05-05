@@ -6,38 +6,59 @@ using Zenject;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class BotStateManager : MonoBehaviour, IPassBombPlayer {
+public class BotManager : MonoBehaviour, IPlayer {
     [field: SerializeField] public bool ShowInSpawn { get; private set; }
     [field: SerializeField] public Transform Transform { get; private set; }
     [field: SerializeField] public BotWalkManager BotWalkManager { get; private set; }
+    [field: SerializeField] public BotPushBehaviour BotPushBehaviour { get; private set; }
+    [field: SerializeField] public BotBonusController BotBonusController { get; private set; }
+    [field: SerializeField] public BotJumpController BotJumpController { get; private set; }
+
     [SerializeField] private BotAnimator _botAnimator;
     [SerializeField] private BotMonolog _botMonolog;
     [SerializeField] private NavMeshAgent _agent;
     [SerializeField] private PlayerRoleBehaviour _roleBehaviour;
+    [SerializeField] private Rigidbody _rb;
+
+    public IBonusUser BonusUser => BotBonusController;
+    public IPusher Pusher { get; private set; }
 
     public bool IsPlaying { get; private set; }
-    public event Action<MoveStatus, bool> MoveStatusChanged;
+    public bool IsPushed => BotPushBehaviour.IsPushed;
     public event Action<bool> PlayerStatusChanged;
-    
-    
+
+
     public string Nickname => _botMonolog.NickName;
     public PlayerRoleBehaviour RoleBehaviour => _roleBehaviour;
-    
-    
+    private bool CanUseAgent => _navMeshHelper.CanUseAgent(_agent);
+
+
     [Inject] private GameData _gameData;
     [Inject] private SpawnManager _spawn;
     [Inject] private MapsToBattleChanger _mapsManager;
+    [Inject] private NavMeshHelper _navMeshHelper;
 
-    
-    
+
+
     private void Start() {
-        if (!ShowInSpawn) 
+        if (!ShowInSpawn)
             gameObject.DisactiveSelf();
         else
             SetStartWanderIfActive(true);
     }
-    
 
+    private void DisposeAllTokens() {
+        BotWalkManager.DisposeAllLogic();
+    }
+
+
+    public void PushAway(Vector3 direction) {
+        // Перед пушем останавливаем всю логику прыжки бля бег и тп
+        DisposeAllTokens();
+        BotPushBehaviour.PushAway(direction);
+    }
+    
+    
     private void SetStartWanderIfActive(bool startWander) {
         if (ShowInSpawn == false) return;
         
@@ -47,13 +68,12 @@ public class BotStateManager : MonoBehaviour, IPassBombPlayer {
 
 
     public void SetPlayStatus(bool goPlay) {
-        _roleBehaviour.SetInvincibleAfterBonus(false);
-        _roleBehaviour.SetInvincibleAfterBomb(false);
+        BonusUser.SetDefault();
         
         PlayerStatusChanged?.Invoke(goPlay);
         IsPlaying = goPlay;
         _agent.enabled = true;
-        BotWalkManager.StopPhys();
+        StopPhys();
         BotWalkManager.DisposeAllLogic();
         
         gameObject.SetActive(ShowInSpawn || goPlay);
@@ -112,45 +132,6 @@ public class BotStateManager : MonoBehaviour, IPassBombPlayer {
     }
 
     
-    public void SetDefaultSpeed() {
-        _agent.speed = _gameData.BotSpeed;
-        MoveStatusChanged?.Invoke(MoveStatus.SuperSpeed, false);
-        // Debug.Log($"SetDefaultSpeed {_botMonolog.NickName}");
-    }
-    
-    
-    public void SetHunterSpeed() {
-        _agent.speed = _gameData.HunterSpeed;
-        MoveStatusChanged?.Invoke(MoveStatus.SuperSpeed, true);
-        // Debug.Log($"SetHunterSpeed {_botMonolog.NickName}");
-    }
-
-    
-    public void SetBonusSpeed() {
-        _agent.speed = _gameData.VelocityBonusSpeed;
-        MoveStatusChanged?.Invoke(MoveStatus.SuperSpeed, true);
-    }
-
-
-    
-    public void SetBigJump(bool bigJump) {
-        BotWalkManager.SetBigJump(bigJump);
-        MoveStatusChanged?.Invoke(MoveStatus.SuperJump, bigJump);
-    }
-
-
-    public void PushAway(Vector3 direction) {
-        BotWalkManager.PushAway(direction);
-    }
-
-    
-    public bool IsPushed => BotWalkManager.IsPushed;
-
-    
-    public void SetInvincible(bool invincible) {
-        _roleBehaviour.SetInvincibleAfterBonus(invincible);
-        MoveStatusChanged?.Invoke(MoveStatus.Invincible, invincible);
-    }
 
 
     public void RotateToTarget(Vector3 targetPosition) {
@@ -189,6 +170,14 @@ public class BotStateManager : MonoBehaviour, IPassBombPlayer {
 
     public void SetBotStfu() {
         _botMonolog.Stfu();
+    }
+
+    public void StopPhys() {
+        _rb.linearVelocity = Vector3.zero;
+        _rb.angularVelocity = Vector3.zero;
+        
+        _rb.isKinematic = true;
+        _rb.useGravity = false;
     }
 
 }

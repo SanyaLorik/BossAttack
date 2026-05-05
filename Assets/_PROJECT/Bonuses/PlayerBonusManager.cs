@@ -5,25 +5,18 @@ using UnityEngine;
 using Zenject;
 
 
-public class BonusManager : MonoBehaviour {
+public class PlayerBonusManager : MonoBehaviour {
     [SerializeField] private List<BonusSlot> _bonusSlots;
     private BonusSlot _choosedModifierChanger;
     
-    
     private GameSave _saves => _saver.GetSave<GameSave>();
-    
     
     [Inject] private IGameSave _saver; 
     [Inject] private MainGameStarter _gameStarter;
     [Inject] private BattleManager _battleManager;
     [Inject] private GameData _data;
     [Inject] private TutorialManager _tutorialManager;
-    [Inject] private IPassBombPlayer _mainPlayer;
-
-    
-    private void OnEnable() {
-        GameEvents.PlayerStayHunter += PlayerStayHunter;
-    }
+    [Inject] private PlayerMovement _mainPlayer;
 
     
     private void Start() {
@@ -31,7 +24,6 @@ public class BonusManager : MonoBehaviour {
             InitBonusesCount(_data.InitBonusCounts);
         }
     }
-
 
     public void SetAvailableToUseBonuses(bool available) {
         _bonusSlots.ForEach(bs => bs.SetStateAvailable(available));
@@ -44,13 +36,5 @@ public class BonusManager : MonoBehaviour {
             _saves.AddNewBonusCounts(bonusSlot.BonusItem.Id, count, true);
         }
     }
-    
-    
-    private void PlayerStayHunter(PlayerRoleBehaviour player) {
-        IPassBombPlayer passPlayer = _battleManager.Players.First(p => p.RoleBehaviour == player);
-        passPlayer.SetBigJump(false);
-        passPlayer.SetInvincible(false);
-    }
-
   
 }

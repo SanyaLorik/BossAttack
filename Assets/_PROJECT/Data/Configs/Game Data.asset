@@ -37,14 +37,14 @@ MonoBehaviour:
       <From>k__BackingField: 0.5
       <To>k__BackingField: 5
     <MinSensValue>k__BackingField: 0.1
-    <NewGameTimer>k__BackingField: 15
+    <NewGameTimer>k__BackingField: 1488
     <DelayAfterGameOverToNewTimer>k__BackingField: 5
-    <TimeToBombExplode>k__BackingField: 10
-    <TimeToInvinsibleAfterPass>k__BackingField: 4
-    <TimeToInvinsibleAfterPassInTutor>k__BackingField: 1
     <DefaultSpeedInRound>k__BackingField: 12
-    <HunterSpeed>k__BackingField: 20
+    <ColldownToStartRound>k__BackingField: 0
+    <TimeToShowDieInfo>k__BackingField: 2
+    <TimeAfterEndRound>k__BackingField: 0
     <VelocityBonusSpeed>k__BackingField: 25
+    <HunterSpeed>k__BackingField: 20
     <JumpBonusHeight>k__BackingField: 24
     <DoubleJumpBonusHeight>k__BackingField: 30
     <BonusReload>k__BackingField: 7
@@ -55,10 +55,6 @@ MonoBehaviour:
     <PlayerUpPushRatio>k__BackingField: 14
     <PushTime>k__BackingField: 1
     <PushColldown>k__BackingField: 1
-    <ChanceInitBombToPlayer>k__BackingField: 0.55
-    <ColldownToStartGame>k__BackingField: 3
-    <TimeAfterBombExplode>k__BackingField: 1
-    <TimeToShowDieInfo>k__BackingField: 2
     <MaxPetsCount>k__BackingField: 6
     <BotPetCountDiapasone>k__BackingField:
       <From>k__BackingField: 0

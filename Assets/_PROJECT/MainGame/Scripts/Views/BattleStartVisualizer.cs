@@ -25,7 +25,7 @@ public class BattleStartVisualizer : MonoBehaviour {
 
     
     private async UniTaskVoid PlayAnimation() {
-        float elapsedTime = _gameData.ColldownToStartGame;
+        float elapsedTime = _gameData.ColldownToStartRound;
         
         _timerContainer.ActiveSelf();
         while (elapsedTime != 0) {

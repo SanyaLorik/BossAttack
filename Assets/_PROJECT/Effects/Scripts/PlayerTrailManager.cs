@@ -1,5 +1,6 @@
 using SanyaBeerExtension;
 using UnityEngine;
+using Zenject;
 
 
 public class PlayerTrailManager : MonoBehaviour {
@@ -7,13 +8,13 @@ public class PlayerTrailManager : MonoBehaviour {
     [SerializeField] private GameObject[] _speedTrails;
     [SerializeField] private GameObject[] _jumpTrails;
     [SerializeField] private GameObject[] _invincibleTrails;
-    [SerializeField] private BotStateManager _botStateManager;
-    [SerializeField] private PlayerMovement _playerMovement;
     
-    private IPassBombPlayer _passBombPlayer;
     
-    private MoveStatus _currentMoveStatus = MoveStatus.Default;
+    [Inject] IPlayer _player;
+    
+    private BonusStatus _currentBonusStatus = BonusStatus.Default;
 
+    
     private void Start() {
         OffAll();
         _defaultTrails.ActiveSelf();
@@ -21,47 +22,34 @@ public class PlayerTrailManager : MonoBehaviour {
 
     
     private void OnEnable() {
-        TryInit();
-        _passBombPlayer.MoveStatusChanged += OnMoveStatusChanged;
+        _player.BonusUser.BonusStatusChanged += OnBonusStatusChanged;
     }
 
     
     private void OnDisable() {
-        if (_passBombPlayer != null)
-            _passBombPlayer.MoveStatusChanged -= OnMoveStatusChanged;
+        _player.BonusUser.BonusStatusChanged -= OnBonusStatusChanged;
     }
 
-    
-    private void TryInit() {
-        if (_passBombPlayer == null) {
-            if (_botStateManager != null) {
-                _passBombPlayer = _botStateManager;
-            }
-            else {
-                _passBombPlayer = _playerMovement;
-            }
-        }
-    }
 
-    private void OnMoveStatusChanged(MoveStatus status, bool enable) {
+    private void OnBonusStatusChanged(BonusStatus status, bool enable) {
         // Eсли чето врубаем обязательно все предыдущие вырубаем
         if (enable) {
             OffAll();
-            _currentMoveStatus = status;
-            if (status == MoveStatus.SuperSpeed) {
+            _currentBonusStatus = status;
+            if (status == BonusStatus.SuperSpeed) {
                 _speedTrails.ActiveSelf();
             }
-            else if(status == MoveStatus.SuperJump) {
+            else if(status == BonusStatus.SuperJump) {
                 _jumpTrails.ActiveSelf();
             }
-            else if (status == MoveStatus.Invincible) {
+            else if (status == BonusStatus.Invincible) {
                 _invincibleTrails.ActiveSelf();
             }
         }
         // Если вырубился ласт бонус, включаем дефолт
         else {
-            if (status == _currentMoveStatus) {
-                _currentMoveStatus = MoveStatus.Default;
+            if (status == _currentBonusStatus) {
+                _currentBonusStatus = BonusStatus.Default;
                 OffAll();
                 _defaultTrails.ActiveSelf();
             }

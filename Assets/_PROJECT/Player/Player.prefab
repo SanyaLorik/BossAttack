@@ -102,6 +102,50 @@ MonoBehaviour:
   _flyPS: {fileID: 3819982159546911629}
   _freezeDelay: 0.3
   _trailsEnabledTime: 0.05
+--- !u!1 &4726146583451960104
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5443552119785286926}
+  - component: {fileID: 2728973940216989352}
+  m_Layer: 7
+  m_Name: BonusController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5443552119785286926
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4726146583451960104}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6278525158390120559}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2728973940216989352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4726146583451960104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68d5aa5890c34b389e158f98320421b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerBonusController
 --- !u!1 &5033114416352457734
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,8 +388,9 @@ GameObject:
   - component: {fileID: 6278525158390120559}
   - component: {fileID: 6165380883207411591}
   - component: {fileID: 3539183820512013210}
-  - component: {fileID: 6584472137099475329}
   - component: {fileID: 1270892518284674774}
+  - component: {fileID: 8543442795726724073}
+  - component: {fileID: 642621416677463001}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -366,6 +411,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5443552119785286926}
   - {fileID: 1808908378588453757}
   - {fileID: 4463336047555587298}
   - {fileID: 5304525108884347941}
@@ -411,27 +457,9 @@ MonoBehaviour:
   _controller: {fileID: 6165380883207411591}
   _spawnPoint: {fileID: 0}
   _roleBehaviour: {fileID: 7425658207102932552}
-  _playerVisual: {fileID: 0}
+  _playerVisual: {fileID: 5928220643738429436}
+  _playerBonusController: {fileID: 2728973940216989352}
   <Transform>k__BackingField: {fileID: 6278525158390120559}
---- !u!114 &6584472137099475329
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8871990671806092604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2ba32d5beb19ad42a6dc44929f05c3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerBank
-  _moneyTexts:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  _moneyStartCapital: 10000
 --- !u!114 &1270892518284674774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -465,6 +493,36 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+--- !u!114 &8543442795726724073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8871990671806092604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08eca9f7688a0a24685b89133b020c8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Zenject::Zenject.GameObjectContext
+  _scriptableObjectInstallers: []
+  _monoInstallers:
+  - {fileID: 642621416677463001}
+  _installerPrefabs: []
+  _autoRun: 1
+  _kernel: {fileID: 0}
+--- !u!114 &642621416677463001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8871990671806092604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b352489113747299a249ea613f985da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerPrefabInstaller
 --- !u!1001 &1759702745585960008
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -516,6 +574,10 @@ PrefabInstance:
     - target: {fileID: 4461270530974434999, guid: d162bdedf2b6b4c4fa8fb16f333a6ca3, type: 3}
       propertyPath: m_LocalPosition.y
       value: 3.709
+      objectReference: {fileID: 0}
+    - target: {fileID: 5108805838483084258, guid: d162bdedf2b6b4c4fa8fb16f333a6ca3, type: 3}
+      propertyPath: m_Constraints
+      value: 112
       objectReference: {fileID: 0}
     - target: {fileID: 8347061652387831211, guid: d162bdedf2b6b4c4fa8fb16f333a6ca3, type: 3}
       propertyPath: m_Layer

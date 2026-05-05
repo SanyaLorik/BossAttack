@@ -3,13 +3,13 @@ using UnityEngine;
 
 [Serializable]
 public class InvisibleBonus : IBonus {
-    public void Use(IPassBombPlayer passBombPlayer) {
-        passBombPlayer.SetInvincible(true);
+    public void Use(IBonusUser player) {
+        player.SetInvincible(true);
         // Debug.Log("Включена невидимость");
     }
 
-    public void StopWork(IPassBombPlayer passBombPlayer) {
-        passBombPlayer.SetInvincible(false);
+    public void StopWork(IBonusUser player) {
+        player.SetInvincible(false);
         // Debug.Log("Невидимость выключена");
     }
 }

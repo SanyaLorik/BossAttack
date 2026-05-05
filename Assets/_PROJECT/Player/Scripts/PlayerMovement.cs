@@ -5,11 +5,13 @@ using UnityEngine;
 using Zenject;
 
 [RequireComponent(typeof(CharacterController))]
-public class PlayerMovement : MonoBehaviour, IPassBombPlayer {
+public class PlayerMovement : MonoBehaviour, IPlayer {
     [SerializeField] private CharacterController _controller; // 
     [SerializeField] private Transform _spawnPoint;
     [SerializeField] private PlayerRoleBehaviour _roleBehaviour;
     [SerializeField] private GameObject _playerVisual;
+    [SerializeField] private PlayerBonusController _playerBonusController;
+    
     [field: SerializeField] public Transform Transform { get; private set; }
 
     public Vector2 MoveInput => _inputDirection2.Direction2;
@@ -30,6 +32,9 @@ public class PlayerMovement : MonoBehaviour, IPassBombPlayer {
     public bool IsGrounded { get; private set; }
     public bool IsRunning { get; private set; }
     public bool PlayerInSpawn { get; private set; } = true;
+    public IPusher Pusher { get; }
+    public IBonusUser BonusUser => _playerBonusController;
+    
     
     public CharacterController Controller => _controller;
     public bool MoveEnable { get; private set; } = true;
@@ -43,16 +48,12 @@ public class PlayerMovement : MonoBehaviour, IPassBombPlayer {
     [Inject] private IInputJumping _inputJumping;
     [Inject] private GameData _gameData;
     [Inject] private PlayerStateManager _stateManager;
-    [Inject] private PlayerPetsManager _petsManager;
     
     // Для гравитации и прыжков
     private float _verticalVelocity;
     private int _jumpsUsed;
 
-    private void Start() {
-        SetBigJump(false);
-        SetDefaultSpeed();
-    }
+
 
     private void Update() {
         Walk();
@@ -75,8 +76,21 @@ public class PlayerMovement : MonoBehaviour, IPassBombPlayer {
     public void AddExternalMotion(Vector3 motion) {
         _externalMotion += motion;
     }
+
+    public void UpdateWalkSpeed(float speed) {
+        _walkSpeed = speed;
+    }
+
+
+    public void UpdateFirstJumpForce(float force) {
+        _firstJumpForce = force;
+    }
     
+    public void UpdateSecondJumpForce(float force) {
+        _secondJumpForce = force;
+    }
     
+
     public void TeleportToPoint(Vector3 target) {
         SetCharacterControllerState(false);
         transform.position = target;
@@ -90,8 +104,7 @@ public class PlayerMovement : MonoBehaviour, IPassBombPlayer {
 
     public void SetPlayStatus(bool goPlay) {
         InitedToPlay?.Invoke(goPlay);
-        _roleBehaviour.SetInvincibleAfterBonus(false);
-        _roleBehaviour.SetInvincibleAfterBomb(false);
+        BonusUser.SetDefault();
         
         IsPlaying = goPlay;
         PlayerInSpawn = !goPlay;
@@ -103,14 +116,13 @@ public class PlayerMovement : MonoBehaviour, IPassBombPlayer {
     }
 
     public void SetPlayStatusSilent(bool play) {
-        _roleBehaviour.SetInvincibleAfterBonus(false);
-        _roleBehaviour.SetInvincibleAfterBomb(false);
+        BonusUser.SetDefault();
         IsPlaying = play;
     }
-    
+
 
     public bool IsPlaying { get;  private set; }
-    public event Action<MoveStatus, bool> MoveStatusChanged;
+    public event Action<BonusStatus, bool> BonusStatusChanged;
 
     public void PushAway(Vector3 direction) {
         PlayerHited?.Invoke();
@@ -169,35 +181,9 @@ public class PlayerMovement : MonoBehaviour, IPassBombPlayer {
         MoveEnabled?.Invoke(MoveEnable);
     }
 
-    
-    
-    public void SetDefaultSpeed() {
-        _walkSpeed = _gameData.WalkSpeed + _petsManager.PetsRatioSum;
-        MoveStatusChanged?.Invoke(MoveStatus.SuperSpeed, false);
-    }
-    
-    
-    public void SetHunterSpeed() {
-        _walkSpeed = _gameData.HunterSpeed + _petsManager.PetsRatioSum;
-        MoveStatusChanged?.Invoke(MoveStatus.SuperSpeed, true);
-    }
 
-    public void SetBonusSpeed() {
-        _walkSpeed = _gameData.VelocityBonusSpeed + _petsManager.PetsRatioSum;
-        MoveStatusChanged?.Invoke(MoveStatus.SuperSpeed, true);
-    }
-    
-    public void SetInvincible(bool invincible) {
-        _roleBehaviour.SetInvincibleAfterBonus(invincible);
-        MoveStatusChanged?.Invoke(MoveStatus.Invincible, invincible);
-    }
 
-    
-    public void SetBigJump(bool bigJump) {
-        _firstJumpForce = bigJump ? _gameData.JumpBonusHeight : _gameData.JumpForce;
-        _secondJumpForce = bigJump ? _gameData.DoubleJumpBonusHeight : _gameData.SecondJumpForce;
-        MoveStatusChanged?.Invoke(MoveStatus.SuperJump, bigJump);
-    }
+   
     
     
     public void TeleportInSpawn() {

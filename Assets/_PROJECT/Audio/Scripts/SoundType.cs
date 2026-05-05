@@ -12,5 +12,4 @@
     Explosion,
     ReloadBonus,
     BonusUse,
-    PlayerStayHunter
 }

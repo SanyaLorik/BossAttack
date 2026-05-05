@@ -14,7 +14,7 @@ public class MapsToBattleChanger : MonoBehaviour {
     private int MapIndex { get; set; }
 
     public Transform[] CurrentMapSpawnPoints => _mapitems[MapIndex].SpawnPoints;
-    public Transform GetCurrentBombSpawn => _mapitems[MapIndex].BombCenterSpawn;
+    public Transform[] GetCurrentEnemySpawns => _mapitems[MapIndex].CurrentEnemySpawns;
     public Transform GetCurrentMapFloor => _mapitems[MapIndex].Floor;
     public float CurrentMapYToFind => _mapitems[MapIndex].YToFind;
     public float FallBotFindSamplePosition => _mapitems[MapIndex].FallBotFindSamplePosition;

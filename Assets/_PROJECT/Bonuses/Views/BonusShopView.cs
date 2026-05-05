@@ -22,7 +22,7 @@ public class BonusShopView : MonoBehaviour {
 
     private GameSave Saves => _save.GetSave<GameSave>();
     
-    [Inject] private BonusManager _bonusManager;
+    [Inject] private PlayerBonusManager _playerBonusManager;
     [Inject] private IGameSave _save;
     [Inject] private AdvHelper _advHelper;
     [Inject] private AdvertisingMonetizationMirra _advertisingMonetization;

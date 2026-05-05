@@ -42,11 +42,11 @@ public class BonusSlot : MonoBehaviour {
     private GameSave Saves => _saver.GetSave<GameSave>();
     private CancellationTokenSource _tokenSource;
     
-    [Inject] private BonusManager _bonusManager;
+    [Inject] private PlayerBonusManager _playerBonusManager;
     [Inject] private DiContainer _diContainer;
     [Inject] private IGameSave _saver; 
     [Inject] LocalizationData _localization;
-    [Inject] IPassBombPlayer _mainPlayer;
+    [Inject] PlayerMovement _mainPlayer;
     [Inject] TutorialManager _tutorialManager;
     [Inject] GameData _gameData;
     [Inject] IDeviceTypeProvider _deviceTypeProvider;
@@ -61,12 +61,12 @@ public class BonusSlot : MonoBehaviour {
         CheckAvailable();
         SetProgressBarVisible(false);
         _button.onClick.AddListener(TryUse);
-        Bonus.StopWork(_mainPlayer);
+        Bonus.StopWork(_mainPlayer.BonusUser);
     }
 
     
     private void OnDisable() {
-        Bonus.StopWork(_mainPlayer);
+        Bonus.StopWork(_mainPlayer.BonusUser);
         _button.onClick.RemoveListener(TryUse);
         IsAvailable = false;
         _reloadProgress.fillAmount = 0f;
@@ -75,7 +75,6 @@ public class BonusSlot : MonoBehaviour {
     private void Start() {
         _yEnd = _useTimeProgress.rect.height;
         
-        _mainPlayer.RoleBehaviour.PlayerRoleChanged += HideShowElementsByRole;
         CheckAvailable();
         SetProgressBarVisible(false);
         _bonusNameText.text =
@@ -113,19 +112,6 @@ public class BonusSlot : MonoBehaviour {
         };
     }
     
-    
-    private void HideShowElementsByRole(PlayerRoleInGame role) {
-        if (role == PlayerRoleInGame.Hunter) {
-            UniTaskHelper.DisposeTask(ref _tokenSource);
-            SetProgressBarVisible(false);
-            IsAvailable = false;
-            _reloadProgress.fillAmount = 1f;
-        }
-        else {
-            CheckAvailable(); 
-        }
-    }
-
 
     private void TryUse() {
         if (!IsAvailable) {
@@ -137,11 +123,7 @@ public class BonusSlot : MonoBehaviour {
             Debug.Log("Бонусов нема");
             return;
         }
-        
-        if(_mainPlayer.RoleBehaviour.CurrentRole == PlayerRoleInGame.Hunter){ 
-            Debug.Log("Игрок хантер, он не может юзать бонусы");
-            return;
-        }
+
         UseBonus();
     }
     
@@ -156,7 +138,7 @@ public class BonusSlot : MonoBehaviour {
 
     private void UseBonus() {
         GameEvents.BonusUseInvoke(Bonus);
-        Bonus.Use(_mainPlayer);
+        Bonus.Use(_mainPlayer.BonusUser);
         GetOneBonus();
         IsAvailable = false;
         
@@ -185,7 +167,7 @@ public class BonusSlot : MonoBehaviour {
             await UniTask.Yield(cancellationToken: token);
         }
 
-        Bonus.StopWork(_mainPlayer);
+        Bonus.StopWork(_mainPlayer.BonusUser);
         SetProgressBarVisible(false);
         if (BonusCount != 0) {
             SetReloadBonusTimerAsync(token).Forget();

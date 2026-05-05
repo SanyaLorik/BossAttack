@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-public class GameOverView : MonoBehaviour {
+public class GameOver : MonoBehaviour {
     [SerializeField] private GameObject _allContainer;
     [SerializeField] private GameObject _playgroundContainer;
     [Header("PVB")]

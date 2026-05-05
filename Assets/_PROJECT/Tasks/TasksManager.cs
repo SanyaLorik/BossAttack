@@ -12,8 +12,6 @@ using Zenject;
 
 [Serializable]
 public enum TaskType {
-   PassBomb,
-   PassInVoid,
    LifeSec,
    LifeRound,
    WinCount,
@@ -58,7 +56,6 @@ public class TasksManager : MonoBehaviour {
     
     // Стата игрока в данный момент 
     private int _passBomb;
-    private int _passInVoid;
     private int _lifeRound;
     private int _winCount;
     private int _useSpeedBonus;
@@ -78,7 +75,7 @@ public class TasksManager : MonoBehaviour {
     [Inject] private LocalizationData _localization; 
     [Inject] private BattleManager _battleManager; 
     [Inject] private MainGameStarter _mainGameStarter; 
-    [Inject] private GameOverView _gameOverView; 
+    [Inject] private GameOver _gameOver; 
     [Inject] private IGameSave _gameSave; 
     [Inject] private AdvertisingMonetizationMirra _advertisingMonetization;
     [Inject] private AdvHelper _advHelper;
@@ -106,8 +103,6 @@ public class TasksManager : MonoBehaviour {
         _battleManager.MainPlayerWin += PlayerWinCheck;
         _parkourCompleteTrigger.ParkourCompleted += UpdateParkourTask;
         GameEvents.BonusUsed += OnBonusUsed;
-        GameEvents.PlayerPassedBomb += OnPlayerPassedBomb;
-        _fallVoidCollider.PlayerFalledInVoid += OnPlayerFalledInVoid;
         _battleManager.NewRoundStarted += OnNewRoundStarted;
         _mainPlayer.InitedToPlay += CalculatePlayerLifeTime;
     }
@@ -150,19 +145,13 @@ public class TasksManager : MonoBehaviour {
     }
     
     
-    private void OnPlayerPassedBomb(PlayerRoleBehaviour player) {
-        if(player != _mainPlayer.RoleBehaviour) return;
-        _passBomb++;
-        UpdateTaskProgress(TaskType.PassBomb);
-    }
     
-    
-    private void OnPlayerFalledInVoid(IPassBombPlayer bedolaga) {
-        if (bedolaga.RoleBehaviour.LastPlayerContact == _mainPlayer.RoleBehaviour) {
-            _passInVoid++;
-            UpdateTaskProgress(TaskType.PassInVoid);
-        }
-    }
+    // private void OnPlayerFalledInVoid(IPlayer bedolaga) {
+    //     if (bedolaga.RoleBehaviour.LastPlayerContact == _mainPlayer.RoleBehaviour) {
+    //         _passInVoid++;
+    //         UpdateTaskProgress(TaskType.PassInVoid);
+    //     }
+    // }
     
     private void PlayerWinCheck(bool winner) {
         if (winner) {
@@ -223,8 +212,6 @@ public class TasksManager : MonoBehaviour {
 
     private int GetPlayerValue(TaskType taskType) {
         return taskType switch {
-            TaskType.PassBomb => _passBomb,
-            TaskType.PassInVoid => _passInVoid,
             TaskType.LifeSec => _lifeSec,
             TaskType.LifeRound => _lifeRound,
             TaskType.WinCount => _winCount,
@@ -242,12 +229,6 @@ public class TasksManager : MonoBehaviour {
         Debug.Log($"SetPlayerValue {id} {count} {false}");
         Saver.UpdateTaskInfo(id, count, false);
         switch (taskType) {
-            case TaskType.PassBomb:
-                _passBomb = count;
-                break;
-            case TaskType.PassInVoid:
-                _passInVoid = count;
-                break;
             case TaskType.LifeSec:
                 _lifeSec = count;
                 break;

@@ -5,7 +5,7 @@ public class PortalTrigger : MonoBehaviour {
     [Inject] private MapsToBattleChanger _mapsToBattleChanger;
     
     private void OnTriggerEnter(Collider collider) {
-        if (!collider.TryGetComponent(out IPassBombPlayer passBombPlayer)) return;
+        if (!collider.TryGetComponent(out IPlayer passBombPlayer)) return;
         passBombPlayer.TeleportToPoint(_mapsToBattleChanger.CentralTeleport.position);
     }
 }

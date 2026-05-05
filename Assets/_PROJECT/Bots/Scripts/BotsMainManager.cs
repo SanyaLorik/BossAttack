@@ -8,16 +8,16 @@ using IInitializable = Zenject.IInitializable;
 using Random = UnityEngine.Random;
 
 public class BotsMainManager : IInitializable, IDisposable {
-    private readonly List<BotStateManager> _bots;
+    private readonly List<BotManager> _bots;
     private readonly GameData _gameData;
     private readonly BattleManager _battleManager;
 
     
     private CancellationTokenSource _tokenSource;
     private bool _stopBotSpeaking;
-    private List<BotStateManager> _speakingBots = new();
+    private List<BotManager> _speakingBots = new();
 
-    public BotsMainManager(List<BotStateManager> bots, 
+    public BotsMainManager(List<BotManager> bots, 
         GameData gameData, 
         BattleManager battleManager)
     {
@@ -33,12 +33,12 @@ public class BotsMainManager : IInitializable, IDisposable {
         
     }
 
-    public List<BotStateManager> GetBotsToGame(int count) {
+    public List<BotManager> GetBotsToGame(int count) {
         return _bots.GetRange(0, count);
     }
     
     
-    public BotStateManager GetRandomBotToBattle(bool playerCopy) {
+    public BotManager GetRandomBotToBattle(bool playerCopy) {
         int countIters = 100;
         while (countIters > 0) {
             countIters--;
@@ -121,8 +121,8 @@ public class BotsMainManager : IInitializable, IDisposable {
     }
 
     
-    public void FellInVoidWanderer(BotWalkManager manager) {
-        BotStateManager bot = _bots.Find(b => b.BotWalkManager == manager);
+    public void FellInVoidBot(BotPushBehaviour pusher) {
+        BotManager bot = _bots.Find(b => b.BotPushBehaviour == pusher);
         Debug.Log($"Игрока {bot.Nickname} достали из пустоты ангелы");
         _battleManager.PlayerFalled(bot);
     }

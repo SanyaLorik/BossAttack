@@ -3,11 +3,12 @@ using Zenject;
 
 public class ShieldEnabler : MonoBehaviour {
     [SerializeField] private ShieldVisual _shieldVisual;
-    [SerializeField] private PlayerRoleBehaviour _playerRoleBehaviour;
     [SerializeField] private bool _shieldIsEnabled;
 
     
     [Inject] BattleManager _battleManager;
+    [Inject] IPlayer _player;
+    
     
     private void Start() {
         _shieldVisual.ShieldShowFast(false);
@@ -16,14 +17,14 @@ public class ShieldEnabler : MonoBehaviour {
     private void OnEnable() {
         _battleManager.GameReadyToPlay += HideShield;
         _shieldVisual.ShieldShowFast(false);
-        _playerRoleBehaviour.InvinsibleStatusChanged += OnInvinsibleStatusChanged;
+        _player.BonusUser.InvinsibleStatusChanged += OnInvinsibleStatusChanged;
     }
 
 
     private void OnDisable() {
         _battleManager.GameReadyToPlay -= HideShield;
         _shieldVisual.ShieldShowFast(false);
-        _playerRoleBehaviour.InvinsibleStatusChanged -= OnInvinsibleStatusChanged;
+        _player.BonusUser.InvinsibleStatusChanged -= OnInvinsibleStatusChanged;
     }
     
     
@@ -33,7 +34,7 @@ public class ShieldEnabler : MonoBehaviour {
     
     
     private void OnInvinsibleStatusChanged(bool enable) {
-        if (!_playerRoleBehaviour.PassBombPlayer.IsPlaying) {
+        if (_player.IsPlaying) {
             _shieldIsEnabled = false;
             _shieldVisual.ShieldEnableAnimate(false);
             return;
@@ -46,7 +47,7 @@ public class ShieldEnabler : MonoBehaviour {
         
         // Если хочет вырубить но 1 включен не трогаем
         if (!enable) {
-            if (_playerRoleBehaviour.IsInvincibleAfterBomb || _playerRoleBehaviour.IsInvincibleAfterBonus) {
+            if (_player.BonusUser.IsInvincibleAfterBonus) {
                 return;
             }
         }
