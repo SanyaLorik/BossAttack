@@ -30,6 +30,9 @@ public class BotJumpController : MonoBehaviour {
         SetBigJump(false);
     }
     
+    public void DisposeToken() {
+        UniTaskHelper.DisposeTask(ref _jumpTokenSource);
+    }
 
     public void SetBigJump(bool bigJump) {
         _jumpForce = bigJump ? _gameData.BotJumpBonusHeight : _gameData.BotDefaultJumpHeight;
@@ -47,37 +50,27 @@ public class BotJumpController : MonoBehaviour {
 
         UniTaskHelper.DisposeTask(ref _jumpTokenSource);
         _jumpTokenSource = CancellationTokenSource.CreateLinkedTokenSource(token);
-        CancellationToken jumpToken = _jumpTokenSource.Token;
 
         _isJumping = true;
         await UniTask.WaitUntil(() => 
                 !_agent.pathPending &&
                 _agent.remainingDistance <= jumpLength &&
                 _agent.remainingDistance > _agent.stoppingDistance, 
-            cancellationToken: jumpToken);
+            cancellationToken: _jumpTokenSource.Token);
 
-        FakeJump(jumpToken).Forget();
+        FakeJump(_jumpTokenSource.Token).Forget();
     }
 
-    public void DisposeToken() {
-        UniTaskHelper.DisposeTask(ref _jumpTokenSource);
-    }
+
     
     
     private async UniTask FakeJump(CancellationToken token) {
         float height = _jumpForce;
         float t = 0f;
 
-        _manager.JumpParticles.Play();
-        if (Random.value > 0.7f) {
-            OnJump?.Invoke();
-        }
-        else {
-            OnDoubleJump?.Invoke();
-        }
+        PlayVisual();
 
         float startY = _manager.Transform.position.y;
-        Grounded?.Invoke(false);
         while (t < _jumpDuration && !token.IsCancellationRequested) {
             t += Time.deltaTime;
             float normalized = t / _jumpDuration;
@@ -93,5 +86,16 @@ public class BotJumpController : MonoBehaviour {
         Grounded?.Invoke(true);
         _manager.LandParticles.Play();
         _isJumping = false;
+    }
+
+    private void PlayVisual() {
+        _manager.JumpParticles.Play();
+        if (Random.value > 0.7f) {
+            OnJump?.Invoke();
+        }
+        else {
+            OnDoubleJump?.Invoke();
+        }
+        Grounded?.Invoke(false);
     }
 }

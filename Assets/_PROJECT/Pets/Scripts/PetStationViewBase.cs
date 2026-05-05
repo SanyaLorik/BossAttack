@@ -52,7 +52,7 @@ public abstract class PetStationViewBase : MonoBehaviour {
 
     protected void OnTriggerExit(Collider collider) {
         if (!collider.TryGetComponent(out PlayerMovement _)) return;
-        _customTrigger.CancelTriggerAction();
+        _customTrigger.CancelTriggerActionFull();
         Debug.Log("Операция по получению пета отменена");
     }
     

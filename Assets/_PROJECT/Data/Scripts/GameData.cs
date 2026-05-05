@@ -91,4 +91,10 @@ public class GameData : GameDataBase
     [field: SerializeField] public PairedValue<float> BotUseNewBonusTime { get; private set; }
     [field: SerializeField, Range(0,1)] public float BotChanceToUseBonus { get; private set; }
     
+    [field: Header("Постройки")]
+    [field: SerializeField] public float TimeDividerToUnbild { get; private set; }
+    [field: SerializeField] public float DistanceToFindNavMeshToBuild { get; private set; }
+    
+    
+    
 }

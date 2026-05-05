@@ -46,7 +46,7 @@ public class BonusShopView : MonoBehaviour {
     
     private void OnTriggerExit(Collider collider) {
         if(!collider.TryGetComponent(out PlayerMovement _)) return;
-        _trigger.CancelTriggerAction();
+        _trigger.CancelTriggerActionFull();
         _advHelper.EnableTimer();
     }
     

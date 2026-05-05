@@ -32,7 +32,7 @@ public class CanvasOpenerWithTrigger : TriggerBehaviourBase {
         _advHelper.EnableTimer();
         if (_delayedTrigger == null) return;
         
-        _delayedTrigger.CancelTriggerAction();
+        _delayedTrigger.CancelTriggerActionFull();
     }
 
     private void TriggerAction() {

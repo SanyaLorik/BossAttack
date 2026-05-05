@@ -20,13 +20,14 @@ public class DelayedTrigger : MonoBehaviour {
     public void DelayedTriggerAction(Action action) {
         _tokenSource?.Cancel();
         _tokenSource = new CancellationTokenSource();
-        ProgressVisual(_tokenSource.Token, action).Forget();
+        ProgressVisualUp(_tokenSource.Token, action).Forget();
     }
 
-    public void CancelTriggerAction() {
+    public void CancelTriggerActionFull() {
         _tokenSource?.Cancel();
         _progress.fillAmount = 1f;
     }
+    
     
     public void SetUnvailable() {
         if (_progress.color != _notAvailableColor) {
@@ -40,7 +41,7 @@ public class DelayedTrigger : MonoBehaviour {
         }
     }
 
-    private async UniTask ProgressVisual(CancellationToken token, Action action) {
+    private async UniTask ProgressVisualUp(CancellationToken token, Action action) {
         float elapsedTime = 0f;
         _progress.fillAmount = 0f;
         while (!token.IsCancellationRequested && elapsedTime < _duration) {
@@ -52,7 +53,6 @@ public class DelayedTrigger : MonoBehaviour {
         if (!token.IsCancellationRequested) {
             action?.Invoke();
         }
-
     }
 
 

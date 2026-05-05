@@ -27,7 +27,7 @@ public class ParkourCompleteTrigger : TriggerBehaviourBase {
     }
     
     protected override void PlayerBehaviourOnExit() {
-        _delayedTrigger.CancelTriggerAction();
+        _delayedTrigger.CancelTriggerActionFull();
     }
 
     private void TriggerAction() {

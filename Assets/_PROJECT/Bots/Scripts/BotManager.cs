@@ -39,7 +39,7 @@ public class BotManager : MonoBehaviour, IPlayer {
 
 
     [Inject] private GameData _gameData;
-    [Inject] private SpawnManager _spawn;
+    [Inject] private RespawnManager _respawn;
     [Inject] private MapsToBattleChanger _mapsManager;
     [Inject] private NavMeshHelper _navMeshHelper;
 
@@ -89,10 +89,10 @@ public class BotManager : MonoBehaviour, IPlayer {
         }
         // Возвращение на спавн
         else {
-            Debug.Log($"Возвращение на спавн игрока {BotMonolog.NickName} in {_spawn.SpawnPoint.position}");
-            Debug.Log($"Игрок play статус {IsPlaying} in {_spawn.SpawnPoint.position}");
+            Debug.Log($"Возвращение на спавн игрока {BotMonolog.NickName} in {_respawn.SpawnPoint.position}");
+            Debug.Log($"Игрок play статус {IsPlaying} in {_respawn.SpawnPoint.position}");
             SetBotStateBeforeGame();
-            TeleportToPoint(_spawn.SpawnPoint.position);
+            TeleportToPoint(_respawn.SpawnPoint.position);
             ChangeNicknameByChance();
         }
         SetStartWanderIfActive(!goPlay);

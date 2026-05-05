@@ -178,7 +178,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5060845134860457226}
+  - component: {fileID: 7776395855799678705}
   - component: {fileID: 374021865770013718}
+  - component: {fileID: 4568785495120099130}
   m_Layer: 0
   m_Name: Health Building Trigger
   m_TagString: Untagged
@@ -202,6 +204,27 @@ Transform:
   - {fileID: 8180877387693455712}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7776395855799678705
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3887695957504358304}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.500248, y: 1.9109937, z: 3.5090213}
+  m_Center: {x: -0.0043849945, y: 0.45549685, z: -0.00000023841858}
 --- !u!114 &374021865770013718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,7 +232,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3887695957504358304}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb2505bd4cb240e4caaca8ac5d1b2250, type: 3}
   m_Name: 
@@ -218,6 +241,21 @@ MonoBehaviour:
   _progress: {fileID: 147621517188980412}
   _notAvailableColor: {r: 1, g: 0, b: 0, a: 1}
   _availableColor: {r: 0, g: 1, b: 0, a: 1}
+--- !u!114 &4568785495120099130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3887695957504358304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0010599ee3aefbf42b5b20098f32249b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildZoneItem
+  _buildType: 0
+  _timeToBuild: 5
+  _progressImage: {fileID: 147621517188980412}
 --- !u!1 &4383300975249325238
 GameObject:
   m_ObjectHideFlags: 0

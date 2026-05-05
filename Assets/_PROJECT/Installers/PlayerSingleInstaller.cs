@@ -7,25 +7,15 @@ public class PlayerSingleInstaller : MonoInstaller {
     }
 
     private void BindPlayerSingletones() {
-        Container.Bind<PlayerMovement>()
-            .FromComponentInHierarchy()
-            .AsSingle();
+        Container.Bind<PlayerMovement>().FromComponentInHierarchy().AsSingle();
         
-        Container.Bind<PlayerStateManager>()
-            .FromComponentInHierarchy()
-            .AsSingle()
-            .NonLazy();
+        Container.Bind<PlayerStateManager>().FromComponentInHierarchy().AsSingle().NonLazy();
         
+        Container.Bind<PlayerBank>().FromComponentInHierarchy().AsSingle().NonLazy();
         
-        Container.Bind<PlayerBank>()
-            .FromComponentInHierarchy()
-            .AsSingle()
-            .NonLazy();
+        Container.Bind<PlayerFaceChooser>().FromComponentInHierarchy().AsSingle().NonLazy();
         
+        Container.Bind<PlayerBonusManager>().FromComponentInHierarchy().AsSingle().NonLazy();
         
-        Container.Bind<PlayerFaceChooser>()
-            .FromComponentInHierarchy()
-            .AsSingle()
-            .NonLazy();
     }
 }

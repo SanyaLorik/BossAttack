@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class SpawnManager : MonoBehaviour {
+public class RespawnManager : MonoBehaviour {
     [field: SerializeField] public Transform SpawnPoint { get; private set; }
     
 }

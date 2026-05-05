@@ -89,3 +89,5 @@ MonoBehaviour:
       <From>k__BackingField: 4
       <To>k__BackingField: 8
     <BotChanceToUseBonus>k__BackingField: 0.2
+    <TimeDividerToUnbild>k__BackingField: 2
+    <DistanceToFindNavMeshToBuild>k__BackingField: 5

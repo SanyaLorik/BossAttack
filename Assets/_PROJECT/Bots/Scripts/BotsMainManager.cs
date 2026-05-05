@@ -76,7 +76,6 @@ public class BotsMainManager : IInitializable, IDisposable {
         int countSpeakBots = GetCountSpeakingBots();
         // Debug.Log("Говорящих ботов: " + countSpeakBots);
         List<int> speakingBotsNumbers = GetNewSpeakingBotsNumbers(countSpeakBots);
-        Debug.Log("Говорящие боты: " + speakingBotsNumbers + "Count =  " + speakingBotsNumbers.Count);
         foreach (var bot in speakingBotsNumbers) {
             _speakingBots.Add(_bots[bot]);
             _bots[bot].SetBotSpeak();
