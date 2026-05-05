@@ -25,13 +25,18 @@ public class BonusManager : MonoBehaviour {
         GameEvents.PlayerStayHunter += PlayerStayHunter;
     }
 
-
+    
     private void Start() {
         if (!_tutorialManager.TutorialPassed) {
             InitBonusesCount(_data.InitBonusCounts);
         }
     }
 
+
+    public void SetAvailableToUseBonuses(bool available) {
+        _bonusSlots.ForEach(bs => bs.SetStateAvailable(available));
+    }
+    
     
     private void InitBonusesCount(int count) {
         // clear - tru, чтоб игрок не нафармил перезаходами в игру бонусов
@@ -44,7 +49,7 @@ public class BonusManager : MonoBehaviour {
     private void PlayerStayHunter(PlayerRoleBehaviour player) {
         IPassBombPlayer passPlayer = _battleManager.Players.First(p => p.RoleBehaviour == player);
         passPlayer.SetBigJump(false);
-        passPlayer.SetInvinsible(false);
+        passPlayer.SetInvincible(false);
     }
 
   

@@ -28,6 +28,7 @@ public class BotWalkManager : MonoBehaviour {
     public Action<bool> Grounded;
     public Action OnJump;
     public Action OnDoubleJump;
+    public Action FallAfterPush;
 
     private CancellationTokenSource _botTokenSource;
     private CancellationTokenSource _jumpTokenSource; 
@@ -68,6 +69,11 @@ public class BotWalkManager : MonoBehaviour {
         MonitorMovement();
     }
     
+    public void DisposeAllLogic() {
+        UniTaskHelper.DisposeTask(ref _botTokenSource);
+        UniTaskHelper.DisposeTask(ref _jumpTokenSource);
+        UniTaskHelper.DisposeTask(ref _pushTokenSource);
+    }
         
     private async UniTask StartWanderingCycleAsync() {
         if (!gameObject.activeSelf) return;
@@ -161,10 +167,34 @@ public class BotWalkManager : MonoBehaviour {
             t += Time.deltaTime;
             float n = t / duration;
 
-            Vector3 pos = startPos + velocity * t;
-            pos.y = startY + Mathf.Sin(n * Mathf.PI) * height;
+            Vector3 targetPos = startPos + velocity * t;
+            targetPos.y = startY + Mathf.Sin(n * Mathf.PI) * height;
 
-            transform.position = pos;
+            Vector3 delta = targetPos - transform.position;
+            float dist = delta.magnitude;
+
+            if (dist > 0f) {
+                Vector3 dir = delta / dist;
+
+                float extra = 0.15f;
+                float castDist = dist + extra;
+
+                float radius = 0.3f;
+                float heightCapsule = 1.8f;
+
+                Vector3 center = transform.position;
+                Vector3 p1 = center + Vector3.up * (heightCapsule / 2 - radius);
+                Vector3 p2 = center - Vector3.up * (heightCapsule / 2 - radius);
+
+                if (Physics.CapsuleCast(p1, p2, radius, dir, out RaycastHit hit, castDist)) {
+                    Vector3 safePos = hit.point - dir * 0.05f;
+                    transform.position = safePos;
+
+                    break;
+                }
+            }
+
+            transform.position = targetPos;
 
             await UniTask.Yield(PlayerLoopTiming.Update);
         }
@@ -234,8 +264,7 @@ public class BotWalkManager : MonoBehaviour {
 
         _agent.enabled = true;
 
-        if (NavMesh.SamplePosition(navMeshPos, out var hit, 1f, NavMesh.AllAreas))
-        {
+        if (NavMesh.SamplePosition(navMeshPos, out var hit, 1f, NavMesh.AllAreas)) {
             _agent.Warp(hit.position);
         }
 
@@ -244,6 +273,7 @@ public class BotWalkManager : MonoBehaviour {
             _agent.nextPosition = _agent.transform.position;
             _agent.ResetPath();
             _agent.isStopped = false;
+            FallAfterPush?.Invoke();
         }
         else {
             Debug.LogWarning("Agent not on NavMesh after landing");
@@ -278,14 +308,16 @@ public class BotWalkManager : MonoBehaviour {
     }
 
     
-    private void ResetLogic() {
+    public void ResetLogic() {
         Debug.Log("StartWanderSpawn");
         UniTaskHelper.DisposeTask(ref _botTokenSource);
         UniTaskHelper.DisposeTask(ref _jumpTokenSource);
-        
-        _agent.velocity = Vector3.zero;
-        _agent.ResetPath();
-        _agent.nextPosition = transform.position;
+        if (_agent != null && _agent.enabled && _agent.isOnNavMesh) {
+            _agent.velocity = Vector3.zero;
+            _agent.ResetPath();
+            _agent.nextPosition = transform.position;
+            _agent.isStopped = false;
+        }
 
         _walkingParticles.Stop();
         StartWandering?.Invoke(false);

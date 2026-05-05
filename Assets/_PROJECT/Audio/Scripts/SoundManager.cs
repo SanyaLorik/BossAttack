@@ -70,7 +70,7 @@ public class SoundManager : MonoBehaviour {
         _playerMovement.DoubleJumpPressed += PlayerMovementOnJumpPressed;
         _playerMovement.RunningStateChanged += PlayerMovementOnRunningStateChanged;
         _playerMovement.Floored += PlayerMovementOnFloored;
-        _playerMovement.PlayerHit += OnPlayerHit;
+        _playerMovement.PlayerHited += OnPlayerHited;
         // BANK / WEAR
         _bank.BankNewMoneyPlus += OnMoneyPlus;
         _bank.BankNewMoneyMinus += OnMoneyPlus;
@@ -83,7 +83,7 @@ public class SoundManager : MonoBehaviour {
         GameEvents.BonusReloaded += BonusReloaded;
         GameEvents.TriggerUsed += UiButtonClick;
         GameEvents.PlayerStayHunter += StayHunter;
-        _bomb.BombExploded += PlayExplode;
+        _bomb.BombExploded += BombExplode;
         _bomb.BombExploded += PlayerAugh;
         _petOpenView.PetCanasOpen += PlayerMovementOnJumpPressed;
         _petOpenView.PetNewOpen += () => OnMoneyPlus(0);
@@ -100,7 +100,7 @@ public class SoundManager : MonoBehaviour {
         _playerMovement.DoubleJumpPressed -= PlayerMovementOnJumpPressed;
         _playerMovement.RunningStateChanged -= PlayerMovementOnRunningStateChanged;
         _playerMovement.Floored -= PlayerMovementOnFloored;
-        _playerMovement.PlayerHit -= OnPlayerHit;
+        _playerMovement.PlayerHited -= OnPlayerHited;
         // BANK / WEAR
         _bank.BankNewMoneyPlus -= OnMoneyPlus;
         _bank.BankNewMoneyMinus -= OnMoneyPlus;
@@ -113,7 +113,7 @@ public class SoundManager : MonoBehaviour {
         GameEvents.BonusReloaded -= BonusReloaded;
         GameEvents.TriggerUsed -= UiButtonClick;
         GameEvents.PlayerStayHunter -= StayHunter;
-        _bomb.BombExploded -= PlayExplode;
+        _bomb.BombExploded -= BombExplode;
         _bomb.BombExploded -= PlayerAugh;
         _petOpenView.PetCanasOpen -= PlayerMovementOnJumpPressed;
     }
@@ -130,7 +130,7 @@ public class SoundManager : MonoBehaviour {
         PlaySoundByType(SoundType.PlayerStayHunter);
     }
 
-    private void OnPlayerHit() {
+    private void OnPlayerHited() {
         PlaySoundByType(SoundType.HitPlayer);
     }
     
@@ -154,11 +154,12 @@ public class SoundManager : MonoBehaviour {
 
     
     private void PlayerAugh() {
+        if(_battleManager.PlayerReturnToSpawn) return;
         PlaySoundByType(SoundType.PlayerAugh);
     }
     
     
-    private void PlayExplode() {
+    private void BombExplode() {
         if(_battleManager.PlayerReturnToSpawn) return;
         PlaySoundByType(SoundType.Explosion);
     }

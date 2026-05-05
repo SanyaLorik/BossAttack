@@ -1,9 +1,8 @@
+using Cysharp.Threading.Tasks;
+using SanyaBeerExtension;
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using Cysharp.Threading.Tasks;
-using SanyaBeerExtension;
-using TMPro.EditorUtilities;
 using UnityEngine;
 using IInitializable = Zenject.IInitializable;
 using Random = UnityEngine.Random;
@@ -77,6 +76,7 @@ public class BotsMainManager : IInitializable, IDisposable {
         int countSpeakBots = GetCountSpeakingBots();
         // Debug.Log("Говорящих ботов: " + countSpeakBots);
         List<int> speakingBotsNumbers = GetNewSpeakingBotsNumbers(countSpeakBots);
+        Debug.Log("Говорящие боты: " + speakingBotsNumbers + "Count =  " + speakingBotsNumbers.Count);
         foreach (var bot in speakingBotsNumbers) {
             _speakingBots.Add(_bots[bot]);
             _bots[bot].SetBotSpeak();
@@ -102,7 +102,7 @@ public class BotsMainManager : IInitializable, IDisposable {
         List<int> available = new List<int>();
 
         for (int i = 0; i < _bots.Count; i++) {
-            if (_bots[i].IsPlaying == false) {
+            if (_bots[i].IsPlaying == false && _bots[i].gameObject.activeSelf) {
                 available.Add(i);
             }
         }

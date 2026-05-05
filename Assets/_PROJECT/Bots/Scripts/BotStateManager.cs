@@ -3,6 +3,7 @@ using SanyaBeerExtension;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class BotStateManager : MonoBehaviour, IPassBombPlayer {
@@ -19,13 +20,13 @@ public class BotStateManager : MonoBehaviour, IPassBombPlayer {
     public event Action<bool> PlayerStatusChanged;
     
     
-    
     public string Nickname => _botMonolog.NickName;
     public PlayerRoleBehaviour RoleBehaviour => _roleBehaviour;
     
     
     [Inject] private GameData _gameData;
     [Inject] private SpawnManager _spawn;
+    [Inject] private MapsToBattleChanger _mapsManager;
 
     
     
@@ -46,24 +47,35 @@ public class BotStateManager : MonoBehaviour, IPassBombPlayer {
 
 
     public void SetPlayStatus(bool goPlay) {
+        _roleBehaviour.SetInvincibleAfterBonus(false);
+        _roleBehaviour.SetInvincibleAfterBomb(false);
+        
         PlayerStatusChanged?.Invoke(goPlay);
         IsPlaying = goPlay;
         _agent.enabled = true;
         BotWalkManager.StopPhys();
-        RoleBehaviour.DisposeAllLogic();
+        BotWalkManager.DisposeAllLogic();
         
         gameObject.SetActive(ShowInSpawn || goPlay);
         
         if (goPlay) {
             ActiveBotInGame();
+            SetBotStfu();
         }
         // Возвращение на спавн
         else {
             Debug.Log($"Возвращение на спавн игрока {_botMonolog.NickName} in {_spawn.SpawnPoint.position}");
+            Debug.Log($"Игрок play статус {IsPlaying} in {_spawn.SpawnPoint.position}");
             SetBotStateBeforeGame();
             TeleportToPoint(_spawn.SpawnPoint.position);
+            ChangeNicknameByChance();
         }
         SetStartWanderIfActive(!goPlay);
+    }
+
+    private void ChangeNicknameByChance() {
+        if(Random.value > _gameData.ChanceToBotChangeNicknameAfterPlay) return;
+        _botMonolog.ChangeNickname();
     }
 
     public void SetPlayStatusSilent(bool goPlay) {
@@ -72,15 +84,26 @@ public class BotStateManager : MonoBehaviour, IPassBombPlayer {
 
 
     public void TeleportToPoint(Vector3 pos) {
-        if (NavMesh.SamplePosition(pos, out var hit, 4f, NavMesh.AllAreas)) {
-            _agent.Warp(hit.position);
-        }
-        else {
-            Debug.Log($"Телепортировать игрока {_botMonolog.NickName} in {_spawn.SpawnPoint.position} не удалось, пробуем еще раз");
-            if (NavMesh.SamplePosition(pos, out hit, 15f, NavMesh.AllAreas)) {
-                _agent.Warp(hit.position);
+            // 1. СНАЧАЛА отменяем всё у BotWalkManager
+            BotWalkManager.ResetLogic(); 
+        
+            if (NavMesh.SamplePosition(pos, out var hit, _mapsManager.CurrentMapYToFind, NavMesh.AllAreas)) {
+                _agent.enabled = false;
+                transform.position = hit.position;
+                _agent.enabled = true;
+            
+                // После включения агент может ещё не быть isOnNavMesh
+                // Даём кадр на инициализацию через ForceUpdateCanvases не поможет,
+                // лучше просто проверить
+                if (_agent.isOnNavMesh) {
+                    _agent.isStopped = true;
+                }
+                // Debug.Log($"Телепорт: {transform.position}");
+            } 
+            else
+            {
+                Debug.LogError($"SamplePosition НЕ нашел точку рядом с {pos}");
             }
-        }
     }
 
     
@@ -92,12 +115,14 @@ public class BotStateManager : MonoBehaviour, IPassBombPlayer {
     public void SetDefaultSpeed() {
         _agent.speed = _gameData.BotSpeed;
         MoveStatusChanged?.Invoke(MoveStatus.SuperSpeed, false);
+        // Debug.Log($"SetDefaultSpeed {_botMonolog.NickName}");
     }
+    
     
     public void SetHunterSpeed() {
         _agent.speed = _gameData.HunterSpeed;
         MoveStatusChanged?.Invoke(MoveStatus.SuperSpeed, true);
-
+        // Debug.Log($"SetHunterSpeed {_botMonolog.NickName}");
     }
 
     
@@ -122,9 +147,9 @@ public class BotStateManager : MonoBehaviour, IPassBombPlayer {
     public bool IsPushed => BotWalkManager.IsPushed;
 
     
-    public void SetInvinsible(bool invnincible) {
-        _roleBehaviour.SetInvincibleAfterBonus(invnincible);
-        MoveStatusChanged?.Invoke(MoveStatus.Invincible, invnincible);
+    public void SetInvincible(bool invincible) {
+        _roleBehaviour.SetInvincibleAfterBonus(invincible);
+        MoveStatusChanged?.Invoke(MoveStatus.Invincible, invincible);
     }
 
 
@@ -156,7 +181,10 @@ public class BotStateManager : MonoBehaviour, IPassBombPlayer {
     
 
     public void SetBotSpeak() {
-        _botMonolog.SaySomething();
+        Debug.Log("Set bot speak");
+        if (!IsPlaying) {
+            _botMonolog.SaySomething();
+        }
     }
 
     public void SetBotStfu() {

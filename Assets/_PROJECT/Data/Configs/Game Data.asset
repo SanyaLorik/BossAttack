@@ -23,19 +23,25 @@ MonoBehaviour:
     <SecondJumpForce>k__BackingField: 16
     <RotateSpeed>k__BackingField: 16
     <GravityScale>k__BackingField: 3
-    <InitBonusCounts>k__BackingField: 2
+    <InitBonusCounts>k__BackingField: 10
     <MobileCameraFov>k__BackingField: 0.452
     <DesktopCameraFov>k__BackingField: 0.474
     <DefaultCameraSens>k__BackingField: 0.137
+    <PlayZoomInDesktop>k__BackingField: 0.5
+    <PlayZoomInMobile>k__BackingField: 0.5
     <ZoomSpeed>k__BackingField: 0.1
-    <JoystickSensivityMultiplier>k__BackingField: 500
+    <VerticalAxisValueToStartPlay>k__BackingField: 30
+    <JoystickSensivityMultiplier>k__BackingField: 1000
     <MouseSensivityMultiplier>k__BackingField: 0.4
     <ZoomDiapasone>k__BackingField:
       <From>k__BackingField: 0.5
       <To>k__BackingField: 5
     <MinSensValue>k__BackingField: 0.1
+    <NewGameTimer>k__BackingField: 15
+    <DelayAfterGameOverToNewTimer>k__BackingField: 5
     <TimeToBombExplode>k__BackingField: 10
-    <TimeToInvinsibleAfterPass>k__BackingField: 2
+    <TimeToInvinsibleAfterPass>k__BackingField: 4
+    <TimeToInvinsibleAfterPassInTutor>k__BackingField: 1
     <DefaultSpeedInRound>k__BackingField: 12
     <HunterSpeed>k__BackingField: 20
     <VelocityBonusSpeed>k__BackingField: 25
@@ -43,12 +49,13 @@ MonoBehaviour:
     <DoubleJumpBonusHeight>k__BackingField: 30
     <BonusReload>k__BackingField: 7
     <BonusDuration>k__BackingField: 9
-    <BotPushForce>k__BackingField: 8
+    <BotPushForce>k__BackingField: 25
     <BotUpPushRatio>k__BackingField: 3
     <PlayerPushForce>k__BackingField: 20
-    <PlayerUpPushRatio>k__BackingField: 6
+    <PlayerUpPushRatio>k__BackingField: 14
     <PushTime>k__BackingField: 1
     <PushColldown>k__BackingField: 1
+    <ChanceInitBombToPlayer>k__BackingField: 0.55
     <ColldownToStartGame>k__BackingField: 3
     <TimeAfterBombExplode>k__BackingField: 1
     <TimeToShowDieInfo>k__BackingField: 2
@@ -58,19 +65,20 @@ MonoBehaviour:
       <To>k__BackingField: 3
     <BotSpeed>k__BackingField: 10
     <CountSpeakingBotsPerTime>k__BackingField:
-      <From>k__BackingField: 0
-      <To>k__BackingField: 1
+      <From>k__BackingField: 1
+      <To>k__BackingField: 2
     <RotationSpeed>k__BackingField: 10
     <ChanceToJump>k__BackingField: 0.066
     <TimeToStayOnPoint>k__BackingField:
       <From>k__BackingField: 7
       <To>k__BackingField: 14
-    <TimeToSpeak>k__BackingField:
-      <From>k__BackingField: 4
-      <To>k__BackingField: 7
     <TimeToStayAfterSpawn>k__BackingField:
       <From>k__BackingField: 0
       <To>k__BackingField: 10
+    <TimeToSpeak>k__BackingField:
+      <From>k__BackingField: 4
+      <To>k__BackingField: 7
+    <ChanceToBotChangeNicknameAfterPlay>k__BackingField: 0.15
     <DistanceToFloor>k__BackingField: 50
     <DurationToHuntWithoutCheck>k__BackingField: 2
     <DurationToGoInPoint>k__BackingField: 0.1
@@ -80,7 +88,8 @@ MonoBehaviour:
     <BotJumpBonusDuration>k__BackingField: 2
     <BotDefaultJumpHeight>k__BackingField: 6
     <BotJumpBonusHeight>k__BackingField: 15
-    <ChanceToGoPlayerInHunt>k__BackingField: 0.298
+    <ChanceToGoPlayerInHunt>k__BackingField: 0.55
     <BotUseNewBonusTime>k__BackingField:
-      <From>k__BackingField: 7
-      <To>k__BackingField: 15
+      <From>k__BackingField: 4
+      <To>k__BackingField: 8
+    <BotChanceToUseBonus>k__BackingField: 0.2

@@ -6,6 +6,7 @@ using RavingBots.CartoonExplosion;
 using SanyaBeerExtension;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 
 public class Bomb : MonoBehaviour {
@@ -19,7 +20,9 @@ public class Bomb : MonoBehaviour {
     [SerializeField] private RectTransform _bombBar;
     [SerializeField] private RectTransform _parentProgressToExplode;
     [SerializeField] private GameObject _timerContainer;
-    
+    [SerializeField] private Image _timerFillAmountImage;
+    [SerializeField] private Gradient _gradient;
+
     public event Action BombExploded;
     public event Action<PlayerRoleBehaviour> PlayerBecameHunter;
     public bool BombExplode { get; private set; }
@@ -29,6 +32,7 @@ public class Bomb : MonoBehaviour {
     private float _barWidth;
     
     [Inject] private GameData _gameData;
+    [Inject] private TutorialManager _tutorialManager;
     [Inject] private MainGameStarter _gameStarter;
     [Inject] private BattleManager _battleManager;
 
@@ -38,6 +42,38 @@ public class Bomb : MonoBehaviour {
         _battleManager.ForceStartedNewGame += StopBomb; 
     }
 
+    
+    private void Start() {
+        _allBomb.DisactiveSelf();
+        _barWidth = RectTransformHelper.CalculateXEnd(_parentProgressToExplode);
+    }
+    
+    
+    public void InitBombToNewPlayer(Transform playerTransform, PlayerRoleBehaviour playerRoleBehaviour) {
+        PlayerBecameHunter?.Invoke(playerRoleBehaviour);
+        
+        SetNewBombParent(playerTransform, false);
+        
+        _allBomb.ActiveSelf();
+    }
+    
+    
+    public void StartNewBombTimer() {
+        UniTaskHelper.DisposeTask(ref _tokenSource);
+        _tokenSource = new CancellationTokenSource();
+        BombExplode = false;
+        BombTimerAsync(_tokenSource.Token).Forget();
+    }
+
+    public void ExplodeBombLater() {
+        if(BombExplode) return;
+        Debug.Log("Преждевременный взрыв бомбы");
+        UniTaskHelper.DisposeTask(ref _tokenSource);
+        Explode();
+        _timerContainer.DisactiveSelf();
+    }
+    
+    
     private void StopBomb() {
         _allBomb.DisactiveSelf();
         UniTaskHelper.DisposeTask(ref  _tokenSource);
@@ -50,20 +86,6 @@ public class Bomb : MonoBehaviour {
         }
     }
 
-    
-    private void Start() {
-        _allBomb.DisactiveSelf();
-        _barWidth = RectTransformHelper.CalculateXEnd(_parentProgressToExplode);
-    }
-
-    
-    public void InitBombToNewPlayer(Transform playerTransform, PlayerRoleBehaviour playerRoleBehaviour) {
-        PlayerBecameHunter?.Invoke(playerRoleBehaviour);
-        
-        SetNewBombParent(playerTransform, false);
-        
-        _allBomb.ActiveSelf();
-    }
 
     
     public void TeleportBombToSpawn(Transform spawn) {
@@ -80,27 +102,17 @@ public class Bomb : MonoBehaviour {
     }
 
 
-    public void StartNewBombTimer() {
-        UniTaskHelper.DisposeTask(ref _tokenSource);
-        _tokenSource = new CancellationTokenSource();
-        BombExplode = false;
-        BombTimerAsync(_tokenSource.Token).Forget();
-    }
 
-    public void ExlodeBombLater() {
-        if(BombExplode) return;
-        Debug.Log("Преждевременный взрыв бомбы");
-        UniTaskHelper.DisposeTask(ref _tokenSource);
-        Explode();
-        _timerContainer.DisactiveSelf();
-    }
     
     private async UniTask BombTimerAsync(CancellationToken token) {
         _timerContainer.ActiveSelf();
         _bombModel.ActiveSelf();
+
+        float timeToBombExplode = _tutorialManager.TutorialPassed ? _gameData.TimeToBombExplode : 10000000f;
         
-        float timeToBombExplode = _gameData.TimeToBombExplode;
-        float elapsedTime = _gameData.TimeToBombExplode;
+        if(!_tutorialManager.TutorialPassed) _timerContainer.DisactiveSelf();
+        
+        float elapsedTime = timeToBombExplode;
         SetFullBar();
         
         Vector2 startSize = new Vector2(-_barWidth,  _bombBar.offsetMax.y);
@@ -111,6 +123,9 @@ public class Bomb : MonoBehaviour {
             _timerText.text = elapsedTime.ToString("F0");
             _bombBar.offsetMax = Vector2.Lerp(startSize, targetSize, progress);
             elapsedTime -= Time.deltaTime;
+
+            _timerFillAmountImage.color = _gradient.Evaluate(progress);
+
             await UniTask.Yield();
         }
 

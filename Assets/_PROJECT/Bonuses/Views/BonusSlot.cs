@@ -24,6 +24,8 @@ public class BonusSlot : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI _countText;
     [SerializeField] private TextMeshProUGUI _bonusNameText;
     [SerializeField] private Image _reloadProgress;
+    [SerializeField] private Image _reloadImage;
+    [SerializeField] private Gradient _gradient;
     [Header("Время использования")]
     [SerializeField] private GameObject _useContainer;
     [SerializeField] private RectTransform _useTimeProgress;
@@ -35,16 +37,17 @@ public class BonusSlot : MonoBehaviour {
     private bool IsAvailable { get; set; }
     private IBonus Bonus => BonusItem.Bonus;
     private int BonusCount => Saves.GetBonusCount(BonusItem.Id);
+    private float _yEnd;
     
     private GameSave Saves => _saver.GetSave<GameSave>();
     private CancellationTokenSource _tokenSource;
-    private Vector2 _startOffset;
     
     [Inject] private BonusManager _bonusManager;
     [Inject] private DiContainer _diContainer;
     [Inject] private IGameSave _saver; 
     [Inject] LocalizationData _localization;
     [Inject] IPassBombPlayer _mainPlayer;
+    [Inject] TutorialManager _tutorialManager;
     [Inject] GameData _gameData;
     [Inject] IDeviceTypeProvider _deviceTypeProvider;
     
@@ -70,10 +73,9 @@ public class BonusSlot : MonoBehaviour {
     }
 
     private void Start() {
+        _yEnd = _useTimeProgress.rect.height;
+        
         _mainPlayer.RoleBehaviour.PlayerRoleChanged += HideShowElementsByRole;
-        
-        
-        _startOffset = _useTimeProgress.offsetMax;
         CheckAvailable();
         SetProgressBarVisible(false);
         _bonusNameText.text =
@@ -86,6 +88,17 @@ public class BonusSlot : MonoBehaviour {
     private void Update() {
         if (CheckKey()) {
             TryUse();
+        }
+    }
+
+    public void SetStateAvailable(bool available) {
+        if (available) {
+            CheckAvailable();
+        }
+        else {
+            UniTaskHelper.DisposeTask(ref _tokenSource);
+            IsAvailable = false;
+            _reloadProgress.fillAmount = 1f;
         }
     }
     
@@ -135,14 +148,16 @@ public class BonusSlot : MonoBehaviour {
     
     private void SetProgressBarVisible(bool visible) {
         _useContainer.SetActive(visible);
-        _useTimeProgress.offsetMax = _startOffset;
+        // if (visible) {
+        //     Canvas.ForceUpdateCanvases();
+        // }
     }
     
 
     private void UseBonus() {
         GameEvents.BonusUseInvoke(Bonus);
         Bonus.Use(_mainPlayer);
-        GetOneBonus(true);
+        GetOneBonus();
         IsAvailable = false;
         
         
@@ -150,14 +165,10 @@ public class BonusSlot : MonoBehaviour {
         _tokenSource = new  CancellationTokenSource();
         StartUseTimerAsync(_tokenSource.Token).Forget();
     }
-    
-    
 
 
     private async UniTask StartUseTimerAsync(CancellationToken token) {
         SetProgressBarVisible(true);
-
-        float yEnd = _useTimeProgress.rect.height;
         float duration = _gameData.BonusDuration;
         float elapsedTime = _gameData.BonusDuration;
         
@@ -165,9 +176,11 @@ public class BonusSlot : MonoBehaviour {
         while (elapsedTime > 0 && !token.IsCancellationRequested) {
             float progress = elapsedTime/duration;
 
-            float y = GetYPoseByPercent(progress, yEnd, _useTimeProgress);
+            float y = GetYPoseByPercent(progress, _yEnd, _useTimeProgress);
             _useTimeProgress.offsetMax = new Vector2(_useTimeProgress.offsetMax.x, y);
-            
+
+            _reloadImage.color = _gradient.Evaluate(progress);
+
             elapsedTime -= Time.deltaTime;
             await UniTask.Yield(cancellationToken: token);
         }
@@ -210,7 +223,9 @@ public class BonusSlot : MonoBehaviour {
     }
 
 
-    private void GetOneBonus(bool useSaves = false) {
+    private void GetOneBonus() {
+        // Сохранять в сейвах если туториал пройден
+        bool useSaves = _tutorialManager.TutorialPassed;
         if (useSaves) {
             _saver.GetSave<GameSave>().SetMinusOneBonus(BonusItem.Id);
             _saver.Save();

@@ -36,7 +36,11 @@ public class PlayerRoleBehaviour : MonoBehaviour {
     private CancellationTokenSource _tokenSource;
     private CancellationTokenSource _hunterTokenSource;
     private IPassBombPlayer _targetToHunt;
-    
+    private float InvincibleAfterPass
+        => _tutorialManager.TutorialPassed ? 
+            _gameData.TimeToInvinsibleAfterPass 
+            : 
+            _gameData.TimeToInvinsibleAfterPassInTutor;
     
     // Для асинхронной передачи
     private static float _lastPassTime = -999f;
@@ -44,24 +48,47 @@ public class PlayerRoleBehaviour : MonoBehaviour {
     private float _lastRepulseTime = -999f;
     private BotWalkManager _botWalkManager;
 
-    private IPassBombPlayer PassBombPlayer;
+    public IPassBombPlayer PassBombPlayer { get; private set; }
 
     public event Action<PlayerRoleInGame> PlayerRoleChanged;
+    public event Action<bool> InvinsibleStatusChanged;
 
+    
     [Inject] private Bomb _bomb;
     [Inject] private MapsToBattleChanger _mapsChanger;
     [Inject] private BattleManager _battleManager;
     [Inject] private GameData _gameData;
     [Inject] private IPassBombPlayer _mainPlayer;
+    [Inject] private TutorialManager _tutorialManager;
     
     
     private List<IPassBombPlayer> _otherPlayers = new();
     
     
     private void Awake() {
-        SetColliderEnable(false);
+        _collider.enabled = false;
         InitPassBomb();
     }
+
+
+    private void Start() {
+        if (_botWalkManager != null) {
+            _botWalkManager.FallAfterPush += ReturnToRole;
+        }
+    }
+
+    private void ReturnToRole() {
+        WaitAfterPushAsync().Forget();
+    }
+
+    private async UniTask WaitAfterPushAsync() {
+        await UniTask.WaitForSeconds(1f);
+        if (PassBombPlayer.IsPlaying) {
+            SetRole(CurrentRole);
+        }
+    }
+
+    
 
     private void InitPassBomb() {
         if (_botStateManager != null) {
@@ -106,7 +133,7 @@ public class PlayerRoleBehaviour : MonoBehaviour {
         
         SetRole(PlayerRoleInGame.Wanderer);
         
-        StartInvinsibleTimer(_gameData.TimeToInvinsibleAfterPass).Forget();
+        StartInvinsibleAfterBombTimer().Forget();
         _lastPassTime = Time.time;
         
     }
@@ -115,6 +142,8 @@ public class PlayerRoleBehaviour : MonoBehaviour {
     public void DisposeAllLogic() {
         UniTaskHelper.DisposeTask(ref _tokenSource);
         UniTaskHelper.DisposeTask(ref _hunterTokenSource);
+        SetInvincibleAfterBomb(false);
+        SetInvincibleAfterBonus(false);
     }
 
 
@@ -158,10 +187,12 @@ public class PlayerRoleBehaviour : MonoBehaviour {
 
     public void SetInvincibleAfterBonus(bool invincible) {
         IsInvincibleAfterBonus = invincible;
+        InvinsibleStatusChanged?.Invoke(invincible);
     }
     
-    public void SetInvinsibleAfterBomb(bool invinsible) {
-        IsInvincibleAfterBomb = invinsible;
+    public void SetInvincibleAfterBomb(bool invincible) {
+        IsInvincibleAfterBomb = invincible;
+        InvinsibleStatusChanged?.Invoke(invincible);
     }
 
     
@@ -198,7 +229,11 @@ public class PlayerRoleBehaviour : MonoBehaviour {
 
     
     private void GetNextPlayerVictim() {
-        if (Random.value < _gameData.ChanceToGoPlayerInHunt && _battleManager.MainPlayerPlay) {
+        if (Random.value < _gameData.ChanceToGoPlayerInHunt 
+            && _battleManager.MainPlayerPlay 
+            && !_mainPlayer.RoleBehaviour.IsInvincibleAfterBomb
+            && !_mainPlayer.RoleBehaviour.IsInvincibleAfterBonus
+        ) {
             _targetToHunt = _mainPlayer;
             return;
         }
@@ -225,7 +260,7 @@ public class PlayerRoleBehaviour : MonoBehaviour {
         Debug.Log("Run");
         // Пока просто бегает по площади
         while (!token.IsCancellationRequested) {
-            Vector3 target = _botWalkManager.GetTargetPoint(_mapsChanger.GetCurrentMapFloor, _mapsChanger.GetCurrentMapHeight);
+            Vector3 target = _botWalkManager.GetTargetPoint(_mapsChanger.GetCurrentMapFloor, _mapsChanger.CurrentMapYToFind);
             await UniTask.WaitWhile(() => _botWalkManager.IsPushed, cancellationToken: token);
             await _botWalkManager.SetAgentGoToPointAsync(target, token);
         }
@@ -236,22 +271,21 @@ public class PlayerRoleBehaviour : MonoBehaviour {
         if(PlayerHandle) return;
         while (!token.IsCancellationRequested) {
             await UniTask.WaitWhile(() => _botWalkManager.IsPushed, cancellationToken: token);
-            Vector3 target = _botWalkManager.GetTargetPoint(_mapsChanger.GetCurrentMapFloor, _mapsChanger.GetCurrentMapHeight);
+            Vector3 target = _botWalkManager.GetTargetPoint(_mapsChanger.GetCurrentMapFloor, _mapsChanger.CurrentMapYToFind);
             await _botWalkManager.SetAgentGoToPointAsync(target, token);
         }
     }
 
-    
-    private async UniTask StartInvinsibleTimer(float time) {
+    private async UniTask StartInvinsibleAfterBombTimer() {
         SetColliderEnable(false);
-        await UniTask.WaitForSeconds(time);
+        await UniTask.WaitForSeconds(InvincibleAfterPass);
         SetColliderEnable(true);
     }
 
     
     private void SetColliderEnable(bool enable) {
         _collider.enabled = enable;
-        IsInvincibleAfterBomb = !enable;
+        SetInvincibleAfterBomb(!enable);
     }
 
 

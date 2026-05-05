@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -17,6 +16,7 @@ public class BotBonusIniter : MonoBehaviour {
     private IBonus _currentBonus;
     private float _totalWeight;
 
+    [Inject] private TutorialManager _tutorialManager;
     [Inject] private MainGameStarter _gameStarter;
     [Inject] private BattleManager _battleManager;
     [Inject] private GameData _gameData;
@@ -25,24 +25,12 @@ public class BotBonusIniter : MonoBehaviour {
     
     private void Start() {
         CalculateValueDivider();
-    }
-
-    
-    private void OnEnable() {
         _gameStarter.GameStarted += GameStarted;
         _battleManager.GameReadyToPlay += OnGameReadyToPlay;
         _bomb.PlayerBecameHunter += CheckPlayerHunter;
         _bot.PlayerStatusChanged += BotOnPlayerStatusChanged;
     }
 
-    
-    private void OnDisable() {
-        _gameStarter.GameStarted -= GameStarted;
-        _battleManager.GameReadyToPlay -= OnGameReadyToPlay;
-        _bomb.PlayerBecameHunter -= CheckPlayerHunter;
-        _bot.PlayerStatusChanged -= BotOnPlayerStatusChanged;
-    }
-    
     
     private void BotOnPlayerStatusChanged(bool changed) {
         UniTaskHelper.DisposeTask(ref _tokenSource);
@@ -59,15 +47,16 @@ public class BotBonusIniter : MonoBehaviour {
 
     
     private void GameStarted(bool started) {
-        if (!started) {
-            UniTaskHelper.DisposeTask(ref _tokenSource);
-            StopPreviousBonus();
-        }
+        UniTaskHelper.DisposeTask(ref _tokenSource);
+        StopPreviousBonus();
     }
     
     
     private void CheckPlayerHunter(PlayerRoleBehaviour player) {
-        if (player == _bot.RoleBehaviour) {
+        if (!player.PassBombPlayer.IsPlaying) {
+            StopPreviousBonus(false);
+        }
+        else if (player == _bot.RoleBehaviour) {
             StopPreviousBonus(true);
         }
     }
@@ -77,15 +66,17 @@ public class BotBonusIniter : MonoBehaviour {
         while (!token.IsCancellationRequested) {
             float waitTime = Random.Range(_gameData.BotUseNewBonusTime.From, _gameData.BotUseNewBonusTime.To);
             await UniTask.WaitForSeconds(waitTime, cancellationToken: token);
-            if (_bot.RoleBehaviour.CurrentRole != PlayerRoleInGame.Hunter) {
+            if (_bot.RoleBehaviour.CurrentRole != PlayerRoleInGame.Hunter && _tutorialManager.TutorialPassed) {
                 UseRandomBonus();
             }
         }
     }
     
+
     
     private void UseRandomBonus() {
         StopPreviousBonus();
+        if(Random.value > _gameData.BotChanceToUseBonus) return;
         _currentBonus = ItemValueBase.GetRandomItemByWeight(_bonusesWeights, _totalWeight);
         // Debug.Log("Бот юзает " + _currentBonus.GetType());
         _currentBonus.Use(_bot);
@@ -97,8 +88,8 @@ public class BotBonusIniter : MonoBehaviour {
             _currentBonus.StopWork(_bot);
             _currentBonus = null;
         }
-        // На всякий
         if(stayHunter) _bot.SetHunterSpeed();
+        else _bot.SetDefaultSpeed();
     }
     
     

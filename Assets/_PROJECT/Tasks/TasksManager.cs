@@ -59,7 +59,6 @@ public class TasksManager : MonoBehaviour {
     // Стата игрока в данный момент 
     private int _passBomb;
     private int _passInVoid;
-    private int _lifeSec;
     private int _lifeRound;
     private int _winCount;
     private int _useSpeedBonus;
@@ -67,6 +66,9 @@ public class TasksManager : MonoBehaviour {
     private int _useInvincibleBonus;
     private int _parkourCount;
 
+    private int _lifeSec;
+    private DateTime _timeGoPlay;
+    
     public event Action TaskComplete;
     private GameSave Saver => _gameSave.GetSave<GameSave>();
 
@@ -81,7 +83,7 @@ public class TasksManager : MonoBehaviour {
     [Inject] private AdvertisingMonetizationMirra _advertisingMonetization;
     [Inject] private AdvHelper _advHelper;
     [Inject] private FallVoidCollider _fallVoidCollider;
-    [Inject] private IPassBombPlayer _mainPlayer;
+    [Inject] private PlayerMovement _mainPlayer;
 
     
     
@@ -91,6 +93,7 @@ public class TasksManager : MonoBehaviour {
         if (_dailyQuest.IsTimePassed) {
             ResetCompletedTasks();
         }
+        CheckTaskCount();
     }
     
     private void OnEnable() {
@@ -106,6 +109,19 @@ public class TasksManager : MonoBehaviour {
         GameEvents.PlayerPassedBomb += OnPlayerPassedBomb;
         _fallVoidCollider.PlayerFalledInVoid += OnPlayerFalledInVoid;
         _battleManager.NewRoundStarted += OnNewRoundStarted;
+        _mainPlayer.InitedToPlay += CalculatePlayerLifeTime;
+    }
+
+    
+    private void CalculatePlayerLifeTime(bool goPlay) {
+        if (goPlay) {
+            _timeGoPlay =  DateTime.Now;
+        }
+        else {
+            _lifeSec += DateTime.Now.Subtract(_timeGoPlay).Seconds;
+            // Debug.Log("Игрок сыграл " + _lifeSec);
+            UpdateTaskProgress(TaskType.LifeSec);
+        }
     }
 
 
@@ -265,29 +281,22 @@ public class TasksManager : MonoBehaviour {
             if(taskVisualPair.Value.TaskType != type) continue;
             
             TaskVisual taskVisual = taskVisualPair.Value;
-            Saver.UpdateTaskInfo(taskInfo.TaskId, currentValue, false );
-            _gameSave.Save();
-        
-            if (currentValue >= taskInfo.Count && !taskVisual.TaskIsComplete) {
-                taskVisual.SetTaskCompleteVisual(currentValue, taskInfo.Count);
-                _taskCountView.PlusOne();
-                ShowNotification(taskInfo);
-            }
-            else {
-                taskVisual.UpdateTaskScoreVisual(currentValue, taskInfo.Count);
-            }
-            Saver.UpdateTaskInfo(taskInfo.TaskId, currentValue, false );
-            _gameSave.Save();
-        
-            if (currentValue >= taskInfo.Count && !taskVisual.TaskIsComplete) {
-                taskVisual.SetTaskCompleteVisual(currentValue, taskInfo.Count);
-                _taskCountView.PlusOne();
-                ShowNotification(taskInfo);
-            }
-            else {
-                taskVisual.UpdateTaskScoreVisual(currentValue, taskInfo.Count);
-            }
             
+            if (taskVisual.TaskIsComplete) continue;
+            
+            Saver.UpdateTaskInfo(taskInfo.TaskId, currentValue, false );
+            _gameSave.Save();
+        
+            if (currentValue >= taskInfo.Count && !taskVisual.TaskIsComplete) {
+                taskVisual.SetTaskCompleteVisual(currentValue, taskInfo.Count);
+                _taskCountView.PlusOne();
+                ShowNotification(taskInfo);
+            }
+            else {
+                taskVisual.UpdateTaskScoreVisual(currentValue, taskInfo.Count);
+            }
+            Saver.UpdateTaskInfo(taskInfo.TaskId, currentValue, false );
+            _gameSave.Save();
         }
     }
     

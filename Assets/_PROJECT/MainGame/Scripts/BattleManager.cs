@@ -1,19 +1,18 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using _PROJECT.Scripts.Helpers;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 using Zenject;
 using Random = UnityEngine.Random;
 
 
 public class BattleManager : MonoBehaviour {
-    
     public bool MainPlayerPlay { get; private set; }
     public bool GameIsOver { get; private set; }
-    public bool PlayerReturnToSpawn => _mainPlayerMovement.PlayerInSpawn;
+    public bool PlayerReturnToSpawn => _mainPlayer.PlayerInSpawn;
 
     public int CountPlayersToNewBattle => _mapsToBattleChanger.CurrentMapSpawnPoints.Length;
     public int AllRoundsCount => CountPlayersToNewBattle - 1;
@@ -25,10 +24,11 @@ public class BattleManager : MonoBehaviour {
 
     
     public IReadOnlyCollection<IPassBombPlayer> Players => _players;
+    public IPassBombPlayer RandomEnemy => _players.Find(p => p != _mainPlayer);
     
     private readonly List<IPassBombPlayer> _players = new(8);
     
-    public event Action<string> PlayerDied;
+    public event Action<string, Vector3> PlayerDied;
     public event Action<int> PlayersCountChanged;
     public event Action<int> NewRoundStarted;
     public event Action GameReadyToPlay;
@@ -38,17 +38,20 @@ public class BattleManager : MonoBehaviour {
     private CancellationTokenSource _tokenSource;
     private int PlayersCount => _players.Count;
     
-    
-    [Inject] private PlayerMovement _mainPlayerMovement;
-    [Inject] private BotsMainManager _botsMainManager;
-    [Inject] private Bomb _bomb;
+    // Views
+    [Inject] private GameOverView _gameOverView;
     [Inject] private BattleStartVisualizer _battleStartVisualizer;
+    
+    
+    // Managers
+    [Inject] private PlayerMovement _mainPlayer;
+    [Inject] private Bomb _bomb;
+    [Inject] private BotsMainManager _botsMainManager;
     [Inject] private MainGameStarter _gameStarter;
     [Inject] private GameData _gameData;
     [Inject] private MapsToBattleChanger _mapsToBattleChanger;
     [Inject] private PlayersRoleManager _playersRoleManager;
-    [Inject] private IPassBombPlayer _mainPlayer;
-    [Inject] private GameOverView _gameOverView;
+    [Inject] private LocalizationData _localization;
     
     
     private void OnEnable() {
@@ -63,7 +66,6 @@ public class BattleManager : MonoBehaviour {
     
     public void InitForNewGame(bool mainPlayerPlay) {
         GameIsOver = false;
-        _mapsToBattleChanger.ChooseNextMap();
         _bomb.TeleportBombToSpawn(BombSpawnPoint);
         
         MainPlayerPlay = mainPlayerPlay;
@@ -82,7 +84,7 @@ public class BattleManager : MonoBehaviour {
     public void PlayerFalled(IPassBombPlayer passBombPlayer) {
         if(GameIsOver) return;
         if (passBombPlayer.RoleBehaviour.CurrentRole == PlayerRoleInGame.Hunter) {
-            _bomb.ExlodeBombLater();
+            _bomb.ExplodeBombLater();
             return;
         }
         
@@ -99,7 +101,8 @@ public class BattleManager : MonoBehaviour {
         MainPlayerPlay = false;
         MainPlayerWin?.Invoke(false);
         RemovePlayer(_mainPlayer);
-        WaitPlayerPressGameOverAsync().Forget();
+        PlayerDied?.Invoke(_localization.You, _mainPlayer.Transform.position);
+        WaitPlayerPressGameOverAsync(false).Forget();
         Debug.Log("Вы выбыли из игры");
     }
 
@@ -107,7 +110,7 @@ public class BattleManager : MonoBehaviour {
     private void SetLooseBot(IPassBombPlayer player) {
         BotMonolog botMonolog = player.RoleBehaviour.gameObject.GetComponentInParent<BotMonolog>();
         if (botMonolog != null) {
-            PlayerDied?.Invoke(botMonolog.NickName);
+            PlayerDied?.Invoke(botMonolog.NickName, player.Transform.position);
             Debug.Log($"{botMonolog.NickName} проиграл");
             player.SetPlayStatus(false);
             RemovePlayer(player);
@@ -118,7 +121,7 @@ public class BattleManager : MonoBehaviour {
     private void GetNewPlayers(bool mainPlayerPlay) {
         int countBots = CountPlayersToNewBattle;
         if (mainPlayerPlay) {
-            _players.Add(_mainPlayerMovement);
+            _players.Add(_mainPlayer);
             countBots--;
         }
         IEnumerable<IPassBombPlayer> bots = _botsMainManager.GetBotsToGame(countBots);
@@ -130,7 +133,7 @@ public class BattleManager : MonoBehaviour {
     private void InitPlayers() {
         foreach (var player in _players) {
             player.SetPlayStatus(true);
-            player.RoleBehaviour.SetInvinsibleAfterBomb(false);
+            player.RoleBehaviour.SetInvincibleAfterBomb(false);
         }
         TeleportPlayersToPoints(_players, PlayersSpawnPoints);
         PlayersCountChanged?.Invoke(_players.Count);
@@ -164,7 +167,7 @@ public class BattleManager : MonoBehaviour {
         
         if (MainPlayerPlay) {
             MainPlayerWin?.Invoke(true);
-            await WaitPlayerPressGameOverAsync();
+            await WaitPlayerPressGameOverAsync(true);
         }
         GameEnded();
     }
@@ -181,11 +184,21 @@ public class BattleManager : MonoBehaviour {
     }
 
     
-    private async UniTask WaitPlayerPressGameOverAsync() {
-        _mainPlayerMovement.SetMovingStatus(false);
+    private async UniTask WaitPlayerPressGameOverAsync(bool playerWin) {
+        _mainPlayer.SetMovingStatus(false);
+
+        if (!playerWin) {
+            _mainPlayer.HideVisualModel(true);
+        }
+        
+        _mainPlayer.SetPlayStatusSilent(false);
         await UniTask.WaitWhile(() => _gameOverView.ResultWindowShowing);
+        
+        if (!playerWin) {
+            _mainPlayer.HideVisualModel(false);
+        }
         _mainPlayer.SetPlayStatus(false);
-        _mainPlayerMovement.SetMovingStatus(true);
+        _mainPlayer.SetMovingStatus(true);
     }
 
 
@@ -199,9 +212,15 @@ public class BattleManager : MonoBehaviour {
         
         _players.Clear();
         
+        // if (!_mainPlayer.PlayerInSpawn) {
+        //     _mainPlayer.SetPlayStatus(false);
+        //     _mainPlayer.SetMovingStatus(true);
+        // }
+        
         if (setGameOver) {
             _gameStarter.GameOver();
         }
+        
     }
 
     
@@ -209,15 +228,15 @@ public class BattleManager : MonoBehaviour {
         foreach (IPassBombPlayer player in _players) {
             if (player.RoleBehaviour.CurrentRole == PlayerRoleInGame.Hunter) {
                 Debug.Log("Игрок выбыл!");
-                player.RoleBehaviour.SetInvinsibleAfterBomb(true);
                 BotMonolog botMonolog = player.RoleBehaviour.gameObject.GetComponentInParent<BotMonolog>();
                 if (botMonolog != null) {
-                    PlayerDied?.Invoke(botMonolog.NickName);
+                    PlayerDied?.Invoke(botMonolog.NickName, player.Transform.position);
                     player.SetPlayStatus(false);
                     RemovePlayer(player);
                 }
                 else if (player == _mainPlayer) {
                     SetLooseMainPlayer();
+                    PlayerDied?.Invoke(_localization.You, _mainPlayer.Transform.position);
                 }
                 return;
             }
@@ -226,6 +245,8 @@ public class BattleManager : MonoBehaviour {
     }
 
     private void RemovePlayer(IPassBombPlayer player) {
+        player.RoleBehaviour.DisposeAllLogic();
+        
         player.RoleBehaviour.NewRoundStart(false);
         _players.Remove(player);
         PlayersCountChanged?.Invoke(PlayersCount);

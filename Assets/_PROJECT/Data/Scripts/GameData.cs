@@ -20,7 +20,10 @@ public class GameData : GameDataBase
     [field: SerializeField, Range(0,1)] public float MobileCameraFov { get; private set; }
     [field: SerializeField, Range(0,1)] public float DesktopCameraFov { get; private set; }
     [field: SerializeField, Range(0,1)] public float DefaultCameraSens { get; private set; }
+    [field: SerializeField, Range(0,1)] public float PlayZoomInDesktop { get; private set; }
+    [field: SerializeField, Range(0,1)] public float PlayZoomInMobile { get; private set; }
     [field: SerializeField, Range(0,1)] public float ZoomSpeed { get; private set; }
+    [field: SerializeField] public float VerticalAxisValueToStartPlay { get; private set; }
     
     [field: Header("Множители сенсы")]
     [field: SerializeField] public float JoystickSensivityMultiplier  { get; private set; }
@@ -33,8 +36,11 @@ public class GameData : GameDataBase
     
 
     [field: Header("Главная Игра")]
+    [field: SerializeField] public float NewGameTimer { get; private set; }
+    [field: SerializeField] public float DelayAfterGameOverToNewTimer { get; private set; }
     [field: SerializeField] public float TimeToBombExplode { get; private set; }
     [field: SerializeField] public float TimeToInvinsibleAfterPass { get; private set; }
+    [field: SerializeField] public float TimeToInvinsibleAfterPassInTutor { get; private set; }
     [field: SerializeField] public float DefaultSpeedInRound { get; private set; }
     [field: SerializeField] public float HunterSpeed { get; private set; }
     [field: SerializeField] public float VelocityBonusSpeed { get; private set; }
@@ -48,6 +54,7 @@ public class GameData : GameDataBase
     [field: SerializeField] public float PlayerUpPushRatio { get; private set; }
     [field: SerializeField] public float PushTime { get; private set; }
     [field: SerializeField] public float PushColldown { get; private set; }
+    [field: SerializeField, Range(0,1)] public float ChanceInitBombToPlayer { get; private set; }
     
     [field: Header("Тайминги")]
     [field: SerializeField] public float ColldownToStartGame { get; private set; }
@@ -64,8 +71,9 @@ public class GameData : GameDataBase
     [field: SerializeField] public float RotationSpeed { get; private set; }
     [field: SerializeField, Range(0,1)] public float ChanceToJump { get; private set; }
     [field: SerializeField] public PairedValue<float> TimeToStayOnPoint { get; private set; }
-    [field: SerializeField] public PairedValue<float> TimeToSpeak { get; private set; }
     [field: SerializeField] public PairedValue<float> TimeToStayAfterSpawn { get; private set; }
+    [field: SerializeField] public PairedValue<float> TimeToSpeak { get; private set; }
+    [field: SerializeField, Range(0,1)] public float ChanceToBotChangeNicknameAfterPlay { get; private set; }
     
     [field: Header("Боты в игре")]
     [field: SerializeField] public float DistanceToFloor { get; private set; }
@@ -79,5 +87,6 @@ public class GameData : GameDataBase
     [field: SerializeField] public float BotJumpBonusHeight { get; private set; }
     [field: SerializeField, Range(0,1)] public float ChanceToGoPlayerInHunt { get; private set; }
     [field: SerializeField] public PairedValue<float> BotUseNewBonusTime { get; private set; }
+    [field: SerializeField, Range(0,1)] public float BotChanceToUseBonus { get; private set; }
     
 }
