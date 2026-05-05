@@ -9,9 +9,6 @@ using Random = UnityEngine.Random;
 
 public class BotJumpController : MonoBehaviour {
     [SerializeField] private bool _allowToJump;
-    [SerializeField] private NavMeshAgent _agent;
-    [SerializeField] private JumpParticlesController _jumpParticlesController;
-    [SerializeField] private JumpParticlesController _landParticleController;
 
     
     private CancellationTokenSource _jumpTokenSource; 
@@ -19,13 +16,16 @@ public class BotJumpController : MonoBehaviour {
         
     private float _jumpForce;
     private float _jumpDuration;
+    private NavMeshAgent _agent => _manager.Agent;
     
     public Action<bool> Grounded;
     public Action OnJump;
     public Action OnDoubleJump;
     
     [Inject] private GameData _gameData;
+    [Inject] private BotManager _manager;
 
+    
     private void Start() {
         SetBigJump(false);
     }
@@ -68,7 +68,7 @@ public class BotJumpController : MonoBehaviour {
         float height = _jumpForce;
         float t = 0f;
 
-        _jumpParticlesController.Play();
+        _manager.JumpParticles.Play();
         if (Random.value > 0.7f) {
             OnJump?.Invoke();
         }
@@ -76,22 +76,22 @@ public class BotJumpController : MonoBehaviour {
             OnDoubleJump?.Invoke();
         }
 
-        float startY = transform.position.y;
+        float startY = _manager.Transform.position.y;
         Grounded?.Invoke(false);
         while (t < _jumpDuration && !token.IsCancellationRequested) {
             t += Time.deltaTime;
             float normalized = t / _jumpDuration;
             float yOffset = Mathf.Sin(normalized * Mathf.PI) * height;
 
-            Vector3 pos = transform.position;
+            Vector3 pos = _manager.Transform.position;
             pos.y = startY + yOffset;
 
-            transform.position = pos;
+            _manager.Transform.position = pos;
 
             await UniTask.Yield(token);
         }
         Grounded?.Invoke(true);
-        _landParticleController.Play();
+        _manager.LandParticles.Play();
         _isJumping = false;
     }
 }

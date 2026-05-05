@@ -14,12 +14,18 @@ public class BotManager : MonoBehaviour, IPlayer {
     [field: SerializeField] public BotBonusController BotBonusController { get; private set; }
     [field: SerializeField] public BotJumpController BotJumpController { get; private set; }
 
-    [SerializeField] private BotAnimator _botAnimator;
-    [SerializeField] private BotMonolog _botMonolog;
-    [SerializeField] private NavMeshAgent _agent;
-    [SerializeField] private PlayerRoleBehaviour _roleBehaviour;
-    [SerializeField] private Rigidbody _rb;
-
+    [field: SerializeField] public BotAnimator BotAnimator  { get; private set; }
+    [field: SerializeField] public BotMonolog BotMonolog { get; private set; }
+    [field: SerializeField] public AnimatedLinkTraversal AnimatedLinkTraversal { get; private set; }
+    [field: SerializeField] public Rigidbody Rb  { get; private set; }
+    
+    [field: SerializeField] public NavMeshAgent Agent  { get; private set; }
+    [field: Header("Particles")]
+    [field: SerializeField] public JumpParticlesController JumpParticles  { get; private set; }
+    [field: SerializeField] public JumpParticlesController LandParticles  { get; private set; }
+    [field: SerializeField] public DualLegParticles WalkingParticles  { get; private set; }
+    
+    
     public IBonusUser BonusUser => BotBonusController;
     public IPusher Pusher { get; private set; }
 
@@ -28,9 +34,8 @@ public class BotManager : MonoBehaviour, IPlayer {
     public event Action<bool> PlayerStatusChanged;
 
 
-    public string Nickname => _botMonolog.NickName;
-    public PlayerRoleBehaviour RoleBehaviour => _roleBehaviour;
-    private bool CanUseAgent => _navMeshHelper.CanUseAgent(_agent);
+    public string Nickname => BotMonolog.NickName;
+    private bool CanUseAgent => _navMeshHelper.CanUseAgent(Agent);
 
 
     [Inject] private GameData _gameData;
@@ -72,7 +77,7 @@ public class BotManager : MonoBehaviour, IPlayer {
         
         PlayerStatusChanged?.Invoke(goPlay);
         IsPlaying = goPlay;
-        _agent.enabled = true;
+        Agent.enabled = true;
         StopPhys();
         BotWalkManager.DisposeAllLogic();
         
@@ -84,7 +89,7 @@ public class BotManager : MonoBehaviour, IPlayer {
         }
         // Возвращение на спавн
         else {
-            Debug.Log($"Возвращение на спавн игрока {_botMonolog.NickName} in {_spawn.SpawnPoint.position}");
+            Debug.Log($"Возвращение на спавн игрока {BotMonolog.NickName} in {_spawn.SpawnPoint.position}");
             Debug.Log($"Игрок play статус {IsPlaying} in {_spawn.SpawnPoint.position}");
             SetBotStateBeforeGame();
             TeleportToPoint(_spawn.SpawnPoint.position);
@@ -95,7 +100,7 @@ public class BotManager : MonoBehaviour, IPlayer {
 
     private void ChangeNicknameByChance() {
         if(Random.value > _gameData.ChanceToBotChangeNicknameAfterPlay) return;
-        _botMonolog.ChangeNickname();
+        BotMonolog.ChangeNickname();
     }
 
     public void SetPlayStatusSilent(bool goPlay) {
@@ -108,15 +113,15 @@ public class BotManager : MonoBehaviour, IPlayer {
             BotWalkManager.ResetLogic(); 
         
             if (NavMesh.SamplePosition(pos, out var hit, _mapsManager.CurrentMapYToFind, NavMesh.AllAreas)) {
-                _agent.enabled = false;
+                Agent.enabled = false;
                 transform.position = hit.position;
-                _agent.enabled = true;
+                Agent.enabled = true;
             
                 // После включения агент может ещё не быть isOnNavMesh
                 // Даём кадр на инициализацию через ForceUpdateCanvases не поможет,
                 // лучше просто проверить
-                if (_agent.isOnNavMesh) {
-                    _agent.isStopped = true;
+                if (Agent.isOnNavMesh) {
+                    Agent.isStopped = true;
                 }
                 // Debug.Log($"Телепорт: {transform.position}");
             } 
@@ -146,17 +151,17 @@ public class BotManager : MonoBehaviour, IPlayer {
     
     private void SetBotStateBeforeGame() {
         if (ShowInSpawn) {
-            _agent.ActiveSelf();
+            Agent.ActiveSelf();
         }
         else {
-            _agent.DisactiveSelf();
+            Agent.DisactiveSelf();
         }
     }
 
     
     private void ActiveBotInGame() {
         if (ShowInSpawn == false) {
-            _agent.ActiveSelf();
+            Agent.ActiveSelf();
         }
     }
     
@@ -164,20 +169,20 @@ public class BotManager : MonoBehaviour, IPlayer {
     public void SetBotSpeak() {
         Debug.Log("Set bot speak");
         if (!IsPlaying) {
-            _botMonolog.SaySomething();
+            BotMonolog.SaySomething();
         }
     }
 
     public void SetBotStfu() {
-        _botMonolog.Stfu();
+        BotMonolog.Stfu();
     }
 
     public void StopPhys() {
-        _rb.linearVelocity = Vector3.zero;
-        _rb.angularVelocity = Vector3.zero;
+        Rb.linearVelocity = Vector3.zero;
+        Rb.angularVelocity = Vector3.zero;
         
-        _rb.isKinematic = true;
-        _rb.useGravity = false;
+        Rb.isKinematic = true;
+        Rb.useGravity = false;
     }
 
 }

@@ -4,7 +4,6 @@ using UnityEngine.AI;
 using Zenject;
 
 public class BotBonusController : MonoBehaviour, IBonusUser {
-    [SerializeField] private NavMeshAgent _agent;
     [SerializeField] private BotJumpController botJumpController;
 
 
@@ -15,6 +14,7 @@ public class BotBonusController : MonoBehaviour, IBonusUser {
 
     
     [Inject] GameData _gameData;
+    [Inject] BotManager _manager;
     
     private void Start() {
         SetDefault();
@@ -29,20 +29,20 @@ public class BotBonusController : MonoBehaviour, IBonusUser {
     
     
     public void SetDefaultSpeed() {
-        _agent.speed = _gameData.BotSpeed;
+        _manager.Agent.speed = _gameData.BotSpeed;
         BonusStatusChanged?.Invoke(BonusStatus.SuperSpeed, false);
-        // Debug.Log($"SetDefaultSpeed {_botMonolog.NickName}");
+        // Debug.Log($"SetDefaultSpeed {BotMonolog.NickName}");
     }
     
     
     public void SetHunterSpeed() {
-        _agent.speed = _gameData.HunterSpeed;
+        _manager.Agent.speed = _gameData.HunterSpeed;
         BonusStatusChanged?.Invoke(BonusStatus.SuperSpeed, true);
     }
 
     
     public void SetBonusSpeed() {
-        _agent.speed = _gameData.VelocityBonusSpeed;
+        _manager.Agent.speed = _gameData.VelocityBonusSpeed;
         BonusStatusChanged?.Invoke(BonusStatus.SuperSpeed, true);
     }
 

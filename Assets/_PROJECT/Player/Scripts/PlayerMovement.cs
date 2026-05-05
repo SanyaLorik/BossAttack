@@ -8,7 +8,6 @@ using Zenject;
 public class PlayerMovement : MonoBehaviour, IPlayer {
     [SerializeField] private CharacterController _controller; // 
     [SerializeField] private Transform _spawnPoint;
-    [SerializeField] private PlayerRoleBehaviour _roleBehaviour;
     [SerializeField] private GameObject _playerVisual;
     [SerializeField] private PlayerBonusController _playerBonusController;
     
@@ -163,10 +162,6 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
             yield return null;
         }
     }
-
-
-
-    public PlayerRoleBehaviour RoleBehaviour => _roleBehaviour;
 
 
     public void SetMovingStatus(bool enable) {

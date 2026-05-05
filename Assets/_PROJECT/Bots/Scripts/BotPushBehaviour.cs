@@ -7,11 +7,7 @@ using UnityEngine.AI;
 using Zenject;
 
 public class BotPushBehaviour  : MonoBehaviour {
-    [SerializeField] private BotManager _manager;
-    [SerializeField] private NavMeshAgent _agent;
-    [SerializeField] private Rigidbody _rb;
-    [SerializeField] private JumpParticlesController _jumpParticlesController;
-    [SerializeField] private JumpParticlesController _landParticleController;
+
     
     public bool IsPushed { get; private set; }
     public Action<bool> Grounded;
@@ -19,9 +15,12 @@ public class BotPushBehaviour  : MonoBehaviour {
     
     private CancellationTokenSource _pushTokenSource;
     
+    private NavMeshAgent Agent => _manager.Agent;
+    
     [Inject] MapsToBattleChanger _mapsChanger;
     [Inject] GameData _gameData;
     [Inject] BotsMainManager _mainManager;
+    [Inject] BotManager _manager;
     
     
     public void PushAway(Vector3 direction) {
@@ -42,11 +41,11 @@ public class BotPushBehaviour  : MonoBehaviour {
     private async UniTask EnterPushModeAsync() {
         IsPushed = true;
 
-        _agent.isStopped = true;
-        _agent.ResetPath();
-        _agent.velocity = Vector3.zero;
+        Agent.isStopped = true;
+        Agent.ResetPath();
+        Agent.velocity = Vector3.zero;
 
-        _agent.enabled = false;
+        Agent.enabled = false;
 
         await UniTask.Yield(PlayerLoopTiming.Update);
     }
@@ -71,11 +70,11 @@ public class BotPushBehaviour  : MonoBehaviour {
         float t = 0f;
 
         Grounded?.Invoke(false);
-        _jumpParticlesController.Play();
+        _manager.JumpParticles.Play();
 
         // ПАРАБОЛА
-        _rb.isKinematic = true;
-        _rb.useGravity = false;
+        _manager.Rb.isKinematic = true;
+        _manager.Rb.useGravity = false;
 
         while (t < duration && !token.IsCancellationRequested) {
             t += Time.deltaTime;
@@ -122,24 +121,24 @@ public class BotPushBehaviour  : MonoBehaviour {
         float maxTime = 4f;
         float t = 0f;
 
-        _rb.isKinematic = false;
-        _rb.useGravity = true;
+        _manager.Rb.isKinematic = false;
+        _manager.Rb.useGravity = true;
 
-        _rb.angularVelocity = Vector3.zero;
-        _rb.linearVelocity = Vector3.down * _gameData.BotFallSpeed;
+        _manager.Rb.angularVelocity = Vector3.zero;
+        _manager.Rb.linearVelocity = Vector3.down * _gameData.BotFallSpeed;
         
 
         while (!token.IsCancellationRequested)
         {
             t += Time.fixedDeltaTime;
 
-            Vector3 pos = _rb.position;
+            Vector3 pos = _manager.Rb.position;
 
             // ГЛАВНОЕ: ищем NavMesh напрямую (НЕ через коллайдер)
             if (NavMesh.SamplePosition(pos, out NavMeshHit navHit, _mapsChanger.FallBotFindSamplePosition, NavMesh.AllAreas))
             {
                 // приземляемся только если падаем вниз
-                if (_rb.linearVelocity.y <= 0f)
+                if (_manager.Rb.linearVelocity.y <= 0f)
                 {
                     FinishLanding(navHit.position);
                     return;
@@ -177,17 +176,17 @@ public class BotPushBehaviour  : MonoBehaviour {
         IsPushed = false;
         _manager.StopPhys();
 
-        _agent.enabled = true;
+        Agent.enabled = true;
 
         if (NavMesh.SamplePosition(navMeshPos, out var hit, 1f, NavMesh.AllAreas)) {
-            _agent.Warp(hit.position);
+            Agent.Warp(hit.position);
         }
 
         // ВАЖНО: проверка перед любыми действиями
-        if (_agent.isOnNavMesh) {
-            _agent.nextPosition = _agent.transform.position;
-            _agent.ResetPath();
-            _agent.isStopped = false;
+        if (Agent.isOnNavMesh) {
+            Agent.nextPosition = Agent.transform.position;
+            Agent.ResetPath();
+            Agent.isStopped = false;
             FallAfterPush?.Invoke();
         }
         else {
@@ -197,7 +196,7 @@ public class BotPushBehaviour  : MonoBehaviour {
         }
 
         Grounded?.Invoke(true);
-        _landParticleController.Play();
+        _manager.LandParticles.Play();
     }
     
     

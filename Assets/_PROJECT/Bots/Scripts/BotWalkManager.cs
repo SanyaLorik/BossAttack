@@ -10,44 +10,45 @@ using Random = UnityEngine.Random;
 
 public class BotWalkManager : MonoBehaviour {
     private const float DESTINATION_CHANGE_THRESHOLD = 0.5f;
-    [SerializeField] private Rigidbody _rb;
-    [SerializeField] private NavMeshAgent _agent;
     
     
     [Header("Партиклы")]
-    [SerializeField] private DualLegParticles _walkingParticles;
     [SerializeField] private Transform[] _spawnPlaces;
     [SerializeField] private float _yToFind;
-    [SerializeField] private AnimatedLinkTraversal _animatedLinkTraversal;
-    [SerializeField] private BotJumpController jumpController;
     
     
     public Action<bool> StartWandering;
 
     private CancellationTokenSource _botTokenSource;
     private Vector3 _lastDestination;
-    private bool CanUseAgent => _navMeshHelper.CanUseAgent(_agent);
+
+    
+    private bool CanUseAgent => _navMeshHelper.CanUseAgent(_manager.Agent);
     
     
     [Inject] private GameData _gameData;
     [Inject] private NavMeshHelper _navMeshHelper;
     [Inject] private BotsMainManager _mainManager;
     [Inject] private MapsToBattleChanger _mapsChanger;
+    [Inject] private BotManager _manager;
     
     
     private void Awake() {
-        _agent.updateRotation = false;
+        _manager.Agent.updateRotation = false;
     }
 
     
     private void Update() {
+        if (_manager.AnimatedLinkTraversal.IsJumpingTraversal)
+            return;
+
         RotateByVelocity();
         MonitorMovement();
     }
     
     public void DisposeAllLogic() {
         UniTaskHelper.DisposeTask(ref _botTokenSource);
-        jumpController.DisposeToken();
+        _manager.BotJumpController.DisposeToken();
     }
         
     private async UniTask StartWanderingCycleAsync() {
@@ -69,14 +70,14 @@ public class BotWalkManager : MonoBehaviour {
         while (!token.IsCancellationRequested) {
             await UniTask.WaitUntil(() => CanUseAgent, cancellationToken: token);
             Vector3 target = GetTargetPoint(_spawnPlaces, _yToFind);
-            _agent.SetDestination(target);
+            _manager.Agent.SetDestination(target);
             
-            await UniTask.WaitUntil(() => !_agent.pathPending && _agent.hasPath, cancellationToken: token);
+            await UniTask.WaitUntil(() => !_manager.Agent.pathPending && _manager.Agent.hasPath, cancellationToken: token);
             
-            jumpController.Jump(token).Forget();
+            _manager.BotJumpController.Jump(token).Forget();
 
             await UniTask.WaitUntil(() => 
-                    !_agent.pathPending && _agent.remainingDistance <= _agent.stoppingDistance,
+                    !_manager.Agent.pathPending && _manager.Agent.remainingDistance <= _manager.Agent.stoppingDistance,
                 cancellationToken: token);
 
             float waitTime = Random.Range(
@@ -94,32 +95,35 @@ public class BotWalkManager : MonoBehaviour {
     public void StartWanderSpawn() {
         ResetLogic();
 
-        _agent.isStopped = false;
+        _manager.Agent.isStopped = false;
         StartWanderingCycleAsync().Forget();
     }
 
     
-    public void ResetLogic() {
-        Debug.Log("StartWanderSpawn");
-        
+    public void ResetLogic()
+    {
         DisposeAllLogic();
 
-        if (_agent != null && _agent.enabled && _agent.isOnNavMesh) {
-            _agent.velocity = Vector3.zero;
-            _agent.ResetPath();
-            _agent.nextPosition = transform.position;
-            _agent.isStopped = false;
+        if (_manager.Agent != null && _manager.Agent.enabled && _manager.Agent.isOnNavMesh)
+        {
+            _manager.Agent.velocity = Vector3.zero;
+            _manager.Agent.ResetPath();
+
+            _manager.Agent.Warp(_manager.Transform.position);
+            _manager.Agent.nextPosition = _manager.Transform.position;
+
+            _manager.Agent.isStopped = false;
         }
 
-        _walkingParticles.Stop();
+        _manager.WalkingParticles.Stop();
         StartWandering?.Invoke(false);
     }
 
 
     public void SetMovingStatus(bool enable) {
         if(!gameObject.activeSelf) return;
-        _agent.isStopped = !enable;
-        _agent.ResetPath();
+        _manager.Agent.isStopped = !enable;
+        _manager.Agent.ResetPath();
     }
 
     
@@ -138,82 +142,73 @@ public class BotWalkManager : MonoBehaviour {
         if (!CanUseAgent) return;
         // Проверяем, реально ли изменилась цель
         if (Vector3.Distance(_lastDestination, point) > DESTINATION_CHANGE_THRESHOLD) {
-            _agent.SetDestination(point);
+            _manager.Agent.SetDestination(point);
             _lastDestination = point;
         }
         if (CanUseAgent)
-            _agent.isStopped = false;
+            _manager.Agent.isStopped = false;
     }
     
     
     public async UniTask SetAgentGoToPointAsync(Vector3 point, CancellationToken token) {
         if (!CanUseAgent) return;
 
-        _agent.SetDestination(point);
+        _manager.Agent.SetDestination(point);
 
         await UniTask.WaitUntil(
-            () => !token.IsCancellationRequested && CanUseAgent && !_agent.pathPending,
+            () => !token.IsCancellationRequested && CanUseAgent && !_manager.Agent.pathPending,
             cancellationToken: token
         );
 
         if (!CanUseAgent) return;
 
-        await jumpController.Jump(token);
+        await _manager.BotJumpController.Jump(token);
 
         if (!CanUseAgent) return;
 
-        if (_agent.pathStatus != NavMeshPathStatus.PathComplete)
+        if (_manager.Agent.pathStatus != NavMeshPathStatus.PathComplete)
             return;
 
         await UniTask.WaitUntil(
             () => !token.IsCancellationRequested &&
                   CanUseAgent &&
-                  !_agent.pathPending &&
-                  _agent.remainingDistance <= _gameData.RunStoppingDistance,
+                  !_manager.Agent.pathPending &&
+                  _manager.Agent.remainingDistance <= _gameData.RunStoppingDistance,
             cancellationToken: token
         );
     }
 
 
-    private void RotateByVelocity() {
-        Vector3 velocity = _agent.velocity;
+    private void RotateByVelocity()
+    {
+        if (!_manager.Agent.enabled || !_manager.Agent.isOnNavMesh)
+            return;
+
+        Vector3 velocity = _manager.Agent.velocity;
         velocity.y = 0;
-        
-        
-        if (velocity.sqrMagnitude < 0.001f)
+
+        // ВАЖНО: если агент почти стоит — НЕ крутим
+        if (velocity.sqrMagnitude < 0.05f)
             return;
-    
-        float sqrMag = velocity.sqrMagnitude;
-    
-        // Ранний выход если стоим (уже есть)
-        if (sqrMag < 0.01f && !_animatedLinkTraversal.IsJumpingTraversal)
-            return;
-    
-        // ДОПОЛНИТЕЛЬНО: не вращать если почти смотрим куда надо
-        Quaternion targetRotation = Quaternion.LookRotation(velocity);
-    
-        // Если уже почти повернуты - пропускаем Slerp
-        if (Quaternion.Angle(transform.rotation, targetRotation) < 0.5f)
-            return;
-    
-        transform.rotation = Quaternion.Slerp(
-            transform.rotation,
-            targetRotation,
+
+        _manager.Transform.rotation = Quaternion.Slerp(
+            _manager.Transform.rotation,
+            Quaternion.LookRotation(velocity),
             _gameData.RotationSpeed * Time.deltaTime
         );
     }
     
     
     private void MonitorMovement() {
-        if (_agent.enabled && _agent.velocity.sqrMagnitude > 0.05f) {
-            if (!_walkingParticles.IsPlaying) {
-                _walkingParticles.Play();
+        if (_manager.Agent.enabled && _manager.Agent.velocity.sqrMagnitude > 0.05f) {
+            if (!_manager.WalkingParticles.IsPlaying) {
+                _manager.WalkingParticles.Play();
                 StartWandering?.Invoke(true);
             }
         }
         else {
-            if (_walkingParticles.IsPlaying && !_animatedLinkTraversal.IsJumpingTraversal) {
-                _walkingParticles.Stop();
+            if (_manager.WalkingParticles.IsPlaying && !_manager.AnimatedLinkTraversal.IsJumpingTraversal) {
+                _manager.WalkingParticles.Stop();
                 StartWandering?.Invoke(false);
             }
         }

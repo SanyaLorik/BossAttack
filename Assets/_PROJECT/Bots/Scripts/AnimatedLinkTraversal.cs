@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
-using UnityEngine.AI;
+using Zenject;
 
 public class AnimatedLinkTraversal : MonoBehaviour {
-    [SerializeField] private NavMeshAgent _agent;
     
     public float jumpDuration = 0.8f;
     public float jumpHeight = 2.5f;
     public AnimationCurve horizontalCurve = AnimationCurve.Linear(0, 0, 1, 1);
 
+    [Inject] BotManager _manager;
 
     public bool IsJumpingTraversal { get; private set; }
     private float timer;
@@ -15,10 +15,8 @@ public class AnimatedLinkTraversal : MonoBehaviour {
     private Vector3 start;
     private Vector3 end;
 
-
-
     void Update() {
-        if (_agent.isOnOffMeshLink && !IsJumpingTraversal) {
+        if (_manager.Agent.isOnOffMeshLink && !IsJumpingTraversal) {
             StartJump();
         }
 
@@ -28,20 +26,19 @@ public class AnimatedLinkTraversal : MonoBehaviour {
     }
 
     void StartJump() {
-        var link = _agent.currentOffMeshLinkData;
+        var link = _manager.Agent.currentOffMeshLinkData;
 
         // Берём РЕАЛЬНУЮ позицию
-        start = transform.position;
-        end = link.endPos + Vector3.up * _agent.baseOffset;
+        start = _manager.Transform.position;
+        end = link.endPos + Vector3.up * _manager.Agent.baseOffset;
 
         timer = 0f;
         IsJumpingTraversal = true;
 
-        _agent.updatePosition = false;
+        _manager.Agent.updatePosition = false;
     }
 
-    void UpdateJump()
-    {
+    void UpdateJump() {
         timer += Time.deltaTime;
         float t = timer / jumpDuration;
 
@@ -53,36 +50,33 @@ public class AnimatedLinkTraversal : MonoBehaviour {
         float height = 4 * jumpHeight * t * (1 - t);
 
         Vector3 finalPos = flatPos + Vector3.up * height;
-        transform.position = finalPos;
+        _manager.Transform.position = finalPos;
 
-        Vector3 direction = (end - transform.position);
+        Vector3 direction = (end - _manager.Transform.position);
         direction.y = 0;
 
-        if (direction.sqrMagnitude > 0.001f)
-        {
+        if (direction.sqrMagnitude > 0.001f) {
             Quaternion targetRotation = Quaternion.LookRotation(direction);
 
-            transform.rotation = Quaternion.Slerp(
-                transform.rotation,
+            _manager.Transform.rotation = Quaternion.Slerp(
+                _manager.Transform.rotation,
                 targetRotation,
-                _agent.angularSpeed * Time.deltaTime
+                _manager.Agent.angularSpeed * Time.deltaTime
             );
         }
 
-        if (t >= 1f)
-        {
+        if (t >= 1f) {
             FinishJump();
         }
     }
 
-    void FinishJump()
-    {
-        if (_agent.enabled && _agent.isOnNavMesh && _agent.isOnOffMeshLink)
+    void FinishJump() {
+        if (_manager.Agent.enabled && _manager.Agent.isOnNavMesh && _manager.Agent.isOnOffMeshLink)
         {
-            _agent.CompleteOffMeshLink();
+            _manager.Agent.CompleteOffMeshLink();
         }
 
-        _agent.updatePosition = true;
+        _manager.Agent.updatePosition = true;
         IsJumpingTraversal = false;
     }
 }

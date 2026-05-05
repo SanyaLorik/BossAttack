@@ -11,7 +11,6 @@ public class NavMeshHelper {
     
     
     public bool CanUseAgent(NavMeshAgent agent)  =>
-        agent != null &&
         agent.enabled &&
         agent.isOnNavMesh;
     

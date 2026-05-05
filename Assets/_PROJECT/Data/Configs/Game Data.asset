@@ -64,7 +64,7 @@ MonoBehaviour:
       <From>k__BackingField: 1
       <To>k__BackingField: 2
     <RotationSpeed>k__BackingField: 10
-    <ChanceToJump>k__BackingField: 0.066
+    <ChanceToJump>k__BackingField: 0
     <TimeToStayOnPoint>k__BackingField:
       <From>k__BackingField: 7
       <To>k__BackingField: 14
