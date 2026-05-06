@@ -6,40 +6,41 @@ using SanyaBeerExtension;
 using TMPro;
 using UnityEngine;
 
-public class ShieldVisual : MonoBehaviour {
-    [SerializeField] private Transform _shield;
+public abstract class ProgressVisualizer : MonoBehaviour {
+    [SerializeField] private Transform _progressContainer;
     
-    [Header("Анимация щита")]
-    [SerializeField] private PairedValue<float> _shieldShowDurations;
-    [SerializeField] private PairedValue<Ease> _shieldShowEase;
+    [Header("Анимация")]
+    [SerializeField] private PairedValue<float> _progressShowDurations;
+    [SerializeField] private PairedValue<Ease> _progressShowEase;
     
     [Header("Бар")]
     [SerializeField] private RectTransform _bar;
     [SerializeField] private RectTransform _barParent;
     [SerializeField] private float _changeBarDuration = 1f;
-    [SerializeField] private TextMeshProUGUI _shieldHp;
+    [SerializeField] private TextMeshProUGUI _progressHp;
 
+    
     private CancellationTokenSource _tokenSource;
-    private Sequence _shieldSequence;
+    private Sequence _progressSequence;
 
-    private void OnEnable() {
-        DisposeShield();
-    }
     
+    private void DisposeProgress() {
+        _progressSequence?.Kill();
+        UniTaskHelper.DisposeTask(ref _tokenSource);
+    }
 
-    public void HideShieldFast() {
-        DisposeShield();
-    }
+
     
-    public void SetShieldPercentage(float percentage, int hp) {
+    public void SetProgressPercentage(float percentage, int hp) {
         percentage = Mathf.Clamp01(percentage);
         UniTaskHelper.DisposeTask(ref _tokenSource);
         _tokenSource = new CancellationTokenSource();
-        ChangeShieldPercentageAsync(percentage, _tokenSource.Token).Forget();
-        _shieldHp.text = hp.ToString();
+        ChangeProgressPercentageAsync(percentage, _tokenSource.Token).Forget();
+        _progressHp.text = hp.ToString();
     }
     
-    private async UniTask ChangeShieldPercentageAsync(float percentage, CancellationToken token) {
+    
+    private async UniTask ChangeProgressPercentageAsync(float percentage, CancellationToken token) {
         float elapsedTime = 0f;
 
         Vector2 initPos = _bar.offsetMax;
@@ -52,63 +53,43 @@ public class ShieldVisual : MonoBehaviour {
         
         while (!token.IsCancellationRequested && elapsedTime < _changeBarDuration) {
             elapsedTime += Time.deltaTime;
-            float progress = elapsedTime / _changeBarDuration;
-            Vector2 interp = Vector2.Lerp(initPos, targetPos, progress);
-            _bar.offsetMax = interp;
+            SetProgressByElapsedTime(elapsedTime, initPos, targetPos);
             // Debug.Log("interp = " + interp);
             await UniTask.Yield();
         }
         _bar.offsetMax = targetPos;
-        if (percentage == 0f) {
-            SetShieldAnimation(false);
-        }
-    }
-    
-    
-    public void ShieldEnableAnimate(bool enable) {
-        if (enable) {
-            SetShieldAnimation(true);
-        }
-        else {
-            SetShieldAnimation(false);
-        }
-    }
-    
-    public void ShieldShowFast(bool show) {
-        _shield.localScale = show ? Vector3.one : Vector3.zero;
     }
 
-    private void SetShieldAnimation(bool show) {
+    private void SetProgressByElapsedTime(float elapsedTime, Vector2 initPos, Vector2 targetPos) {
+        float progress = elapsedTime / _changeBarDuration;
+        Vector2 interp = Vector2.Lerp(initPos, targetPos, progress);
+        _bar.offsetMax = interp;
+    }
+
+    public void ShowBarAnimation(bool show) {
         // Целевой масштаб
         float targetScale = show ? 1f : 0f;
     
         // Если уже в нужном состоянии — выходим
-        if(_shield.localScale.x == targetScale) return;
+        if(_progressContainer.localScale.x == targetScale) return;
     
-        // Убиваем старую анимацию (если есть)
     
         // Выбираем длительность и ease в зависимости от show
-        float duration = show ? _shieldShowDurations.From : _shieldShowDurations.To;
-        Ease ease = show ? _shieldShowEase.From : _shieldShowEase.To;
+        float duration = show ? _progressShowDurations.From : _progressShowDurations.To;
+        Ease ease = show ? _progressShowEase.From : _progressShowEase.To;
     
         // Запускаем новую
-        _shieldSequence?.Kill();
-        _shieldSequence = DOTween.Sequence();
-        _shieldSequence.Append(_shield.DOScale(targetScale, duration).SetEase(ease));
+        _progressSequence?.Kill();
+        _progressSequence = DOTween.Sequence();
+        _progressSequence.Append(_progressContainer.DOScale(targetScale, duration).SetEase(ease));
     
         // Необязательно: чистим ссылку после завершения
-        _shieldSequence.OnComplete(() => {
-            if(_shieldSequence != null && _shieldSequence.active == false)
-                _shieldSequence = null;
+        _progressSequence.OnComplete(() => {
+            if(_progressSequence != null && _progressSequence.active == false)
+                _progressSequence = null;
         });
     }
 
-    
-    private void DisposeShield() {
-        _shieldSequence?.Kill();
-        _shield.localScale = Vector3.zero;
-        UniTaskHelper.DisposeTask(ref _tokenSource);
-    }
 
     
     /// <summary>

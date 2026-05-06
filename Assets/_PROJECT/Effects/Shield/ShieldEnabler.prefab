@@ -45,9 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d66ac18df0c44639847d5451e90b002f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShieldEnabler
-  _shieldVisual: {fileID: 3961980887024751072}
-  _playerRoleBehaviour: {fileID: 0}
-  _shieldIsEnabled: 0
 --- !u!1001 &7736157097824992700
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -96,6 +93,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4122641671767802064, guid: 09814512b0d92554cae7eab6abcb2bd7, type: 3}
+      propertyPath: m_Name
+      value: ProgressCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 4122641671767802064, guid: 09814512b0d92554cae7eab6abcb2bd7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6748522289752894556, guid: 09814512b0d92554cae7eab6abcb2bd7, type: 3}
       propertyPath: _shieldShowDurations.<To>k__BackingField
       value: 1
@@ -108,22 +113,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shield
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6748522289752894556, guid: 09814512b0d92554cae7eab6abcb2bd7, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09814512b0d92554cae7eab6abcb2bd7, type: 3}
---- !u!114 &3961980887024751072 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6748522289752894556, guid: 09814512b0d92554cae7eab6abcb2bd7, type: 3}
-  m_PrefabInstance: {fileID: 7736157097824992700}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d81f95c8727de0d46b3c1dc766c7a297, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ShieldVisual
 --- !u!4 &6753016215159442677 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3957487129104331081, guid: 09814512b0d92554cae7eab6abcb2bd7, type: 3}

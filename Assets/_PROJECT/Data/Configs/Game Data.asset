@@ -37,12 +37,6 @@ MonoBehaviour:
       <From>k__BackingField: 0.5
       <To>k__BackingField: 5
     <MinSensValue>k__BackingField: 0.1
-    <NewGameTimer>k__BackingField: 1488
-    <DelayAfterGameOverToNewTimer>k__BackingField: 5
-    <DefaultSpeedInRound>k__BackingField: 12
-    <ColldownToStartRound>k__BackingField: 0
-    <TimeToShowDieInfo>k__BackingField: 2
-    <TimeAfterEndRound>k__BackingField: 0
     <VelocityBonusSpeed>k__BackingField: 25
     <HunterSpeed>k__BackingField: 20
     <JumpBonusHeight>k__BackingField: 24
@@ -91,3 +85,10 @@ MonoBehaviour:
     <BotChanceToUseBonus>k__BackingField: 0.2
     <TimeDividerToUnbild>k__BackingField: 2
     <DistanceToFindNavMeshToBuild>k__BackingField: 5
+    <NewGameTimer>k__BackingField: 1488
+    <DelayAfterGameOverToNewTimer>k__BackingField: 5
+    <DefaultSpeedInRound>k__BackingField: 12
+    <ColldownToStartRound>k__BackingField: 0
+    <TimeToShowDieInfo>k__BackingField: 2
+    <TimeAfterEndRound>k__BackingField: 0
+    <PlayerMaxHp>k__BackingField: 100

@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
     [SerializeField] private Transform _spawnPoint;
     [SerializeField] private GameObject _playerVisual;
     [SerializeField] private PlayerBonusController _playerBonusController;
+    [SerializeField] private DamageVisualizer _damagableVisual; 
+
     
     [field: SerializeField] public Transform Transform { get; private set; }
 
@@ -58,12 +60,14 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
     
     private void Awake() {
         _damagable = new Damagable(_gameData.PlayerMaxHp, transform);
+        _damagableVisual.SetDamagable(_damagable);
     }
     
 
     private void Update() {
         Walk();
     }
+    
     
     private void OnEnable() {
         _inputJumping.OnJumped += OnJump;
@@ -109,6 +113,7 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
 
 
     public void SetPlayStatus(bool goPlay) {
+        Debug.Log("Player set play status " + goPlay);
         InitedToPlay?.Invoke(goPlay);
         BonusUser.SetDefault();
         
@@ -116,8 +121,12 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
         PlayerInSpawn = !goPlay;
         _stateManager.SetupCanvases(goPlay);
         
-        if (!goPlay) {
-           TeleportInSpawn(); 
+        if (goPlay) {
+            _damagable.SetSpawned();
+        }
+        else {
+            _damagable.SetDied();
+            TeleportInSpawn(); 
         }
     }
 
