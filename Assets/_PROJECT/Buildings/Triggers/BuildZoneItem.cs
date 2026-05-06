@@ -1,4 +1,5 @@
 using System;
+using SanyaBeerExtension;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -14,6 +15,8 @@ public class BuildZoneItem : MonoBehaviour {
     [SerializeField] private BuildType _buildType;
     [SerializeField] private float _timeToBuild;
     [SerializeField] private Image _progressImage;
+    [SerializeField] private GameObject _buildVisual;
+    [SerializeField] private GameObject _building;
 
 
     private bool _isBuilded;
@@ -22,10 +25,20 @@ public class BuildZoneItem : MonoBehaviour {
     
     
     [Inject] PlayerMovement _mainPlayer;
-    [Inject] BattleItemsBuilder _builder;
     [Inject] GameData _gameData;
 
+    private void Start() {
+        SetDefault();
+    }
+
     
+    public void SetDefault() {
+        _buildVisual.ActiveSelf();
+        _progressImage.fillAmount = 0;
+        _building.DisactiveSelf();
+    }
+
+
     private void Update() {
         if (_isBuilded) return;
         
@@ -71,7 +84,12 @@ public class BuildZoneItem : MonoBehaviour {
     private void CheckEndBuild() {
         if(_isBuilded || _currentTime < _timeToBuild) return;
         _isBuilded = true;
-        _builder.BuildItemByType(_buildType, transform.position);
+        EndBuild();
+    }
+
+    private void EndBuild() {
+        _building.ActiveSelf();
+        _buildVisual.DisactiveSelf();
     }
     
 }

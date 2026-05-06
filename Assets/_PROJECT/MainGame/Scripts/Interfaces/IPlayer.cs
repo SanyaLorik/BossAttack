@@ -9,6 +9,7 @@ public interface IPlayer {
     public void SetMovingStatus(bool enable);
     public IPusher Pusher { get; }
     public IBonusUser BonusUser { get; }
+    public IDamagable Damagable { get; }
     
     public bool IsPlaying { get; }
     Transform Transform { get; }

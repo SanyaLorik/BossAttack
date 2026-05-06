@@ -1,0 +1,68 @@
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
+using Zenject;
+
+[Serializable]
+public enum TargetType {
+    Enemy,
+    Player,
+}
+
+
+public class GetClosestTarget : ITargetProvider {
+    [SerializeField] private TargetType TargetType;
+    [SerializeField] private float _distance;
+    [SerializeField] private LayerMask _layer;
+    
+    
+    private readonly Collider[] _buffer = new Collider[8];
+   
+    private IEnumerable<UnitInfo> TargetList
+        => TargetType == TargetType.Enemy ? 
+            _battleInfo.EnemysDamagable 
+            : 
+            _battleInfo.PlayersDamagable;
+    
+    [Inject] IBattleInfo _battleInfo;
+
+
+    
+    public IEnumerable<IDamagable> GetTargets(Vector3 origin) {
+        IDamagable closestUnit = null;
+        float bestSqr = float.MaxValue;
+        float sqrRange = _distance * _distance;
+        
+        
+        IEnumerable<UnitInfo> targets = TargetList;
+        foreach (var target in targets) {
+            
+            Vector3 direction = target.Transform.position - origin;
+            float sqrDistance = Vector3.SqrMagnitude(direction);
+            
+            // Скип если далеко
+            if (sqrDistance > sqrRange) 
+                continue;
+ 
+            // Проверка что между нами стенка
+            if(!HasLineOfSight(origin, direction, target)) 
+                continue;
+
+            if (sqrDistance < bestSqr) {
+                bestSqr = sqrDistance;
+                closestUnit = target.Target;
+            }
+        }
+        yield return closestUnit;
+    }
+
+    
+    private bool HasLineOfSight(Vector3 origin, Vector3 direction, UnitInfo target) {
+        if (Physics.Raycast(origin, direction.normalized, out RaycastHit hitInfo, _distance, _layer)) {
+            if (hitInfo.transform == target.Transform) {
+                return true;
+            }
+        }
+        return false;
+    }
+}

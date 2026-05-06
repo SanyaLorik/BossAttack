@@ -512,11 +512,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
---- !u!1 &118654322 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2577221670534629768, guid: 6dbcc318c9ffd9443bdd0e43be721c6f, type: 3}
-  m_PrefabInstance: {fileID: 700079919}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &120049069 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4319784836994877065, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
@@ -2905,11 +2900,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b09b4606634461f865ee9953d122b24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainGameInstaller
---- !u!1 &636432829 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3689047776681763977, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
-  m_PrefabInstance: {fileID: 967158670}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &646193940
 GameObject:
   m_ObjectHideFlags: 0
@@ -2954,90 +2944,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa283338816c49c1aded5aa6363227c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayersBombRoleManager
-  _battleManager: {fileID: 0}
-  _bomb: {fileID: 0}
-  _gameData:
-    <MinimumDelaySave>k__BackingField: 0
-    <InterstitialAdStartDelay>k__BackingField: 0
-    <InterstitialDelay>k__BackingField: 0
-    <AdTimerInitial>k__BackingField: 0
-    <AdTimerFinal>k__BackingField: 0
-    <WalkSpeed>k__BackingField: 0
-    <JumpForce>k__BackingField: 0
-    <SecondJumpForce>k__BackingField: 0
-    <RotateSpeed>k__BackingField: 0
-    <GravityScale>k__BackingField: 0
-    <InitBonusCounts>k__BackingField: 0
-    <MobileCameraFov>k__BackingField: 0
-    <DesktopCameraFov>k__BackingField: 0
-    <DefaultCameraSens>k__BackingField: 0
-    <PlayZoomInDesktop>k__BackingField: 0
-    <PlayZoomInMobile>k__BackingField: 0
-    <ZoomSpeed>k__BackingField: 0
-    <VerticalAxisValueToStartPlay>k__BackingField: 0
-    <JoystickSensivityMultiplier>k__BackingField: 0
-    <MouseSensivityMultiplier>k__BackingField: 0
-    <ZoomDiapasone>k__BackingField:
-      <From>k__BackingField: 0
-      <To>k__BackingField: 0
-    <MinSensValue>k__BackingField: 0
-    <NewGameTimer>k__BackingField: 0
-    <DelayAfterGameOverToNewTimer>k__BackingField: 0
-    <TimeToBombExplode>k__BackingField: 0
-    <TimeToInvinsibleAfterPass>k__BackingField: 0
-    <TimeToInvinsibleAfterPassInTutor>k__BackingField: 0
-    <DefaultSpeedInRound>k__BackingField: 0
-    <HunterSpeed>k__BackingField: 0
-    <VelocityBonusSpeed>k__BackingField: 0
-    <JumpBonusHeight>k__BackingField: 0
-    <DoubleJumpBonusHeight>k__BackingField: 0
-    <BonusReload>k__BackingField: 0
-    <BonusDuration>k__BackingField: 0
-    <BotPushForce>k__BackingField: 0
-    <BotUpPushRatio>k__BackingField: 0
-    <PlayerPushForce>k__BackingField: 0
-    <PlayerUpPushRatio>k__BackingField: 0
-    <PushTime>k__BackingField: 0
-    <PushColldown>k__BackingField: 0
-    <ChanceInitBombToPlayer>k__BackingField: 0
-    <ColldownToStartGame>k__BackingField: 0
-    <TimeAfterBombExplode>k__BackingField: 0
-    <TimeToShowDieInfo>k__BackingField: 0
-    <MaxPetsCount>k__BackingField: 0
-    <BotPetCountDiapasone>k__BackingField:
-      <From>k__BackingField: 0
-      <To>k__BackingField: 0
-    <BotSpeed>k__BackingField: 0
-    <CountSpeakingBotsPerTime>k__BackingField:
-      <From>k__BackingField: 0
-      <To>k__BackingField: 0
-    <RotationSpeed>k__BackingField: 0
-    <ChanceToJump>k__BackingField: 0
-    <TimeToStayOnPoint>k__BackingField:
-      <From>k__BackingField: 0
-      <To>k__BackingField: 0
-    <TimeToStayAfterSpawn>k__BackingField:
-      <From>k__BackingField: 0
-      <To>k__BackingField: 0
-    <TimeToSpeak>k__BackingField:
-      <From>k__BackingField: 0
-      <To>k__BackingField: 0
-    <ChanceToBotChangeNicknameAfterPlay>k__BackingField: 0
-    <DistanceToFloor>k__BackingField: 0
-    <DurationToHuntWithoutCheck>k__BackingField: 0
-    <DurationToGoInPoint>k__BackingField: 0
-    <RunStoppingDistance>k__BackingField: 0
-    <BotJumpDuration>k__BackingField: 0
-    <BotFallSpeed>k__BackingField: 0
-    <BotJumpBonusDuration>k__BackingField: 0
-    <BotDefaultJumpHeight>k__BackingField: 0
-    <BotJumpBonusHeight>k__BackingField: 0
-    <ChanceToGoPlayerInHunt>k__BackingField: 0
-    <BotUseNewBonusTime>k__BackingField:
-      <From>k__BackingField: 0
-      <To>k__BackingField: 0
-    <BotChanceToUseBonus>k__BackingField: 0
-  _tutorialManager: {fileID: 0}
 --- !u!114 &648221201 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8172147678028323717, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
@@ -3054,17 +2960,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 9126828320373769567, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
   m_PrefabInstance: {fileID: 967158670}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &651929193 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5189908968470787554, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
-  m_PrefabInstance: {fileID: 967158670}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!82 &653733924 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 6947635192482709086, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
@@ -3360,22 +3255,6 @@ PrefabInstance:
 --- !u!4 &700079920 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 905650825881342119, guid: 6dbcc318c9ffd9443bdd0e43be721c6f, type: 3}
-  m_PrefabInstance: {fileID: 700079919}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &700079921 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5048631357018544436, guid: 6dbcc318c9ffd9443bdd0e43be721c6f, type: 3}
-  m_PrefabInstance: {fileID: 700079919}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 683e615f3ac673a45966983a36be7206, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &700079922 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7209484009150214096, guid: 6dbcc318c9ffd9443bdd0e43be721c6f, type: 3}
   m_PrefabInstance: {fileID: 700079919}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &705277420 stripped
@@ -4779,6 +4658,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3350112216479187050, guid: c3770a4602ddc9b43b0f0ef9423b69ab, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9130735015479195135, guid: c3770a4602ddc9b43b0f0ef9423b69ab, type: 3}
       propertyPath: m_Name
       value: '[DEMO]'
@@ -5980,11 +5863,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
---- !u!224 &1364582839 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 1480559637005872499, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
-  m_PrefabInstance: {fileID: 967158670}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1372575366 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7390199726378937211, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
@@ -8039,11 +7917,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 462987663541449192, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
   m_PrefabInstance: {fileID: 967158670}
   m_PrefabAsset: {fileID: 0}
---- !u!224 &1815466472 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 5470495869229712940, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
-  m_PrefabInstance: {fileID: 967158670}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1816936231
 GameObject:
   m_ObjectHideFlags: 0
@@ -8238,162 +8111,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f05851ee7e0e4b8fa11061ddea4d8ea9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bomb
-  _allBomb: {fileID: 700079922}
-  _bombModel: {fileID: 118654322}
-  _permanentBombParent: {fileID: 1839788722}
-  _cartoonExplosionFX: {fileID: 700079921}
-  _timerText: {fileID: 651929193}
-  _bombBar: {fileID: 1815466472}
-  _parentProgressToExplode: {fileID: 1364582839}
-  _timerContainer: {fileID: 636432829}
-  _timerFillAmountImage: {fileID: 0}
-  _gradient:
-    key0:
-      r: 1
-      g: 1
-      b: 1
-      a: 1
-    key1:
-      r: 1
-      g: 1
-      b: 1
-      a: 1
-    key2:
-      r: 0
-      g: 0
-      b: 0
-      a: 0
-    key3:
-      r: 0
-      g: 0
-      b: 0
-      a: 0
-    key4:
-      r: 0
-      g: 0
-      b: 0
-      a: 0
-    key5:
-      r: 0
-      g: 0
-      b: 0
-      a: 0
-    key6:
-      r: 0
-      g: 0
-      b: 0
-      a: 0
-    key7:
-      r: 0
-      g: 0
-      b: 0
-      a: 0
-    ctime0: 0
-    ctime1: 65535
-    ctime2: 0
-    ctime3: 0
-    ctime4: 0
-    ctime5: 0
-    ctime6: 0
-    ctime7: 0
-    atime0: 0
-    atime1: 65535
-    atime2: 0
-    atime3: 0
-    atime4: 0
-    atime5: 0
-    atime6: 0
-    atime7: 0
-    m_Mode: 0
-    m_ColorSpace: -1
-    m_NumColorKeys: 2
-    m_NumAlphaKeys: 2
-  <BombExplode>k__BackingField: 0
-  _barWidth: 0
-  _gameData:
-    <MinimumDelaySave>k__BackingField: 0
-    <InterstitialAdStartDelay>k__BackingField: 0
-    <InterstitialDelay>k__BackingField: 0
-    <AdTimerInitial>k__BackingField: 0
-    <AdTimerFinal>k__BackingField: 0
-    <WalkSpeed>k__BackingField: 0
-    <JumpForce>k__BackingField: 0
-    <SecondJumpForce>k__BackingField: 0
-    <RotateSpeed>k__BackingField: 0
-    <GravityScale>k__BackingField: 0
-    <InitBonusCounts>k__BackingField: 0
-    <MobileCameraFov>k__BackingField: 0
-    <DesktopCameraFov>k__BackingField: 0
-    <DefaultCameraSens>k__BackingField: 0
-    <PlayZoomInDesktop>k__BackingField: 0
-    <PlayZoomInMobile>k__BackingField: 0
-    <ZoomSpeed>k__BackingField: 0
-    <VerticalAxisValueToStartPlay>k__BackingField: 0
-    <JoystickSensivityMultiplier>k__BackingField: 0
-    <MouseSensivityMultiplier>k__BackingField: 0
-    <ZoomDiapasone>k__BackingField:
-      <From>k__BackingField: 0
-      <To>k__BackingField: 0
-    <MinSensValue>k__BackingField: 0
-    <NewGameTimer>k__BackingField: 0
-    <DelayAfterGameOverToNewTimer>k__BackingField: 0
-    <TimeToBombExplode>k__BackingField: 0
-    <TimeToInvinsibleAfterPass>k__BackingField: 0
-    <TimeToInvinsibleAfterPassInTutor>k__BackingField: 0
-    <DefaultSpeedInRound>k__BackingField: 0
-    <HunterSpeed>k__BackingField: 0
-    <VelocityBonusSpeed>k__BackingField: 0
-    <JumpBonusHeight>k__BackingField: 0
-    <DoubleJumpBonusHeight>k__BackingField: 0
-    <BonusReload>k__BackingField: 0
-    <BonusDuration>k__BackingField: 0
-    <BotPushForce>k__BackingField: 0
-    <BotUpPushRatio>k__BackingField: 0
-    <PlayerPushForce>k__BackingField: 0
-    <PlayerUpPushRatio>k__BackingField: 0
-    <PushTime>k__BackingField: 0
-    <PushColldown>k__BackingField: 0
-    <ChanceInitBombToPlayer>k__BackingField: 0
-    <ColldownToStartGame>k__BackingField: 0
-    <TimeAfterBombExplode>k__BackingField: 0
-    <TimeToShowDieInfo>k__BackingField: 0
-    <MaxPetsCount>k__BackingField: 0
-    <BotPetCountDiapasone>k__BackingField:
-      <From>k__BackingField: 0
-      <To>k__BackingField: 0
-    <BotSpeed>k__BackingField: 0
-    <CountSpeakingBotsPerTime>k__BackingField:
-      <From>k__BackingField: 0
-      <To>k__BackingField: 0
-    <RotationSpeed>k__BackingField: 0
-    <ChanceToJump>k__BackingField: 0
-    <TimeToStayOnPoint>k__BackingField:
-      <From>k__BackingField: 0
-      <To>k__BackingField: 0
-    <TimeToStayAfterSpawn>k__BackingField:
-      <From>k__BackingField: 0
-      <To>k__BackingField: 0
-    <TimeToSpeak>k__BackingField:
-      <From>k__BackingField: 0
-      <To>k__BackingField: 0
-    <ChanceToBotChangeNicknameAfterPlay>k__BackingField: 0
-    <DistanceToFloor>k__BackingField: 0
-    <DurationToHuntWithoutCheck>k__BackingField: 0
-    <DurationToGoInPoint>k__BackingField: 0
-    <RunStoppingDistance>k__BackingField: 0
-    <BotJumpDuration>k__BackingField: 0
-    <BotFallSpeed>k__BackingField: 0
-    <BotJumpBonusDuration>k__BackingField: 0
-    <BotDefaultJumpHeight>k__BackingField: 0
-    <BotJumpBonusHeight>k__BackingField: 0
-    <ChanceToGoPlayerInHunt>k__BackingField: 0
-    <BotUseNewBonusTime>k__BackingField:
-      <From>k__BackingField: 0
-      <To>k__BackingField: 0
-    <BotChanceToUseBonus>k__BackingField: 0
-  _tutorialManager: {fileID: 0}
-  _gameStarter: {fileID: 0}
-  _battleManager: {fileID: 0}
 --- !u!114 &1843584810 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7706279036298529533, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}

@@ -10,7 +10,7 @@ public class MainGameInstaller : MonoInstaller {
     
     private void BindLogic() {
         Container.Bind<MainGameStarter>().FromComponentInHierarchy().AsSingle().NonLazy();
-        Container.Bind<BattleManager>().FromComponentInHierarchy().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<BattleManager>().FromComponentInHierarchy().AsSingle().NonLazy();
     }
 
 

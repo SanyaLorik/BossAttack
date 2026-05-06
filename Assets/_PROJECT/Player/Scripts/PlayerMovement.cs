@@ -31,12 +31,15 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
     public bool IsGrounded { get; private set; }
     public bool IsRunning { get; private set; }
     public bool PlayerInSpawn { get; private set; } = true;
+    
     public IPusher Pusher { get; }
     public IBonusUser BonusUser => _playerBonusController;
+    public IDamagable Damagable => _damagable;
+    private Damagable _damagable; 
     
     
     public CharacterController Controller => _controller;
-    public bool MoveEnable { get; private set; } = true;
+    private bool MoveEnable { get; set; } = true;
     public event Action<bool> MoveEnabled;
     public event Action PlayerHited;
     public event Action<bool> InitedToPlay;
@@ -52,7 +55,11 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
     private float _verticalVelocity;
     private int _jumpsUsed;
 
-
+    
+    private void Awake() {
+        _damagable = new Damagable(_gameData.PlayerMaxHp);
+    }
+    
 
     private void Update() {
         Walk();

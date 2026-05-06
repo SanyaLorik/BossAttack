@@ -27,6 +27,9 @@ public class BotManager : MonoBehaviour, IPlayer {
     
     
     public IBonusUser BonusUser => BotBonusController;
+    public IDamagable Damagable => _damagable;
+    private Damagable _damagable; 
+    
     public IPusher Pusher { get; private set; }
 
     public bool IsPlaying { get; private set; }
@@ -37,12 +40,14 @@ public class BotManager : MonoBehaviour, IPlayer {
     public string Nickname => BotMonolog.NickName;
     private bool CanUseAgent => _navMeshHelper.CanUseAgent(Agent);
 
-
     [Inject] private GameData _gameData;
     [Inject] private RespawnManager _respawn;
     [Inject] private MapsToBattleChanger _mapsManager;
     [Inject] private NavMeshHelper _navMeshHelper;
 
+    private void Awake() {
+        _damagable = new Damagable(_gameData.PlayerMaxHp);
+    }
 
 
     private void Start() {

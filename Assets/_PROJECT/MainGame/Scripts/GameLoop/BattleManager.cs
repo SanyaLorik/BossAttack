@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using _PROJECT.Scripts.Helpers;
 using Cysharp.Threading.Tasks;
@@ -10,26 +11,29 @@ using ArrayExtension = SanyaBeerExtension.ArrayExtension;
 using Random = UnityEngine.Random;
 
 
-public class BattleManager : MonoBehaviour {
+public class BattleManager : MonoBehaviour, IBattleInfo {
     public bool MainPlayerPlay { get; private set; }
     public bool GameIsOver { get; private set; }
     public bool PlayerReturnToSpawn => _mainPlayer.PlayerInSpawn;
 
     public int CountPlayersToNewBattle => _mapsToBattleChanger.CurrentMapSpawnPoints.Length;
-    private Vector3 _randomBossPoint => ArrayExtension.GetRandomElement(EnemySpawnPoints).position;
+    private Vector3 RandomBossPoint => ArrayExtension.GetRandomElement(EnemySpawnPoints).position;
     
-    public int AllRoundsCount => CountPlayersToNewBattle - 1;
+    public int AllRoundsCount { get; private set; }
 
     public int RoundNumber { get; private set; }
 
     public Transform[] PlayersSpawnPoints => _mapsToBattleChanger.CurrentMapSpawnPoints;
     public Transform[] EnemySpawnPoints => _mapsToBattleChanger.GetCurrentEnemySpawns;
 
+
+    public List<UnitInfo> EnemysDamagable { get; } = new(8);
+    public List<UnitInfo> BuildingsDamagable { get; } = new(8);
+    public List<UnitInfo> PlayersDamagable  { get; } = new(8);
     
-    public IReadOnlyCollection<IPlayer> Players => _players;
-    public IPlayer RandomEnemy => _players.Find(p => p != _mainPlayer);
     
     private readonly List<IPlayer> _players = new(8);
+    
     
     public event Action<string, Vector3> PlayerDied;
     public event Action<int> PlayersCountChanged;
@@ -53,8 +57,8 @@ public class BattleManager : MonoBehaviour {
     [Inject] private GameData _gameData;
     [Inject] private MapsToBattleChanger _mapsToBattleChanger;
     [Inject] private LocalizationData _localization;
-    
-    
+
+
     public void InitForNewGame(bool mainPlayerPlay) {
         GameIsOver = false;
         MainPlayerPlay = mainPlayerPlay;
@@ -108,15 +112,29 @@ public class BattleManager : MonoBehaviour {
     private void GetNewPlayers(bool mainPlayerPlay) {
         int countBots = CountPlayersToNewBattle;
         if (mainPlayerPlay) {
-            _players.Add(_mainPlayer);
+            RegisterPlayer(_mainPlayer);
             countBots--;
         }
         IEnumerable<IPlayer> bots = _botsMainManager.GetBotsToGame(countBots);
-        // Debug.Log("Кол-во доп игроков: " + bots.Count());
-        _players.AddRange(bots);
+        foreach (IPlayer bot in bots) RegisterPlayer(bot);
     }
 
     
+    private void RegisterPlayer(IPlayer player) {
+        _players.Add(player);
+        PlayersDamagable.Add(new UnitInfo {
+            Target = player.Damagable,
+            Transform = player.Transform,
+        });
+    }
+
+    
+    private void UnregisterPlayer(IPlayer player) {
+        _players.Remove(player);
+        PlayersDamagable.Remove(PlayersDamagable.Find(info => info.Target ==  player.Damagable));
+    }
+
+
     private void InitPlayers() {
         foreach (var player in _players) {
             player.SetPlayStatus(true);
@@ -206,7 +224,7 @@ public class BattleManager : MonoBehaviour {
 
     private void RemovePlayer(IPlayer player) {
         player.SetPlayStatus(false);
-        _players.Remove(player);
+        UnregisterPlayer(player);
         PlayersCountChanged?.Invoke(PlayersCount);
         Debug.Log("Игроков: " + PlayersCount);
     }
@@ -221,7 +239,7 @@ public class BattleManager : MonoBehaviour {
         for (int i = 0; i < points.Length; i++) {
             int index = (i + randomStartIndex) % points.Length;
             players[i].TeleportToPoint(points[index].position);
-            players[i].RotateToTarget(_randomBossPoint);
+            players[i].RotateToTarget(RandomBossPoint);
         }
     }
     
@@ -230,7 +248,7 @@ public class BattleManager : MonoBehaviour {
     }
 
     private void RotatePlayersToBoss() {
-        _players.ForEach(p => p.RotateToTarget(_randomBossPoint));
+        _players.ForEach(p => p.RotateToTarget(RandomBossPoint));
     }
     
     

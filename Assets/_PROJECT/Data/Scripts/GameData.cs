@@ -34,15 +34,6 @@ public class GameData : GameDataBase
     [field: SerializeField] public float MinSensValue  { get; private set; }
     
     
-
-    [field: Header("Главная Игра")]
-    [field: SerializeField] public float NewGameTimer { get; private set; }
-    [field: SerializeField] public float DelayAfterGameOverToNewTimer { get; private set; }
-    [field: SerializeField] public float DefaultSpeedInRound { get; private set; }
-    [field: SerializeField] public float ColldownToStartRound { get; private set; }
-    [field: SerializeField] public float TimeToShowDieInfo { get; private set; }
-    [field: SerializeField] public float TimeAfterEndRound { get; private set; }
-    
     
     [field: Header("Бонусы")]
     [field: SerializeField] public float VelocityBonusSpeed { get; private set; }
@@ -95,6 +86,16 @@ public class GameData : GameDataBase
     [field: SerializeField] public float TimeDividerToUnbild { get; private set; }
     [field: SerializeField] public float DistanceToFindNavMeshToBuild { get; private set; }
     
+        
+
+    [field: Header("Главная Игра")]
+    [field: SerializeField] public float NewGameTimer { get; private set; }
+    [field: SerializeField] public float DelayAfterGameOverToNewTimer { get; private set; }
+    [field: SerializeField] public float DefaultSpeedInRound { get; private set; }
+    [field: SerializeField] public float ColldownToStartRound { get; private set; }
+    [field: SerializeField] public float TimeToShowDieInfo { get; private set; }
+    [field: SerializeField] public float TimeAfterEndRound { get; private set; }
+    [field: SerializeField] public int PlayerMaxHp { get; private set; }
     
     
 }
