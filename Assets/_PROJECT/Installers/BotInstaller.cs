@@ -10,6 +10,7 @@ public class BotInstaller: MonoInstaller {
     private void BindBotStateManager() {
         
         Container.BindInterfacesAndSelfTo<BotsMainManager>().AsSingle().NonLazy();
+        
         Container.Bind<BotManager>()
             .FromComponentsInHierarchy()
             .AsTransient();

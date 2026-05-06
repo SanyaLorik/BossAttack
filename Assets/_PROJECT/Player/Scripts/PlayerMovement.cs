@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
 
     
     private void Awake() {
-        _damagable = new Damagable(_gameData.PlayerMaxHp);
+        _damagable = new Damagable(_gameData.PlayerMaxHp, transform);
     }
     
 

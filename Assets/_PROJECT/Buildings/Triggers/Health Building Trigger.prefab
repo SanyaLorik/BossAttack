@@ -178,6 +178,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1520153112886831354}
+  - component: {fileID: 7372823353895176044}
   m_Layer: 0
   m_Name: Building
   m_TagString: Untagged
@@ -201,6 +202,39 @@ Transform:
   - {fileID: 6790422580811010722}
   m_Father: {fileID: 5060845134860457226}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7372823353895176044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3008346971703728508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 543f53ac372646c7b950add62c4bb7a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildItem
+  _interval: 1
+  _origin: {fileID: 1520153112886831354}
+  _effect:
+    rid: 7634349180084289606
+  _targetProvider:
+    rid: 7634349180084289607
+  references:
+    version: 2
+    RefIds:
+    - rid: 7634349180084289606
+      type: {class: HealEffect, ns: , asm: Assembly-CSharp}
+      data:
+        _heal: 5
+    - rid: 7634349180084289607
+      type: {class: GetRadiusTargets, ns: , asm: Assembly-CSharp}
+      data:
+        TargetType: 1
+        _radius: 15
+        _layer:
+          serializedVersion: 2
+          m_Bits: 64
 --- !u!1 &3712241551387086853
 GameObject:
   m_ObjectHideFlags: 0
@@ -380,7 +414,7 @@ MonoBehaviour:
   _timeToBuild: 5
   _progressImage: {fileID: 147621517188980412}
   _buildVisual: {fileID: 2597922938563648491}
-  _building: {fileID: 3008346971703728508}
+  _building: {fileID: 7372823353895176044}
 --- !u!1 &4383300975249325238
 GameObject:
   m_ObjectHideFlags: 0

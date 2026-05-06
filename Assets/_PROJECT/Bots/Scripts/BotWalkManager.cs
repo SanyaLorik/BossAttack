@@ -28,7 +28,6 @@ public class BotWalkManager : MonoBehaviour {
     
     [Inject] private GameData _gameData;
     [Inject] private NavMeshHelper _navMeshHelper;
-    [Inject] private BotsMainManager _mainManager;
     [Inject] private MapsToBattleChanger _mapsChanger;
     [Inject] private BotManager _manager;
     

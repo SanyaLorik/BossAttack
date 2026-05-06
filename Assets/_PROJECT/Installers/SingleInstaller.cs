@@ -8,6 +8,7 @@ public class SingleInstaller : MonoInstaller {
         Container.Bind<AdvHelper>().FromComponentInHierarchy().AsSingle().NonLazy();
         Container.Bind<FallVoidCollider>().FromComponentInHierarchy().AsSingle().NonLazy();
         Container.Bind<RespawnManager>().FromComponentInHierarchy().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<ObjectPoolManager>().AsSingle().NonLazy();
         BindCamera();
         BindSettings();
         BindValuteFormatter();

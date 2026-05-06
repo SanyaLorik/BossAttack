@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using SanyaBeerExtension;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using UnityEngine;
 using IInitializable = Zenject.IInitializable;
@@ -33,8 +34,8 @@ public class BotsMainManager : IInitializable, IDisposable {
         
     }
 
-    public List<BotManager> GetBotsToGame(int count) {
-        return _bots.GetRange(0, count);
+    public List<BotManager> GetPlayBotsToGame(int count) {
+        return _bots.GetRange(0, count).Where(b => b.IsBoss == false).ToList();
     }
     
     

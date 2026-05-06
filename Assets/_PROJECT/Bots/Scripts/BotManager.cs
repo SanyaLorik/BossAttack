@@ -7,6 +7,8 @@ using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class BotManager : MonoBehaviour, IPlayer {
+    [field: SerializeField] public bool IsBoss { get; private set; }
+    
     [field: SerializeField] public bool ShowInSpawn { get; private set; }
     [field: SerializeField] public Transform Transform { get; private set; }
     [field: SerializeField] public BotWalkManager BotWalkManager { get; private set; }
@@ -46,7 +48,7 @@ public class BotManager : MonoBehaviour, IPlayer {
     [Inject] private NavMeshHelper _navMeshHelper;
 
     private void Awake() {
-        _damagable = new Damagable(_gameData.PlayerMaxHp);
+        _damagable = new Damagable(_gameData.PlayerMaxHp, Transform);
     }
 
 
@@ -70,7 +72,7 @@ public class BotManager : MonoBehaviour, IPlayer {
     
     
     private void SetStartWanderIfActive(bool startWander) {
-        if (ShowInSpawn == false) return;
+        if (ShowInSpawn == false || IsBoss) return;
         
         if(startWander) BotWalkManager.StartWanderSpawn();
         else BotWalkManager.StopWanderSpawn();

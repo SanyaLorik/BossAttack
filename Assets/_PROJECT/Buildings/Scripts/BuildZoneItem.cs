@@ -16,7 +16,7 @@ public class BuildZoneItem : MonoBehaviour {
     [SerializeField] private float _timeToBuild;
     [SerializeField] private Image _progressImage;
     [SerializeField] private GameObject _buildVisual;
-    [SerializeField] private GameObject _building;
+    [SerializeField] private AbilitySystem _building;
 
 
     private bool _isBuilded;

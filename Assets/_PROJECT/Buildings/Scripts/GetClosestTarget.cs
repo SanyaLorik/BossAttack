@@ -10,7 +10,8 @@ public enum TargetType {
 }
 
 
-public class GetClosestTarget : ITargetProvider {
+[Serializable]
+public class GetClosestTarget : ITargetProvider, IGizmosDrawable {
     [SerializeField] private TargetType TargetType;
     [SerializeField] private float _distance;
     [SerializeField] private LayerMask _layer;
@@ -53,7 +54,8 @@ public class GetClosestTarget : ITargetProvider {
                 closestUnit = target.Target;
             }
         }
-        yield return closestUnit;
+        if (closestUnit != null)
+            yield return closestUnit;
     }
 
     
@@ -64,5 +66,10 @@ public class GetClosestTarget : ITargetProvider {
             }
         }
         return false;
+    }
+
+    public void DrawGizmos(Vector3 origin) {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(origin, _distance);
     }
 }

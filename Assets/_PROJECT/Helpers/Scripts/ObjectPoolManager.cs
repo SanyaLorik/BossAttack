@@ -1,37 +1,30 @@
-using System;
 using System.Collections.Generic;
 using SanyaBeerExtension;
 using UnityEngine;
 using UnityEngine.Pool;
+using Zenject;
+using Object = UnityEngine.Object;
 
 public enum PoolType {
-    MoneyNearCube,
-    RolledMoney,
-    Boost, 
-    Trap,
-    LocationObject,
-    Props
+    Bullets,
 }
 
-public class ObjectPoolManager : MonoBehaviour {
+
+public class ObjectPoolManager : IInitializable {
     
     private GameObject _emptyHolder;
-    private GameObject _moneyParent;
-    private GameObject _boostParent;
-    private GameObject _trapsParent;
-    private GameObject _locationObject;
+    private GameObject _bulletParent;
 
     
     private Dictionary<GameObject, ObjectPool<GameObject>> _objectPoolsDict;
     private Dictionary<GameObject, GameObject> _cloneToPrefabMap;
 
-    
-    
-    private void Awake() {
+    public void Initialize() {
         _objectPoolsDict = new();
         _cloneToPrefabMap = new();
         SetupEmpties();
     }
+
 
     
     public T Spawn<T>(GameObject prefab, Vector3 pos, PoolType poolType) where T : Component {
@@ -69,39 +62,22 @@ public class ObjectPoolManager : MonoBehaviour {
     
     private Transform GetParent(PoolType poolType) {
         switch (poolType) {
-            case PoolType.MoneyNearCube:
-                return _moneyParent.transform;
-            case PoolType.RolledMoney:
-                return _moneyParent.transform;
-            case PoolType.Boost :
-                return _boostParent.transform;
-            case PoolType.LocationObject :
-                return _locationObject.transform;
-            case PoolType.Props:
-                return _locationObject.transform;
+            case PoolType.Bullets:
+                return _bulletParent.transform;
             default:
-                return _trapsParent.transform;;
+                return _bulletParent.transform;;
         }
     }
     
     
     private void SetupEmpties() {
         _emptyHolder = new GameObject("Object Pool");
-
-        _moneyParent = new GameObject("Money Near Cube Pool");
-        _moneyParent.transform.SetParent(_emptyHolder.transform);
         
-        
-        _boostParent = new GameObject("Boost pool");
-        _boostParent.transform.SetParent(_emptyHolder.transform);
-        
-        _trapsParent = new GameObject("Traps Pool");
-        _trapsParent.transform.SetParent(_emptyHolder.transform);
-        
-        _locationObject = new GameObject("Location Objects");
-        _locationObject.transform.SetParent(_emptyHolder.transform);
+        _bulletParent = new GameObject("BulletParent Pool");
+        _bulletParent.transform.SetParent(_emptyHolder.transform);
     }
 
+    
     private void CreatePool(GameObject prefab) {
         ObjectPool<GameObject> newPool = new ObjectPool<GameObject>(
             createFunc:() => CreateObject(prefab),
@@ -114,7 +90,7 @@ public class ObjectPoolManager : MonoBehaviour {
     
     private GameObject CreateObject(GameObject prefab) {
         prefab.DisactiveSelf();
-        GameObject obj = Instantiate(prefab, Vector3.zero, Quaternion.identity);
+        GameObject obj = Object.Instantiate(prefab, Vector3.zero, Quaternion.identity);
         prefab.ActiveSelf();
         return obj;
     }
@@ -133,8 +109,5 @@ public class ObjectPoolManager : MonoBehaviour {
     }
 
 
-    
-   
-    
-    
+
 }

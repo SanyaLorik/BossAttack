@@ -1,35 +1,49 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
+using _PROJECT.Scripts.Helpers;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
+using Random = UnityEngine.Random;
+
 
 public class HuntingBehaviour : MonoBehaviour {
-    [SerializeField] private BotWalkManager _botWalkManager;
-    private List<IPlayer> _otherPlayers = new();
+    private List<UnitInfo> _units = new();
+
+    private CancellationTokenSource _tokenSource;
     
-    
-    
-    private IPlayer _targetToHunt;
+    private UnitInfo _targetToHunt;
     
     [Inject] IPlayer _mainPlayer;
     [Inject] GameData _gameData;
+    [Inject] BotManager _manager;
     [Inject] BattleManager _battleManager;
+
+    private BotWalkManager WalkManager => _manager.BotWalkManager;
     
+    public void StartHunting() {
+        UniTaskHelper.DisposeTask(ref _tokenSource);
+        _tokenSource = new CancellationTokenSource();
+        StartHuntingAsync(_tokenSource.Token).Forget();
+    }
+
+    public void StopHunting() {
+        UniTaskHelper.DisposeTask(ref _tokenSource);
+    }
     
-    private async UniTask StartHunting(CancellationToken token) {
+
+    private async UniTask StartHuntingAsync(CancellationToken token) {
+        await UniTask.WaitWhile(() => _battleManager.PlayersDamagable.Count == 0, cancellationToken: token);
         GetNextPlayerVictim();
         // Запускаем таймер каждый раз в фоне просто чекать ближайшего
         GetNextVictimByTimerAsync(token).Forget();
         while (!token.IsCancellationRequested) {
             // За типом бегаем постоянно выбранным
-            _botWalkManager.SetAgentGoToPoint(GetNavMeshPosition(_targetToHunt.Transform.position));
+            WalkManager.SetAgentGoToPoint(GetNavMeshPosition(_targetToHunt.Transform.position));
             
             await UniTask.WaitForSeconds(_gameData.DurationToGoInPoint ,cancellationToken: token);
-            if (_targetToHunt.BonusUser.IsInvincibleAfterBonus) {
-                GetNextPlayerVictim();
-            }
+            GetNextPlayerVictim();
         }
     }
 
@@ -41,24 +55,23 @@ public class HuntingBehaviour : MonoBehaviour {
     }
     
     
-    
     private void GetNextPlayerVictim() {
         
         // Выбор жертвой ГГ
         if (Random.value < _gameData.ChanceToGoPlayerInHunt 
             && _battleManager.MainPlayerPlay 
             && !_mainPlayer.BonusUser.IsInvincibleAfterBonus
-           ) {
-            _targetToHunt = _mainPlayer;
+        ) {
+            _targetToHunt = _battleManager.MainPlayerDamagable;
             return;
         }
         
         // Жертва не обязательно ГГ
-        IPlayer closest = _otherPlayers[0];
+        _units = _battleManager.PlayersDamagable;
+        UnitInfo closest = _units[0];
         float minSqrDistance = float.MaxValue;
     
-        foreach (var victim in _otherPlayers) {
-            if(victim.BonusUser.IsInvincibleAfterBonus) continue;
+        foreach (var victim in _units) {
             Vector3 offset = victim.Transform.position - transform.position;
             float sqrDist = offset.sqrMagnitude; // БЕЗ КОРНЯ!
         

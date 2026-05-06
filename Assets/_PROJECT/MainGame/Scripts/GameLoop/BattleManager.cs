@@ -30,6 +30,7 @@ public class BattleManager : MonoBehaviour, IBattleInfo {
     public List<UnitInfo> EnemysDamagable { get; } = new(8);
     public List<UnitInfo> BuildingsDamagable { get; } = new(8);
     public List<UnitInfo> PlayersDamagable  { get; } = new(8);
+    public UnitInfo MainPlayerDamagable;
     
     
     private readonly List<IPlayer> _players = new(8);
@@ -58,6 +59,10 @@ public class BattleManager : MonoBehaviour, IBattleInfo {
     [Inject] private MapsToBattleChanger _mapsToBattleChanger;
     [Inject] private LocalizationData _localization;
 
+    private void Start() {
+        RegisterPlayer(_mainPlayer);
+        MainPlayerDamagable = PlayersDamagable[0];
+    }
 
     public void InitForNewGame(bool mainPlayerPlay) {
         GameIsOver = false;
@@ -115,7 +120,7 @@ public class BattleManager : MonoBehaviour, IBattleInfo {
             RegisterPlayer(_mainPlayer);
             countBots--;
         }
-        IEnumerable<IPlayer> bots = _botsMainManager.GetBotsToGame(countBots);
+        IEnumerable<IPlayer> bots = _botsMainManager.GetPlayBotsToGame(countBots);
         foreach (IPlayer bot in bots) RegisterPlayer(bot);
     }
 

@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
+using System;
 
 
-
-public class GetRadiusTargets : ITargetProvider {
+[Serializable]
+public class GetRadiusTargets : ITargetProvider, IGizmosDrawable {
     [SerializeField] private TargetType TargetType;
     [SerializeField] private float _radius;
     [SerializeField] private LayerMask _layer;
@@ -30,5 +31,10 @@ public class GetRadiusTargets : ITargetProvider {
                 yield return target.Target;
             }
         }
+    }
+
+    public void DrawGizmos(Vector3 origin) {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(origin, _radius);
     }
 }
