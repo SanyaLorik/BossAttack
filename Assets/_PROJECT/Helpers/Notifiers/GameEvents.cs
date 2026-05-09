@@ -6,6 +6,7 @@ public static class GameEvents {
     public static event Action TriggerUsed;
     public static event Action ShakeCamera;
     public static event Action NewItemReceived;
+    public static event Action PlayerPushed;
 
     public static void BonusReloadedInvoke() {
         BonusReloaded?.Invoke();
@@ -25,6 +26,10 @@ public static class GameEvents {
     
     public static void NewItemReceiveInvoke() {
         NewItemReceived?.Invoke();
+    }
+    
+    public static void PlayerPushInvoke() {
+        PlayerPushed?.Invoke();
     }
 
 

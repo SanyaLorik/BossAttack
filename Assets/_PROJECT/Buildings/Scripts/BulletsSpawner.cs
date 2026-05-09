@@ -17,8 +17,7 @@ public class BulletsSpawner : ITickBehaviour {
     }
 
 
-
-    public void OnTick(Vector3 origin, IDamagable damagable) {
+    public void OnTick(Vector3 origin, IPlayer damagable) {
         ShootInTarget(damagable.Transform.position);
     }
 
@@ -44,8 +43,4 @@ public class BulletsSpawner : ITickBehaviour {
         }
         _poolManager.ReturnObjectToPool(bulletInstance.gameObject, PoolType.Bullets);
     }
-
-
-    
-    
 }

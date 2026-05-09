@@ -30,7 +30,7 @@ public class GetClosestTarget : ITargetProvider, IGizmosDrawable {
 
 
     
-    public IEnumerable<IDamagable> GetTargets(Vector3 origin) {
+    public IEnumerable<IPlayer> GetTargets(Vector3 origin) {
         IPlayer closestUnit = null;
         float bestSqr = float.MaxValue;
         float sqrRange = _distance * _distance;
@@ -56,7 +56,7 @@ public class GetClosestTarget : ITargetProvider, IGizmosDrawable {
             }
         }
         if (closestUnit != null)
-            yield return closestUnit.Damagable;
+            yield return closestUnit;
     }
 
     

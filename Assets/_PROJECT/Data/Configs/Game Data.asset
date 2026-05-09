@@ -45,8 +45,8 @@ MonoBehaviour:
     <BonusDuration>k__BackingField: 9
     <BotPushForce>k__BackingField: 25
     <BotUpPushRatio>k__BackingField: 3
-    <PlayerPushForce>k__BackingField: 20
-    <PlayerUpPushRatio>k__BackingField: 14
+    <PlayerPushForce>k__BackingField: 100
+    <PlayerUpPushRatio>k__BackingField: 30
     <PushTime>k__BackingField: 1
     <PushColldown>k__BackingField: 1
     <MaxPetsCount>k__BackingField: 6

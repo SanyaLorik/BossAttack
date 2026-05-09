@@ -11,6 +11,7 @@ public class BuildZoneItem : MonoBehaviour {
     [SerializeField] private float _timeToBuild;
     [SerializeField] private Image _progressImage;
     [SerializeField] private GameObject _buildVisual;
+    [SerializeField] private GameObject _afterBuildVisual;
     [SerializeField] private AbilitySystem _building;
 
 
@@ -29,6 +30,7 @@ public class BuildZoneItem : MonoBehaviour {
     
     public void SetDefault() {
         _buildVisual.ActiveSelf();
+        _afterBuildVisual.DisactiveSelf();
         _progressImage.fillAmount = 0;
         _building.DisactiveSelf();
     }
@@ -84,6 +86,7 @@ public class BuildZoneItem : MonoBehaviour {
 
     private void EndBuild() {
         _building.ActiveSelf();
+        _afterBuildVisual.ActiveSelf();
         _buildVisual.DisactiveSelf();
     }
     

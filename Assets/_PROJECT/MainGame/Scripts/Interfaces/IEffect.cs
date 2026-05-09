@@ -1,5 +1,5 @@
 ﻿using System;
 
 public interface IEffect {
-    public void ApplyEffect(IDamagable damagable);
+    public void ApplyEffect(IPlayer player);
 }

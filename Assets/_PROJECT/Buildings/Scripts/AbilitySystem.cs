@@ -3,9 +3,9 @@ using UnityEngine;
 using Zenject;
 
 public class AbilitySystem : TickerBehaviour {
+    [SerializeReference, SubclassSelector] private ITargetProvider _targetProvider;
     [SerializeReference, SubclassSelector] private List<ITargetFilter> _targetFilters;
     [SerializeReference, SubclassSelector] private IEffect _effect;
-    [SerializeReference, SubclassSelector] private ITargetProvider _targetProvider;
     [SerializeReference, SubclassSelector] private List<ITickBehaviour> _tickBehaviour;
     
     
@@ -29,7 +29,7 @@ public class AbilitySystem : TickerBehaviour {
     }
 
     protected override void Tick() {
-        foreach (IDamagable target in _targetProvider.GetTargets(_origin.position)) {
+        foreach (IPlayer target in _targetProvider.GetTargets(_origin.position)) {
             if(target == null) continue;
 
             

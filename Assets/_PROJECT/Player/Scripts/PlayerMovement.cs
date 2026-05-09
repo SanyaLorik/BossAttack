@@ -1,8 +1,8 @@
 using System;
-using System.Collections;
 using Architecture_M;
 using UnityEngine;
 using Zenject;
+
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour, IPlayer {
@@ -33,8 +33,9 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
     public bool IsGrounded { get; private set; }
     public bool IsRunning { get; private set; }
     public bool PlayerInSpawn { get; private set; } = true;
-    
-    public IPusher Pusher { get; }
+
+    public IPusher Pusher => _pusher;
+    public PlayerPush _pusher;
     public IBonusUser BonusUser => _playerBonusController;
     public IDamagable Damagable => _damagable;
     private Damagable _damagable; 
@@ -61,6 +62,7 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
     private void Awake() {
         _damagable = new Damagable(_gameData.PlayerMaxHp, transform);
         _damagableVisual.SetDamagable(_damagable);
+        _pusher = new PlayerPush(_gameData, _controller);
     }
     
 
@@ -158,45 +160,14 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
     public bool IsPlaying { get;  private set; }
     public event Action<BonusStatus, bool> BonusStatusChanged;
 
-    public void PushAway(Vector3 direction) {
-        PlayerHited?.Invoke();
-        StartCoroutine(PushWithController(_controller, direction.normalized));
-            
-    }
+    
+    
 
     public void HideVisualModel(bool state) {
         _playerVisual.SetActive(!state);
     }
 
-    private IEnumerator PushWithController(CharacterController controller, Vector3 direction) {
-        float elapsed = 0f;
-
-        Vector3 horizontal = direction.normalized * _gameData.PlayerPushForce;
-        float verticalVelocity = _gameData.PlayerUpPushRatio;
-
-        Vector3 velocity = horizontal;
-
-        while (elapsed < _gameData.PushTime)
-        {
-            elapsed += Time.deltaTime;
-
-            // гравитация
-            verticalVelocity += Physics.gravity.y * Time.deltaTime;
-
-            Vector3 move = new Vector3(
-                velocity.x,
-                verticalVelocity,
-                velocity.z
-            );
-
-            controller.Move(move * Time.deltaTime);
-
-            // затухание только по XZ
-            velocity *= 0.97f;
-
-            yield return null;
-        }
-    }
+    
 
 
     public void SetMovingStatus(bool enable) {
@@ -211,10 +182,6 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
         MoveEnabled?.Invoke(MoveEnable);
     }
 
-
-
-   
-    
     
     public void TeleportInSpawn() {
         TeleportToPoint(_spawnPoint.position);

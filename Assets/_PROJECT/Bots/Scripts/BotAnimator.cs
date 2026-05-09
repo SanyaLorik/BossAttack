@@ -7,12 +7,15 @@ public class BotAnimator : MonoBehaviour {
     private static readonly int Jump = Animator.StringToHash("jump");
     private static readonly int DoubleJump = Animator.StringToHash("doubleJump");
     private static readonly int Run = Animator.StringToHash("isRunning");
+    private static readonly int Melee = Animator.StringToHash("melee");
     [SerializeField] private Animator _animator;
     [SerializeField] private SkinShadow _skinController;
     [SerializeField] private BotManager _botManager;
 
     private CancellationTokenSource _tokenSource;
 
+
+    
     
     public void OnEnable() {
         _botManager.BotJumpController.OnJump += OnJump;
@@ -28,6 +31,10 @@ public class BotAnimator : MonoBehaviour {
         _botManager.BotJumpController.Grounded -= BotGrounded;
     }
 
+    public void PlayMeleeAnimation() {
+        Debug.Log("PlayMeleeAnimation");
+        _animator.SetTrigger(DoubleJump);
+    }
     
     private void BotGrounded(bool grounded) {
         if(_skinController == null) return;

@@ -2,31 +2,17 @@
 using Zenject;
 using Random = UnityEngine.Random;
 
-public class PushSystem : MonoBehaviour {
-    [SerializeField] private BotManager _botManager;
+public class ColliderPush : MonoBehaviour {
     [SerializeField] private Collider _collider;
     public IPusher LastPlayerContact { get; private set; }
     
     private float _lastRepulseTime = -999f;
   
     [Inject] GameData _gameData;
-    [Inject] PlayerMovement _mainPlayer;
-    
-    public IPlayer Player { get; private set; }
-
+    [Inject] private IPlayer Player;
     
     private void Awake() {
         _collider.enabled = false;
-        InitPlayer();
-    }
-
-    private void InitPlayer() {
-        if (_botManager != null) {
-            Player = _botManager;
-        }
-        else {
-            Player = _mainPlayer;
-        }
     }
     
     

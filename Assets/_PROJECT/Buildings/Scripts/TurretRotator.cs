@@ -12,8 +12,8 @@ public class TurretRotator : ITickBehaviour {
     private CancellationTokenSource _tokenSource;
     
     
-    public void OnTick(Vector3 origin, IDamagable damagable) {
-        _target = damagable.Transform;
+    public void OnTick(Vector3 origin, IPlayer player) {
+        _target = player.Transform;
         if (_tokenSource == null) {
             _tokenSource = new CancellationTokenSource();
             RotateCycleAsync(_tokenSource.Token).Forget();

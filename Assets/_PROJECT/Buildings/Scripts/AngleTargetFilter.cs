@@ -5,7 +5,7 @@ using UnityEngine;
 public class AngleTargetFilter : ITargetFilter {
     [SerializeField] private float _viewAngle;
     
-    public bool CanApply(Transform origin, IDamagable target) {
+    public bool CanApply(Transform origin, IPlayer target) {
         return EnemyVisible(origin, target.Transform);
     }
     

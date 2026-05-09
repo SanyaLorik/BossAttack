@@ -6,7 +6,7 @@ public class DamageEffect : IEffect {
     [SerializeField] private int _damage;
 
     
-    public void ApplyEffect(IDamagable damagable) {
-        damagable.ApplyDamage(_damage);
+    public void ApplyEffect(IPlayer player) {
+        player.Damagable.ApplyDamage(_damage);
     }
 }
