@@ -23,7 +23,6 @@ public class Damagable : IDamagable {
         CurrentHp -= damage;
         CurrentHp = Mathf.Clamp(CurrentHp, 0, MaxHp);
         HpUpdated?.Invoke(CurrentHp);
-        Debug.Log($"Снято хп  + {damage}, осталось {CurrentHp}");
         CheckDied();
     }
     
@@ -32,7 +31,6 @@ public class Damagable : IDamagable {
         if (hp < 0) hp *= -1;
         CurrentHp += hp;
         CurrentHp = Mathf.Clamp(CurrentHp, 0, MaxHp);
-        Debug.Log($"Добавлено хп  + {hp}, осталось {CurrentHp}");
         HpUpdated?.Invoke(CurrentHp);
     }
     

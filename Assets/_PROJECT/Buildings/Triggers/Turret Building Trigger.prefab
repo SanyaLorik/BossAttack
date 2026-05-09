@@ -287,7 +287,7 @@ MonoBehaviour:
     - rid: 7634349187638493253
       type: {class: BulletsSpawner, ns: , asm: Assembly-CSharp}
       data:
-        _bulletSpeed: 100
+        _bulletSpeed: 60
         _spawnPoint: {fileID: 2936903512998288965}
         _bulletInstance: {fileID: 6140275864888064104, guid: bc77ae790f4f6b04a893d598d1b73f04, type: 3}
 --- !u!1 &6734507462919360116

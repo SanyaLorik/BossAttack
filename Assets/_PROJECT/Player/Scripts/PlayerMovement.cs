@@ -69,6 +69,25 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
     }
     
     
+    private void RotateToCamera() {
+        Transform cam = Camera.main.transform;
+
+        Vector3 forward = cam.forward;
+        forward.y = 0f;
+
+        if (forward.sqrMagnitude < 0.001f)
+            return;
+
+        Quaternion targetRot = Quaternion.LookRotation(forward);
+
+        transform.rotation = Quaternion.Lerp(
+            transform.rotation,
+            targetRot,
+            _gameData.RotateSpeed * Time.deltaTime
+        );
+    }
+    
+    
     private void OnEnable() {
         _inputJumping.OnJumped += OnJump;
     }
@@ -285,8 +304,12 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
 
         _wasGroundedLastFrame = IsGrounded;
 
+        
         if (hasInput) {
             WalkRotate(move);
+        }
+        else {
+            RotateToCamera();
         }
     }
     
