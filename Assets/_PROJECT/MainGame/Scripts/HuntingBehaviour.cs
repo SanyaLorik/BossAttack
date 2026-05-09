@@ -9,16 +9,17 @@ using Random = UnityEngine.Random;
 
 
 public class HuntingBehaviour : MonoBehaviour {
-    private List<UnitInfo> _units = new();
+    private List<IPlayer> _units = new();
 
     private CancellationTokenSource _tokenSource;
     
-    private UnitInfo _targetToHunt;
+    private IPlayer _targetToHunt;
     
     [Inject] IPlayer _mainPlayer;
     [Inject] GameData _gameData;
     [Inject] BotManager _manager;
-    [Inject] BattleManager _battleManager;
+    [Inject] IBattleInfo _battleInfo;
+
 
     private BotWalkManager WalkManager => _manager.BotWalkManager;
     
@@ -34,7 +35,7 @@ public class HuntingBehaviour : MonoBehaviour {
     
 
     private async UniTask StartHuntingAsync(CancellationToken token) {
-        await UniTask.WaitWhile(() => _battleManager.PlayersDamagable.Count == 0, cancellationToken: token);
+        await UniTask.WaitWhile(() => _battleInfo.Players.Count == 0, cancellationToken: token);
         GetNextPlayerVictim();
         // Запускаем таймер каждый раз в фоне просто чекать ближайшего
         GetNextVictimByTimerAsync(token).Forget();
@@ -59,16 +60,16 @@ public class HuntingBehaviour : MonoBehaviour {
         
         // Выбор жертвой ГГ
         if (Random.value < _gameData.ChanceToGoPlayerInHunt 
-            && _battleManager.MainPlayerPlay 
+            && _battleInfo.MainPlayerPlay 
             && !_mainPlayer.BonusUser.IsInvincibleAfterBonus
         ) {
-            _targetToHunt = _battleManager.MainPlayerDamagable;
+            _targetToHunt = _battleInfo.MainPlayer;
             return;
         }
         
         // Жертва не обязательно ГГ
-        _units = _battleManager.PlayersDamagable;
-        UnitInfo closest = _units[0];
+        _units = _battleInfo.Players;
+        IPlayer closest = _units[0];
         float minSqrDistance = float.MaxValue;
     
         foreach (var victim in _units) {

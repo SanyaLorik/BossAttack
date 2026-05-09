@@ -5,14 +5,9 @@ using UnityEngine.UI;
 using Zenject;
 
 [Serializable]
-public enum BuildType {
-    Heal,
-    Turret,
-    Mine
-}
+
 
 public class BuildZoneItem : MonoBehaviour {
-    [SerializeField] private BuildType _buildType;
     [SerializeField] private float _timeToBuild;
     [SerializeField] private Image _progressImage;
     [SerializeField] private GameObject _buildVisual;

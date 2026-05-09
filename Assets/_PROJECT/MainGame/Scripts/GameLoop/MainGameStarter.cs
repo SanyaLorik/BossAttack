@@ -16,6 +16,7 @@ public class MainGameStarter : MonoBehaviour  {
     [SerializeField] private Button _goPlayButton;
 
     [Inject] private BattleManager _battleManager;
+    [Inject] private PlayerRegister _playerRegister;
     [Inject] private LocalizationData _localization;
     [Inject] private AdvHelper _advHelper;
     [Inject] private TutorialManager _tutorialManager;
@@ -51,7 +52,7 @@ public class MainGameStarter : MonoBehaviour  {
         Debug.Log("SetGameOver, _startGamePressed = " + _startGamePressed);
         GameStarted?.Invoke(false);
         GameIsStarted = false;
-        if (_battleManager.MainPlayerPlay) {
+        if (_playerRegister.MainPlayerPlay) {
             _advHelper.ShowAdvAfterBattle();
         }
         

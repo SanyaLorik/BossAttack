@@ -8,9 +8,9 @@ public class BattleRewarder : MonoBehaviour {
     [SerializeField] private float _curveMultiplier;
     
     
-    [Inject] private BattleManager _battleManager;
     [Inject] private PlayerBank _bank;
-
+    [Inject] PlayerRegister _playerRegister;
+    [Inject] BattleManager _battleManager;
 
     private void OnEnable() {
         _battleManager.NewRoundStarted += OnNewRoundStarted;
@@ -18,7 +18,7 @@ public class BattleRewarder : MonoBehaviour {
 
     private void OnNewRoundStarted(int number) {
         Debug.Log("OnNewRoundStarted");
-        if(!_battleManager.MainPlayerPlay || number == 1) return;
+        if(!_playerRegister.MainPlayerPlay || number == 1) return;
         float roundProgress = (float) number / _battleManager.AllRoundsCount;
         float roundReward = _baseReward * number + _rewardCurve.Evaluate(roundProgress) * _curveMultiplier;
         Debug.Log("roundReward = " + roundReward);

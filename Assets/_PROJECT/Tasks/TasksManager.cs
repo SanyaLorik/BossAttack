@@ -74,6 +74,7 @@ public class TasksManager : MonoBehaviour {
     [Inject] private NumberFormatter _formatter; 
     [Inject] private LocalizationData _localization; 
     [Inject] private BattleManager _battleManager; 
+    [Inject] private PlayerRegister _playerRegister;
     [Inject] private MainGameStarter _mainGameStarter; 
     [Inject] private GameOver _gameOver; 
     [Inject] private IGameSave _gameSave; 
@@ -139,7 +140,7 @@ public class TasksManager : MonoBehaviour {
 
     
     private void OnNewRoundStarted(int roundNumber) {
-        if(roundNumber == 1 || !_battleManager.MainPlayerPlay) return;
+        if(roundNumber == 1 || !_playerRegister.MainPlayerPlay) return;
         _lifeRound++;
         UpdateTaskProgress(TaskType.LifeRound);
     }

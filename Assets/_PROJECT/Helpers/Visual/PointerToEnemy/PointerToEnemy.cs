@@ -17,6 +17,7 @@ public class PointerToEnemy : MonoBehaviour  {
     
     
     [Inject] PlayerMovement _playerMovement;
+    [Inject] PlayerRegister _playerRegister;
     [Inject] BattleManager _battleManager;
     [Inject] MainGameStarter _mainGameStarter;
     // [Inject] Bomb _bomb;
@@ -35,7 +36,7 @@ public class PointerToEnemy : MonoBehaviour  {
 
     
     private void DisposeTask() {
-        if(!_battleManager.MainPlayerPlay) return; 
+        if(!_playerRegister.MainPlayerPlay) return; 
         
         UniTaskHelper.DisposeTask(ref _tokenSource);
         // Debug.Log("MonitorMovementAsync остановлен");
@@ -43,7 +44,7 @@ public class PointerToEnemy : MonoBehaviour  {
     }
 
     private void BattleManagerOnNewRoundStarted(int _) {
-        if(!_battleManager.MainPlayerPlay) return; 
+        if(!_playerRegister.MainPlayerPlay) return; 
         
         _containerRect.ActiveSelf();
         UniTaskHelper.DisposeTask(ref _tokenSource);

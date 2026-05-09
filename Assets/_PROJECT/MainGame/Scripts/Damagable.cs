@@ -42,6 +42,7 @@ public class Damagable : IDamagable {
     }
     
     public void SetDied() {
+        if(CurrentHp == 0) return;
         CurrentHp = 0;
         DamagableDied?.Invoke();
         Debug.Log("Died");

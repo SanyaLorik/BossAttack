@@ -71,6 +71,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyBot
       objectReference: {fileID: 0}
+    - target: {fileID: 593425612949582850, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 790296001332029354, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: <IsBoss>k__BackingField
       value: 1
@@ -166,6 +170,10 @@ PrefabInstance:
     - target: {fileID: 4324182207895290883, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4714152222721164009, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 8.32
       objectReference: {fileID: 0}
     - target: {fileID: 5080053104704692055, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: m_Size.x

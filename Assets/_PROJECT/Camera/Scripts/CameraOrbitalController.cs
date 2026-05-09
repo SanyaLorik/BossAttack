@@ -59,6 +59,7 @@ public class CameraOrbitalController : MonoBehaviour {
     [Inject] private InputType _inputType;
     [Inject] private IInputActivity _inputActivity;
     [Inject] private BattleManager _battleManager;
+    [Inject] private PlayerRegister _playerRegister;
     [Inject] private MainGameStarter _gameStarter;
     [Inject] private PlayerMovement _playerMovement;
 
@@ -139,7 +140,7 @@ public class CameraOrbitalController : MonoBehaviour {
     
 
     private void OnBombExploded() {
-        if(!_battleManager.MainPlayerPlay) return;
+        if(!_playerRegister.MainPlayerPlay) return;
         ShakeCamera();
     }
 

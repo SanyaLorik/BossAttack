@@ -10,7 +10,8 @@ public class MainGameInstaller : MonoInstaller {
     
     private void BindLogic() {
         Container.Bind<MainGameStarter>().FromComponentInHierarchy().AsSingle().NonLazy();
-        Container.BindInterfacesAndSelfTo<BattleManager>().FromComponentInHierarchy().AsSingle().NonLazy();
+        Container.Bind<BattleManager>().FromComponentInHierarchy().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<PlayerRegister>().FromComponentInHierarchy().AsSingle().NonLazy();
     }
 
 
@@ -22,7 +23,6 @@ public class MainGameInstaller : MonoInstaller {
     }
 
     private void BindBuilds() {
-        Container.Bind<BattleItemsBuilder>().AsSingle().NonLazy();
         Container.Bind<SpawnerInNavMesh>().AsSingle().NonLazy();
     }
 }

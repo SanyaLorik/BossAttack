@@ -26,6 +26,7 @@ public class BotManager : MonoBehaviour, IPlayer {
     [field: SerializeField] public JumpParticlesController JumpParticles  { get; private set; }
     [field: SerializeField] public JumpParticlesController LandParticles  { get; private set; }
     [field: SerializeField] public DualLegParticles WalkingParticles  { get; private set; }
+    [SerializeField] private DamageVisualizer _damageVisualizer;
     
     
     public IBonusUser BonusUser => BotBonusController;
@@ -49,6 +50,7 @@ public class BotManager : MonoBehaviour, IPlayer {
 
     private void Awake() {
         _damagable = new Damagable(_gameData.PlayerMaxHp, Transform);
+        _damageVisualizer.SetDamagable(_damagable);
     }
 
 

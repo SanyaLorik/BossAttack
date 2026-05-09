@@ -13,22 +13,22 @@ public class GetRadiusTargets : ITargetProvider, IGizmosDrawable {
     
     private readonly Collider[] _buffer = new Collider[8];
    
-    private IEnumerable<UnitInfo> TargetList
+    private IEnumerable<IPlayer> TargetList
         => TargetType == TargetType.Enemy ? 
-            _battleInfo.EnemysDamagable 
+            _battleInfo.Enemys 
             : 
-            _battleInfo.PlayersDamagable;
+            _battleInfo.Players;
     
     [Inject] IBattleInfo _battleInfo;
     
     
     
     public IEnumerable<IDamagable> GetTargets(Vector3 origin) {
-        IEnumerable<UnitInfo> targets = TargetList;
+        IEnumerable<IPlayer> targets = TargetList;
         foreach (var target in targets) {
             float distance = Vector3.SqrMagnitude(origin - target.Transform.position);
             if (distance <= _radius * _radius) {
-                yield return target.Target;
+                yield return target.Damagable;
             }
         }
     }

@@ -1,41 +1,31 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using _PROJECT.Scripts.Helpers;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.SocialPlatforms;
 using Zenject;
 using ArrayExtension = SanyaBeerExtension.ArrayExtension;
 using Random = UnityEngine.Random;
 
 
-public class BattleManager : MonoBehaviour, IBattleInfo {
-    public bool MainPlayerPlay { get; private set; }
+public class BattleManager : MonoBehaviour {
     public bool GameIsOver { get; private set; }
-    public bool PlayerReturnToSpawn => _mainPlayer.PlayerInSpawn;
+    public bool PlayerReturnToSpawn => _playerMovement.PlayerInSpawn;
 
-    public int CountPlayersToNewBattle => _mapsToBattleChanger.CurrentMapSpawnPoints.Length;
     private Vector3 RandomBossPoint => ArrayExtension.GetRandomElement(EnemySpawnPoints).position;
+    public Transform[] PlayersSpawnPoints => _mapsToBattleChanger.CurrentMapSpawnPoints;
+    public Transform[] EnemySpawnPoints => _mapsToBattleChanger.GetCurrentEnemySpawns;
+    public int CountPlayersToNewBattle => _mapsToBattleChanger.CurrentMapSpawnPoints.Length;
     
     public int AllRoundsCount { get; private set; }
 
     public int RoundNumber { get; private set; }
 
-    public Transform[] PlayersSpawnPoints => _mapsToBattleChanger.CurrentMapSpawnPoints;
-    public Transform[] EnemySpawnPoints => _mapsToBattleChanger.GetCurrentEnemySpawns;
+    
+    private CancellationTokenSource _tokenSource;
 
 
-    public List<UnitInfo> EnemysDamagable { get; } = new(8);
-    public List<UnitInfo> BuildingsDamagable { get; } = new(8);
-    public List<UnitInfo> PlayersDamagable  { get; } = new(8);
-    public UnitInfo MainPlayerDamagable;
-    
-    
-    private readonly List<IPlayer> _players = new(8);
-    
-    
     public event Action<string, Vector3> PlayerDied;
     public event Action<int> PlayersCountChanged;
     public event Action<int> NewRoundStarted;
@@ -43,8 +33,6 @@ public class BattleManager : MonoBehaviour, IBattleInfo {
     public event Action<bool> MainPlayerWin;
     public event Action ForceStartedNewGame;
 
-    private CancellationTokenSource _tokenSource;
-    private int PlayersCount => _players.Count;
     
     // Views
     [Inject] private GameOver _gameOver;
@@ -52,22 +40,20 @@ public class BattleManager : MonoBehaviour, IBattleInfo {
     
     
     // Managers
-    [Inject] private PlayerMovement _mainPlayer;
+    [Inject] private PlayerMovement _playerMovement;
     [Inject] private BotsMainManager _botsMainManager;
     [Inject] private MainGameStarter _gameStarter;
     [Inject] private GameData _gameData;
     [Inject] private MapsToBattleChanger _mapsToBattleChanger;
     [Inject] private LocalizationData _localization;
+    [Inject] private PlayerRegister _playerRegister;
 
-    private void Start() {
-        RegisterPlayer(_mainPlayer);
-        MainPlayerDamagable = PlayersDamagable[0];
-    }
+    
 
     public void InitForNewGame(bool mainPlayerPlay) {
         GameIsOver = false;
-        MainPlayerPlay = mainPlayerPlay;
-        GetNewPlayers(MainPlayerPlay);
+        _playerRegister.SetMainPlayerPlay(mainPlayerPlay);
+        GetNewPlayers(mainPlayerPlay);
         InitPlayers();
     }
 
@@ -83,7 +69,7 @@ public class BattleManager : MonoBehaviour, IBattleInfo {
         if(GameIsOver) return;
        
         
-        if (player == _mainPlayer) {
+        if (player == _playerMovement) {
             SetLooseMainPlayer();
         }
         else {
@@ -92,11 +78,11 @@ public class BattleManager : MonoBehaviour, IBattleInfo {
     }
     
     private void SetLooseMainPlayer() {
-        if(!MainPlayerPlay) return;
-        MainPlayerPlay = false;
+        if(!_playerRegister.MainPlayerPlay) return;
+        _playerRegister.SetMainPlayerPlay(false);
         MainPlayerWin?.Invoke(false);
-        RemovePlayer(_mainPlayer);
-        PlayerDied?.Invoke(_localization.You, _mainPlayer.Transform.position);
+        RemovePlayer(_playerMovement);
+        PlayerDied?.Invoke(_localization.You, _playerMovement.Transform.position);
         WaitPlayerPressGameOverAsync(false).Forget();
         Debug.Log("Вы выбыли из игры");
     }
@@ -117,35 +103,21 @@ public class BattleManager : MonoBehaviour, IBattleInfo {
     private void GetNewPlayers(bool mainPlayerPlay) {
         int countBots = CountPlayersToNewBattle;
         if (mainPlayerPlay) {
-            RegisterPlayer(_mainPlayer);
+            _playerRegister.RegisterUnit(_playerMovement, TargetType.Player);
             countBots--;
         }
         IEnumerable<IPlayer> bots = _botsMainManager.GetPlayBotsToGame(countBots);
-        foreach (IPlayer bot in bots) RegisterPlayer(bot);
+        foreach (IPlayer bot in bots) _playerRegister.RegisterUnit(bot, TargetType.Player);
     }
 
-    
-    private void RegisterPlayer(IPlayer player) {
-        _players.Add(player);
-        PlayersDamagable.Add(new UnitInfo {
-            Target = player.Damagable,
-            Transform = player.Transform,
-        });
-    }
-
-    
-    private void UnregisterPlayer(IPlayer player) {
-        _players.Remove(player);
-        PlayersDamagable.Remove(PlayersDamagable.Find(info => info.Target ==  player.Damagable));
-    }
 
 
     private void InitPlayers() {
-        foreach (var player in _players) {
+        foreach (var player in _playerRegister.Players) {
             player.SetPlayStatus(true);
         }
-        TeleportPlayersToPoints(_players, PlayersSpawnPoints);
-        PlayersCountChanged?.Invoke(_players.Count);
+        TeleportPlayersToPoints(_playerRegister.Players, PlayersSpawnPoints);
+        PlayersCountChanged?.Invoke(_playerRegister.Players.Count);
         _tokenSource = new CancellationTokenSource();
         GoBattleAsync(_tokenSource.Token).Forget();
     }
@@ -157,20 +129,20 @@ public class BattleManager : MonoBehaviour, IBattleInfo {
         GameReadyToPlay?.Invoke();
 
         RoundNumber = 1;
-        while (!token.IsCancellationRequested && PlayersCount > 1) {
+        while (!token.IsCancellationRequested && _playerRegister.PlayersCount > 1) {
             NewRoundStarted?.Invoke(RoundNumber);
             
-            await UniTask.WaitUntil(() => PlayersCount == 1, cancellationToken: token);
+            await UniTask.WaitUntil(() => _playerRegister.PlayersCount == 1, cancellationToken: token);
             
             await UniTask.WaitForSeconds(_gameData.TimeAfterEndRound, cancellationToken: token);
             
-            if (PlayersCount != 1) {
+            if (_playerRegister.PlayersCount != 1) {
                 await ShowStartAnimation(false, token);
             }
             RoundNumber++;
         }
         
-        if (MainPlayerPlay) {
+        if (_playerRegister.MainPlayerPlay) {
             MainPlayerWin?.Invoke(true);
             await WaitPlayerPressGameOverAsync(true);
         }
@@ -190,48 +162,44 @@ public class BattleManager : MonoBehaviour, IBattleInfo {
 
     
     private async UniTask WaitPlayerPressGameOverAsync(bool playerWin) {
-        _mainPlayer.SetMovingStatus(false);
+        _playerMovement.SetMovingStatus(false);
 
         if (!playerWin) {
-            _mainPlayer.HideVisualModel(true);
+            _playerMovement.HideVisualModel(true);
         }
         
-        _mainPlayer.SetPlayStatusSilent(false);
+        _playerMovement.SetPlayStatusSilent(false);
         await UniTask.WaitWhile(() => _gameOver.ResultWindowShowing);
         
         if (!playerWin) {
-            _mainPlayer.HideVisualModel(false);
+            _playerMovement.HideVisualModel(false);
         }
-        _mainPlayer.SetPlayStatus(false);
-        _mainPlayer.SetMovingStatus(true);
+        _playerMovement.SetPlayStatus(false);
+        _playerMovement.SetMovingStatus(true);
     }
 
 
     private void GameEnded(bool setGameOver = true) {
         Debug.Log("Игра кончилась");
         GameIsOver = true;
-        foreach (IPlayer player in _players) {
+        foreach (IPlayer player in _playerRegister.Players) {
             player.SetPlayStatus(false);
         }
         
-        _players.Clear();
+        _playerRegister.Players.Clear();
         
         if (setGameOver) {
             _gameStarter.GameOver();
         }
         
     }
-
     
-    private void CheckPlayers() {
-        
-    }
 
     private void RemovePlayer(IPlayer player) {
         player.SetPlayStatus(false);
-        UnregisterPlayer(player);
-        PlayersCountChanged?.Invoke(PlayersCount);
-        Debug.Log("Игроков: " + PlayersCount);
+        _playerRegister.UnregisterUnit(player, TargetType.Player);
+        PlayersCountChanged?.Invoke(_playerRegister.PlayersCount);
+        Debug.Log("Игроков: " + _playerRegister.PlayersCount);
     }
 
 
@@ -249,11 +217,11 @@ public class BattleManager : MonoBehaviour, IBattleInfo {
     }
     
     private void EnablePlayersMove(bool enable) {
-        _players.ForEach(p => p.SetMovingStatus(enable));
+        _playerRegister.Players.ForEach(p => p.SetMovingStatus(enable));
     }
 
     private void RotatePlayersToBoss() {
-        _players.ForEach(p => p.RotateToTarget(RandomBossPoint));
+        _playerRegister.Players.ForEach(p => p.RotateToTarget(RandomBossPoint));
     }
     
     

@@ -1,29 +1,40 @@
-﻿
+﻿using UnityEngine;
+
 public class DamageVisualizer : ProgressVisualizer {
     private IDamagable _damagable;
     
+    
+    private void OnDisable() {
+        Unsubscribe();
+    }
+
+    private void OnEnable() {
+        Subscribe();
+    }
+    
     public void SetDamagable(IDamagable damagable) {
-        if (_damagable != null) {
-            OnDisable();
-        }
+        Unsubscribe();
         _damagable = damagable;
-        
-        _damagable.HpUpdated += OnHpUpdated;
-        _damagable.DamagableDied += OnDamagableDied;
-        _damagable.DamagableSpawned += OnDamagableSpawned;
+        Subscribe();
         // Убрать потом
         OnDamagableSpawned();
     }
 
+    private void Subscribe() {
+        if (_damagable == null) return;
+        _damagable.HpUpdated += OnHpUpdated;
+        _damagable.DamagableDied += OnDamagableDied;
+        _damagable.DamagableSpawned += OnDamagableSpawned;
+    }
 
-    private void OnDisable() {
-        if(_damagable == null) return;
+    private void Unsubscribe() {
+        if (_damagable == null) return;
         _damagable.HpUpdated -= OnHpUpdated;
         _damagable.DamagableDied -= OnDamagableDied;
         _damagable.DamagableSpawned -= OnDamagableSpawned;
     }
 
-    
+
     private void OnDamagableDied() {
         SetProgressPercentage(0, 0);
         ShowBarAnimation(false);
@@ -36,6 +47,7 @@ public class DamageVisualizer : ProgressVisualizer {
     
     
     private void OnHpUpdated(int hp) {
+        Debug.Log("OnHpUpdated " + hp);
         float progress = (float)hp / _damagable.MaxHp;
         SetProgressPercentage(progress, hp);
     }
