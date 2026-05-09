@@ -47,7 +47,6 @@ public class DamageVisualizer : ProgressVisualizer {
     
     
     private void OnHpUpdated(int hp) {
-        Debug.Log("OnHpUpdated " + hp);
         float progress = (float)hp / _damagable.MaxHp;
         SetProgressPercentage(progress, hp);
     }
