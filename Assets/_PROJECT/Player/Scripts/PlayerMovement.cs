@@ -13,7 +13,8 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
     [SerializeField] private DamageVisualizer _damagableVisual; 
 
     
-    [field: SerializeField] public Transform Transform { get; private set; }
+    [field: SerializeField] public Transform PointToAtack { get; private set; }
+    public Transform Transform => transform;
 
     public Vector2 MoveInput => _inputDirection2.Direction2;
     private float _currentRoll;
@@ -63,6 +64,7 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
         _damagable = new Damagable(_gameData.PlayerMaxHp, transform);
         _damagableVisual.SetDamagable(_damagable);
         _pusher = new PlayerPush(_gameData, _controller);
+        
     }
     
 

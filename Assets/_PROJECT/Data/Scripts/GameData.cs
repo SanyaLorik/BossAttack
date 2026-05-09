@@ -96,6 +96,13 @@ public class GameData : GameDataBase
     [field: SerializeField] public float TimeToShowDieInfo { get; private set; }
     [field: SerializeField] public float TimeAfterEndRound { get; private set; }
     [field: SerializeField] public int PlayerMaxHp { get; private set; }
-    
-    
+
+    [field: Header("Визуал")] 
+    [field: SerializeField] public float PaintTimeToWaitAfterDestroyBullet { get; private set; }
+    [field: SerializeField, Range(0f,1f), ] public float ProgressToShowPaintVisual { get; private set; }
+    [field: SerializeField, Range(0f,1f), ] public float YBulletOffset { get; private set; }
+
+
+
+
 }

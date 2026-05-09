@@ -12,5 +12,6 @@ public interface IPlayer {
     public IDamagable Damagable { get; }
     
     public bool IsPlaying { get; }
+    Transform PointToAtack { get; }
     Transform Transform { get; }
 }

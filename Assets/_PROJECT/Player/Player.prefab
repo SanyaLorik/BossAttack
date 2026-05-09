@@ -392,12 +392,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildItem
   _interval: 0.5
   _origin: {fileID: 6278525158390120559}
+  _targetProvider:
+    rid: 7634349180084289609
   _targetFilters:
   - rid: 7634349249449427014
   _effect:
     rid: 7634349180084289608
-  _targetProvider:
-    rid: 7634349180084289609
   _tickBehaviour:
   - rid: 7634349187638493253
   references:
@@ -411,7 +411,7 @@ MonoBehaviour:
       type: {class: GetClosestTarget, ns: , asm: Assembly-CSharp}
       data:
         TargetType: 0
-        _distance: 17
+        _distance: 20
         _layer:
           serializedVersion: 2
           m_Bits: 128
@@ -419,8 +419,10 @@ MonoBehaviour:
       type: {class: BulletsSpawner, ns: , asm: Assembly-CSharp}
       data:
         _bulletSpeed: 60
+        _progressToShowVisual: 0.881
+        _offsetToTarget: 1
         _spawnPoint: {fileID: 6443705969506691850}
-        _bulletInstance: {fileID: 6140275864888064104, guid: bc77ae790f4f6b04a893d598d1b73f04, type: 3}
+        _bulletInstance: {fileID: 4117493534217919638, guid: bc77ae790f4f6b04a893d598d1b73f04, type: 3}
     - rid: 7634349249449427014
       type: {class: AngleTargetFilter, ns: , asm: Assembly-CSharp}
       data:
@@ -520,6 +522,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DualLegParticles
   _ps: {fileID: 2983184079608342826}
   _botBehaviour: 0
+--- !u!1 &8819626943965860512
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1091855194919393618}
+  m_Layer: 6
+  m_Name: PointToAtack
+  m_TagString: Untagged
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1091855194919393618
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8819626943965860512}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.51, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6278525158390120559}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8871990671806092604
 GameObject:
   m_ObjectHideFlags: 0
@@ -560,6 +593,7 @@ Transform:
   - {fileID: 5304525108884347941}
   - {fileID: 1969779792829351665}
   - {fileID: 2442955559784721893}
+  - {fileID: 1091855194919393618}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &6165380883207411591
@@ -604,7 +638,7 @@ MonoBehaviour:
   _playerVisual: {fileID: 5928220643738429436}
   _playerBonusController: {fileID: 2728973940216989352}
   _damagableVisual: {fileID: 6657469901531490059}
-  <Transform>k__BackingField: {fileID: 6278525158390120559}
+  <PointToAtack>k__BackingField: {fileID: 1091855194919393618}
 --- !u!114 &1270892518284674774
 MonoBehaviour:
   m_ObjectHideFlags: 0

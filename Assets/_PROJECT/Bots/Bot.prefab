@@ -120,6 +120,7 @@ Transform:
   - {fileID: 4604574056128746527}
   - {fileID: 4005745868750855142}
   - {fileID: 7953180259397531146}
+  - {fileID: 8775805619122131799}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &1212541108296832897
@@ -207,6 +208,7 @@ MonoBehaviour:
   <IsBoss>k__BackingField: 0
   <ShowInSpawn>k__BackingField: 0
   <Transform>k__BackingField: {fileID: 3667074117147502011}
+  <PointToAtack>k__BackingField: {fileID: 8775805619122131799}
   <BotWalkManager>k__BackingField: {fileID: 1328324431073747714}
   <BotPushBehaviour>k__BackingField: {fileID: 325342016930432509}
   <BotBonusController>k__BackingField: {fileID: 187920156318785180}
@@ -532,6 +534,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BotWander
   _spawnPlaces: []
   _yToFind: 10
+--- !u!1 &2341943219905390796
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8775805619122131799}
+  m_Layer: 6
+  m_Name: PointToAtack
+  m_TagString: Untagged
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8775805619122131799
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2341943219905390796}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.33, z: 0.64}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3667074117147502011}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3662072456498197313
 GameObject:
   m_ObjectHideFlags: 0

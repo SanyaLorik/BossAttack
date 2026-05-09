@@ -92,3 +92,6 @@ MonoBehaviour:
     <TimeToShowDieInfo>k__BackingField: 2
     <TimeAfterEndRound>k__BackingField: 0
     <PlayerMaxHp>k__BackingField: 100
+    <PaintTimeToWaitAfterDestroyBullet>k__BackingField: 1
+    <ProgressToShowPaintVisual>k__BackingField: 0.85
+    <YBulletOffset>k__BackingField: 0.85

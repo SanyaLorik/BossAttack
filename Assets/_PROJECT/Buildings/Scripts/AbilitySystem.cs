@@ -25,7 +25,7 @@ public class AbilitySystem : TickerBehaviour {
     }
 
     private void OnDrawGizmos() {
-        _gizmosDrawer.DrawGizmos(_origin.position);
+        // _gizmosDrawer.DrawGizmos(_origin.position);
     }
 
     protected override void Tick() {

@@ -350,8 +350,10 @@ MonoBehaviour:
       type: {class: BulletsSpawner, ns: , asm: Assembly-CSharp}
       data:
         _bulletSpeed: 60
+        _progressToShowVisual: 0.85
+        _offsetToTarget: 0.3
         _spawnPoint: {fileID: 2936903512998288965}
-        _bulletInstance: {fileID: 6140275864888064104, guid: bc77ae790f4f6b04a893d598d1b73f04, type: 3}
+        _bulletInstance: {fileID: 4117493534217919638, guid: bc77ae790f4f6b04a893d598d1b73f04, type: 3}
 --- !u!1 &6374153820092526745
 GameObject:
   m_ObjectHideFlags: 0

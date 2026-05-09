@@ -11,6 +11,8 @@ public class BotManager : MonoBehaviour, IPlayer {
     
     [field: SerializeField] public bool ShowInSpawn { get; private set; }
     [field: SerializeField] public Transform Transform { get; private set; }
+    [field: SerializeField] public Transform PointToAtack { get; private set; }
+    
     [field: SerializeField] public BotWalkManager BotWalkManager { get; private set; }
     [field: SerializeField] public BotPushBehaviour BotPushBehaviour { get; private set; }
     [field: SerializeField] public BotBonusController BotBonusController { get; private set; }
