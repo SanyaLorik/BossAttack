@@ -7919,6 +7919,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7194998601204734654, guid: 9e92c27d76f7ff449919031164e86a22, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8878371533392755005, guid: 9e92c27d76f7ff449919031164e86a22, type: 3}
       propertyPath: m_Name
       value: EnemyBot

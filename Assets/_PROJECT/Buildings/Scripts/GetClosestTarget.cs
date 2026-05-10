@@ -50,7 +50,7 @@ public class GetClosestTarget : ITargetProvider, IGizmosDrawable {
             if(!HasLineOfSight(origin, direction, target)) 
                 continue;
 
-            if (sqrDistance < bestSqr) {
+            if (sqrDistance <= bestSqr) {
                 bestSqr = sqrDistance;
                 closestUnit = target;
             }
@@ -61,12 +61,13 @@ public class GetClosestTarget : ITargetProvider, IGizmosDrawable {
 
     
     private bool HasLineOfSight(Vector3 origin, Vector3 direction, IPlayer target) {
-        if (Physics.Raycast(origin, direction.normalized, out RaycastHit hitInfo, _distance, _layer)) {
-            if (hitInfo.transform == target.Transform) {
-                return true;
-            }
-        }
-        return false;
+        // if (Physics.Raycast(origin, direction.normalized, out RaycastHit hitInfo, _distance)) {
+        //     if (hitInfo.transform == target.Transform) {
+        //         return true;
+        //     }
+        // }
+        // return false;
+        return true;
     }
 
     public void DrawGizmos(Vector3 origin) {

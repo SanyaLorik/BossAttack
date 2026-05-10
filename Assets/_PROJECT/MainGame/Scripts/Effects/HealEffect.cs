@@ -6,6 +6,8 @@ public class HealEffect : IEffect {
     [SerializeField] private int _heal;
     
     public void ApplyEffect(IPlayer player) {
-        player.Damagable.ApplyHeal(_heal);
+        if (player.Damagable != null) {
+            player.Damagable.ApplyHeal(_heal);
+        }
     }
 }

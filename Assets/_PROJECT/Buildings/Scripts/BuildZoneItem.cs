@@ -13,18 +13,25 @@ public class BuildZoneItem : MonoBehaviour {
     [SerializeField] private GameObject _buildVisual;
     [SerializeField] private GameObject _afterBuildVisual;
     [SerializeField] private AbilitySystem _building;
+    [SerializeField] private DamageVisualizer _damagableVisual; 
 
 
     private bool _isBuilded;
     private bool _playerInZone;
     private float _currentTime;
+    private IPlayer _buildItem;
+    private Damagable _damagable;
     
     
     [Inject] PlayerMovement _mainPlayer;
     [Inject] GameData _gameData;
+    [Inject] PlayerRegister _playerRegister;
 
     private void Start() {
         SetDefault();
+        _damagable = new Damagable(_gameData.BuildingMaxHp, transform);
+        _damagableVisual.SetDamagable(_damagable);
+        _buildItem = new BuildItemToAtack(transform, _damagable);
     }
 
     
@@ -85,6 +92,7 @@ public class BuildZoneItem : MonoBehaviour {
     }
 
     private void EndBuild() {
+        _playerRegister.RegisterUnit(_buildItem, TargetType.Player);
         _building.ActiveSelf();
         _afterBuildVisual.ActiveSelf();
         _buildVisual.DisactiveSelf();
