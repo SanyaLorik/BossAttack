@@ -12,4 +12,6 @@
     Explosion,
     ReloadBonus,
     BonusUse,
+    Shoot,
+    Bullet
 }

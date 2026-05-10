@@ -45,6 +45,7 @@ public class SoundManager : MonoBehaviour {
     [Inject] private GameOver _gameOver;
     [Inject] private PlayerPetsManager _playerPetsManager;
     [Inject] private PetOpenView _petOpenView;
+    [Inject] private GameData _gameData;
     
     
     private void Awake() {
@@ -117,6 +118,15 @@ public class SoundManager : MonoBehaviour {
         SettingsOnEffectsValueChanged(_settings.EffectsValue);
     }
     
+    
+    public SoundConfig GetConfigByType(SoundType type) {
+        if (!_soundConfigDict.TryGetValue(type, out var config)) {
+            Debug.LogError("Нет звука с типом " + type);
+            return null;
+        }
+        return config;
+    }
+    
 
     private void OnPlayerHited() {
         PlaySoundByType(SoundType.HitPlayer);
@@ -162,29 +172,27 @@ public class SoundManager : MonoBehaviour {
         return source;
     }
     
+    
     private void PlaySoundByType(SoundType type) {
-        if (!_soundConfigDict.TryGetValue(type, out var config)) {
-            Debug.Log("Нет звука с типом " + type);
-            return;
-        }
+        SoundConfig config = GetConfigByType(type);
+        if(config == null) return;
+        
         // Debug.Log("Приогрывание " + type);
-        AudioClip clip = GetSource(config);
+        AudioClip clip = GetRandomAudioClip(config);
         AudioSource source = GetFreeSource(type);
         
         PlayInSource(source, clip, config);
     }
+
+    
+
     
     // 3D
-    // private void PlayTrampolineSound(Trampoline trampoline) {
-    //     if (!_soundConfigDict.TryGetValue(SoundType.Trampoline, out var config)) {
-    //         Debug.Log("Нет звука с типом " + SoundType.Trampoline);
-    //         return;
-    //     }
-    //     AudioClip clip = GetSource(config);
-    //     AudioSource source = trampoline.AudioSource;
-    //     
-    //     PlayInSource(source, clip, config);
-    // }
+    public void Play3dSound(AudioSource source, SoundType type) {
+        SoundConfig config = GetConfigByType(type);
+        AudioClip clip = GetRandomAudioClip(config);
+        PlayInSource(source, clip, config);
+    }
     
     private void SettingsOnMusicValueChanged(float value) {
         float db = Mathf.Log10(Mathf.Clamp(value, 0.0001f, 1f)) * 20;
@@ -254,11 +262,17 @@ public class SoundManager : MonoBehaviour {
         source.pitch = UnityEngine.Random.Range(config.PitchDiapasone.From, config.PitchDiapasone.To);
         source.loop = config.Loop;
         source.spatialBlend = config.SpatialBlend;
+
+        if (config.SpatialBlend > 0.01f) {
+            source.minDistance = config.DistanceDiapasone.From;
+            source.maxDistance = config.DistanceDiapasone.To;
+        }
+        
         source.outputAudioMixerGroup = config.MixerGroup;
         source.Play();
     }
     
-    private static AudioClip GetSource(SoundConfig config) {
+    private static AudioClip GetRandomAudioClip(SoundConfig config) {
         return config.AudioClips.GetRandomElement();
     }
     

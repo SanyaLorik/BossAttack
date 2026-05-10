@@ -9,8 +9,11 @@ public class SoundConfig : ScriptableObject {
     [field: SerializeField] public AudioClip[] AudioClips { get; private set; }
     [field: SerializeField, Range(0,1)] public float Volume { get; private set; }
     [field: SerializeField] public PairedValue<float> PitchDiapasone { get; private set; }
+    
     [field: SerializeField] public AudioMixerGroup MixerGroup { get; private set; }
     [field: SerializeField] public bool Loop { get; private set; }
     [field: SerializeField, Range(0f,1f)] public float SpatialBlend { get; private set; }
+    [Header("Если звук не 3д - не указывать")]
+    [field: SerializeField] public PairedValue<float> DistanceDiapasone { get; private set; }
 
 }

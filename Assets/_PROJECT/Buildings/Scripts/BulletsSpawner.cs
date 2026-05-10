@@ -5,10 +5,11 @@ using Zenject;
 using Random = UnityEngine.Random;
 
 [Serializable]
-public class BulletsSpawner : ITickBehaviour {
+public class BulletsSpawner : ITickBehaviour, ISoundPlayer {
     [SerializeField] private float _bulletSpeed;
     [SerializeField] private Transform _spawnPoint;
     [SerializeField] private Bullet _bulletInstance;
+    [field: SerializeField] public SoundType SoundType { get; private set; }
 
 
     private ObjectPoolManager _poolManager;
@@ -59,4 +60,5 @@ public class BulletsSpawner : ITickBehaviour {
         await UniTask.WaitForSeconds(_gameData.PaintTimeToWaitAfterDestroyBullet);
         _poolManager.ReturnObjectToPool(bullet.gameObject, PoolType.Bullets);
     }
+
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -10,6 +11,9 @@ public class AbilitySystem : TickerBehaviour {
     
     
     private IGizmosDrawable _gizmosDrawer;
+    
+    public event Action<ISoundPlayer> SoundPlayed;
+    
     
     [Inject] private DiContainer _diContainer;
     
@@ -42,7 +46,12 @@ public class AbilitySystem : TickerBehaviour {
             }
 
             if (allowed) {
-                _tickBehaviour.ForEach(beh => beh.OnTick(_origin.position, target));
+                foreach (var beh in _tickBehaviour) {
+                    beh.OnTick(_origin.position, target);
+                    if (beh is ISoundPlayer soundPlayer) {
+                        SoundPlayed?.Invoke(soundPlayer);
+                    }
+                }
                 _effect.ApplyEffect(target);
             }
         }

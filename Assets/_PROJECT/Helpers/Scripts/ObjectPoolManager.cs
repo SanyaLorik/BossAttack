@@ -15,9 +15,21 @@ public class ObjectPoolManager : IInitializable {
     private GameObject _emptyHolder;
     private GameObject _bulletParent;
 
-    
     private Dictionary<GameObject, ObjectPool<GameObject>> _objectPoolsDict;
     private Dictionary<GameObject, GameObject> _cloneToPrefabMap;
+    
+    // Чтоб не делать постоянный инжект
+    private readonly HashSet<GameObject> _initialized = new();
+    private DiContainer _container;
+    
+    
+    [Inject]
+    public void Init(DiContainer container) {
+        Debug.Log("Init PoolManager");
+        _container = container;
+    }
+    
+    
 
     public void Initialize() {
         _objectPoolsDict = new();
@@ -39,6 +51,11 @@ public class ObjectPoolManager : IInitializable {
         
         
         obj.ActiveSelf();
+        
+        if (_initialized.Add(obj)) {
+            _container.InjectGameObject(obj);
+        }
+        
         return obj.GetComponent<T>();
     }
 

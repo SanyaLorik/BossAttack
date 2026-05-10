@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-
+﻿
 public class DamageVisualizer : ProgressVisualizer {
     private IDamagable _damagable;
     
