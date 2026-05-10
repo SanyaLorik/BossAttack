@@ -53,7 +53,7 @@ MonoBehaviour:
     <BotPetCountDiapasone>k__BackingField:
       <From>k__BackingField: 0
       <To>k__BackingField: 3
-    <BotSpeed>k__BackingField: 2
+    <BotSpeed>k__BackingField: 8
     <CountSpeakingBotsPerTime>k__BackingField:
       <From>k__BackingField: 1
       <To>k__BackingField: 2
@@ -97,6 +97,10 @@ MonoBehaviour:
     <BossShootDamageBase>k__BackingField: 2
     <BossMeleeDamageMultiplier>k__BackingField: 1.1
     <BossShootDamageMultiplier>k__BackingField: 1.1
+    <BossStoppingDistanceInMelee>k__BackingField: 2
+    <BossSpeedInMelee>k__BackingField: 10
+    <BossStoppingDistanceInShooting>k__BackingField: 5
+    <BossSpeedInShooting>k__BackingField: 5
     <BossHpBase>k__BackingField: 200
     <PlayerHpBase>k__BackingField: 100
     <BuildHpBase>k__BackingField: 55

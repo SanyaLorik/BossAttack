@@ -107,6 +107,13 @@ public class GameData : GameDataBase
     [field: SerializeField] public int BossShootDamageBase { get; private set; }
     [field: SerializeField] public float BossMeleeDamageMultiplier { get; private set; }    
     [field: SerializeField] public float BossShootDamageMultiplier { get; private set; }
+    [field: Header("Настройка босса")]
+    [field: SerializeField] public float BossStoppingDistanceInMelee { get; private set; }    
+    [field: SerializeField] public float BossSpeedInMelee { get; private set; }     
+    [field: SerializeField] public float BossStoppingDistanceInShooting { get; private set; }    
+    [field: SerializeField] public float BossSpeedInShooting { get; private set; }    
+    
+    
     
     [field: Header("Настройка хп у всех юнитов")]
     [field: SerializeField] public int BossHpBase { get; private set; }

@@ -59,6 +59,7 @@ public class BossAbilityController : MonoBehaviour {
         _tokenSource = new CancellationTokenSource();
         TimerToChangeAbility(_tokenSource.Token).Forget();
         _abilitys[_currentAbilityIndex].Start();
+        NewAbilitySystemEnabled?.Invoke(_abilitys[_currentAbilityIndex]);
     }
 
     

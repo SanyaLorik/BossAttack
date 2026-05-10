@@ -55,7 +55,7 @@ MonoBehaviour:
   _tickBehaviour:
   - rid: 7634349249449427016
   - rid: 7634349249449427017
-  <Type>k__BackingField: 0
+  <Type>k__BackingField: 1
   references:
     version: 2
     RefIds:
@@ -307,6 +307,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6251649058428469576}
   - component: {fileID: 2526074249050301841}
+  - component: {fileID: 5156775832256639920}
   m_Layer: 7
   m_Name: AbilityController
   m_TagString: Untagged
@@ -350,6 +351,21 @@ MonoBehaviour:
   _diapasoneToChangeAbility:
     <From>k__BackingField: 8
     <To>k__BackingField: 14
+--- !u!114 &5156775832256639920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6894151039450942718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ef1823ef7054aa691ec106f88597efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotAbilityVisual
+  _abilityController: {fileID: 2526074249050301841}
+  _shootingVisual:
+  - {fileID: 1502980904877203840}
 --- !u!1001 &1574845273775521253
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -429,6 +445,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 187920156318785180, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 593425612949582850, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: m_Name
       value: EnemyBot
@@ -436,6 +456,10 @@ PrefabInstance:
     - target: {fileID: 593425612949582850, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 789123316447599941, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 790296001332029354, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: <IsBoss>k__BackingField

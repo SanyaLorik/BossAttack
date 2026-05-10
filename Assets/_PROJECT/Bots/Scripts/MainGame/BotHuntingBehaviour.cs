@@ -11,8 +11,9 @@ using Random = UnityEngine.Random;
 
 
 [Serializable]
-public class HuntingBehaviour : MonoBehaviour {
+public class BotHuntingBehaviour : MonoBehaviour {
     [SerializeField] private BossAbilityController _abilityController;
+    
     private CancellationTokenSource _tokenSource;
     
     private List<AbilitySystem> _abilitySystems;
@@ -20,11 +21,12 @@ public class HuntingBehaviour : MonoBehaviour {
     private IPlayer _targetToHunt;
     private BotWalkManager WalkManager => _manager.BotWalkManager;
     
-    [Inject] IPlayer _mainPlayer;
+    [Inject] BotManager _botManager;
     [Inject] GameData _gameData;
     [Inject] BotManager _manager;
     [Inject] IBattleInfo _battleInfo;
 
+    
     private void Awake() {
         _abilitySystems = _abilityController.GetAbilitys();
     }
@@ -44,6 +46,18 @@ public class HuntingBehaviour : MonoBehaviour {
 
     
     private void OnNewAbilitySystemEnabled(AbilitySystem abilitySystem) {
+        switch (abilitySystem.Type) {
+            
+            case AbilityType.Shooting:
+                _botManager.Agent.speed = _gameData.BossSpeedInShooting;
+                _botManager.Agent.stoppingDistance = _gameData.BossStoppingDistanceInShooting;
+                break;
+            
+            case AbilityType.Melee:
+                _botManager.Agent.speed = _gameData.BossSpeedInMelee;
+                _botManager.Agent.stoppingDistance = _gameData.BossStoppingDistanceInMelee;
+                break;
+        }
         
     }
 
@@ -139,10 +153,5 @@ public class HuntingBehaviour : MonoBehaviour {
         // // Debug.Log("Найдена жертва: " +  closest.);
         // _targetToHunt = closest;
     }
-    
-    
-  
-
-
 
 }
