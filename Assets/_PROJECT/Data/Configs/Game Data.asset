@@ -53,7 +53,7 @@ MonoBehaviour:
     <BotPetCountDiapasone>k__BackingField:
       <From>k__BackingField: 0
       <To>k__BackingField: 3
-    <BotSpeed>k__BackingField: 5
+    <BotSpeed>k__BackingField: 2
     <CountSpeakingBotsPerTime>k__BackingField:
       <From>k__BackingField: 1
       <To>k__BackingField: 2
@@ -92,6 +92,6 @@ MonoBehaviour:
     <TimeToShowDieInfo>k__BackingField: 2
     <TimeAfterEndRound>k__BackingField: 0
     <PlayerMaxHp>k__BackingField: 100
-    <PaintTimeToWaitAfterDestroyBullet>k__BackingField: 1
-    <ProgressToShowPaintVisual>k__BackingField: 0.85
-    <YBulletOffset>k__BackingField: 0.85
+    <PaintTimeToWaitAfterDestroyBullet>k__BackingField: 0.5
+    <ProgressToShowPaintVisual>k__BackingField: 0.9
+    <YBulletOffset>k__BackingField: 1

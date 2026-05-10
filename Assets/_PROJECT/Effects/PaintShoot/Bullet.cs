@@ -18,12 +18,14 @@ public class Bullet : MonoBehaviour {
         // _bulletModel.ActiveSelf();
         ParticleSystem.MainModule module = _psToEnd.main;
         SetColorToAllParticles();
+        _psWhileFlight.ActiveSelf();
         _psWhileFlight.Play();
     }
     
     public void PlayToEnd() {
         // _bulletModel.DisactiveSelf();
         _psWhileFlight.Stop();
+        // _psWhileFlight.DisactiveSelf();
         _psToEnd.Play();
     }
     

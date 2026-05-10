@@ -390,7 +390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 543f53ac372646c7b950add62c4bb7a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildItem
-  _interval: 0.5
+  _interval: 0.1
   _origin: {fileID: 6278525158390120559}
   _targetProvider:
     rid: 7634349180084289609
@@ -419,8 +419,6 @@ MonoBehaviour:
       type: {class: BulletsSpawner, ns: , asm: Assembly-CSharp}
       data:
         _bulletSpeed: 60
-        _progressToShowVisual: 0.881
-        _offsetToTarget: 1
         _spawnPoint: {fileID: 6443705969506691850}
         _bulletInstance: {fileID: 4117493534217919638, guid: bc77ae790f4f6b04a893d598d1b73f04, type: 3}
     - rid: 7634349249449427014
