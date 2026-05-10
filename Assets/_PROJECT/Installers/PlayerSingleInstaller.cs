@@ -17,5 +17,7 @@ public class PlayerSingleInstaller : MonoInstaller {
         
         Container.Bind<PlayerBonusManager>().FromComponentInHierarchy().AsSingle().NonLazy();
         
+        Container.Bind<PlayerLevel>().AsSingle().NonLazy();
+        
     }
 }

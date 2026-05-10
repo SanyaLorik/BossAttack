@@ -9,6 +9,8 @@ public class BulletsSpawner : ITickBehaviour, ISoundPlayer {
     [SerializeField] private float _bulletSpeed;
     [SerializeField] private Transform _spawnPoint;
     [SerializeField] private Bullet _bulletInstance;
+    [SerializeField, Range(0f, 1f)] private float _progressToShowPaintVisual = 0.9f;
+    
     [field: SerializeField] public SoundType SoundType { get; private set; }
 
 
@@ -41,15 +43,18 @@ public class BulletsSpawner : ITickBehaviour, ISoundPlayer {
         Vector3 bulletStartPos = bullet.transform.position;
         float sign = Random.value > 0.5f ? -1 : 1;
         float yOffset = Random.Range(0, _gameData.YBulletOffset);
-        Vector3 targetPosition = target.position + new Vector3(0f, sign * yOffset, 0);
+        
+        
+        Transform cachedTransform = target;
+        Vector3 targetPosition = cachedTransform.position + new Vector3(0f, sign * yOffset, 0);
         bullet.InitShoot();
         
         while (elapsedTime <  duration) {
             float progress = elapsedTime / duration;
-            if (progress > _gameData.ProgressToShowPaintVisual) {
+            if (progress > _progressToShowPaintVisual) {
                 break;
             }
-            bullet.SetPosition(Vector3.Lerp(bulletStartPos, targetPosition, progress)); 
+            bullet.SetPosition(Vector3.Lerp(bulletStartPos, cachedTransform.position + new Vector3(0f, sign * yOffset, 0), progress)); 
             elapsedTime += Time.deltaTime;
             await UniTask.Yield();            
         }

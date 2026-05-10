@@ -54,6 +54,8 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
     [Inject] private IInputJumping _inputJumping;
     [Inject] private GameData _gameData;
     [Inject] private PlayerStateManager _stateManager;
+    [Inject] private StatsCalculator _statsCalculator;
+    
     
     // Для гравитации и прыжков
     private float _verticalVelocity;
@@ -61,10 +63,11 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
 
     
     private void Awake() {
-        _damagable = new Damagable(_gameData.PlayerMaxHp, transform);
+        _damagable = new Damagable(transform);
+        _damagable.SetMaxHpGetter(() => _statsCalculator.PlayerHp);
+        
         _damagableVisual.SetDamagable(_damagable);
         _pusher = new PlayerPush(_gameData, _controller);
-        
     }
     
 

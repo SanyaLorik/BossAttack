@@ -95,13 +95,30 @@ public class GameData : GameDataBase
     [field: SerializeField] public float ColldownToStartRound { get; private set; }
     [field: SerializeField] public float TimeToShowDieInfo { get; private set; }
     [field: SerializeField] public float TimeAfterEndRound { get; private set; }
-    [field: SerializeField] public int PlayerMaxHp { get; private set; }
-    [field: SerializeField] public int BuildingMaxHp { get; private set; }
+
 
     [field: Header("Визуал")] 
     [field: SerializeField] public float PaintTimeToWaitAfterDestroyBullet { get; private set; }
-    [field: SerializeField, Range(0f,1f), ] public float ProgressToShowPaintVisual { get; private set; }
-    [field: SerializeField, Range(0f,1f), ] public float YBulletOffset { get; private set; }
+    [field: SerializeField, Range(0f,1f)] public float YBulletOffset { get; private set; }
+    
+    
+    [field: Header("Настройка урона босса")]
+    [field: SerializeField] public int BossMeleeDamageBase { get; private set; }
+    [field: SerializeField] public int BossShootDamageBase { get; private set; }
+    [field: SerializeField] public float BossMeleeDamageMultiplier { get; private set; }    
+    [field: SerializeField] public float BossShootDamageMultiplier { get; private set; }
+    
+    [field: Header("Настройка хп у всех юнитов")]
+    [field: SerializeField] public int BossHpBase { get; private set; }
+    
+    [field: SerializeField] public int PlayerHpBase { get; private set; }
+    [field: SerializeField] public int BuildHpBase { get; private set; }
+    [field: SerializeField] public float BossHpMultiplier { get; private set; }
+    
+    [field: SerializeField] public float PlayerHpMultiplier { get; private set; }
+    
+    [field: SerializeField] public float BuildHpMultiplier { get; private set; }
+    
 
 
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -20,10 +21,14 @@ public class PlayerRegister : MonoBehaviour, IBattleInfo {
 
     
     [Inject] private PlayerMovement _playerMovement;
+
     
-    
-    private void Start() {
+    private void Awake() {
+        // Всегда играть будет покашт
         RegisterUnit(_playerMovement, TargetType.Player);
+    }
+
+    private void Start() {
         InitBoses();
     }
 

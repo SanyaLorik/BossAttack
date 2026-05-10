@@ -3,16 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
+
+public enum AbilityType {
+    Shooting,
+    Melee,
+}
+
+
 public class AbilitySystem : TickerBehaviour {
     [SerializeReference, SubclassSelector] private ITargetProvider _targetProvider;
     [SerializeReference, SubclassSelector] private List<ITargetFilter> _targetFilters;
     [SerializeReference, SubclassSelector] private IEffect _effect;
     [SerializeReference, SubclassSelector] private List<ITickBehaviour> _tickBehaviour;
-    
-    
+    [field: SerializeField] public AbilityType Type { get; private set; }
+
     private IGizmosDrawable _gizmosDrawer;
     
     public event Action<ISoundPlayer> SoundPlayed;
+    public event Action<IPlayer> NewTargetFinded;
+    
+    public IEffect Effect => _effect;
     
     
     [Inject] private DiContainer _diContainer;
@@ -46,6 +56,7 @@ public class AbilitySystem : TickerBehaviour {
             }
 
             if (allowed) {
+                NewTargetFinded?.Invoke(target);
                 foreach (var beh in _tickBehaviour) {
                     beh.OnTick(_origin.position, target);
                     if (beh is ISoundPlayer soundPlayer) {

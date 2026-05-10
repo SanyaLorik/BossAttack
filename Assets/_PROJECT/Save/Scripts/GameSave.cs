@@ -13,6 +13,7 @@ public class GameSave : GameSaveBase,
     public long Money;
     public bool IsBoughtPurchase = false;
     public bool TutorialPassed = false;
+    public int PlayerLevel = 1;
 
     
     // Bonuses

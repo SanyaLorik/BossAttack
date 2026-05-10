@@ -7,6 +7,8 @@ public interface IDamagable {
     
     public int CurrentHp { get; }
     public int MaxHp { get; }
+    public void SetMaxHpGetter(Func<int> valueGetter);
+    
     
     public Transform Transform { get; }
     public event Action DamagableDied;

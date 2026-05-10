@@ -26,10 +26,13 @@ public class BuildZoneItem : MonoBehaviour {
     [Inject] PlayerMovement _mainPlayer;
     [Inject] GameData _gameData;
     [Inject] PlayerRegister _playerRegister;
+    [Inject] private StatsCalculator _statsCalculator;
+    
 
     private void Start() {
         SetDefault();
-        _damagable = new Damagable(_gameData.BuildingMaxHp, transform);
+        _damagable = new Damagable(transform);
+        _damagable.SetMaxHpGetter(() => _statsCalculator.BuildHp);
         _damagableVisual.SetDamagable(_damagable);
         _buildItem = new BuildItemToAtack(transform, _damagable);
     }

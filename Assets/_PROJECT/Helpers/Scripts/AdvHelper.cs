@@ -22,6 +22,7 @@ public class AdvHelper : MonoBehaviour {
     [Inject] private TutorialManager _tutorialManager;
     [Inject] private GameData _gameData;
     
+    
     // Эту ваще офаем
     [Inject] private IInterstitialDelaying  _interstitialDelaying;
     // Эту вызываем после двух событий: открытие бонусов и нажатие на кнопку продолжить

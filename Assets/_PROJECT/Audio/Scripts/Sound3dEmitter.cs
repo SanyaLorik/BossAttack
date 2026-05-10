@@ -2,7 +2,6 @@
 using Zenject;
 
 public class Sound3dEmitter : MonoBehaviour {
-    [SerializeField] private AudioSource _sourcePrefab;
     [SerializeField] private int _sourcesCount = 10;
 
     private AudioSource[] _sources;
@@ -15,7 +14,7 @@ public class Sound3dEmitter : MonoBehaviour {
         _sources = new AudioSource[_sourcesCount];
         
         for (int i = 0; i < _sourcesCount; i++) {
-            _sources[i] = Instantiate(_sourcePrefab, transform);
+            _sources[i] = new GameObject($"AudioSource{i+1}").AddComponent<AudioSource>();
         }
     }
 

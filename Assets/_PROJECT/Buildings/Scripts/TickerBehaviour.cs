@@ -9,14 +9,19 @@ public abstract class TickerBehaviour : MonoBehaviour {
 
     private CancellationTokenSource _tokenSource;
 
-    private void OnEnable() {
+    public void Stop() {
+        UniTaskHelper.DisposeTask(ref _tokenSource);
+    }
+
+    public void Start() {
         UniTaskHelper.DisposeTask(ref _tokenSource);
         _tokenSource = new  CancellationTokenSource();
         TickLoopAsync(_tokenSource.Token).Forget();
     }
 
+
     private void OnDisable() {
-        UniTaskHelper.DisposeTask(ref _tokenSource);
+        Stop();
     }
 
     private async UniTask TickLoopAsync(CancellationToken token) {
