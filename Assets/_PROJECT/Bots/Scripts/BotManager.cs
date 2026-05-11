@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using SanyaBeerExtension;
 using UnityEngine;
 using UnityEngine.AI;
@@ -8,6 +9,7 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(NavMeshAgent))]
 public class BotManager : MonoBehaviour, IPlayer {
     [field: SerializeField] public bool IsBoss { get; private set; }
+    [field: SerializeField] public List<AbilitySystem> Abilitys { get; private set; }
     
     [field: SerializeField] public bool ShowInSpawn { get; private set; }
     [field: SerializeField] public Transform Transform { get; private set; }
@@ -61,6 +63,11 @@ public class BotManager : MonoBehaviour, IPlayer {
             _damagable.SetMaxHpGetter(() => _statsCalculator.PlayerHp);
         }
         _damageVisualizer.SetDamagable(_damagable);
+        InitIPlayerToAbilitys();
+    }
+
+    private void InitIPlayerToAbilitys() {
+        Abilitys.ForEach(a => a.SetSame(this));
     }
 
 

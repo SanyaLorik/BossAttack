@@ -60,6 +60,7 @@ public class BossAbilityController : MonoBehaviour {
         TimerToChangeAbility(_tokenSource.Token).Forget();
         _abilitys[_currentAbilityIndex].Start();
         NewAbilitySystemEnabled?.Invoke(_abilitys[_currentAbilityIndex]);
+        GameEvents.BossSwitchAbilityInvoke();
     }
 
     

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Architecture_M;
 using UnityEngine;
 using Zenject;
@@ -6,6 +7,7 @@ using Zenject;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour, IPlayer {
+    [field: SerializeField] public List<AbilitySystem> Abilitys { get; private set; }
     [SerializeField] private CharacterController _controller; // 
     [SerializeField] private Transform _spawnPoint;
     [SerializeField] private GameObject _playerVisual;
@@ -45,7 +47,6 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
     public CharacterController Controller => _controller;
     private bool MoveEnable { get; set; } = true;
     public event Action<bool> MoveEnabled;
-    public event Action PlayerHited;
     public event Action<bool> InitedToPlay;
     
     
@@ -63,13 +64,23 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
 
     
     private void Awake() {
+        InitIPlayer();
+        InitAbility();
+    }
+
+    private void InitIPlayer() {
         _damagable = new Damagable(transform);
         _damagable.SetMaxHpGetter(() => _statsCalculator.PlayerHp);
         
         _damagableVisual.SetDamagable(_damagable);
         _pusher = new PlayerPush(_gameData, _controller);
     }
-    
+
+
+    private void InitAbility() {
+        Abilitys.ForEach(a => a.SetSame(this));
+    }
+
 
     private void Update() {
         Walk();

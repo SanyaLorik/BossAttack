@@ -47,9 +47,8 @@ MonoBehaviour:
   _interval: 1
   _origin: {fileID: 4750764167075588228}
   _targetProvider:
-    rid: 7634349249449427015
-  _targetFilters:
-  - rid: 7634349249449427014
+    rid: 7634349292691914825
+  _targetFilters: []
   _effect:
     rid: 7634349180084289608
   _tickBehaviour:
@@ -63,18 +62,6 @@ MonoBehaviour:
       type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
       data:
         _damage: 1488
-    - rid: 7634349249449427014
-      type: {class: AngleTargetFilter, ns: , asm: Assembly-CSharp}
-      data:
-        _viewAngle: 90
-    - rid: 7634349249449427015
-      type: {class: GetClosestTarget, ns: , asm: Assembly-CSharp}
-      data:
-        TargetType: 1
-        _distance: 7
-        _layer:
-          serializedVersion: 2
-          m_Bits: 64
     - rid: 7634349249449427016
       type: {class: Melee, ns: , asm: Assembly-CSharp}
       data:
@@ -82,6 +69,11 @@ MonoBehaviour:
     - rid: 7634349249449427017
       type: {class: Push, ns: , asm: Assembly-CSharp}
       data: 
+    - rid: 7634349292691914825
+      type: {class: GetRadiusTargets, ns: , asm: Assembly-CSharp}
+      data:
+        TargetType: 1
+        _radius: 5
 --- !u!1 &1502980904877203840
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,9 +218,7 @@ MonoBehaviour:
       data:
         TargetType: 1
         _distance: 20
-        _layer:
-          serializedVersion: 2
-          m_Bits: 64
+        _initPrevious: 0
     - rid: 7634349272913936456
       type: {class: BulletsSpawner, ns: , asm: Assembly-CSharp}
       data:
@@ -349,8 +339,8 @@ MonoBehaviour:
   - {fileID: 7761559491542740715}
   _startAbilityIndex: 0
   _diapasoneToChangeAbility:
-    <From>k__BackingField: 8
-    <To>k__BackingField: 14
+    <From>k__BackingField: 5
+    <To>k__BackingField: 8
 --- !u!114 &5156775832256639920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -473,6 +463,18 @@ PrefabInstance:
       propertyPath: <PointToAtack>k__BackingField
       value: 
       objectReference: {fileID: 775716565450235496}
+    - target: {fileID: 790296001332029354, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
+      propertyPath: <Abilitys>k__BackingField.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 790296001332029354, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
+      propertyPath: '<Abilitys>k__BackingField.Array.data[0]'
+      value: 
+      objectReference: {fileID: 7761559491542740715}
+    - target: {fileID: 790296001332029354, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
+      propertyPath: '<Abilitys>k__BackingField.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2780032709577342737}
     - target: {fileID: 921503598439039512, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: m_Enabled
       value: 0

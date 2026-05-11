@@ -1,8 +1,7 @@
 ﻿using SanyaBeerExtension;
 using UnityEngine;
-using Zenject;
 
-public class Bullet : MonoBehaviour {
+public class PaintBullet : BulletBase {
     [SerializeField] private GameObject _bulletModel;
     [SerializeField] private ParticleSystem _psToEnd;
     [SerializeField] private ParticleSystem _psToShoot;
@@ -12,11 +11,11 @@ public class Bullet : MonoBehaviour {
     [SerializeField] private Sound3dEmitter _soundEmitter;
 
     
-    public void SetPosition(Vector3 target) {
+    public override void SetPosition(Vector3 target) {
         transform.position = target;
     }
 
-    public void InitShoot() {
+    public override void InitShoot() {
         // _bulletModel.ActiveSelf();
         ParticleSystem.MainModule module = _psToEnd.main;
         SetColorToAllParticles();
@@ -24,7 +23,7 @@ public class Bullet : MonoBehaviour {
         _psWhileFlight.Play();
     }
     
-    public void PlayToEnd() {
+    public override void PlayToEnd() {
         // _bulletModel.DisactiveSelf();
         _psWhileFlight.Stop();
         // _psWhileFlight.DisactiveSelf();

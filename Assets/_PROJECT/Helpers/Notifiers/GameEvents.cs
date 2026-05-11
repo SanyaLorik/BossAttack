@@ -7,6 +7,7 @@ public static class GameEvents {
     public static event Action ShakeCamera;
     public static event Action NewItemReceived;
     public static event Action PlayerPushed;
+    public static event Action BossSwitchedAbility;
 
     public static void BonusReloadedInvoke() {
         BonusReloaded?.Invoke();
@@ -30,6 +31,10 @@ public static class GameEvents {
     
     public static void PlayerPushInvoke() {
         PlayerPushed?.Invoke();
+    }
+    
+    public static void BossSwitchAbilityInvoke() {
+        BossSwitchedAbility?.Invoke();
     }
 
 

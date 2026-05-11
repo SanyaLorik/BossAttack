@@ -61,34 +61,6 @@ public class SoundManager : MonoBehaviour {
         PlayMusic(_soundConfigDict[SoundType.MainBackground]);
     }
     
-
-    private void OnEnable() {
-        // STATE CHANGES
-        _stateManager.StateChanged += StateManagerOnChangeState;
-        // PLAYER MOVE
-        _playerMovement.JumpPressed += PlayerMovementOnJumpPressed;
-        _playerMovement.DoubleJumpPressed += PlayerMovementOnJumpPressed;
-        _playerMovement.RunningStateChanged += PlayerMovementOnRunningStateChanged;
-        _playerMovement.Floored += PlayerMovementOnFloored;
-        _playerMovement.PlayerHited += OnPlayerHited;
-        // BANK / WEAR
-        _bank.BankNewMoneyPlus += OnMoneyPlus;
-        _bank.BankNewMoneyMinus += OnMoneyPlus;
-        // Settings
-        _settings.MusicValueChanged += SettingsOnMusicValueChanged;
-        _settings.EffectsValueChanged += SettingsOnEffectsValueChanged;
-        // Play Events
-        GameEvents.BonusUsed += PlayBonuseUse;
-        _battleManager.MainPlayerWin += PlayerWin;
-        GameEvents.BonusReloaded += BonusReloaded;
-        GameEvents.TriggerUsed += UiButtonClick;
-        _petOpenView.PetCanasOpen += PlayerMovementOnJumpPressed;
-        _petOpenView.PetNewOpen += () => OnMoneyPlus(0);
-    }
-
-    
-
-
     private void OnDisable() {
         // STATE CHANGES
         _stateManager.StateChanged -= StateManagerOnChangeState;
@@ -97,7 +69,6 @@ public class SoundManager : MonoBehaviour {
         _playerMovement.DoubleJumpPressed -= PlayerMovementOnJumpPressed;
         _playerMovement.RunningStateChanged -= PlayerMovementOnRunningStateChanged;
         _playerMovement.Floored -= PlayerMovementOnFloored;
-        _playerMovement.PlayerHited -= OnPlayerHited;
         // BANK / WEAR
         _bank.BankNewMoneyPlus -= OnMoneyPlus;
         _bank.BankNewMoneyMinus -= OnMoneyPlus;
@@ -109,7 +80,40 @@ public class SoundManager : MonoBehaviour {
         _battleManager.MainPlayerWin -= PlayerWin;
         GameEvents.BonusReloaded -= BonusReloaded;
         GameEvents.TriggerUsed -= UiButtonClick;
+        GameEvents.BossSwitchedAbility -= OnBossSwitchedAbility;
+        GameEvents.PlayerPushed -= OnPlayerHited;
         _petOpenView.PetCanasOpen -= PlayerMovementOnJumpPressed;
+    }
+    
+    
+    private void OnEnable() {
+        // STATE CHANGES
+        _stateManager.StateChanged += StateManagerOnChangeState;
+        // PLAYER MOVE
+        _playerMovement.JumpPressed += PlayerMovementOnJumpPressed;
+        _playerMovement.DoubleJumpPressed += PlayerMovementOnJumpPressed;
+        _playerMovement.RunningStateChanged += PlayerMovementOnRunningStateChanged;
+        _playerMovement.Floored += PlayerMovementOnFloored;
+        // BANK / WEAR
+        _bank.BankNewMoneyPlus += OnMoneyPlus;
+        _bank.BankNewMoneyMinus += OnMoneyPlus;
+        // Settings
+        _settings.MusicValueChanged += SettingsOnMusicValueChanged;
+        _settings.EffectsValueChanged += SettingsOnEffectsValueChanged;
+        // Play Events
+        GameEvents.BonusUsed += PlayBonuseUse;
+        _battleManager.MainPlayerWin += PlayerWin;
+        GameEvents.BonusReloaded += BonusReloaded;
+        GameEvents.TriggerUsed += UiButtonClick;
+        GameEvents.BossSwitchedAbility += OnBossSwitchedAbility;
+        GameEvents.PlayerPushed += OnPlayerHited;
+        
+        _petOpenView.PetCanasOpen += PlayerMovementOnJumpPressed;
+        _petOpenView.PetNewOpen += () => OnMoneyPlus(0);
+    }
+
+    private void OnBossSwitchedAbility() {
+        PlaySoundByType(SoundType.BossSwitchAbility);
     }
     
     

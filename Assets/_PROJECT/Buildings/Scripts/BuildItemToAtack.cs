@@ -4,6 +4,7 @@ public class BuildItemToAtack : IPlayer {
 
     public BuildItemToAtack(Transform origin, IDamagable damagable) {
         Transform = origin;
+        PointToAtack = origin;
         Damagable = damagable;
     }
     

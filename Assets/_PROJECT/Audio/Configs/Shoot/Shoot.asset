@@ -23,5 +23,5 @@ MonoBehaviour:
   <Loop>k__BackingField: 0
   <SpatialBlend>k__BackingField: 1
   <DistanceDiapasone>k__BackingField:
-    <From>k__BackingField: 10
-    <To>k__BackingField: 20
+    <From>k__BackingField: 60
+    <To>k__BackingField: 100

@@ -22,10 +22,12 @@ public class AbilitySystem : TickerBehaviour {
     public event Action<ISoundPlayer> SoundPlayed;
     public event Action<IPlayer> NewTargetFinded;
     
+    
     public IEffect Effect => _effect;
     
     
     [Inject] private DiContainer _diContainer;
+    
     
     [Inject]
     private void Init() {
@@ -40,6 +42,10 @@ public class AbilitySystem : TickerBehaviour {
 
     private void OnDrawGizmos() {
         // _gizmosDrawer.DrawGizmos(_origin.position);
+    }
+
+    public void SetSame(IPlayer player) {
+        _targetProvider.SetSame(player);
     }
 
     protected override void Tick() {

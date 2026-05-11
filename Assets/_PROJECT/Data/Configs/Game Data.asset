@@ -98,7 +98,7 @@ MonoBehaviour:
     <BossMeleeDamageMultiplier>k__BackingField: 1.1
     <BossShootDamageMultiplier>k__BackingField: 1.1
     <BossStoppingDistanceInMelee>k__BackingField: 2
-    <BossSpeedInMelee>k__BackingField: 10
+    <BossSpeedInMelee>k__BackingField: 13
     <BossStoppingDistanceInShooting>k__BackingField: 5
     <BossSpeedInShooting>k__BackingField: 5
     <BossHpBase>k__BackingField: 200

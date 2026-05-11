@@ -14,10 +14,11 @@ public enum TargetType {
 public class GetClosestTarget : ITargetProvider, IGizmosDrawable {
     [SerializeField] private TargetType TargetType;
     [SerializeField] private float _distance;
-    [SerializeField] private LayerMask _layer;
+    [SerializeField] private bool _initPrevious;
     
     
-    private readonly Collider[] _buffer = new Collider[8];
+    public IPlayer Same { get; private set; }
+    private IPlayer _previous;
    
     private IEnumerable<IPlayer> TargetList
         => TargetType == TargetType.Enemy ? 
@@ -28,6 +29,9 @@ public class GetClosestTarget : ITargetProvider, IGizmosDrawable {
     
     [Inject] IBattleInfo _battleInfo;
 
+    public void SetSame(IPlayer player) {
+        Same = player;
+    }
 
     
     public IEnumerable<IPlayer> GetTargets(Vector3 origin) {
@@ -38,6 +42,8 @@ public class GetClosestTarget : ITargetProvider, IGizmosDrawable {
         
         IEnumerable<IPlayer> targets = TargetList;
         foreach (var target in targets) {
+            if(target == Same) continue;
+            if(!_initPrevious && target == _previous) continue;
             
             Vector3 direction = target.Transform.position - origin;
             float sqrDistance = Vector3.SqrMagnitude(direction);
@@ -55,11 +61,18 @@ public class GetClosestTarget : ITargetProvider, IGizmosDrawable {
                 closestUnit = target;
             }
         }
-        if (closestUnit != null)
+        if (closestUnit != null) {
+            _previous = closestUnit;
             yield return closestUnit;
+        }
+        else if(_previous != null) {
+            yield return _previous;
+        }
     }
 
-    
+
+
+
     private bool HasLineOfSight(Vector3 origin, Vector3 direction, IPlayer target) {
         // if (Physics.Raycast(origin, direction.normalized, out RaycastHit hitInfo, _distance)) {
         //     if (hitInfo.transform == target.Transform) {
