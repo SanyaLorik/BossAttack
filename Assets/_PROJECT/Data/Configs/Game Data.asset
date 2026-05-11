@@ -18,7 +18,7 @@ MonoBehaviour:
     <InterstitialDelay>k__BackingField: 80
     <AdTimerInitial>k__BackingField: 2
     <AdTimerFinal>k__BackingField: 0
-    <WalkSpeed>k__BackingField: 13
+    <WalkSpeed>k__BackingField: 25
     <JumpForce>k__BackingField: 12
     <SecondJumpForce>k__BackingField: 16
     <RotateSpeed>k__BackingField: 16

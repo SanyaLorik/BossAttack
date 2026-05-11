@@ -18,6 +18,7 @@ public class BotsMainManager : IInitializable, IDisposable {
     private bool _stopBotSpeaking;
     private List<BotManager> _speakingBots = new();
 
+    
     public BotsMainManager(List<BotManager> bots, 
         GameData gameData, 
         BattleManager battleManager)
@@ -31,7 +32,6 @@ public class BotsMainManager : IInitializable, IDisposable {
     public void Initialize() {
         _tokenSource = new CancellationTokenSource();
         BotSpeakCycleAsync(_tokenSource.Token).Forget();
-        
     }
 
     public List<BotManager> GetPlayBotsToGame(int count) {
@@ -39,20 +39,6 @@ public class BotsMainManager : IInitializable, IDisposable {
     }
     
     
-    public BotManager GetRandomBotToBattle(bool playerCopy) {
-        int countIters = 100;
-        while (countIters > 0) {
-            countIters--;
-            var bot = _bots.GetRandomElement();
-            if (!bot.IsPlaying) {
-                bot.SetPlayStatusSilent(true);
-                return bot;
-            }
-        }
-        Debug.LogError("Все боты для игры заняты, бот не нашелся");
-        return null;
-    }
-
     
     private async UniTask BotSpeakCycleAsync(CancellationToken token) {
         await UniTask.Delay(1000, cancellationToken: token);

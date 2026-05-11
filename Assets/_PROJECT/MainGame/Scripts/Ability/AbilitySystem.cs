@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using Zenject;
 
@@ -17,7 +18,10 @@ public class AbilitySystem : TickerBehaviour {
     [SerializeReference, SubclassSelector] private List<ITickBehaviour> _tickBehaviour;
     [field: SerializeField] public AbilityType Type { get; private set; }
 
+    
     private IGizmosDrawable _gizmosDrawer;
+    private CancellationTokenSource _findTagetSource;
+    private IPlayer _target;
     
     public event Action<ISoundPlayer> SoundPlayed;
     public event Action<IPlayer> NewTargetFinded;
@@ -49,8 +53,9 @@ public class AbilitySystem : TickerBehaviour {
     }
 
     protected override void Tick() {
+        _target = null;
         foreach (IPlayer target in _targetProvider.GetTargets(_origin.position)) {
-            if(target == null) continue;
+            if(target == null || target.Damagable.CurrentHp == 0) continue;
 
             
             bool allowed = true;
@@ -63,6 +68,7 @@ public class AbilitySystem : TickerBehaviour {
 
             if (allowed) {
                 NewTargetFinded?.Invoke(target);
+                _target = target;
                 foreach (var beh in _tickBehaviour) {
                     beh.OnTick(_origin.position, target);
                     if (beh is ISoundPlayer soundPlayer) {
@@ -71,6 +77,10 @@ public class AbilitySystem : TickerBehaviour {
                 }
                 _effect.ApplyEffect(target);
             }
+        }
+        // нет целей поблизости - бежим по всей карте за ближайшим
+        if (_target == null) {
+            NewTargetFinded?.Invoke(null);
         }
     }
 }

@@ -36,8 +36,15 @@ public class BuildZoneItem : MonoBehaviour {
     }
 
     
+    private void OnDisable() {
+        if (_damagable != null) {
+            _damagable.DamagableDied -= DestroyUnit;
+        }
+    }
+    
     private void InitIPlayer() {
         _damagable = new Damagable(transform);
+        _damagable.DamagableDied += DestroyUnit;
         _damagable.SetMaxHpGetter(() => _statsCalculator.BuildHp);
         
         _damagableVisual.SetDamagable(_damagable);
@@ -46,11 +53,24 @@ public class BuildZoneItem : MonoBehaviour {
         _building.SetSame(_buildItem);
     }
 
+   
+
+
+    private void DestroyUnit() {
+        // Не буду делать тк модификация списка 
+        // _playerRegister.UnregisterUnit(_buildItem, TargetType.Player);
+        SetDefault();
+    }
+    
 
     public void SetDefault() {
+        _isBuilded = false;
+        _playerInZone = false;
+        _currentTime = 0f;
         _buildVisual.ActiveSelf();
         _afterBuildVisual.DisactiveSelf();
         _progressImage.fillAmount = 0;
+        _building.Stop();
         _building.DisactiveSelf();
     }
 
@@ -106,8 +126,10 @@ public class BuildZoneItem : MonoBehaviour {
     private void EndBuild() {
         _playerRegister.RegisterUnit(_buildItem, TargetType.Player);
         _building.ActiveSelf();
+        _building.Start();
         _afterBuildVisual.ActiveSelf();
         _buildVisual.DisactiveSelf();
+        _damagable.SetSpawned();
     }
     
 }

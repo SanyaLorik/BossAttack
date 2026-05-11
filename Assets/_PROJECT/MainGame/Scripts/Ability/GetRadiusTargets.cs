@@ -31,6 +31,7 @@ public class GetRadiusTargets : ITargetProvider, IGizmosDrawable {
     public IEnumerable<IPlayer> GetTargets(Vector3 origin) {
         IEnumerable<IPlayer> targets = TargetList;
         foreach (var target in targets) {
+            if (target.Damagable.CurrentHp == 0) continue;
             float distance = Vector3.SqrMagnitude(origin - target.Transform.position);
             if (distance <= _radius * _radius && target != Same) {
                 yield return target;

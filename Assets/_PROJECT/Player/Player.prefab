@@ -401,6 +401,7 @@ MonoBehaviour:
     rid: 7634349180084289608
   _tickBehaviour:
   - rid: 7634349187638493253
+  <Type>k__BackingField: 0
   references:
     version: 2
     RefIds:
@@ -413,9 +414,7 @@ MonoBehaviour:
       data:
         TargetType: 0
         _distance: 20
-        _layer:
-          serializedVersion: 2
-          m_Bits: 128
+        _initPrevious: 1
     - rid: 7634349187638493253
       type: {class: BulletsSpawner, ns: , asm: Assembly-CSharp}
       data:
@@ -726,6 +725,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23ec2c0b4a919ad42b5b1e28fec4352a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+  <Abilitys>k__BackingField: []
   _controller: {fileID: 6165380883207411591}
   _spawnPoint: {fileID: 0}
   _playerVisual: {fileID: 5928220643738429436}

@@ -34,17 +34,29 @@ public class BotHuntingBehaviour : MonoBehaviour {
     private void OnDisable() {
         _abilitySystems.ForEachs(a => a.NewTargetFinded -= TrySetNewTargetToHunt);
         _abilityController.NewAbilitySystemEnabled -= OnNewAbilitySystemEnabled;
+        StopHunting();
     }
     
     
     private void OnEnable() {
         _abilitySystems.ForEachs(a => a.NewTargetFinded += TrySetNewTargetToHunt);
         _abilityController.NewAbilitySystemEnabled += OnNewAbilitySystemEnabled;
-        IPlayer randomPlayer = _battleInfo.Players[Random.Range(0, _battleInfo.Players.Count)];
-        TrySetNewTargetToHunt(randomPlayer);
+        _targetToHunt = GetRandomPlayerToFollow();
+        TrySetNewTargetToHunt(_targetToHunt);
+        StartHunting();
     }
 
-    
+
+    private IPlayer GetRandomPlayerToFollow() {
+        IPlayer player = EnumerableHelper.GetRandomElementInListWhere(
+            _battleInfo.Players,
+            player => player.Damagable.CurrentHp != 0
+        );
+        return player;
+    }
+
+
+
     private void OnNewAbilitySystemEnabled(AbilitySystem abilitySystem) {
         switch (abilitySystem.Type) {
             
@@ -63,12 +75,16 @@ public class BotHuntingBehaviour : MonoBehaviour {
 
     
     private void TrySetNewTargetToHunt(IPlayer target) {
-        if (_targetToHunt == target && _tokenSource != null) {
-            return;
+        // Если передал null то чтоб босс не стоял пусть идет за рандом землекопом
+        if (target == null) {
+            var newTarget = GetRandomPlayerToFollow();
+            // Ставим новую если не равна null, иначе остается предыдущая
+            if (newTarget != null) {
+                _targetToHunt = newTarget;
+            }
         }
-        _targetToHunt = target;
-        if (_tokenSource ==  null) {
-            StartHunting();
+        else {
+            _targetToHunt = target;
         }
     }
     
@@ -87,10 +103,9 @@ public class BotHuntingBehaviour : MonoBehaviour {
     private async UniTask StartHuntingAsync(CancellationToken token) {
         while (!token.IsCancellationRequested) {
             // За типом бегаем постоянно выбранным
+            await UniTask.WaitWhile(() => _targetToHunt == null, cancellationToken: token);
             WalkManager.SetAgentGoToPoint(GetNavMeshPosition(_targetToHunt.Transform.position));
-            
             await UniTask.WaitForSeconds(_gameData.DurationToGoInPoint ,cancellationToken: token);
-            GetNextPlayerVictim();
         }
     }
     

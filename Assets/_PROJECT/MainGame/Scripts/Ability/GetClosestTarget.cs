@@ -18,8 +18,12 @@ public class GetClosestTarget : ITargetProvider, IGizmosDrawable {
     
     
     public IPlayer Same { get; private set; }
+    
     private IPlayer _previous;
-   
+    private IPlayer _closestUnit;
+    private float _bestSqr;
+    private float _sqrRange;
+    
     private IEnumerable<IPlayer> TargetList
         => TargetType == TargetType.Enemy ? 
             _battleInfo.Enemys 
@@ -33,41 +37,58 @@ public class GetClosestTarget : ITargetProvider, IGizmosDrawable {
         Same = player;
     }
 
-    
+   
     public IEnumerable<IPlayer> GetTargets(Vector3 origin) {
-        IPlayer closestUnit = null;
-        float bestSqr = float.MaxValue;
-        float sqrRange = _distance * _distance;
+        _closestUnit = null;
+        _bestSqr = float.MaxValue;
+        _sqrRange = _distance * _distance;
         
         
         IEnumerable<IPlayer> targets = TargetList;
         foreach (var target in targets) {
             if(target == Same) continue;
+            if (target.Damagable.CurrentHp == 0) {
+                _previous = null;
+                continue;
+            }
+            
             if(!_initPrevious && target == _previous) continue;
             
-            Vector3 direction = target.Transform.position - origin;
-            float sqrDistance = Vector3.SqrMagnitude(direction);
-            
-            // Скип если далеко
-            if (sqrDistance > sqrRange) 
-                continue;
- 
-            // Проверка что между нами стенка
-            if(!HasLineOfSight(origin, direction, target)) 
-                continue;
+            CheckTarget(target, origin);
 
-            if (sqrDistance <= bestSqr) {
-                bestSqr = sqrDistance;
-                closestUnit = target;
-            }
         }
-        if (closestUnit != null) {
-            _previous = closestUnit;
-            yield return closestUnit;
+        
+        if (_closestUnit != null) {
+            _previous = _closestUnit;
+            yield return _closestUnit;
         }
         else if(_previous != null) {
-            yield return _previous;
+            if (CheckTarget(_previous, origin)) {
+                yield return _previous;
+            }
+            else {
+                _previous = null;
+            }
         }
+    }
+
+    private bool CheckTarget(IPlayer target, Vector3 origin) {
+        Vector3 direction = target.Transform.position - origin;
+        float sqrDistance = Vector3.SqrMagnitude(direction);
+            
+        // Скип если далеко
+        if (sqrDistance > _sqrRange) 
+            return false;
+ 
+        // Проверка что между нами стенка
+        if(!HasLineOfSight(origin, direction, target)) 
+            return false;
+
+        if (sqrDistance <= _bestSqr) {
+            _bestSqr = sqrDistance;
+            _closestUnit = target;
+        }
+        return true;
     }
 
 

@@ -47,10 +47,12 @@ public class PlayerRegister : MonoBehaviour, IBattleInfo {
     public void RegisterUnit(IPlayer player, TargetType type) {
         switch (type) {
             case TargetType.Player:
+                if(Players.Contains(player)) return; 
                 Players.Add(player);
                 break;
             
             case TargetType.Enemy:
+                if(Enemys.Contains(player)) return; 
                 Enemys.Add(player);
                 break;
         }
