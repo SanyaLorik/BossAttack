@@ -36,6 +36,7 @@ Transform:
   - {fileID: 9184566021140391771}
   - {fileID: 630870542648160368}
   - {fileID: 4536570151687751613}
+  - {fileID: 4483171707503938788}
   - {fileID: 8134034813597526287}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -59,6 +60,7 @@ MonoBehaviour:
   - {fileID: 2592245794595552275}
   - {fileID: 6002386169269442179}
   - {fileID: 8243756716722015280}
+  - {fileID: 5750426254800818082}
   - {fileID: 4014894130893296218}
   _installerPrefabs: []
   _parentNewObjectsUnderContext: 1
@@ -312,6 +314,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Architecture_M.GameReadyInstaller
   <IsInstalled>k__BackingField: 0
   _gameReadySDK: {fileID: 2694807067642458303, guid: 035c779d3cdc6c54eb0ae9b95fcf0ca0, type: 3}
+--- !u!1 &6659415168298000684
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4483171707503938788}
+  - component: {fileID: 5750426254800818082}
+  m_Layer: 0
+  m_Name: PlayerInstaller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4483171707503938788
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6659415168298000684}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6763676311389674036}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5750426254800818082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6659415168298000684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e04476631f30ad489e0708ad3ca871e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Architecture_M.PlayerInstaller
+  <IsInstalled>k__BackingField: 0
+  _playerInfoService: {fileID: 5695739061725403757, guid: 63e1e8d9836b7724db24a0533ac890f6, type: 3}
 --- !u!1 &7806975547262314831
 GameObject:
   m_ObjectHideFlags: 0
@@ -363,6 +411,7 @@ MonoBehaviour:
     - {fileID: 2592245794595552275}
     - {fileID: 6002386169269442179}
     - {fileID: 8243756716722015280}
+    - {fileID: 5750426254800818082}
     - {fileID: 4014894130893296218}
 --- !u!1 &8873677895537377116
 GameObject:
