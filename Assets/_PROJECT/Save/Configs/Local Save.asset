@@ -13,16 +13,17 @@ MonoBehaviour:
   m_Name: Local Save
   m_EditorClassIdentifier: Assembly-CSharp::GameSaveSO
   Save:
-    Money: 11850
+    Money: 7518
     IsBoughtPurchase: 0
     TutorialPassed: 1
-    Bonuses:
-    - Id: InvisibleBonus
-      Count: 10
-    - Id: SpeedBonus
-      Count: 9
-    - Id: BigJumpBonus
-      Count: 10
+    PlayerLevel: 1
+    Modifiers:
+    - Id: Damage
+      Level: 1
+    - Id: RateOfFire
+      Level: 1
+    - Id: Capacity
+      Level: 1
     Tasks:
     - Id: pass_bomb_10
       Count: 10
@@ -63,8 +64,8 @@ MonoBehaviour:
         BoughtIds: 01000000
         EquippedId: 1
       - GroupId: 2
-        BoughtIds: 01000000
-        EquippedId: 1
+        BoughtIds: 0100000003000000
+        EquippedId: 3
       - GroupId: 3
         BoughtIds: 01000000
         EquippedId: 1
@@ -74,3 +75,5 @@ MonoBehaviour:
       - GroupId: 5
         BoughtIds: 01000000
         EquippedId: 1
+    CommunitySave:
+      LastDateTimeSocialNetworking: 11.05.2026 21:03:11

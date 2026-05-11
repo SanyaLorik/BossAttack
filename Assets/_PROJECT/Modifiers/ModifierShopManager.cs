@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Architecture_M;
 using DG.Tweening;
@@ -8,21 +9,22 @@ using UnityEngine.UI;
 using Zenject;
 
 
-public class BonusShopView : MonoBehaviour {
+public class ModifierShopManager : MonoBehaviour {
     [SerializeField] private DelayedTrigger _trigger;
     [SerializeField] private GameObject _canvas;
     [SerializeField] private Button _closeButton;
-    [Header("Карточки бонусов")]
+    [Header("Карточки")]
     [SerializeField] private Ease _easeToShowCards;
     [SerializeField] private float _showCardsDuration;
     [Header("Кнопки купить")]
-    [SerializeField] private List<BonusShopCardView> _bonusCards;
+    [SerializeField] private List<ModifierShopCardView> _itemCards;
     [SerializeField] private Button _randomByAdv;
     [SerializeField] private Transform _randomByAdvTransform;
 
     private GameSave Saves => _save.GetSave<GameSave>();
+
+    public event Action ModifierUpdated; 
     
-    [Inject] private PlayerBonusManager _playerBonusManager;
     [Inject] private IGameSave _save;
     [Inject] private AdvHelper _advHelper;
     [Inject] private AdvertisingMonetizationMirra _advertisingMonetization;
@@ -32,14 +34,25 @@ public class BonusShopView : MonoBehaviour {
     
     private void OnEnable() {
         _closeButton.onClick.AddListener(CloseCanvas);
-        _bonusCards.ForEach(c => c.BuyButton.onClick.AddListener(() => BuyOneItem(c.Bonus.Id, c)));
+        _itemCards.ForEach(c => c.BuyButton.onClick.AddListener(() => BuyOneItem(c.Modifier.Id, c)));
         _advHelper.AddToButtonAdvRewardListener(_randomByAdv, GetRandom);
+    }
+
+    public int GetModifierLevelWithType(ModifierType modifierType) {
+        ModifierShopCardView modifier = _itemCards.Find(m => m.Modifier.ModifierType == modifierType);
+        
+        if (modifier == null) {
+            Debug.LogError("Не найден модификатор с типом " + modifierType);
+        }
+        
+        string modifierId = modifier.Modifier.Id;
+        return Saves.GetModifierLevel(modifierId);
     }
 
 
     private void OnTriggerEnter(Collider collider) {
         if(!collider.TryGetComponent(out PlayerMovement _)) return;
-        _trigger.DelayedTriggerAction(OpenBonusCanvasAnimation);
+        _trigger.DelayedTriggerAction(OpenCardsCanvasAnimation);
         _advHelper.DisableTimer();
     }
     
@@ -52,41 +65,40 @@ public class BonusShopView : MonoBehaviour {
     
     
     private void OnOpenCanvas() {
-        _bonusCards.ForEach(c => c.SetCount(Saves.GetBonusCount(c.Bonus.Id)));
-        _bonusCards.ForEach(c => c.CheckPlayerBankToBuy());
+        _itemCards.ForEach(c => c.SetCount(Saves.GetModifierLevel(c.Modifier.Id)));
+        _itemCards.ForEach(c => c.CheckPlayerBankToBuy());
     }
     
 
-    private void BuyOneItem(string bonusId, BonusShopCardView bonusShopCard) {
-        _bank.SpendMoney(bonusShopCard.Bonus.Price);
-        Saves.AddNewBonusCounts(bonusId,1);
+    private void BuyOneItem(string modifierId, ModifierShopCardView modifierShopCard) {
+        _bank.SpendMoney(modifierShopCard.Modifier.Price);
+        Saves.UpdateModifierLevel(modifierId,1);
         _save.Save();
-        bonusShopCard.SetCount(Saves.GetBonusCount(bonusId));
-        _bonusCards.ForEach(c => c.CheckPlayerBankToBuy());
+        ModifierUpdated?.Invoke();
+        modifierShopCard.SetCount(Saves.GetModifierLevel(modifierId));
+        _itemCards.ForEach(c => c.CheckPlayerBankToBuy());
     }
 
-    
-    
     
     private void GetRandom() { 
-        BonusShopCardView bonusShopCardView = _bonusCards.GetRandomElement();
-        Saves.AddNewBonusCounts(bonusShopCardView.Bonus.Id, 1);
+        ModifierShopCardView modifierShopCardView = _itemCards.GetRandomElement();
+        Saves.UpdateModifierLevel(modifierShopCardView.Modifier.Id, 1);
         _save.Save();
-        bonusShopCardView.SetCount(Saves.GetBonusCount(bonusShopCardView.Bonus.Id));
+        modifierShopCardView.SetCount(Saves.GetModifierLevel(modifierShopCardView.Modifier.Id));
     }
 
     
-    private void OpenBonusCanvasAnimation() {
+    private void OpenCardsCanvasAnimation() {
         _advHelper.ShowAdv();
 
         OnOpenCanvas();
         _canvas.ActiveSelf();
         GameEvents.TriggerUseInvoke();
-        _bonusCards.ForEach(c => c.Card.localScale = Vector3.zero);
+        _itemCards.ForEach(c => c.Card.localScale = Vector3.zero);
         _randomByAdvTransform.localScale = Vector3.zero;
         
         Sequence sequence = DOTween.Sequence();
-        foreach (var card in _bonusCards) {
+        foreach (var card in _itemCards) {
             sequence.Append(
                 card.Card
                     .DOScale(1f, _showCardsDuration)

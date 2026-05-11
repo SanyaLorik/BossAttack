@@ -27950,7 +27950,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5043150827447168653, guid: ab12a273c0c865848aef0e42f3992503, type: 3}
       propertyPath: m_Name
-      value: Trigger Bonus
+      value: Trigger Modifier
       objectReference: {fileID: 0}
     - target: {fileID: 7553845933434079374, guid: ab12a273c0c865848aef0e42f3992503, type: 3}
       propertyPath: m_text

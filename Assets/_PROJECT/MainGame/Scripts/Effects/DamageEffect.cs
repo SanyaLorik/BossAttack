@@ -5,14 +5,14 @@ using UnityEngine;
 public class DamageEffect : IEffect, IEffectValue {
     [SerializeField] private int _damage;
 
-    private Func<int> _damageGetter;
+    private Func<float> _damageGetter;
 
-    public void SetValueGetter(Func<int> damageGetter) {
+    public void SetValueGetter(Func<float> damageGetter) {
         _damageGetter = damageGetter;
     }
     
     public void ApplyEffect(IPlayer player) {
-        int damage = _damageGetter == null ?  _damage : _damageGetter();
-        player.Damagable.ApplyDamage(damage);
+        float damage = _damageGetter == null ?  _damage : _damageGetter();
+        player.Damagable.ApplyDamage((int)damage);
     }
 }

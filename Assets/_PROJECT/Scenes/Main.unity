@@ -406,17 +406,6 @@ MonoBehaviour:
   _hideCanvasEase: 26
   _defaultColor: {r: 1, g: 0, b: 0.6106348, a: 0}
   _colorLighning: {fileID: 935377476}
---- !u!114 &60722210 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8024904503761004126, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
-  m_PrefabInstance: {fileID: 967158670}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd804cb867d301349afaf14642d04474, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BonusSlot
 --- !u!114 &65972562 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1157381781694991778, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
@@ -1233,6 +1222,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f50638fea48c20142adb75f4334f8ed7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Architecture_M.Community
+  <IsEnable>k__BackingField: 0
+  _sNButton: {fileID: 0}
+  _sNWindow: {fileID: 0}
 --- !u!114 &254166637 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6115804681842342708, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
@@ -3097,17 +3089,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 611408ef5a702e94e88d1d1cefbc15cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Architecture_M.PurchaseSlotView
---- !u!114 &682419295 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7279639844355248855, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
-  m_PrefabInstance: {fileID: 967158670}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd804cb867d301349afaf14642d04474, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BonusSlot
 --- !u!114 &682450039 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4924103041432313929, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
@@ -3627,7 +3608,7 @@ GameObject:
   m_Component:
   - component: {fileID: 880088265}
   m_Layer: 0
-  m_Name: Bonuses
+  m_Name: Modifiers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3646,7 +3627,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1797428645}
+  - {fileID: 1151337240808513001}
   m_Father: {fileID: 1883334078}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &889303193
@@ -4050,6 +4031,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1586341782}
     m_Modifications:
+    - target: {fileID: 73460597490218224, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
+      propertyPath: <Modifier>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: d1f8dd7c079fab74a95e58d6b37d18d0, type: 2}
     - target: {fileID: 127271779916993008, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -4114,6 +4099,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1920159429207414005, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
+      propertyPath: <Modifier>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 74a90e14284c5094183c178ada86850c, type: 2}
     - target: {fileID: 2027506306713843981, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -4354,6 +4343,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 530980559}
+    - target: {fileID: 6068287523391218836, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
+      propertyPath: <Modifier>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: c83c32378f4b18b4e9788953552c11d9, type: 2}
     - target: {fileID: 6123189274478460088, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -7414,17 +7407,6 @@ MonoBehaviour:
   _continue2xButton: {fileID: 1261830925}
   _rewardText: {fileID: 1163204490}
   _doubleRewardText: {fileID: 936460308}
---- !u!114 &1562383112 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 515637230455309066, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
-  m_PrefabInstance: {fileID: 967158670}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd804cb867d301349afaf14642d04474, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BonusSlot
 --- !u!1 &1564433265
 GameObject:
   m_ObjectHideFlags: 0
@@ -7978,54 +7960,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CanvasWindowNotifier
   _allowCameraZoom: 0
---- !u!1 &1797428644
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1797428645}
-  - component: {fileID: 1797428646}
-  m_Layer: 0
-  m_Name: BonuseManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1797428645
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1797428644}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 880088265}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1797428646
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1797428644}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 576821bfb68f445448f59a56de6e4e34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BonusManager
-  _bonusSlots:
-  - {fileID: 682419295}
-  - {fileID: 1562383112}
-  - {fileID: 60722210}
 --- !u!114 &1800275026 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3930958459884441742, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
@@ -8334,11 +8268,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 880088265}
   - {fileID: 220291354}
   - {fileID: 349319953}
   - {fileID: 1319422669}
   - {fileID: 1624858872}
-  - {fileID: 880088265}
   - {fileID: 196757133}
   - {fileID: 449236013}
   - {fileID: 1426750789}
@@ -9141,10 +9075,10 @@ MonoBehaviour:
   _closeButton: {fileID: 1544021432}
   _easeToShowCards: 27
   _showCardsDuration: 0.7
-  _bonusCards:
-  - {fileID: 1544021431}
+  _itemCards:
   - {fileID: 1544021430}
   - {fileID: 1817609894}
+  - {fileID: 1544021431}
   _randomByAdv: {fileID: 1544021428}
   _randomByAdvTransform: {fileID: 403487570}
 --- !u!4 &1151337240808513001
@@ -9155,12 +9089,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3086238697978186989}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -5.9492, y: 0.89, z: 14.97}
   m_LocalScale: {x: 3.4734297, y: 2.1201, z: 3.4669282}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6108034796597380318}
+  m_Father: {fileID: 880088265}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1240677626789750648
 Transform:
@@ -9275,7 +9209,7 @@ GameObject:
   - component: {fileID: 4415918200322192401}
   - component: {fileID: 1111182764139051692}
   m_Layer: 0
-  m_Name: BonusTriggerOpener
+  m_Name: ModifiersManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9484,7 +9418,6 @@ Transform:
   - {fileID: 807399930}
   - {fileID: 1305201963}
   - {fileID: 1307227650}
-  - {fileID: 1151337240808513001}
   - {fileID: 2259955537951439300}
   - {fileID: 1240677626789750648}
   - {fileID: 1889167960}

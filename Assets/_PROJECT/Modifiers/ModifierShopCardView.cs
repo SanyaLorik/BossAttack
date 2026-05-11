@@ -1,11 +1,10 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-public class BonusShopCardView : MonoBehaviour {
-    [field: SerializeField] public BonusItemConfig Bonus { get; private set; }
+public class ModifierShopCardView : MonoBehaviour {
+    [field: SerializeField] public ModifierItemConfig Modifier { get; private set; }
     [field: SerializeField] public Button BuyButton { get; private set; }
     [field: SerializeField] public Transform Card;
     [SerializeField] private TextMeshProUGUI _priceText;
@@ -26,13 +25,13 @@ public class BonusShopCardView : MonoBehaviour {
     }
 
     public void CheckPlayerBankToBuy() {
-        BuyButton.interactable = _bank.CanBuy(Bonus.Price);
+        BuyButton.interactable = _bank.CanBuy(Modifier.Price);
     }
 
     
     private void Initialize() {
-        _priceText.text = _priceFormatter.ValuteFormatter(Bonus.Price);
-        _nameText.text = _localization.GetTranslatedText(Bonus, _localization.BonusesTranslates);
+        _priceText.text = _priceFormatter.ValuteFormatter(Modifier.Price);
+        _nameText.text = _localization.GetTranslatedText(Modifier, _localization.ModifiersTranslates);
     }
 
     

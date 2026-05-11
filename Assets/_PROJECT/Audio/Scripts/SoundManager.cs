@@ -41,7 +41,6 @@ public class SoundManager : MonoBehaviour {
     [Inject] private PlayerBank _bank;
     [Inject] private SettingsManager _settings;
     [Inject] private BattleManager _battleManager;
-    [Inject] private PlayerBonusManager _playerBonusManager;
     [Inject] private GameOver _gameOver;
     [Inject] private PlayerPetsManager _playerPetsManager;
     [Inject] private PetOpenView _petOpenView;
@@ -78,7 +77,6 @@ public class SoundManager : MonoBehaviour {
         // Play Events
         GameEvents.BonusUsed -= PlayBonuseUse;
         _battleManager.MainPlayerWin -= PlayerWin;
-        GameEvents.BonusReloaded -= BonusReloaded;
         GameEvents.TriggerUsed -= UiButtonClick;
         GameEvents.BossSwitchedAbility -= OnBossSwitchedAbility;
         GameEvents.PlayerPushed -= OnPlayerHited;
@@ -103,7 +101,6 @@ public class SoundManager : MonoBehaviour {
         // Play Events
         GameEvents.BonusUsed += PlayBonuseUse;
         _battleManager.MainPlayerWin += PlayerWin;
-        GameEvents.BonusReloaded += BonusReloaded;
         GameEvents.TriggerUsed += UiButtonClick;
         GameEvents.BossSwitchedAbility += OnBossSwitchedAbility;
         GameEvents.PlayerPushed += OnPlayerHited;
@@ -150,9 +147,6 @@ public class SoundManager : MonoBehaviour {
         PlaySoundByType(SoundType.BonusUse);
     }
 
-    private void BonusReloaded() {
-        PlaySoundByType(SoundType.ReloadBonus);
-    }
 
     
     private void PlayerAugh() {

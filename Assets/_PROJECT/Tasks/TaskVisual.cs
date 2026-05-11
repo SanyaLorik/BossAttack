@@ -77,7 +77,7 @@ public class TaskVisual : MonoBehaviour {
     }
 
     public void UpdateTaskScoreVisual(float currentValue, float fullValue) {
-        Debug.Log($"Обновление значения задачи {TaskType}:  {currentValue}/{fullValue}");
+        // Debug.Log($"Обновление значения задачи {TaskType}:  {currentValue}/{fullValue}");
         float percent = Math.Min(currentValue, fullValue) / fullValue;
         _progressText.text = $"{Math.Min(currentValue, fullValue)}/{fullValue}";
         
@@ -88,7 +88,7 @@ public class TaskVisual : MonoBehaviour {
     public void SetTaskCompleteVisual(float currentValue, float fullValue) {
         _takeRewardButton.interactable = true;
         _progressText.text = $"{Math.Min(currentValue, fullValue)}/{fullValue}";
-        Debug.Log($"Обновление значения задачи {TaskType}:  {currentValue}/{fullValue}");
+        // Debug.Log($"Обновление значения задачи {TaskType}:  {currentValue}/{fullValue}");
         RectTransformHelper.SetFillAmount(_progressRectTransform, _parentRectTransform, 1);
         TaskIsComplete = true;
     }

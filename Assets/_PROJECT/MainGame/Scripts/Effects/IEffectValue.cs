@@ -1,5 +1,5 @@
 ﻿using System;
 
 public interface IEffectValue {
-    public void SetValueGetter(Func<int> valueGetter);
+    public void SetValueGetter(Func<float> valueGetter);
 }

@@ -227,7 +227,7 @@ public class TasksManager : MonoBehaviour {
 
     
     private void SetPlayerValue(TaskType taskType, int count, string id) {
-        Debug.Log($"SetPlayerValue {id} {count} {false}");
+        // Debug.Log($"SetPlayerValue {id} {count} {false}");
         Saver.UpdateTaskInfo(id, count, false);
         switch (taskType) {
             case TaskType.LifeSec:

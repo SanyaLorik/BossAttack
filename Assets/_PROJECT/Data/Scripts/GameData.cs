@@ -105,12 +105,12 @@ public class GameData : GameDataBase
     [field: Header("Настройка урона босса")]
     [field: SerializeField] public int BossMeleeDamageBase { get; private set; }
     [field: SerializeField] public int BossShootDamageBase { get; private set; }
-    [field: SerializeField] public float BossMeleeDamageMultiplier { get; private set; }    
-    [field: SerializeField] public float BossShootDamageMultiplier { get; private set; }
+    [field: SerializeField] public float BossMeleeLevelAddDamage { get; private set; }    
+    [field: SerializeField] public float BossShootLevelAddDamage { get; private set; }
     [field: Header("Настройка босса")]
     [field: SerializeField] public float BossStoppingDistanceInMelee { get; private set; }    
-    [field: SerializeField] public float BossSpeedInMelee { get; private set; }     
     [field: SerializeField] public float BossStoppingDistanceInShooting { get; private set; }    
+    [field: SerializeField] public float BossSpeedInMelee { get; private set; }     
     [field: SerializeField] public float BossSpeedInShooting { get; private set; }    
     
     
@@ -126,8 +126,23 @@ public class GameData : GameDataBase
     
     [field: SerializeField] public float BuildHpMultiplier { get; private set; }
     
+    [field: Header("Настройка Модификаторов игрока")]
+    [field: Header("Урон")]
+    [field: SerializeField] public float PlayerDamageBase { get; private set; }
+    [field: SerializeField] public float PlayerLevelAddDamage { get; private set; }
+    
+    
+    [field: Header("Скорострельность")]
+    [field: SerializeField] public float PlayerRateOfFireBase { get; private set; }
+    [field: SerializeField] public float PlayerLevelAddRateOfFire { get; private set; }
+    [field: SerializeField] public float PlayerRateOfFireMinimum { get; private set; }
 
+    
+    [field: Header("Обойма")]
+    [field: SerializeField] public float PlayerCapacityBase { get; private set; }
+    [field: SerializeField] public float PlayerLevelAddCapacity { get; private set; }
 
+    
 
 
 }

@@ -51,16 +51,19 @@ public class BotManager : MonoBehaviour, IPlayer {
     [Inject] private RespawnManager _respawn;
     [Inject] private MapsToBattleChanger _mapsManager;
     [Inject] private NavMeshHelper _navMeshHelper;
-    [Inject] private StatsCalculator _statsCalculator;
+    
+    [Inject] private PlayerStatsCalculator _playerStatsCalculator;
+    [Inject] private BossStatsCalculator _bossStatsCalculator;
 
     
     private void Awake() {
         _damagable = new Damagable(Transform);
         if (IsBoss) {
-            _damagable.SetMaxHpGetter(() => _statsCalculator.BossHp);
+            _damagable.SetMaxHpGetter(() => _bossStatsCalculator.BossHp);
         }
         else {
-            _damagable.SetMaxHpGetter(() => _statsCalculator.PlayerHp);
+            // пока хп как у игрока
+            _damagable.SetMaxHpGetter(() => _playerStatsCalculator.PlayerHp);
         }
         _damageVisualizer.SetDamagable(_damagable);
         InitIPlayerToAbilitys();

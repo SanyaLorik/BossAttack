@@ -10,14 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 45a865cbd7bbfcf46b9d961f83cdcf3d, type: 3}
-  m_Name: Invisible
-  m_EditorClassIdentifier: Assembly-CSharp::BonusItemConfig
-  Bonus:
-    rid: 6522072450793734210
-  <Price>k__BackingField: 2000
-  references:
-    version: 2
-    RefIds:
-    - rid: 6522072450793734210
-      type: {class: InvisibleBonus, ns: , asm: Assembly-CSharp}
-      data: 
+  m_Name: Capacity
+  m_EditorClassIdentifier: Assembly-CSharp::ModifierItemConfig
+  ModifierType: 0
+  <Price>k__BackingField: 123

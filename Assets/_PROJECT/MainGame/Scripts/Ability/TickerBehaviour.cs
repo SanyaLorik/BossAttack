@@ -1,14 +1,20 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using _PROJECT.Scripts.Helpers;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using Zenject;
 
-public abstract class TickerBehaviour : MonoBehaviour {
+public abstract class TickerBehaviour : MonoBehaviour, IEffectValue {
     [SerializeField] private float _interval;
     [SerializeField] protected Transform _origin;
 
     private CancellationTokenSource _tokenSource;
-
+    private Func<float> _intervalGetter;
+    
+    [Inject] GameData _gameData;
+    
+    
     public void Stop() {
         UniTaskHelper.DisposeTask(ref _tokenSource);
     }
@@ -25,12 +31,17 @@ public abstract class TickerBehaviour : MonoBehaviour {
     }
 
     private async UniTask TickLoopAsync(CancellationToken token) {
+        float interval = _intervalGetter == null ?  _interval : _intervalGetter();
+        interval = MathF.Max(interval, _gameData.PlayerRateOfFireMinimum);
         while (!token.IsCancellationRequested) {
             Tick();
-            await UniTask.WaitForSeconds(_interval, cancellationToken: token);
+            await UniTask.WaitForSeconds(interval, cancellationToken: token);
         }
     }
     
     protected abstract void Tick();
-    
+
+    public void SetValueGetter(Func<float> valueGetter) {
+        _intervalGetter = valueGetter;
+    }
 }

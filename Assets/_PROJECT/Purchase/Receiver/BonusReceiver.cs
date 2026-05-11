@@ -8,7 +8,7 @@ using Zenject;
 [Serializable]
 public class BonusReceiver : AwardReceiver
 {
-    [SerializeField] private BonusItemConfig _bonusItem;
+    [SerializeField] private ModifierItemConfig modifierItem;
     [SerializeField] private int _count;
     
     [Inject] IGameSave _saver;
@@ -22,7 +22,7 @@ public class BonusReceiver : AwardReceiver
     private async void BindReceiveAsync() 
     {
         await UniTask.WaitUntil(() => _saver != null);
-        _saver.GetSave<GameSave>().AddNewBonusCounts(_bonusItem.Id, _count);
+        _saver.GetSave<GameSave>().UpdateModifierLevel(modifierItem.Id, _count);
         _saver.Save();
     }
 }

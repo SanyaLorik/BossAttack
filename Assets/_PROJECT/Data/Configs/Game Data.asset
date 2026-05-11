@@ -18,6 +18,7 @@ MonoBehaviour:
     <InterstitialDelay>k__BackingField: 80
     <AdTimerInitial>k__BackingField: 2
     <AdTimerFinal>k__BackingField: 0
+    <MinimumMinutesSocialNetworkingActivity>k__BackingField: 0
     <WalkSpeed>k__BackingField: 25
     <JumpForce>k__BackingField: 12
     <SecondJumpForce>k__BackingField: 16
@@ -95,11 +96,11 @@ MonoBehaviour:
     <YBulletOffset>k__BackingField: 1
     <BossMeleeDamageBase>k__BackingField: 10
     <BossShootDamageBase>k__BackingField: 2
-    <BossMeleeDamageMultiplier>k__BackingField: 1.1
-    <BossShootDamageMultiplier>k__BackingField: 1.1
+    <BossMeleeLevelAddDamage>k__BackingField: 1
+    <BossShootLevelAddDamage>k__BackingField: 0.2
     <BossStoppingDistanceInMelee>k__BackingField: 2
-    <BossSpeedInMelee>k__BackingField: 13
     <BossStoppingDistanceInShooting>k__BackingField: 5
+    <BossSpeedInMelee>k__BackingField: 13
     <BossSpeedInShooting>k__BackingField: 5
     <BossHpBase>k__BackingField: 200
     <PlayerHpBase>k__BackingField: 100
@@ -107,3 +108,10 @@ MonoBehaviour:
     <BossHpMultiplier>k__BackingField: 1.1
     <PlayerHpMultiplier>k__BackingField: 1.1
     <BuildHpMultiplier>k__BackingField: 1.1
+    <PlayerDamageBase>k__BackingField: 10
+    <PlayerLevelAddDamage>k__BackingField: 1
+    <PlayerRateOfFireBase>k__BackingField: 1
+    <PlayerLevelAddRateOfFire>k__BackingField: 0.2
+    <PlayerRateOfFireMinimum>k__BackingField: 0.2
+    <PlayerCapacityBase>k__BackingField: 10
+    <PlayerLevelAddCapacity>k__BackingField: 2

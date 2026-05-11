@@ -57,7 +57,7 @@ public class TaskCompleteCountView : MonoBehaviour {
             _countCompleteTasksContainer.DisactiveSelf();
         }
         else if (_countCompleteTasks < 0) {
-            Debug.Log($"Anomaly! Count complete task = {_countCompleteTasks} it`s < 0");
+            Debug.Log($"Anomaly! Level complete task = {_countCompleteTasks} it`s < 0");
             _countCompleteTasks = 0;
         }
     }

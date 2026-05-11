@@ -2,17 +2,13 @@ using System;
 
 public static class GameEvents {
     public static event Action<IBonus> BonusUsed;
-    public static event Action BonusReloaded;
     public static event Action TriggerUsed;
     public static event Action ShakeCamera;
     public static event Action NewItemReceived;
     public static event Action PlayerPushed;
     public static event Action BossSwitchedAbility;
 
-    public static void BonusReloadedInvoke() {
-        BonusReloaded?.Invoke();
-    }
-    
+
     public static void BonusUseInvoke(IBonus bonus) {
         BonusUsed?.Invoke(bonus);
     }

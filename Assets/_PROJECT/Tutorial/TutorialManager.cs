@@ -27,7 +27,6 @@ public class TutorialManager : MonoBehaviour {
     [Inject] private BattleManager _battleManager; 
     [Inject] private MainGameStarter _mainGameStarter; 
     [Inject] private PlayerMovement _mainPlayer; 
-    [Inject] private PlayerBonusManager _playerBonusManager;
     
     //
     //

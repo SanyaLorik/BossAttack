@@ -16,8 +16,8 @@ public class GameSave : GameSaveBase,
     public int PlayerLevel = 1;
 
     
-    // Bonuses
-    public List<BonuseItem> Bonuses = new ();
+    // Modifiers
+    public List<ModifierItem> Modifiers = new ();
     
     // Task
     public List<TaskItem> Tasks = new ();
@@ -32,42 +32,32 @@ public class GameSave : GameSaveBase,
     public SkinSave SkinSave;
     public CommunitySave CommunitySave;
 
-    public void AddNewBonusCounts(string id, int count, bool clear = false) {
-        BonuseItem bonus = Bonuses.FirstOrDefault(b => b.Id == id);
-        if (bonus == null) {
-            Bonuses.Add(new BonuseItem {
+    public void UpdateModifierLevel(string id, int level, bool clear = false) {
+        ModifierItem modifier = Modifiers.FirstOrDefault(b => b.Id == id);
+        if (modifier == null) {
+            Modifiers.Add(new ModifierItem {
                 Id = id,
-                Count = count,
+                Level = level,
             });
         }
         else {
             if (clear) {
-                bonus.Count = count;
+                modifier.Level = level;
             }
             else {
-                bonus.Count += count;
+                modifier.Level += level;
             }
-            Debug.Log($"Added {count} bonus: {bonus.GetType()}"); 
+            Debug.Log($"Added {level} level: {modifier.GetType()}"); 
         }
     }
 
-    public int GetBonusCount(string id) {
-        BonuseItem bonus = Bonuses.FirstOrDefault(b => b.Id == id);
-        var count = bonus == null ? 0 : bonus.Count;
+    public int GetModifierLevel(string id) {
+        ModifierItem modifier = Modifiers.FirstOrDefault(b => b.Id == id);
+        var count = modifier == null ? 0 : modifier.Level;
         return count;
     }
     
-    public void SetMinusOneBonus(string id) {
-        BonuseItem bonus = Bonuses.FirstOrDefault(b => b.Id == id);
-        if (bonus!=null) {
-            --bonus.Count;
-            // Debug.Log($"Минус 1 бонус {id}, всего их {bonus.Count}");
-        }
-        else {
-            // Debug.LogError("У игрока нет такого бонуса, ошибка в коде");
-        }
-    }
-
+    
     // Tasks--------------------------------
     public void UpdateTaskInfo(string id, int count, bool isGetReward) {
         TaskItem task = Tasks.FirstOrDefault(t => t.Id == id);
@@ -140,9 +130,9 @@ public class GameSave : GameSaveBase,
 
 
 [Serializable]
-public class BonuseItem {
+public class ModifierItem {
     public string Id = "";
-    public int Count = 0;
+    public int Level = 0;
 }
 
 [Serializable]

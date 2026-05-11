@@ -11,8 +11,10 @@ public class MainGameInstaller : MonoInstaller {
     private void BindLogic() {
         Container.Bind<MainGameStarter>().FromComponentInHierarchy().AsSingle().NonLazy();
         Container.Bind<BattleManager>().FromComponentInHierarchy().AsSingle().NonLazy();
-        Container.Bind<StatsCalculator>().AsSingle().NonLazy();
+        Container.Bind<BossStatsCalculator>().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<PlayerStatsCalculator>().AsSingle().NonLazy();
         Container.BindInterfacesAndSelfTo<PlayerRegister>().FromComponentInHierarchy().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<ModifierShopManager>().FromComponentInHierarchy().AsSingle().NonLazy();
     }
 
 

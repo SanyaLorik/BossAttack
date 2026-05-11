@@ -1442,7 +1442,7 @@ GameObject:
   - component: {fileID: 2910249023095400976}
   - component: {fileID: 809942917255569914}
   m_Layer: 0
-  m_Name: Bonus
+  m_Name: Modifier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11090,7 +11090,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9049425561430011273, guid: 8c119ac7f4e0e6f4396b0c04c193a559, type: 3}
       propertyPath: m_Name
-      value: Invisibility Bonus Item_3
+      value: Capacity Item_3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11330,7 +11330,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9049425561430011273, guid: 8c119ac7f4e0e6f4396b0c04c193a559, type: 3}
       propertyPath: m_Name
-      value: Jump Bonus Item_2
+      value: RateOfFire Item_2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -12886,7 +12886,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9049425561430011273, guid: 8c119ac7f4e0e6f4396b0c04c193a559, type: 3}
       propertyPath: m_Name
-      value: Speed Bonus Item_1
+      value: Damage Item_1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

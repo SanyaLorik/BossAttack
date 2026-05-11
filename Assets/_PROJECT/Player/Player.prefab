@@ -134,6 +134,51 @@ MonoBehaviour:
   _flyPS: {fileID: 3819982159546911629}
   _freezeDelay: 0.3
   _trailsEnabledTime: 0.05
+--- !u!1 &4344622469378858375
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4184864295902973659}
+  - component: {fileID: 1734850997152859334}
+  m_Layer: 0
+  m_Name: Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4184864295902973659
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4344622469378858375}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2442955559784721893}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1734850997152859334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4344622469378858375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c9ac287bb3148c4b4853d7e8a308ce2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAbilityController
+  _ability: {fileID: 6314585774874478762}
 --- !u!1 &4638496299817541164
 GameObject:
   m_ObjectHideFlags: 0
@@ -357,7 +402,7 @@ GameObject:
   - component: {fileID: 2442955559784721893}
   - component: {fileID: 6314585774874478762}
   m_Layer: 0
-  m_Name: Atack
+  m_Name: Ability
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -376,6 +421,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4184864295902973659}
   - {fileID: 8435741357697357194}
   m_Father: {fileID: 6278525158390120559}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -391,7 +437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 543f53ac372646c7b950add62c4bb7a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildItem
-  _interval: 0.1
+  _interval: 1
   _origin: {fileID: 6278525158390120559}
   _targetProvider:
     rid: 7634349180084289609

@@ -26,7 +26,7 @@ public class BuildZoneItem : MonoBehaviour {
     [Inject] PlayerMovement _mainPlayer;
     [Inject] GameData _gameData;
     [Inject] PlayerRegister _playerRegister;
-    [Inject] private StatsCalculator _statsCalculator;
+    [Inject] private PlayerStatsCalculator _playerStatsCalculator;
 
 
     private void Start() {
@@ -45,7 +45,7 @@ public class BuildZoneItem : MonoBehaviour {
     private void InitIPlayer() {
         _damagable = new Damagable(transform);
         _damagable.DamagableDied += DestroyUnit;
-        _damagable.SetMaxHpGetter(() => _statsCalculator.BuildHp);
+        _damagable.SetMaxHpGetter(() => _playerStatsCalculator.BuildHp);
         
         _damagableVisual.SetDamagable(_damagable);
         

@@ -21,7 +21,7 @@ public class BossAbilityController : MonoBehaviour {
     
     
     [Inject] BattleManager _battleManager;
-    [Inject] StatsCalculator _statsCalculator;
+    [Inject] BossStatsCalculator _bossStatsCalculator;
 
     private void Awake() {
         InitDamage();
@@ -34,10 +34,10 @@ public class BossAbilityController : MonoBehaviour {
             }
             switch (ability.Type) {
                 case (AbilityType.Melee):
-                    abilityValue.SetValueGetter(() => _statsCalculator.MeleeDamage);
+                    abilityValue.SetValueGetter(() => _bossStatsCalculator.MeleeDamage);
                     break;
                 case (AbilityType.Shooting):
-                    abilityValue.SetValueGetter(() => _statsCalculator.ShootDamage);
+                    abilityValue.SetValueGetter(() => _bossStatsCalculator.ShootDamage);
                     break;
             }
         }
