@@ -5,9 +5,14 @@ using UnityEngine.UI;
 using Zenject;
 
 [Serializable]
-
+public enum BuildingType {
+    Mine,
+    Turret,
+    Heal
+}
 
 public class BuildZoneItem : MonoBehaviour {
+    [SerializeField] private BuildingType _buildingType; 
     [SerializeField] private float _timeToBuild;
     [SerializeField] private Image _progressImage;
     [SerializeField] private GameObject _buildVisual;
@@ -26,13 +31,13 @@ public class BuildZoneItem : MonoBehaviour {
     [Inject] PlayerMovement _mainPlayer;
     [Inject] GameData _gameData;
     [Inject] PlayerRegister _playerRegister;
-    [Inject] private PlayerStatsCalculator _playerStatsCalculator;
+    [Inject] private BuildingStatsCalculator _buildingStatsCalculator;
 
 
     private void Start() {
         SetDefault();
 
-        InitIPlayer();
+        InitBuilding();
     }
 
     
@@ -42,18 +47,50 @@ public class BuildZoneItem : MonoBehaviour {
         }
     }
     
-    private void InitIPlayer() {
+    
+    private void InitBuilding() {
         _damagable = new Damagable(transform);
         _damagable.DamagableDied += DestroyUnit;
-        _damagable.SetMaxHpGetter(() => _playerStatsCalculator.BuildHp);
-        
+
         _damagableVisual.SetDamagable(_damagable);
-        
         _buildItem = new BuildItemToAtack(transform, _damagable);
-        _building.SetSame(_buildItem);
+        
+        InitValue();
+        InitHp();
     }
 
-   
+    
+    private void InitHp() {
+        switch (_buildingType) {
+            case BuildingType.Mine:
+                _damagable.SetMaxHpGetter(() => _buildingStatsCalculator.TurretHp);
+                break;
+            case BuildingType.Turret:
+                _damagable.SetMaxHpGetter(() => _buildingStatsCalculator.TurretHp);
+                break;
+            case BuildingType.Heal:
+                _damagable.SetMaxHpGetter(() => _buildingStatsCalculator.HealBuildingHp);
+                break;
+        }
+    }
+
+    private void InitValue() {
+        _building.SetSame(_buildItem);
+        var effect = _building.Effect as IValueGetter;
+        switch (_buildingType) {
+            case BuildingType.Mine:
+                effect.SetValueGetter(() => _buildingStatsCalculator.MineValue);
+                break;
+            case BuildingType.Turret:
+                effect.SetValueGetter(() => _buildingStatsCalculator.TurretValue);
+                break;
+            case BuildingType.Heal:
+                effect.SetValueGetter(() => _buildingStatsCalculator.HealValue);
+                break;
+        }
+    }
+
+    
 
 
     private void DestroyUnit() {

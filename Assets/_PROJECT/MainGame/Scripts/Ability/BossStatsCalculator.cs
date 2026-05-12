@@ -54,7 +54,7 @@ public class BossStatsCalculator : IInitializable, IDisposable {
 
     private void CalculateBossHp() {
         BossHp = (int)
-            (_gameData.BossHpBase + _gameData.BossHpMultiplier * (_playerLevel.CurrentLevel - 1));
+            (_gameData.BossHpBase + _gameData.BossLevelAddHp * (_playerLevel.CurrentLevel - 1));
     }
     
     

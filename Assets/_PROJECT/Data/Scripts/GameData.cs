@@ -117,14 +117,28 @@ public class GameData : GameDataBase
     
     [field: Header("Настройка хп у всех юнитов")]
     [field: SerializeField] public int BossHpBase { get; private set; }
+    [field: SerializeField] public float BossLevelAddHp { get; private set; }
     
     [field: SerializeField] public int PlayerHpBase { get; private set; }
-    [field: SerializeField] public int BuildHpBase { get; private set; }
-    [field: SerializeField] public float BossHpMultiplier { get; private set; }
+    [field: SerializeField] public float PlayerLevelAddHp { get; private set; }
+    [field: SerializeField] public int HealBuildingHpBase { get; private set; }
+    [field: SerializeField] public int TurretHpBase { get; private set; }
+    [field: SerializeField] public float BuildingAddLevelHp { get; private set; }
     
-    [field: SerializeField] public float PlayerHpMultiplier { get; private set; }
+    [field: Header("Настройка Урона/Хилла построек")]
+    [field: Header("Турель")]
+    [field: SerializeField] public int TurretValueBase { get; private set; }
+    [field: SerializeField] public int TurretAddLevelValue { get; private set; }
     
-    [field: SerializeField] public float BuildHpMultiplier { get; private set; }
+    [field: Header("Хилка")]
+    [field: SerializeField] public int HealBuildingValueBase { get; private set; }
+    [field: SerializeField] public int HealBuildingAddLevelValue { get; private set; }
+    
+    [field: Header("Мина")]
+    [field: SerializeField] public int MineBuildingValueBase { get; private set; }
+    [field: SerializeField] public int MineBuildingAddLevelValue { get; private set; }
+    
+    
     
     [field: Header("Настройка Модификаторов игрока")]
     [field: Header("Урон")]

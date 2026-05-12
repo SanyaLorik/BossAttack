@@ -103,11 +103,18 @@ MonoBehaviour:
     <BossSpeedInMelee>k__BackingField: 13
     <BossSpeedInShooting>k__BackingField: 5
     <BossHpBase>k__BackingField: 200
+    <BossLevelAddHp>k__BackingField: 25
     <PlayerHpBase>k__BackingField: 100
-    <BuildHpBase>k__BackingField: 55
-    <BossHpMultiplier>k__BackingField: 1.1
-    <PlayerHpMultiplier>k__BackingField: 1.1
-    <BuildHpMultiplier>k__BackingField: 1.1
+    <PlayerLevelAddHp>k__BackingField: 10
+    <HealBuildingHpBase>k__BackingField: 100
+    <TurretHpBase>k__BackingField: 75
+    <BuildingAddLevelHp>k__BackingField: 25
+    <TurretValueBase>k__BackingField: 2
+    <TurretAddLevelValue>k__BackingField: 2
+    <HealBuildingValueBase>k__BackingField: 1
+    <HealBuildingAddLevelValue>k__BackingField: 1
+    <MineBuildingValueBase>k__BackingField: 50
+    <MineBuildingAddLevelValue>k__BackingField: 15
     <PlayerDamageBase>k__BackingField: 2
     <PlayerLevelAddDamage>k__BackingField: 1
     <PlayerRateOfFireBase>k__BackingField: 0.6
@@ -115,4 +122,4 @@ MonoBehaviour:
     <PlayerRateOfFireMinimum>k__BackingField: 0.2
     <PlayerCapacityBase>k__BackingField: 6
     <PlayerLevelAddCapacity>k__BackingField: 2
-    <ClipReloadOneBulletDuration>k__BackingField: 1
+    <ClipReloadOneBulletDuration>k__BackingField: 0.5

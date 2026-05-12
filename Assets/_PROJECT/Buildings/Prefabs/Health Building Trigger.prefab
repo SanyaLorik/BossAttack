@@ -233,7 +233,7 @@ MonoBehaviour:
     - rid: 7634349180084289606
       type: {class: HealEffect, ns: , asm: Assembly-CSharp}
       data:
-        _heal: 5
+        _heal: 0
     - rid: 7634349180084289607
       type: {class: GetRadiusTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -493,6 +493,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0010599ee3aefbf42b5b20098f32249b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildZoneItem
+  _buildingType: 2
   _timeToBuild: 3
   _progressImage: {fileID: 147621517188980412}
   _buildVisual: {fileID: 2113175926147916173}

@@ -69,6 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0010599ee3aefbf42b5b20098f32249b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildZoneItem
+  _buildingType: 1
   _timeToBuild: 1
   _progressImage: {fileID: 4774918626743721540}
   _buildVisual: {fileID: 4540843493132531759}

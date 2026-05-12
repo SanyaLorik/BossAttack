@@ -12,7 +12,6 @@ public class PlayerStatsCalculator : IInitializable, IDisposable {
     public int PlayerDamage { get; private set; }
     public int PlayerRateOfFire { get; private set; }
     public int PlayerCapacity { get; private set; }
-    public int BuildHp { get; private set; }
     
     
     public PlayerStatsCalculator(
@@ -49,7 +48,6 @@ public class PlayerStatsCalculator : IInitializable, IDisposable {
     
     private void RecalculateLevelStats(int level) {
         CalculatePlayerHp(level);
-        CalculateBuildHp(level);
     }
 
     
@@ -71,15 +69,10 @@ public class PlayerStatsCalculator : IInitializable, IDisposable {
     
     private void CalculatePlayerHp(int level) {
         PlayerHp = (int)
-            (_gameData.PlayerHpBase + _gameData.PlayerHpMultiplier * (level-1));
+            (_gameData.PlayerHpBase + _gameData.PlayerLevelAddHp * (level-1));
     }
     
     
-    private void CalculateBuildHp(int level) {
-        BuildHp = (int)
-            (_gameData.BuildHpBase + _gameData.BuildHpMultiplier * (level-1));
-    }
-
     
     private void CalculatePlayerDamage(int level) {
         PlayerDamage = (int)
