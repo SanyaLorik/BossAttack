@@ -108,7 +108,7 @@ MonoBehaviour:
     <BossHpMultiplier>k__BackingField: 1.1
     <PlayerHpMultiplier>k__BackingField: 1.1
     <BuildHpMultiplier>k__BackingField: 1.1
-    <PlayerDamageBase>k__BackingField: 10
+    <PlayerDamageBase>k__BackingField: 2
     <PlayerLevelAddDamage>k__BackingField: 1
     <PlayerRateOfFireBase>k__BackingField: 0.6
     <PlayerLevelAddRateOfFire>k__BackingField: 0.05

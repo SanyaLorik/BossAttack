@@ -41,7 +41,6 @@ public class BotHuntingBehaviour : MonoBehaviour {
     private void OnEnable() {
         _abilitySystems.ForEachs(a => a.NewTargetFinded += TrySetNewTargetToHunt);
         _abilityController.NewAbilitySystemEnabled += OnNewAbilitySystemEnabled;
-        _targetToHunt = GetRandomPlayerToFollow();
         TrySetNewTargetToHunt(_targetToHunt);
         StartHunting();
     }
