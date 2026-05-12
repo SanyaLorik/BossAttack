@@ -37,8 +37,8 @@ public abstract class TickerBehaviour : MonoBehaviour, IValueGetter {
         float interval = _intervalGetter == null ?  _interval : _intervalGetter();
         interval = MathF.Max(interval, _gameData.PlayerRateOfFireMinimum);
         while (!token.IsCancellationRequested) {
-            Tick();
             await UniTask.WaitForSeconds(interval, cancellationToken: token);
+            Tick();
         }
     }
     

@@ -52,7 +52,9 @@ public class BuildZoneItem : MonoBehaviour {
         _damagable = new Damagable(transform);
         _damagable.DamagableDied += DestroyUnit;
 
-        _damagableVisual.SetDamagable(_damagable);
+        if (_buildingType != BuildingType.Mine) {
+            _damagableVisual.SetDamagable(_damagable);
+        }
         _buildItem = new BuildItemToAtack(transform, _damagable);
         
         InitValue();
@@ -93,7 +95,7 @@ public class BuildZoneItem : MonoBehaviour {
     
 
 
-    private void DestroyUnit() {
+    public void DestroyUnit() {
         // Не буду делать тк модификация списка 
         // _playerRegister.UnregisterUnit(_buildItem, TargetType.Player);
         SetDefault();
@@ -161,7 +163,9 @@ public class BuildZoneItem : MonoBehaviour {
     }
 
     private void EndBuild() {
-        _playerRegister.RegisterUnit(_buildItem, TargetType.Player);
+        if (_buildingType != BuildingType.Mine) {
+            _playerRegister.RegisterUnit(_buildItem, TargetType.Player);
+        }
         _building.ActiveSelf();
         _building.Start();
         _afterBuildVisual.ActiveSelf();
