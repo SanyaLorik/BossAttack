@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [Serializable]
-public class DamageEffect : IEffect, IEffectValue {
+public class Damage : IEffect, IValueGetter {
     [SerializeField] private int _damage;
 
     private Func<float> _damageGetter;

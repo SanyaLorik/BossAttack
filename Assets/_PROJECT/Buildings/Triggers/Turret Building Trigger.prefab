@@ -33,6 +33,7 @@ Transform:
   m_Children:
   - {fileID: 3517890138194252743}
   - {fileID: 1206001642746588153}
+  - {fileID: 7658220721172434498}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &134461985583639130
@@ -73,7 +74,7 @@ MonoBehaviour:
   _buildVisual: {fileID: 4540843493132531759}
   _afterBuildVisual: {fileID: 3644223614457152839}
   _building: {fileID: 5265403408328701639}
-  _damagableVisual: {fileID: 1008947389551164739}
+  _damagableVisual: {fileID: 4905734718052232377}
 --- !u!1 &3644223614457152839
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,6 +273,61 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &4795502606418812862
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7658220721172434498}
+  - component: {fileID: 4905734718052232377}
+  m_Layer: 0
+  m_Name: DamageVisualizer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7658220721172434498
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4795502606418812862}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3521995528156331619}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4905734718052232377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4795502606418812862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d24fc2e8f79b4c34acc303d1293701af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageVisualizer
+  _progressContainer: {fileID: 6864588813815435791}
+  _progressShowDurations:
+    <From>k__BackingField: 1
+    <To>k__BackingField: 1
+  _progressShowEase:
+    <From>k__BackingField: 27
+    <To>k__BackingField: 26
+  _bar: {fileID: 8788947472174394886}
+  _barParent: {fileID: 7905686285694088480}
+  _changeBarDuration: 1
+  CountText: {fileID: 2900580525907897335}
 --- !u!1 &5942593367870097887
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,29 +376,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildItem
   _interval: 1
   _origin: {fileID: 2936903512998288965}
+  <Type>k__BackingField: 0
   _targetProvider:
     rid: 7634349180084289609
   _targetFilters: []
   _effect:
-    rid: 7634349180084289608
+    rid: 7634349317783289925
   _tickBehaviour:
   - rid: 7634349187638493252
   - rid: 7634349187638493253
+  _atackCapacity:
+    rid: 7634349317783289926
   references:
     version: 2
     RefIds:
-    - rid: 7634349180084289608
-      type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
-      data:
-        _damage: 3
     - rid: 7634349180084289609
       type: {class: GetClosestTarget, ns: , asm: Assembly-CSharp}
       data:
         TargetType: 0
         _distance: 13
-        _layer:
-          serializedVersion: 2
-          m_Bits: 128
+        _initPrevious: 0
     - rid: 7634349187638493252
       type: {class: TurretRotator, ns: , asm: Assembly-CSharp}
       data:
@@ -354,7 +407,15 @@ MonoBehaviour:
         _bulletSpeed: 60
         _spawnPoint: {fileID: 2936903512998288965}
         _bulletInstance: {fileID: 4117493534217919638, guid: bc77ae790f4f6b04a893d598d1b73f04, type: 3}
+        _progressToShowPaintVisual: 0.9
         <SoundType>k__BackingField: 13
+    - rid: 7634349317783289925
+      type: {class: Damage, ns: , asm: Assembly-CSharp}
+      data:
+        _damage: 0
+    - rid: 7634349317783289926
+      type: {class: InfinitCapacity, ns: , asm: Assembly-CSharp}
+      data: 
 --- !u!1 &6374153820092526745
 GameObject:
   m_ObjectHideFlags: 0
@@ -747,6 +808,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ProgressCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 2824753990463299226, guid: 6ba3d558b52490643ac8138276cfb368, type: 3}
+      propertyPath: CountText
+      value: 
+      objectReference: {fileID: 2900580525907897335}
     - target: {fileID: 7866282171065459264, guid: 6ba3d558b52490643ac8138276cfb368, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -839,25 +904,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2824753990463299226, guid: 6ba3d558b52490643ac8138276cfb368, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ba3d558b52490643ac8138276cfb368, type: 3}
---- !u!114 &1008947389551164739 stripped
+--- !u!114 &2900580525907897335 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2824753990463299226, guid: 6ba3d558b52490643ac8138276cfb368, type: 3}
+  m_CorrespondingSourceObject: {fileID: 104678012603615278, guid: 6ba3d558b52490643ac8138276cfb368, type: 3}
   m_PrefabInstance: {fileID: 2968728157998261209}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d24fc2e8f79b4c34acc303d1293701af, type: 3}
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DamageVisualizer
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!224 &4907146176672285081 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7866282171065459264, guid: 6ba3d558b52490643ac8138276cfb368, type: 3}
+  m_PrefabInstance: {fileID: 2968728157998261209}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &6864588813815435791 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8534569371928457686, guid: 6ba3d558b52490643ac8138276cfb368, type: 3}
+  m_PrefabInstance: {fileID: 2968728157998261209}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &7905686285694088480 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4937538717617657593, guid: 6ba3d558b52490643ac8138276cfb368, type: 3}
+  m_PrefabInstance: {fileID: 2968728157998261209}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &8788947472174394886 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5821913721729584607, guid: 6ba3d558b52490643ac8138276cfb368, type: 3}
   m_PrefabInstance: {fileID: 2968728157998261209}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6045275566783888472

@@ -7,7 +7,7 @@ using TMPro;
 using UnityEngine;
 
 public abstract class ProgressVisualizer : MonoBehaviour {
-    [SerializeField] private Transform _progressContainer;
+    [SerializeField] protected Transform _progressContainer;
     
     [Header("Анимация")]
     [SerializeField] private PairedValue<float> _progressShowDurations;
@@ -17,7 +17,7 @@ public abstract class ProgressVisualizer : MonoBehaviour {
     [SerializeField] private RectTransform _bar;
     [SerializeField] private RectTransform _barParent;
     [SerializeField] private float _changeBarDuration = 1f;
-    [SerializeField] private TextMeshProUGUI _progressHp;
+    [field: SerializeField] protected TextMeshProUGUI CountText;
 
     
     private CancellationTokenSource _tokenSource;
@@ -31,12 +31,12 @@ public abstract class ProgressVisualizer : MonoBehaviour {
 
 
     
-    public void SetProgressPercentage(float percentage, int hp) {
+    public void SetProgressPercentage(float percentage, int value) {
         percentage = Mathf.Clamp01(percentage);
         UniTaskHelper.DisposeTask(ref _tokenSource);
         _tokenSource = new CancellationTokenSource();
         ChangeProgressPercentageAsync(percentage, _tokenSource.Token).Forget();
-        _progressHp.text = hp.ToString();
+        CountText.text = value.ToString();
     }
     
     

@@ -141,6 +141,7 @@ public class GameData : GameDataBase
     [field: Header("Обойма")]
     [field: SerializeField] public float PlayerCapacityBase { get; private set; }
     [field: SerializeField] public float PlayerLevelAddCapacity { get; private set; }
+    [field: SerializeField] public float ClipReloadOneBulletDuration { get; private set; }
 
     
 

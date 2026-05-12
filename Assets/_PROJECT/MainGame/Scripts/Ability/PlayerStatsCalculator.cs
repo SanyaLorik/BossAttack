@@ -58,7 +58,7 @@ public class PlayerStatsCalculator : IInitializable, IDisposable {
         int damageLevel = _modifierShopManager.GetModifierLevelWithType(ModifierType.Damage);
         CalculatePlayerDamage(damageLevel);
         
-        // Capacity
+        // atackCapacity
         int capacity = _modifierShopManager.GetModifierLevelWithType(ModifierType.Capacity);
         CalculatePlayerCapacity(capacity);
         

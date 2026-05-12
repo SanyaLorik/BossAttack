@@ -5,7 +5,8 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
-public abstract class TickerBehaviour : MonoBehaviour, IEffectValue {
+public abstract class TickerBehaviour : MonoBehaviour, IValueGetter {
+
     [SerializeField] private float _interval;
     [SerializeField] protected Transform _origin;
 
@@ -17,12 +18,14 @@ public abstract class TickerBehaviour : MonoBehaviour, IEffectValue {
     
     public void Stop() {
         UniTaskHelper.DisposeTask(ref _tokenSource);
+       OnEnd();
     }
 
     public void Start() {
         UniTaskHelper.DisposeTask(ref _tokenSource);
         _tokenSource = new  CancellationTokenSource();
         TickLoopAsync(_tokenSource.Token).Forget();
+        OnStart();
     }
 
 
@@ -40,6 +43,8 @@ public abstract class TickerBehaviour : MonoBehaviour, IEffectValue {
     }
     
     protected abstract void Tick();
+    protected abstract void OnStart();
+    protected abstract void OnEnd();
 
     public void SetValueGetter(Func<float> valueGetter) {
         _intervalGetter = valueGetter;

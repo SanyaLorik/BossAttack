@@ -12,12 +12,16 @@ public enum AbilityType {
 
 
 public class AbilitySystem : TickerBehaviour {
+    [field: SerializeField] public AbilityType Type { get; private set; }
     [SerializeReference, SubclassSelector] private ITargetProvider _targetProvider;
     [SerializeReference, SubclassSelector] private List<ITargetFilter> _targetFilters;
     [SerializeReference, SubclassSelector] private IEffect _effect;
     [SerializeReference, SubclassSelector] private List<ITickBehaviour> _tickBehaviour;
-    [field: SerializeField] public AbilityType Type { get; private set; }
-
+    [SerializeReference, SubclassSelector] private IAtackCapacity _atackCapacity;
+    
+    
+    public IEffect Effect => _effect;
+    public IAtackCapacity AtackCapacity => _atackCapacity;
     
     private IGizmosDrawable _gizmosDrawer;
     private CancellationTokenSource _findTagetSource;
@@ -27,7 +31,7 @@ public class AbilitySystem : TickerBehaviour {
     public event Action<IPlayer> NewTargetFinded;
     
     
-    public IEffect Effect => _effect;
+
     
     
     [Inject] private DiContainer _diContainer;
@@ -38,6 +42,7 @@ public class AbilitySystem : TickerBehaviour {
         _diContainer.QueueForInject(_effect);
         _diContainer.QueueForInject(_targetProvider);
         _tickBehaviour.ForEach(t=> _diContainer.QueueForInject(t));
+        _diContainer.QueueForInject(_atackCapacity);
     }
 
     private void Awake() {
@@ -54,6 +59,7 @@ public class AbilitySystem : TickerBehaviour {
 
     protected override void Tick() {
         _target = null;
+        if(!_atackCapacity.AllowToUse) return;
         foreach (IPlayer target in _targetProvider.GetTargets(_origin.position)) {
             if(target == null || target.Damagable.CurrentHp == 0) continue;
 
@@ -76,6 +82,7 @@ public class AbilitySystem : TickerBehaviour {
                     }
                 }
                 _effect.ApplyEffect(target);
+                _atackCapacity.SpendOne();
             }
         }
         // нет целей поблизости - бежим по всей карте за ближайшим
@@ -84,4 +91,11 @@ public class AbilitySystem : TickerBehaviour {
         }
     }
 
+    protected override void OnStart() {
+        _atackCapacity.StartCheckCapacity(true);
+    }
+
+    protected override void OnEnd() {
+        _atackCapacity.StartCheckCapacity(false);
+    }
 }

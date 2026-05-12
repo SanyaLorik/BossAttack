@@ -46,7 +46,7 @@ public class GetClosestTarget : ITargetProvider, IGizmosDrawable {
         
         IEnumerable<IPlayer> targets = TargetList;
         foreach (var target in targets) {
-            if(target == Same) continue;
+            if(target == Same || target.Damagable == null) continue;
             if (target.Damagable.CurrentHp == 0) {
                 _previous = null;
                 continue;

@@ -78,6 +78,7 @@ Transform:
   - {fileID: 4120571863093875195}
   - {fileID: 4584791667292556370}
   - {fileID: 5637287802484192696}
+  - {fileID: 7268354081889720655}
   m_Father: {fileID: 3667074117147502011}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &593425612949582850
@@ -206,6 +207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotStateManager
   <IsBoss>k__BackingField: 0
+  <Abilitys>k__BackingField: []
   <ShowInSpawn>k__BackingField: 0
   <Transform>k__BackingField: {fileID: 3667074117147502011}
   <PointToAtack>k__BackingField: {fileID: 8775805619122131799}
@@ -221,7 +223,7 @@ MonoBehaviour:
   <JumpParticles>k__BackingField: {fileID: 1722108337831614623}
   <LandParticles>k__BackingField: {fileID: 6972192133631246126}
   <WalkingParticles>k__BackingField: {fileID: 8628414548119378546}
-  _damageVisualizer: {fileID: 825609281890893363}
+  _damageVisualizer: {fileID: 6636972830307882918}
 --- !u!114 &7549493157883875360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -488,6 +490,61 @@ Transform:
   - {fileID: 6986078075926337724}
   m_Father: {fileID: 3667074117147502011}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1945507509541419709
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7268354081889720655}
+  - component: {fileID: 6636972830307882918}
+  m_Layer: 6
+  m_Name: DamageVisualizer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7268354081889720655
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1945507509541419709}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2669498892522294507}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6636972830307882918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1945507509541419709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d24fc2e8f79b4c34acc303d1293701af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageVisualizer
+  _progressContainer: {fileID: 6500466870150812031}
+  _progressShowDurations:
+    <From>k__BackingField: 1
+    <To>k__BackingField: 1
+  _progressShowEase:
+    <From>k__BackingField: 27
+    <To>k__BackingField: 26
+  _bar: {fileID: 8974893551760158070}
+  _barParent: {fileID: 7548882627133388368}
+  _changeBarDuration: 1
+  CountText: {fileID: 3257590806755272839}
 --- !u!1 &2201464347742912366
 GameObject:
   m_ObjectHideFlags: 0
@@ -1252,6 +1309,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hp
       objectReference: {fileID: 0}
+    - target: {fileID: 2824753990463299226, guid: 6ba3d558b52490643ac8138276cfb368, type: 3}
+      propertyPath: CountText
+      value: 
+      objectReference: {fileID: 3257590806755272839}
     - target: {fileID: 7866282171065459264, guid: 6ba3d558b52490643ac8138276cfb368, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1332,25 +1393,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2824753990463299226, guid: 6ba3d558b52490643ac8138276cfb368, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ba3d558b52490643ac8138276cfb368, type: 3}
---- !u!114 &825609281890893363 stripped
+--- !u!114 &3257590806755272839 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2824753990463299226, guid: 6ba3d558b52490643ac8138276cfb368, type: 3}
+  m_CorrespondingSourceObject: {fileID: 104678012603615278, guid: 6ba3d558b52490643ac8138276cfb368, type: 3}
   m_PrefabInstance: {fileID: 3190428208234340521}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d24fc2e8f79b4c34acc303d1293701af, type: 3}
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DamageVisualizer
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!224 &4714152222721164009 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7866282171065459264, guid: 6ba3d558b52490643ac8138276cfb368, type: 3}
+  m_PrefabInstance: {fileID: 3190428208234340521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &6500466870150812031 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8534569371928457686, guid: 6ba3d558b52490643ac8138276cfb368, type: 3}
+  m_PrefabInstance: {fileID: 3190428208234340521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &7548882627133388368 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4937538717617657593, guid: 6ba3d558b52490643ac8138276cfb368, type: 3}
+  m_PrefabInstance: {fileID: 3190428208234340521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &8974893551760158070 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5821913721729584607, guid: 6ba3d558b52490643ac8138276cfb368, type: 3}
   m_PrefabInstance: {fileID: 3190428208234340521}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3721145737843212637

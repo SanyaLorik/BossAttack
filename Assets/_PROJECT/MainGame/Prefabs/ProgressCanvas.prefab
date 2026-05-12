@@ -62,7 +62,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7866282171065459264}
   - component: {fileID: 9075303488004914366}
-  - component: {fileID: 2824753990463299226}
   m_Layer: 0
   m_Name: ProgressCanvas
   m_TagString: Untagged
@@ -113,29 +112,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &2824753990463299226
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1488044671613926781}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d24fc2e8f79b4c34acc303d1293701af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DamageVisualizer
-  _progressContainer: {fileID: 8534569371928457686}
-  _progressShowDurations:
-    <From>k__BackingField: 1
-    <To>k__BackingField: 1
-  _progressShowEase:
-    <From>k__BackingField: 27
-    <To>k__BackingField: 26
-  _bar: {fileID: 5821913721729584607}
-  _barParent: {fileID: 4937538717617657593}
-  _changeBarDuration: 1
-  _progressHp: {fileID: 104678012603615278}
 --- !u!1 &4448610142385071626
 GameObject:
   m_ObjectHideFlags: 0

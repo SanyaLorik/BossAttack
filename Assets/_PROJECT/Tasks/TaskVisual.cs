@@ -61,7 +61,7 @@ public class TaskVisual : MonoBehaviour {
     }
 
     public void SetTaskVisual(TaskInfo taskInfo, int playerValue) {
-        Debug.Log($"taskInfo = {taskInfo}, {taskInfo.TaskId}");
+        // Debug.Log($"taskInfo = {taskInfo}, {taskInfo.TaskId}");
         _rewardMoneyText.text = _formatter.ValuteFormatter(taskInfo.RewardMoney);
         _taskText.text = string.Format(_taskLocalizationText, _formatter.ValuteFormatter(taskInfo.Count));
 

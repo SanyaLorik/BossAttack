@@ -7,7 +7,6 @@ using Zenject;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour, IPlayer {
-    [field: SerializeField] public List<AbilitySystem> Abilitys { get; private set; }
     [SerializeField] private CharacterController _controller; // 
     [SerializeField] private Transform _spawnPoint;
     [SerializeField] private GameObject _playerVisual;
@@ -65,7 +64,6 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
     
     private void Awake() {
         InitIPlayer();
-        InitAbility();
     }
 
     private void InitIPlayer() {
@@ -77,9 +75,6 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
     }
 
 
-    private void InitAbility() {
-        Abilitys.ForEach(a => a.SetSame(this));
-    }
 
 
     private void Update() {

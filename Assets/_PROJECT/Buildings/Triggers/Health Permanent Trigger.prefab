@@ -213,6 +213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildItem
   _interval: 1
   _origin: {fileID: 1745999929496494325}
+  <Type>k__BackingField: 0
   _targetProvider:
     rid: 7634349180084289607
   _targetFilters: []
@@ -220,6 +221,8 @@ MonoBehaviour:
     rid: 7634349180084289606
   _tickBehaviour:
   - rid: 7634349249449427018
+  _atackCapacity:
+    rid: 7634349317783289927
   references:
     version: 2
     RefIds:
@@ -232,14 +235,14 @@ MonoBehaviour:
       data:
         TargetType: 1
         _radius: 10
-        _layer:
-          serializedVersion: 2
-          m_Bits: 64
     - rid: 7634349249449427018
       type: {class: TurretRotator, ns: , asm: Assembly-CSharp}
       data:
         _rotationSpeed: 20
         _rotateTransform: {fileID: 7171832324158738588}
+    - rid: 7634349317783289927
+      type: {class: InfinitCapacity, ns: , asm: Assembly-CSharp}
+      data: 
 --- !u!1 &5447778406966408782
 GameObject:
   m_ObjectHideFlags: 0

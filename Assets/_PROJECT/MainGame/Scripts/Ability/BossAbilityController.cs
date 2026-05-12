@@ -29,7 +29,7 @@ public class BossAbilityController : MonoBehaviour {
 
     private void InitDamage() {
         foreach (var ability in _abilitys) {
-            if (ability.Effect is not IEffectValue abilityValue) {
+            if (ability.Effect is not IValueGetter abilityValue) {
                 continue;
             }
             switch (ability.Type) {

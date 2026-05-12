@@ -110,8 +110,9 @@ MonoBehaviour:
     <BuildHpMultiplier>k__BackingField: 1.1
     <PlayerDamageBase>k__BackingField: 10
     <PlayerLevelAddDamage>k__BackingField: 1
-    <PlayerRateOfFireBase>k__BackingField: 1
-    <PlayerLevelAddRateOfFire>k__BackingField: 0.2
+    <PlayerRateOfFireBase>k__BackingField: 0.6
+    <PlayerLevelAddRateOfFire>k__BackingField: 0.05
     <PlayerRateOfFireMinimum>k__BackingField: 0.2
-    <PlayerCapacityBase>k__BackingField: 10
+    <PlayerCapacityBase>k__BackingField: 6
     <PlayerLevelAddCapacity>k__BackingField: 2
+    <ClipReloadOneBulletDuration>k__BackingField: 1
