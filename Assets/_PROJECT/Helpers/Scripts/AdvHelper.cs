@@ -81,10 +81,6 @@ public class AdvHelper : MonoBehaviour {
         button.onClick.AddListener(() => ShowReward(callback));
     }
     
-    public void RemoveListeners(Button button) {
-        button.onClick.RemoveAllListeners();
-    }
-
     
     private void OnWindowOpened(bool open) {
         if (open) {

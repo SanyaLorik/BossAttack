@@ -1,19 +1,35 @@
 ﻿using UnityEngine;
 using Zenject;
 
-public class PlayerAbilityController : MonoBehaviour {
+
+public class PlayerAbilityController : MonoBehaviour, IAbilityCotroller {
     [SerializeField] private AbilitySystem _ability;
 
     [Inject] PlayerStatsCalculator _playerStatsCalculator;
     [Inject] IPlayer _player;
     
+    public AbilitySystem AbilitySystem => _ability;
     
-    public void Awake() {
+    
+    private void Awake() {
         InitAbility();
         InitPlayerDamage();
         InitPlayerCapacity();
         InitPlayerRateOfFire();
     }
+    
+    public void ReloadAbility() {
+        _ability.ReloadClip();
+    }
+
+    public void StopAbility() {
+        _ability.Stop();
+    }
+
+    public void StartAbility() {
+        _ability.Start();
+    }
+    
     
     private void InitAbility() {
         _ability.SetSame(_player);
@@ -34,4 +50,6 @@ public class PlayerAbilityController : MonoBehaviour {
         _ability.SetValueGetter(() => _playerStatsCalculator.PlayerRateOfFire);
 
     }
+
+
 }

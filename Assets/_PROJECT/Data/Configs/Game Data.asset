@@ -122,4 +122,4 @@ MonoBehaviour:
     <PlayerRateOfFireMinimum>k__BackingField: 0.2
     <PlayerCapacityBase>k__BackingField: 6
     <PlayerLevelAddCapacity>k__BackingField: 2
-    <ClipReloadOneBulletDuration>k__BackingField: 0.5
+    <ClipReloadOneBulletDuration>k__BackingField: 0.7

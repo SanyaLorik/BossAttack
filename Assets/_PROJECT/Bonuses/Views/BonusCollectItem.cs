@@ -45,6 +45,15 @@ public class BonusCollectItem : MonoBehaviour {
         await UniTask.WaitForSeconds(duration, cancellationToken: token);
         Bonus.StopWork(_mainPlayer.BonusUser);
     }
+
+    
+    private void HideVisual() {
+        
+    }
+
+    private void ShowVisual() {
+        
+    }
     
     
 }

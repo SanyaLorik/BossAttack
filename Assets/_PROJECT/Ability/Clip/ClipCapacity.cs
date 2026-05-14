@@ -33,7 +33,13 @@ public class ClipCapacity : IAtackCapacity, IValueGetter {
         }
 
     }
+
+    public void ReloadFull() {
+        CurrentCount = MaxCount;
+        _capacityVisualizer.SetCapacityValue(CurrentCount, MaxCount);
+    }
     
+
     public void SpendOne() {
         if (CurrentCount != 0) {
             CurrentCount--;

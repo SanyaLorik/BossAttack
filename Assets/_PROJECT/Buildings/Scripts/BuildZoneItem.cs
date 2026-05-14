@@ -17,14 +17,14 @@ public class BuildZoneItem : MonoBehaviour {
     [SerializeField] private Image _progressImage;
     [SerializeField] private GameObject _buildVisual;
     [SerializeField] private GameObject _afterBuildVisual;
-    [SerializeField] private AbilitySystem _building;
+    [SerializeField] private AbilitySystem _abilityBuilding;
     [SerializeField] private DamageVisualizer _damagableVisual; 
 
 
     private bool _isBuilded;
     private bool _playerInZone;
     private float _currentTime;
-    private IPlayer _buildItem;
+    private BuildItemToAtack _buildItem;
     private Damagable _damagable;
     
     
@@ -41,21 +41,38 @@ public class BuildZoneItem : MonoBehaviour {
     }
 
     
-    private void OnDisable() {
-        if (_damagable != null) {
-            _damagable.DamagableDied -= DestroyUnit;
-        }
+    public void DestroyUnit() {
+        // Не буду делать тк модификация списка 
+        // _playerRegister.UnregisterUnit(_buildItem, TargetType.Player);
+        Debug.Log($"Destroy unit  {_buildingType}");
+        SetDefault();
+    }
+    
+
+    public void SetDefault() {
+        _isBuilded = false;
+        _playerInZone = false;
+        _currentTime = 0f;
+        _buildVisual.ActiveSelf();
+        _abilityBuilding.Stop();
+        _afterBuildVisual.DisactiveSelf();
+        _progressImage.fillAmount = 0;
     }
     
     
     private void InitBuilding() {
-        _damagable = new Damagable(transform);
+       // Финт ушами
+        _buildItem = new BuildItemToAtack(transform);
+        
+        _damagable = new Damagable(transform, _buildItem);
         _damagable.DamagableDied += DestroyUnit;
-
+        
+        _buildItem.InitDamagable(_damagable);
+        
+        
         if (_buildingType != BuildingType.Mine) {
             _damagableVisual.SetDamagable(_damagable);
         }
-        _buildItem = new BuildItemToAtack(transform, _damagable);
         
         InitValue();
         InitHp();
@@ -77,8 +94,8 @@ public class BuildZoneItem : MonoBehaviour {
     }
 
     private void InitValue() {
-        _building.SetSame(_buildItem);
-        var effect = _building.Effect as IValueGetter;
+        _abilityBuilding.SetSame(_buildItem);
+        var effect = _abilityBuilding.Effect as IValueGetter;
         switch (_buildingType) {
             case BuildingType.Mine:
                 effect.SetValueGetter(() => _buildingStatsCalculator.MineValue);
@@ -92,26 +109,8 @@ public class BuildZoneItem : MonoBehaviour {
         }
     }
 
-    
 
 
-    public void DestroyUnit() {
-        // Не буду делать тк модификация списка 
-        // _playerRegister.UnregisterUnit(_buildItem, TargetType.Player);
-        SetDefault();
-    }
-    
-
-    public void SetDefault() {
-        _isBuilded = false;
-        _playerInZone = false;
-        _currentTime = 0f;
-        _buildVisual.ActiveSelf();
-        _afterBuildVisual.DisactiveSelf();
-        _progressImage.fillAmount = 0;
-        _building.Stop();
-        _building.DisactiveSelf();
-    }
 
 
     private void Update() {
@@ -166,8 +165,7 @@ public class BuildZoneItem : MonoBehaviour {
         if (_buildingType != BuildingType.Mine) {
             _playerRegister.RegisterUnit(_buildItem, TargetType.Player);
         }
-        _building.ActiveSelf();
-        _building.Start();
+        _abilityBuilding.Start();
         _afterBuildVisual.ActiveSelf();
         _buildVisual.DisactiveSelf();
         _damagable.SetSpawned();

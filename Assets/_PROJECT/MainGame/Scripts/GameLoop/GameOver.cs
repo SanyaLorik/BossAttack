@@ -40,7 +40,12 @@ public class GameOver : MonoBehaviour {
         
     }
 
-    
+    private void OnDisable() {
+        _continueButton.onClick.RemoveAllListeners();
+        _continue2xButton.onClick.RemoveAllListeners();
+    }
+
+
     private void ShowResultWindow(bool mainPlayerWin) {
         ResultWindowShowing = true;
         

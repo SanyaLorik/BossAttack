@@ -10,6 +10,7 @@ public interface IPlayer {
     public IPusher Pusher { get; }
     public IBonusUser BonusUser { get; }
     public IDamagable Damagable { get; }
+    public IAbilityCotroller AbilityCotroller { get; }
     
     public bool IsPlaying { get; }
     Transform PointToAtack { get; }

@@ -109,6 +109,13 @@ public class TasksManager : MonoBehaviour {
     }
 
     
+    private void OnDisable() {
+        _resetButton.onClick.RemoveAllListeners();
+        _openCanvasButton.onClick.RemoveAllListeners();
+        _closeCanvasButton.onClick.RemoveAllListeners();
+    }
+
+
     private void CalculatePlayerLifeTime(bool goPlay) {
         if (goPlay) {
             _timeGoPlay =  DateTime.Now;
@@ -132,7 +139,7 @@ public class TasksManager : MonoBehaviour {
             _useSuperJumpBonus++;
             UpdateTaskProgress(TaskType.UseSuperJumpBonus);
         }
-        else if (bonus is InvisibleBonus) {
+        else if (bonus is InvincibleBonus) {
             _useInvincibleBonus++;
             UpdateTaskProgress(TaskType.UseInvincibleBonus);
         }

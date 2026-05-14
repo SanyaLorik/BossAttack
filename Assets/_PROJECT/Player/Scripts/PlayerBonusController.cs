@@ -4,15 +4,14 @@ using Zenject;
 
 public class PlayerBonusController : MonoBehaviour, IBonusUser {
     
-    [Inject] private PlayerPetsManager _petsManager;
-    [Inject] private PlayerMovement _playerMovement;
-    
     public event Action<BonusStatus, bool> BonusStatusChanged;
     public event Action<bool> InvinsibleStatusChanged;
     public bool IsInvincibleAfterBonus { get; private set; }
 
+    [Inject] private PlayerPetsManager _petsManager;
+    [Inject] private PlayerMovement _playerMovement;
+    [Inject] private GameData _gameData;
     
-    [Inject] GameData _gameData;
     
     private void Start() {
         SetDefault();
@@ -30,15 +29,12 @@ public class PlayerBonusController : MonoBehaviour, IBonusUser {
         _playerMovement.UpdateWalkSpeed(walkSpeed);
         BonusStatusChanged?.Invoke(BonusStatus.SuperSpeed, false);
     }
-    
-    
-    public void SetHunterSpeed() {
-        float walkSpeed = _gameData.HunterSpeed + _petsManager.PetsRatioSum;
-        _playerMovement.UpdateWalkSpeed(walkSpeed);
-        BonusStatusChanged?.Invoke(BonusStatus.SuperSpeed, true);
+
+    public void ReloadClip() {
+        _playerMovement.AbilityCotroller.ReloadAbility();
     }
 
-    
+
     public void SetBonusSpeed() {
         float walkSpeed = _gameData.VelocityBonusSpeed + _petsManager.PetsRatioSum;
         _playerMovement.UpdateWalkSpeed(walkSpeed);

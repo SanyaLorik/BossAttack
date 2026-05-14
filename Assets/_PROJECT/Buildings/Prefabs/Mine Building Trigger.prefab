@@ -623,7 +623,7 @@ MonoBehaviour:
   _progressImage: {fileID: 3705583092175465705}
   _buildVisual: {fileID: 5315898922650781916}
   _afterBuildVisual: {fileID: 2833439702286696917}
-  _building: {fileID: 2970806039191099265}
+  _abilityBuilding: {fileID: 2970806039191099265}
   _damagableVisual: {fileID: 0}
 --- !u!114 &1376350344280223978
 MonoBehaviour:

@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.AI;
 using Zenject;
 
 public class BotBonusController : MonoBehaviour, IBonusUser {
@@ -33,14 +32,12 @@ public class BotBonusController : MonoBehaviour, IBonusUser {
         BonusStatusChanged?.Invoke(BonusStatus.SuperSpeed, false);
         // Debug.Log($"SetDefaultSpeed {BotMonolog.NickName}");
     }
-    
-    
-    public void SetHunterSpeed() {
-        _manager.Agent.speed = _gameData.HunterSpeed;
-        BonusStatusChanged?.Invoke(BonusStatus.SuperSpeed, true);
+
+    public void ReloadClip() {
+        throw new NotImplementedException();
     }
 
-    
+
     public void SetBonusSpeed() {
         _manager.Agent.speed = _gameData.VelocityBonusSpeed;
         BonusStatusChanged?.Invoke(BonusStatus.SuperSpeed, true);

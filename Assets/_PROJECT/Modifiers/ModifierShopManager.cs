@@ -38,6 +38,13 @@ public class ModifierShopManager : MonoBehaviour {
         _advHelper.AddToButtonAdvRewardListener(_randomByAdv, GetRandom);
     }
 
+    private void OnDisable() {
+        _closeButton.onClick.RemoveAllListeners();
+        _itemCards.ForEach(c => c.BuyButton.onClick.RemoveAllListeners());
+        _randomByAdv.onClick.RemoveAllListeners();
+    }
+    
+
     public int GetModifierLevelWithType(ModifierType modifierType) {
         ModifierShopCardView modifier = _itemCards.Find(m => m.Modifier.ModifierType == modifierType);
         

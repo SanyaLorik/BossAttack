@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
     [SerializeField] private GameObject _playerVisual;
     [SerializeField] private PlayerBonusController _playerBonusController;
     [SerializeField] private DamageVisualizer _damagableVisual; 
+    [SerializeField] private PlayerAbilityController _abilityController; 
 
     
     [field: SerializeField] public Transform PointToAtack { get; private set; }
@@ -40,6 +41,7 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
     public PlayerPush _pusher;
     public IBonusUser BonusUser => _playerBonusController;
     public IDamagable Damagable => _damagable;
+    public IAbilityCotroller AbilityCotroller => _abilityController;
     private Damagable _damagable; 
     
     
@@ -67,7 +69,7 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
     }
 
     private void InitIPlayer() {
-        _damagable = new Damagable(transform);
+        _damagable = new Damagable(transform, this);
         _damagable.SetMaxHpGetter(() => _playerStatsCalculator.PlayerHp);
         
         _damagableVisual.SetDamagable(_damagable);

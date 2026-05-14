@@ -2,13 +2,17 @@
 
 public class BuildItemToAtack : IPlayer {
 
-    public BuildItemToAtack(Transform origin, IDamagable damagable) {
+    public BuildItemToAtack(Transform origin) {
         Transform = origin;
         PointToAtack = origin;
+    }
+
+    public void InitDamagable(IDamagable damagable) {
         Damagable = damagable;
     }
     
-    public IDamagable Damagable { get; }
+    public IDamagable Damagable { get; private set; }
+    public IAbilityCotroller AbilityCotroller { get; }
     public void SetPlayStatus(bool goPlay) { }
 
     public void TeleportToPoint(Vector3 point) { }

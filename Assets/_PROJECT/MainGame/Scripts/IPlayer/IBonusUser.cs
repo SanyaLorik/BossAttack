@@ -10,7 +10,7 @@ public enum BonusStatus {
 
 public interface IBonusUser {
     public void SetDefaultSpeed();
-    public void SetHunterSpeed();
+    public void ReloadClip();
     public void SetBonusSpeed();
     public void SetBigJump(bool state);
     public void SetInvincible(bool invincible);

@@ -31,9 +31,6 @@ public class AbilitySystem : TickerBehaviour {
     public event Action<IPlayer> NewTargetFinded;
     
     
-
-    
-    
     [Inject] private DiContainer _diContainer;
     
     
@@ -55,6 +52,10 @@ public class AbilitySystem : TickerBehaviour {
 
     public void SetSame(IPlayer player) {
         _targetProvider.SetSame(player);
+    }
+
+    public void ReloadClip() {
+        _atackCapacity.ReloadFull();
     }
 
     protected override void Tick() {

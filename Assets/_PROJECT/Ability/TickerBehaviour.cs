@@ -18,7 +18,7 @@ public abstract class TickerBehaviour : MonoBehaviour, IValueGetter {
     
     public void Stop() {
         UniTaskHelper.DisposeTask(ref _tokenSource);
-       OnEnd();
+        OnEnd();
     }
 
     public void Start() {

@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class Damagable : IDamagable {
     
+    private IPlayer _player;
+    
+    private bool IsDied => CurrentHp == 0;
+    private Func<int> _maxHpGetter;
+    
+    
     public Transform Transform { get; private set; }
     public event Action DamagableDied;
     public event Action DamagableSpawned;
     public event Action<int> HpUpdated;
     
 
-    private bool IsDied => CurrentHp == 0;
     public int CurrentHp { get; private set; }
     public int MaxHp => _maxHpGetter();
-    private Func<int> _maxHpGetter;
     
     public void SetMaxHpGetter(Func<int> valueGetter) {
         _maxHpGetter = valueGetter;
@@ -21,15 +25,17 @@ public class Damagable : IDamagable {
     }
 
 
-
-
-    public Damagable(Transform transform) {
+    public Damagable(Transform transform, IPlayer player) {
+        _player =  player;
         Transform = transform;
     }
 
 
+
     public void ApplyDamage(int damage) {
         if(IsDied) return;
+        if(_player.BonusUser is { IsInvincibleAfterBonus: true }) return;
+        
         if (damage < 0) damage *= -1;
         CurrentHp -= damage;
         CurrentHp = Mathf.Clamp(CurrentHp, 0, _maxHpGetter());

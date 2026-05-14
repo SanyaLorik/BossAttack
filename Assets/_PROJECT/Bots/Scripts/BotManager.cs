@@ -35,6 +35,10 @@ public class BotManager : MonoBehaviour, IPlayer {
     
     public IBonusUser BonusUser => BotBonusController;
     public IDamagable Damagable => _damagable;
+    
+    // Пока нулл
+    public IAbilityCotroller AbilityCotroller { get; }
+    
     private Damagable _damagable; 
     
     public IPusher Pusher { get; private set; }
@@ -57,7 +61,7 @@ public class BotManager : MonoBehaviour, IPlayer {
 
     
     private void Awake() {
-        _damagable = new Damagable(Transform);
+        _damagable = new Damagable(Transform, this);
         if (IsBoss) {
             _damagable.SetMaxHpGetter(() => _bossStatsCalculator.BossHp);
         }
