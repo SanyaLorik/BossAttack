@@ -4,6 +4,7 @@
   <Project Path="UniTask.csproj" />
   <Project Path="UniTask.Linq.csproj" />
   <Project Path="Zenject-Editor.csproj" />
+  <Project Path="Assembly-CSharp-Editor-firstpass.csproj" />
   <Project Path="UniTask.Addressables.csproj" />
   <Project Path="MackySoft.SerializeReferenceExtensions.Editor.csproj" />
   <Project Path="MackySoft.SerializeReferenceExtensions.csproj" />
