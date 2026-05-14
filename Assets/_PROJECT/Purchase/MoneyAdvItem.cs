@@ -1,4 +1,5 @@
-﻿using MirraSDK_M;
+﻿using System;
+using MirraSDK_M;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,6 +17,10 @@ public class MoneyAdvItem : MonoBehaviour {
 
     private void OnEnable() {
         _advHelper.AddToButtonAdvRewardListener(_getButton, AddMoney);
+    }
+
+    private void OnDisable() {
+        _advHelper.RemoveListeners(_getButton);
     }
 
     private void Start() {

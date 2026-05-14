@@ -23,7 +23,7 @@ MonoBehaviour:
     - Id: RateOfFire
       Level: 1
     - Id: Capacity
-      Level: 1
+      Level: 10
     Tasks:
     - Id: pass_bomb_10
       Count: 10

@@ -2271,7 +2271,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1954807348930321206, guid: ee00e2868b257f64aa8f0017bb4ba443, type: 3}
       propertyPath: _intensity
-      value: 3
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1954807348930321206, guid: ee00e2868b257f64aa8f0017bb4ba443, type: 3}
       propertyPath: _walkPoint

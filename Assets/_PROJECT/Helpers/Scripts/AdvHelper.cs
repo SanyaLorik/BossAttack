@@ -80,6 +80,10 @@ public class AdvHelper : MonoBehaviour {
     public void AddToButtonAdvRewardListener(Button button, Action callback) {
         button.onClick.AddListener(() => ShowReward(callback));
     }
+    
+    public void RemoveListeners(Button button) {
+        button.onClick.RemoveAllListeners();
+    }
 
     
     private void OnWindowOpened(bool open) {
