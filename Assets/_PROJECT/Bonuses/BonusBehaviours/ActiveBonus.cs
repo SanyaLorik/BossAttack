@@ -13,7 +13,6 @@ public class ActiveBonus {
 
         Reload();
     }
-
     
     
     public float Progress 

@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 
 public class BotBonusIniter : MonoBehaviour {
     // [SerializeField] private BotManager _bot;
-    // [SerializeField] private List<ItemValueBase<IBonus>> _bonusesWeights;
+    // [SerializeField] private List<WeightedItem<IBonus>> _bonusesWeights;
     //
     // private CancellationTokenSource _tokenSource;
     // private IBonus _currentBonus;
@@ -66,7 +66,7 @@ public class BotBonusIniter : MonoBehaviour {
     // private void UseRandomBonus() {
     //     StopPreviousBonus();
     //     if(Random.value > _gameData.BotChanceToUseBonus) return;
-    //     _currentBonus = ItemValueBase.GetRandomItemByWeight(_bonusesWeights, _totalWeight);
+    //     _currentBonus = WeightedItem.GetRandomItemByWeight(_bonusesWeights, _totalWeight);
     //     // Debug.Log("Бот юзает " + _currentBonus.GetType());
     //     _currentBonus.Use(_bot);
     // }

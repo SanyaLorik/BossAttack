@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 using Zenject;
 
 public class PlayerBonusService : ITickable  {
@@ -21,15 +20,14 @@ public class PlayerBonusService : ITickable  {
     public event Action<ActiveBonus> BonusDisactive;
     
     
-    public void AddNewBonus(IBonus bonus) {
+    public void TryAddBonus(IBonus bonus) {
+        // Перезарядка
         if (_bonuses.ContainsKey(bonus.Type)) {
-            Debug.Log("Reload");
             _bonuses[bonus.Type].Reload();
             return;
         }
         
         // Бонуса нет, добавим
-        Debug.Log("Add bonus " + bonus.Type);
         bonus.Use(_mainPlayer.BonusUser);
         ActiveBonus newActiveBonus = _bonusCreator.InitNewBonus(bonus);
         _bonuses[bonus.Type] = newActiveBonus;

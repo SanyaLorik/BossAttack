@@ -17,8 +17,12 @@ public class PlayerSingleInstaller : MonoInstaller {
         
         Container.Bind<PlayerLevel>().AsSingle().NonLazy();
         
+        BonusInstall();
+    }
+
+    private void BonusInstall() {
         Container.BindInterfacesAndSelfTo<PlayerBonusService>().AsSingle().NonLazy();
+        Container.Bind<BonusSpawner>().FromComponentInHierarchy().AsSingle();
         Container.Bind<ActiveBonusCreator>().AsSingle().NonLazy();
-        
     }
 }

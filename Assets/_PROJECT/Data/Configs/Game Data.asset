@@ -45,6 +45,8 @@ MonoBehaviour:
     <JumpBonusDuration>k__BackingField: 5
     <ReloadBonusDuration>k__BackingField: 1
     <InvincibleBonusDuration>k__BackingField: 5
+    <MaxCountBonusesInMap>k__BackingField: 3
+    <DurationToSpawnNewBonus>k__BackingField: 5
     <BotPushForce>k__BackingField: 25
     <BotUpPushRatio>k__BackingField: 3
     <PlayerPushForce>k__BackingField: 100

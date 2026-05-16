@@ -40,14 +40,15 @@ public class GameData : GameDataBase
     [field: SerializeField] public float VelocityBonusSpeed { get; private set; }
     [field: SerializeField] public float JumpBonusHeight { get; private set; }
     [field: SerializeField] public float DoubleJumpBonusHeight { get; private set; }
-    [field: Header("Значения")]
+    [field: Header("Время")]
     [field: SerializeField] public float SpeedBonusDuration { get; private set; }
     [field: SerializeField] public float JumpBonusDuration { get; private set; }
     [field: SerializeField] public float ReloadBonusDuration { get; private set; }
     [field: SerializeField] public float InvincibleBonusDuration { get; private set; }
     
-    
-    
+    [field: Header("Логика спавна")]
+    [field: SerializeField] public int MaxCountBonusesInMap { get; private set; }
+    [field: SerializeField] public float DurationToSpawnNewBonus { get; private set; }
     
     
     

@@ -3,6 +3,7 @@
 public class MapItem : MonoBehaviour {
     [field: SerializeField] public Transform[] SpawnPoints;
     [field: SerializeField] public Transform[] CurrentEnemySpawns;
+    [field: SerializeField] public Transform[] BonusSpawnPoints;
     [field: SerializeField] public Transform Floor;
     [field: SerializeField] public float YToFind;
     [field: SerializeField] public float FallBotFindSamplePosition;

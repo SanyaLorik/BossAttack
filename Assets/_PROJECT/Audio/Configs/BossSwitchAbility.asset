@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoundConfig
   <SoundType>k__BackingField: 15
   <AudioClips>k__BackingField:
-  - {fileID: 8300000, guid: f46792824171e1543ad46f0558264f2f, type: 3}
+  - {fileID: 8300000, guid: 5f9df040ec48745409218cd7efc743ea, type: 3}
   <Volume>k__BackingField: 1
   <PitchDiapasone>k__BackingField:
-    <From>k__BackingField: 1.7
-    <To>k__BackingField: 2
+    <From>k__BackingField: 1.27
+    <To>k__BackingField: 1.68
   <MixerGroup>k__BackingField: {fileID: 750195993760700612, guid: 4dbd4f10ca94e134a8a090e3394d5f41, type: 2}
   <Loop>k__BackingField: 0
   <SpatialBlend>k__BackingField: 0

@@ -1,6 +1,3 @@
-using System.Threading;
-using _PROJECT.Scripts.Helpers;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -13,6 +10,7 @@ public class BonusCollectItem : MonoBehaviour {
     [Inject] PlayerMovement _mainPlayer;
     [Inject] GameData _gameData;
     [Inject] PlayerBonusService _bonusService;
+    [Inject] BonusSpawner _bonusSpawner;
     
 
     private void OnTriggerEnter(Collider collider) {
@@ -25,8 +23,8 @@ public class BonusCollectItem : MonoBehaviour {
     
     private void UseBonus() {
         GameEvents.BonusUseInvoke(Bonus);
-        _bonusService.AddNewBonus(Bonus);
-        // Destroy(gameObject)
+        _bonusService.TryAddBonus(Bonus);
+        _bonusSpawner.BonusDestroy(this);
     }
     
     
