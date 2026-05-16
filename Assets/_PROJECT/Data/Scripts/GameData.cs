@@ -36,12 +36,19 @@ public class GameData : GameDataBase
     
     
     [field: Header("Бонусы")]
+    [field: Header("Значения")]
     [field: SerializeField] public float VelocityBonusSpeed { get; private set; }
-    [field: SerializeField] public float HunterSpeed { get; private set; }
     [field: SerializeField] public float JumpBonusHeight { get; private set; }
     [field: SerializeField] public float DoubleJumpBonusHeight { get; private set; }
-    [field: SerializeField] public float BonusReload { get; private set; }
-    [field: SerializeField] public float BonusDuration { get; private set; }
+    [field: Header("Значения")]
+    [field: SerializeField] public float SpeedBonusDuration { get; private set; }
+    [field: SerializeField] public float JumpBonusDuration { get; private set; }
+    [field: SerializeField] public float ReloadBonusDuration { get; private set; }
+    [field: SerializeField] public float InvincibleBonusDuration { get; private set; }
+    
+    
+    
+    
     
     
     [field: Header("Толчки")]

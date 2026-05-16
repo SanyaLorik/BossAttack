@@ -1,7 +1,10 @@
 ﻿using System;
+using UnityEngine;
 
 [Serializable]
 public class InvincibleBonus : IBonus {
+    public BonusType Type => BonusType.Invincible;
+
     public void Use(IBonusUser player) {
         player.SetInvincible(true);
         // Debug.Log("Включена невидимость");

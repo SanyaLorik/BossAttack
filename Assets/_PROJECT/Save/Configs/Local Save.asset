@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Local Save
   m_EditorClassIdentifier: Assembly-CSharp::GameSaveSO
   Save:
-    Money: 7518
+    Money: 9991000
     IsBoughtPurchase: 0
     TutorialPassed: 1
     PlayerLevel: 1
@@ -61,8 +61,8 @@ MonoBehaviour:
     SkinSave:
       SkinSets:
       - GroupId: 1
-        BoughtIds: 01000000
-        EquippedId: 1
+        BoughtIds: 0100000006000000
+        EquippedId: 6
       - GroupId: 2
         BoughtIds: 0100000003000000
         EquippedId: 3

@@ -27,13 +27,13 @@ public class ClipCapacity : IAtackCapacity, IValueGetter {
     public void StartCheckCapacity(bool start) {
         UniTaskHelper.DisposeTask(ref _tokenSource);
         if (start) {
-            SetFull();
+            ReloadFull();
             _tokenSource = new CancellationTokenSource();
             CheckCapacityAsync(_tokenSource.Token).Forget();
         }
-
     }
 
+    
     public void ReloadFull() {
         CurrentCount = MaxCount;
         _capacityVisualizer.SetCapacityValue(CurrentCount, MaxCount);
@@ -54,10 +54,6 @@ public class ClipCapacity : IAtackCapacity, IValueGetter {
         }
     }
     
-    public void SetFull() {
-        CurrentCount = MaxCount;
-        _capacityVisualizer.SetCapacityValue(CurrentCount, MaxCount);
-    }
 
     private async UniTask CheckCapacityAsync(CancellationToken token) {
         while (!token.IsCancellationRequested) {

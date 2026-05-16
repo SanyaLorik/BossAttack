@@ -231,7 +231,7 @@ GameObject:
   - component: {fileID: 5443552119785286926}
   - component: {fileID: 2728973940216989352}
   m_Layer: 7
-  m_Name: BonusController
+  m_Name: BonusUser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -829,7 +829,7 @@ MonoBehaviour:
   _controller: {fileID: 6165380883207411591}
   _spawnPoint: {fileID: 0}
   _playerVisual: {fileID: 5928220643738429436}
-  _playerBonusController: {fileID: 2728973940216989352}
+  playerBonusUser: {fileID: 2728973940216989352}
   _damagableVisual: {fileID: 5842902058934496353}
   _abilityController: {fileID: 2544347247816584613}
   <PointToAtack>k__BackingField: {fileID: 1091855194919393618}

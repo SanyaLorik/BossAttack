@@ -7,7 +7,7 @@ public class PlayerSingleInstaller : MonoInstaller {
     }
 
     private void BindPlayerSingletones() {
-        Container.Bind<PlayerMovement>().FromComponentInHierarchy().AsSingle();
+        Container.BindInterfacesAndSelfTo<PlayerMovement>().FromComponentInHierarchy().AsSingle();
         
         Container.Bind<PlayerStateManager>().FromComponentInHierarchy().AsSingle().NonLazy();
         
@@ -16,6 +16,9 @@ public class PlayerSingleInstaller : MonoInstaller {
         Container.Bind<PlayerFaceChooser>().FromComponentInHierarchy().AsSingle().NonLazy();
         
         Container.Bind<PlayerLevel>().AsSingle().NonLazy();
+        
+        Container.BindInterfacesAndSelfTo<PlayerBonusService>().AsSingle().NonLazy();
+        Container.Bind<ActiveBonusCreator>().AsSingle().NonLazy();
         
     }
 }

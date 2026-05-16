@@ -6,7 +6,7 @@ public class AbilitySoundListener : MonoBehaviour {
 
 
     private void OnEnable()
-    {
+    { 
         _abilitySystem.SoundPlayed += OnSound;
     }
 

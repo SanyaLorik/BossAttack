@@ -39,11 +39,12 @@ MonoBehaviour:
       <To>k__BackingField: 5
     <MinSensValue>k__BackingField: 0.1
     <VelocityBonusSpeed>k__BackingField: 25
-    <HunterSpeed>k__BackingField: 20
     <JumpBonusHeight>k__BackingField: 24
     <DoubleJumpBonusHeight>k__BackingField: 30
-    <BonusReload>k__BackingField: 7
-    <BonusDuration>k__BackingField: 9
+    <SpeedBonusDuration>k__BackingField: 5
+    <JumpBonusDuration>k__BackingField: 5
+    <ReloadBonusDuration>k__BackingField: 1
+    <InvincibleBonusDuration>k__BackingField: 5
     <BotPushForce>k__BackingField: 25
     <BotUpPushRatio>k__BackingField: 3
     <PlayerPushForce>k__BackingField: 100

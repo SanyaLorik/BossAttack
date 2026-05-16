@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
     [SerializeField] private CharacterController _controller; // 
     [SerializeField] private Transform _spawnPoint;
     [SerializeField] private GameObject _playerVisual;
-    [SerializeField] private PlayerBonusController _playerBonusController;
+    [SerializeField] private PlayerBonusUser playerBonusUser;
     [SerializeField] private DamageVisualizer _damagableVisual; 
     [SerializeField] private PlayerAbilityController _abilityController; 
 
@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
 
     public IPusher Pusher => _pusher;
     public PlayerPush _pusher;
-    public IBonusUser BonusUser => _playerBonusController;
+    public IBonusUser BonusUser => playerBonusUser;
     public IDamagable Damagable => _damagable;
     public IAbilityCotroller AbilityCotroller => _abilityController;
     private Damagable _damagable; 

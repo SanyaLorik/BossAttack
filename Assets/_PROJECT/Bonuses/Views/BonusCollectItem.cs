@@ -10,17 +10,10 @@ public class BonusCollectItem : MonoBehaviour {
 
     private IBonus Bonus => _bonus;
     
-    private CancellationTokenSource _tokenSource;
-    
-    [Inject] private DiContainer _diContainer;
     [Inject] PlayerMovement _mainPlayer;
     [Inject] GameData _gameData;
+    [Inject] PlayerBonusService _bonusService;
     
-    
-    [Inject]
-    private void Init() {
-        _diContainer.QueueForInject(Bonus);
-    }
 
     private void OnTriggerEnter(Collider collider) {
         if (!collider.TryGetComponent(out IPlayer player)) return;
@@ -29,30 +22,11 @@ public class BonusCollectItem : MonoBehaviour {
         }
     }
 
-
+    
     private void UseBonus() {
         GameEvents.BonusUseInvoke(Bonus);
-        Bonus.Use(_mainPlayer.BonusUser);
-        
-        UniTaskHelper.DisposeTask(ref _tokenSource);
-        _tokenSource = new  CancellationTokenSource();
-        StartUseTimerAsync(_tokenSource.Token).Forget();
-    }
-
-
-    private async UniTask StartUseTimerAsync(CancellationToken token) {
-        float duration = _gameData.BonusDuration;
-        await UniTask.WaitForSeconds(duration, cancellationToken: token);
-        Bonus.StopWork(_mainPlayer.BonusUser);
-    }
-
-    
-    private void HideVisual() {
-        
-    }
-
-    private void ShowVisual() {
-        
+        _bonusService.AddNewBonus(Bonus);
+        // Destroy(gameObject)
     }
     
     

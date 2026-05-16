@@ -2,7 +2,7 @@
 using UnityEngine;
 using Zenject;
 
-public class PlayerBonusController : MonoBehaviour, IBonusUser {
+public class PlayerBonusUser : MonoBehaviour, IBonusUser {
     
     public event Action<BonusStatus, bool> BonusStatusChanged;
     public event Action<bool> InvinsibleStatusChanged;
