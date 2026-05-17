@@ -44,9 +44,16 @@ public class BonusSpawner : MonoBehaviour {
         if (_spawnCount == _gameData.MaxCountBonusesInMap) return;
         _nextSpawnTime = Time.time + _gameData.DurationToSpawnNewBonus;
         SpawnBonus();
+        if (_spawnCount != _gameData.MaxCountBonusesInMap) {
+            _nextSpawnTime = Time.time + _gameData.DurationToSpawnNewBonus;
+        }
     }
 
     public void BonusDestroy(BonusCollectItem bonus) {
+        // Если уже фулл, то обновим т.к 1 удалим
+        if (_spawnCount == _gameData.MaxCountBonusesInMap) {
+            _nextSpawnTime = Time.time + _gameData.DurationToSpawnNewBonus;
+        }
         var keyValuePair = _pointToBonus.First(p => p.Value == bonus.gameObject);
         _pointToBonus.Remove(keyValuePair.Key);
         Destroy(bonus.gameObject);
