@@ -6,13 +6,18 @@ public class PlayerBonusService : ITickable  {
     private Dictionary<BonusType, ActiveBonus> _bonuses = new();
 
     private readonly IPlayer _mainPlayer;
-    private readonly GameData _gameData;
     private readonly ActiveBonusCreator _bonusCreator;
+    private readonly BonusSpawner _bonusSpawner;
     
-    public PlayerBonusService(IPlayer mainPlayer, GameData gameData, ActiveBonusCreator bonusCreator) {
+    
+    public PlayerBonusService(
+        IPlayer mainPlayer, 
+        ActiveBonusCreator bonusCreator, 
+        BonusSpawner bonusSpawner) 
+    {
         _mainPlayer = mainPlayer;
-        _gameData = gameData;
         _bonusCreator = bonusCreator;
+        _bonusSpawner = bonusSpawner;
     }
     
     
@@ -20,17 +25,18 @@ public class PlayerBonusService : ITickable  {
     public event Action<ActiveBonus> BonusDisactive;
     
     
-    public void TryAddBonus(IBonus bonus) {
+    public void TryAddBonus(BonusCollectItem bonusItem) {
         // Перезарядка
-        if (_bonuses.ContainsKey(bonus.Type)) {
-            _bonuses[bonus.Type].Reload();
+        _bonusSpawner.BonusDestroy(bonusItem);
+        if (_bonuses.ContainsKey(bonusItem.Bonus.Type)) {
+            _bonuses[bonusItem.Bonus.Type].Reload();
             return;
         }
         
         // Бонуса нет, добавим
-        bonus.Use(_mainPlayer.BonusUser);
-        ActiveBonus newActiveBonus = _bonusCreator.InitNewBonus(bonus);
-        _bonuses[bonus.Type] = newActiveBonus;
+        bonusItem.Bonus.Use(_mainPlayer.BonusUser);
+        ActiveBonus newActiveBonus = _bonusCreator.InitNewBonus(bonusItem.Bonus);
+        _bonuses[bonusItem.Bonus.Type] = newActiveBonus;
         BonusActive?.Invoke(newActiveBonus);
     }
     

@@ -459,6 +459,8 @@ MonoBehaviour:
     <Weight>k__BackingField: 0.34
   - <Item>k__BackingField: {fileID: 1486521630950327424, guid: 5525f359eed6ae64488f6f14321d3764, type: 3}
     <Weight>k__BackingField: 0.596
+  _startIndex: 2
+  _selectionSize: 4
 --- !u!114 &65972562 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1157381781694991778, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
