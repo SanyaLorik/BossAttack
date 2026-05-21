@@ -14,12 +14,10 @@ public enum TargetType {
 public class GetClosestTarget : ITargetProvider, IGizmosDrawable {
     [SerializeField] private TargetType TargetType;
     [SerializeField] private float _distance;
-    [SerializeField] private bool _initPrevious;
     
     
     public IPlayer Same { get; private set; }
     
-    private IPlayer _previous;
     private IPlayer _closestUnit;
     private float _bestSqr;
     private float _sqrRange;
@@ -38,7 +36,8 @@ public class GetClosestTarget : ITargetProvider, IGizmosDrawable {
     }
 
    
-    public IEnumerable<IPlayer> GetTargets(Vector3 origin) {
+    public List<IPlayer> GetTargets(Vector3 origin) {
+        List<IPlayer> result = new();
         _closestUnit = null;
         _bestSqr = float.MaxValue;
         _sqrRange = _distance * _distance;
@@ -48,28 +47,15 @@ public class GetClosestTarget : ITargetProvider, IGizmosDrawable {
         foreach (var target in targets) {
             if(target == Same || target.Damagable == null) continue;
             if (target.Damagable.CurrentHp == 0) {
-                _previous = null;
                 continue;
             }
-            
-            if(!_initPrevious && target == _previous) continue;
-            
             CheckTarget(target, origin);
-
         }
         
         if (_closestUnit != null) {
-            _previous = _closestUnit;
-            yield return _closestUnit;
+            result.Add(_closestUnit);
         }
-        else if(_previous != null) {
-            if (CheckTarget(_previous, origin)) {
-                yield return _previous;
-            }
-            else {
-                _previous = null;
-            }
-        }
+        return result;
     }
 
     private bool CheckTarget(IPlayer target, Vector3 origin) {

@@ -16,7 +16,7 @@ public class DamageVisualizer : ProgressVisualizer {
         _damagable = damagable;
         Subscribe();
         // Убрать потом
-        OnDamagableSpawned();
+        OnDamagableSpawned(_damagable);
     }
 
     private void Subscribe() {
@@ -34,12 +34,12 @@ public class DamageVisualizer : ProgressVisualizer {
     }
 
 
-    private void OnDamagableDied() {
+    private void OnDamagableDied(IDamagable damagable) {
         SetProgressPercentage(0, 0);
         ShowBarAnimation(false);
     } 
     
-    private void OnDamagableSpawned() {
+    private void OnDamagableSpawned(IDamagable damagable) {
         SetProgressPercentage(1, _damagable.CurrentHp);
         ShowBarAnimation(true);
     }

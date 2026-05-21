@@ -11,8 +11,8 @@ public class Damagable : IDamagable {
     
     
     public Transform Transform { get; private set; }
-    public event Action DamagableDied;
-    public event Action DamagableSpawned;
+    public event Action<IDamagable> DamagableDied;
+    public event Action<IDamagable> DamagableSpawned;
     public event Action<int> HpUpdated;
     
 
@@ -54,12 +54,12 @@ public class Damagable : IDamagable {
     
     public void SetSpawned() {
         CurrentHp = _maxHpGetter();
-        DamagableSpawned?.Invoke();
+        DamagableSpawned?.Invoke(this);
     }
     
     public void SetDied() {
         CurrentHp = 0;
-        DamagableDied?.Invoke();
+        DamagableDied?.Invoke(this);
         Debug.Log("Died");
     }
 

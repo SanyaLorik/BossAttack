@@ -48,7 +48,6 @@ public class PlayerAbilityController : MonoBehaviour, IAbilityCotroller {
     
     private void InitPlayerRateOfFire() {
         _ability.SetValueGetter(() => _playerStatsCalculator.PlayerRateOfFire);
-
     }
 
 

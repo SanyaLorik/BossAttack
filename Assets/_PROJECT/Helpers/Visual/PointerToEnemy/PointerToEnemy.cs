@@ -29,11 +29,6 @@ public class PointerToEnemy : MonoBehaviour  {
     }
 
 
-    private void OnEnable() {
-        _battleManager.NewRoundStarted += BattleManagerOnNewRoundStarted;
-        // _bomb.BombExploded += DisposeTask;
-    }
-
     
     private void DisposeTask() {
         if(!_playerRegister.MainPlayerPlay) return; 

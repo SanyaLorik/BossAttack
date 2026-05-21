@@ -18,7 +18,7 @@ public class EconomyCalculator : MonoBehaviour {
     
     
     public int CalculateGameReward() {
-        float roundProgress = (float)_battleManager.RoundNumber / _battleManager.AllRoundsCount;
+        float roundProgress = 1000f;
         int reward = (int)(
             _ratioForGame * roundProgress 
             + 

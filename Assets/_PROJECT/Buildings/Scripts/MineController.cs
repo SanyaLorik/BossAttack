@@ -16,6 +16,6 @@ public class MineController : MonoBehaviour {
     private void MineExplode(IPlayer player) {
         if (player == null) return;
         _abilitySystem.Stop();
-        _buildZoneItem.DestroyUnit();
+        _buildZoneItem.Destroy();
     }
 }

@@ -110,7 +110,7 @@ public class BonusSpawner : MonoBehaviour {
             int index = (i + randomIndex) % data.Length;
             Transform currentPoint = data[index].t;
 
-            Debug.Log("Проверка индекса " + index);
+            // Debug.Log("Проверка индекса " + index);
             if (_pointToBonus.ContainsKey(currentPoint) == false) {
                 randomIndex = index;
                 choosed = true;
@@ -119,7 +119,7 @@ public class BonusSpawner : MonoBehaviour {
         }
 
         if (choosed) {
-            Debug.Log("Успешно выбрана точка " + randomIndex);
+            // Debug.Log("Успешно выбрана точка " + randomIndex);
             return data[randomIndex].t;
         }
         Debug.LogError("Указан маленький диапазон SelectionSize = " + _selectionSize);
@@ -156,7 +156,7 @@ public class BonusSpawner : MonoBehaviour {
         Transform spawnPoint = GetPointToSpawn();
         
         GameObject newBonus = _spawner.SpawnObject(bonusPrefab.gameObject, spawnPoint.position);
-        Debug.Log($"Спавн бонуса в {spawnPoint.position}");
+        // Debug.Log($"Спавн бонуса в {spawnPoint.position}");
         _container.InjectGameObject(newBonus);
         _pointToBonus[spawnPoint] = newBonus;
     }

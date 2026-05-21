@@ -57,6 +57,7 @@ MonoBehaviour:
     <BotPetCountDiapasone>k__BackingField:
       <From>k__BackingField: 0
       <To>k__BackingField: 3
+    <CountBotsToGame>k__BackingField: 4
     <BotSpeed>k__BackingField: 8
     <CountSpeakingBotsPerTime>k__BackingField:
       <From>k__BackingField: 1
@@ -82,7 +83,6 @@ MonoBehaviour:
     <BotJumpBonusDuration>k__BackingField: 2
     <BotDefaultJumpHeight>k__BackingField: 6
     <BotJumpBonusHeight>k__BackingField: 15
-    <ChanceToGoPlayerInHunt>k__BackingField: 0.55
     <BotUseNewBonusTime>k__BackingField:
       <From>k__BackingField: 4
       <To>k__BackingField: 8
@@ -95,6 +95,7 @@ MonoBehaviour:
     <ColldownToStartRound>k__BackingField: 0
     <TimeToShowDieInfo>k__BackingField: 2
     <TimeAfterEndRound>k__BackingField: 0
+    <MinimumTimeToFindNewTarget>k__BackingField: 0.4
     <PaintTimeToWaitAfterDestroyBullet>k__BackingField: 0.5
     <YBulletOffset>k__BackingField: 1
     <BossMeleeDamageBase>k__BackingField: 10
@@ -103,8 +104,8 @@ MonoBehaviour:
     <BossShootLevelAddDamage>k__BackingField: 0.2
     <BossStoppingDistanceInMelee>k__BackingField: 2
     <BossStoppingDistanceInShooting>k__BackingField: 5
-    <BossSpeedInMelee>k__BackingField: 13
-    <BossSpeedInShooting>k__BackingField: 5
+    <BossSpeedInMelee>k__BackingField: 18
+    <BossSpeedInShooting>k__BackingField: 12
     <BossHpBase>k__BackingField: 200
     <BossLevelAddHp>k__BackingField: 25
     <PlayerHpBase>k__BackingField: 100

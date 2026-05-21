@@ -13,11 +13,11 @@ public enum AbilityType {
 
 public class AbilitySystem : TickerBehaviour {
     [field: SerializeField] public AbilityType Type { get; private set; }
-    [SerializeReference, SubclassSelector] private ITargetProvider _targetProvider;
     [SerializeReference, SubclassSelector] private List<ITargetFilter> _targetFilters;
     [SerializeReference, SubclassSelector] private IEffect _effect;
     [SerializeReference, SubclassSelector] private List<ITickBehaviour> _tickBehaviour;
     [SerializeReference, SubclassSelector] private IAtackCapacity _atackCapacity;
+    [SerializeReference, SubclassSelector] private ITargetProvider _targetProvider;
     
     
     public IEffect Effect => _effect;
@@ -57,11 +57,12 @@ public class AbilitySystem : TickerBehaviour {
     public void ReloadClip() {
         _atackCapacity.ReloadFull();
     }
+    
+    
 
     protected override void Tick() {
-        _target = null;
         if(!_atackCapacity.AllowToUse) return;
-        foreach (IPlayer target in _targetProvider.GetTargets(_origin.position)) {
+        foreach (IPlayer target in _targets) {
             if(target == null || target.Damagable.CurrentHp == 0) continue;
 
             
@@ -74,8 +75,6 @@ public class AbilitySystem : TickerBehaviour {
             }
 
             if (allowed) {
-                NewTargetFinded?.Invoke(target);
-                _target = target;
                 foreach (var beh in _tickBehaviour) {
                     beh.OnTick(_origin.position, target);
                     if (beh is ISoundPlayer soundPlayer) {
@@ -86,10 +85,13 @@ public class AbilitySystem : TickerBehaviour {
                 _atackCapacity.SpendOne();
             }
         }
-        // нет целей поблизости - бежим по всей карте за ближайшим
-        if (_target == null) {
-            NewTargetFinded?.Invoke(null);
-        }
+        
+    }
+
+    protected override void FindNewTargets() {
+        _targets = _targetProvider.GetTargets(_origin.position);
+        
+        NewTargetFinded?.Invoke(_targets.Count > 0 ? _targets[0] : null);
     }
 
     protected override void OnStart() {

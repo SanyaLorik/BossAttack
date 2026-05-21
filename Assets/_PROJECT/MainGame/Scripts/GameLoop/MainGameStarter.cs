@@ -86,12 +86,10 @@ public class MainGameStarter : MonoBehaviour  {
 
     
     public void StartOnlineGame() {
-        _battleManager.ForceEndNewGame();
         ChangeAfkStatus(false);
         _startGamePressed = true;
         Debug.Log("StartOnlineGame");
         StopTimer();
-        _battleManager.SetGameOverToBots();
         StartTimer(.1f);
     }
     
@@ -150,7 +148,7 @@ public class MainGameStarter : MonoBehaviour  {
     private void StartGame() {
         GameIsStarted = true;
         GameStarted?.Invoke(true);
-        _battleManager.InitForNewGame(!_afkPressed);
+        _battleManager.InitForNewGame();
         _startGamePressed = false;
         // Debug.Log("Старт игры!");
     }

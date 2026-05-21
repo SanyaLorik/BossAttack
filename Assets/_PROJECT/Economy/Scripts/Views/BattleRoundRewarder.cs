@@ -13,15 +13,14 @@ public class BattleRewarder : MonoBehaviour {
     [Inject] BattleManager _battleManager;
 
     private void OnEnable() {
-        _battleManager.NewRoundStarted += OnNewRoundStarted;
     }
 
     private void OnNewRoundStarted(int number) {
-        Debug.Log("OnNewRoundStarted");
-        if(!_playerRegister.MainPlayerPlay || number == 1) return;
-        float roundProgress = (float) number / _battleManager.AllRoundsCount;
-        float roundReward = _baseReward * number + _rewardCurve.Evaluate(roundProgress) * _curveMultiplier;
-        Debug.Log("roundReward = " + roundReward);
-        _bank.AddMoney((int)roundReward);
+        // Debug.Log("OnNewRoundStarted");
+        // if(!_playerRegister.MainPlayerPlay || number == 1) return;
+        // float roundProgress = (float) number / _battleManager.AllRoundsCount;
+        // float roundReward = _baseReward * number + _rewardCurve.Evaluate(roundProgress) * _curveMultiplier;
+        // Debug.Log("roundReward = " + roundReward);
+        // _bank.AddMoney((int)roundReward);
     }
 }

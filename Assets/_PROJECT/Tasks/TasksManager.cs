@@ -13,7 +13,6 @@ using Zenject;
 [Serializable]
 public enum TaskType {
    LifeSec,
-   LifeRound,
    WinCount,
    UseSpeedBonus,
    UseSuperJumpBonus,
@@ -56,7 +55,6 @@ public class TasksManager : MonoBehaviour {
     
     // Стата игрока в данный момент 
     private int _passBomb;
-    private int _lifeRound;
     private int _winCount;
     private int _useSpeedBonus;
     private int _useSuperJumpBonus;
@@ -104,7 +102,6 @@ public class TasksManager : MonoBehaviour {
         _battleManager.MainPlayerWin += PlayerWinCheck;
         _parkourCompleteTrigger.ParkourCompleted += UpdateParkourTask;
         GameEvents.BonusUsed += OnBonusUsed;
-        _battleManager.NewRoundStarted += OnNewRoundStarted;
         _mainPlayer.InitedToPlay += CalculatePlayerLifeTime;
     }
 
@@ -145,12 +142,6 @@ public class TasksManager : MonoBehaviour {
         }
     }
 
-    
-    private void OnNewRoundStarted(int roundNumber) {
-        if(roundNumber == 1 || !_playerRegister.MainPlayerPlay) return;
-        _lifeRound++;
-        UpdateTaskProgress(TaskType.LifeRound);
-    }
     
     
     
@@ -221,7 +212,6 @@ public class TasksManager : MonoBehaviour {
     private int GetPlayerValue(TaskType taskType) {
         return taskType switch {
             TaskType.LifeSec => _lifeSec,
-            TaskType.LifeRound => _lifeRound,
             TaskType.WinCount => _winCount,
             TaskType.UseSpeedBonus => _useSpeedBonus,
             TaskType.UseSuperJumpBonus => _useSuperJumpBonus,
@@ -239,9 +229,6 @@ public class TasksManager : MonoBehaviour {
         switch (taskType) {
             case TaskType.LifeSec:
                 _lifeSec = count;
-                break;
-            case TaskType.LifeRound:
-                _lifeRound = count;
                 break;
             case TaskType.WinCount:
                 _winCount = count;

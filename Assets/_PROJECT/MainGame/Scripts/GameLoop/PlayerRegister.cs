@@ -22,11 +22,7 @@ public class PlayerRegister : MonoBehaviour, IBattleInfo {
     
     [Inject] private PlayerMovement _playerMovement;
 
-    
-    private void Awake() {
-        // Всегда играть будет покашт
-        RegisterUnit(_playerMovement, TargetType.Player);
-    }
+
 
     private void Start() {
         InitBoses();
@@ -37,12 +33,6 @@ public class PlayerRegister : MonoBehaviour, IBattleInfo {
         _boses.ForEach(b => RegisterUnit(b, TargetType.Enemy));
     }
 
-    
-    public void SetMainPlayerPlay(bool play) {
-        
-    }
-    
-    
     
     public void RegisterUnit(IPlayer player, TargetType type) {
         switch (type) {

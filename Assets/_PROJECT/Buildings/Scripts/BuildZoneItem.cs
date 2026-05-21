@@ -40,13 +40,19 @@ public class BuildZoneItem : MonoBehaviour {
         InitBuilding();
     }
 
+    public void Destroy() {
+        DestroyUnit(_damagable);
+    }
     
-    public void DestroyUnit() {
+    
+    
+    private void DestroyUnit(IDamagable unit) {
         // Не буду делать тк модификация списка 
         // _playerRegister.UnregisterUnit(_buildItem, TargetType.Player);
         Debug.Log($"Destroy unit  {_buildingType}");
         SetDefault();
     }
+
     
 
     public void SetDefault() {

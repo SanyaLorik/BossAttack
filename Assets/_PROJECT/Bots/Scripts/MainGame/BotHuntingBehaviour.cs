@@ -72,10 +72,11 @@ public class BotHuntingBehaviour : MonoBehaviour {
         
     }
 
-    
+    private bool _findInAllPlace;
     private void TrySetNewTargetToHunt(IPlayer target) {
         // Если передал null то чтоб босс не стоял пусть идет за рандом землекопом
-        if (target == null) {
+        if (target == null && !_findInAllPlace) {
+            _findInAllPlace =  true;
             var newTarget = GetRandomPlayerToFollow();
             // Ставим новую если не равна null, иначе остается предыдущая
             if (newTarget != null) {
@@ -84,6 +85,7 @@ public class BotHuntingBehaviour : MonoBehaviour {
         }
         else {
             _targetToHunt = target;
+            _findInAllPlace = false;
         }
     }
     
@@ -131,6 +133,7 @@ public class BotHuntingBehaviour : MonoBehaviour {
         }
     }
 
+    
     private async UniTask GetNextVictimByTimerAsync(CancellationToken token) {
         while (!token.IsCancellationRequested) {
             await UniTask.WaitForSeconds(_gameData.DurationToHuntWithoutCheck, cancellationToken: token);

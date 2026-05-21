@@ -11,8 +11,8 @@ public interface IDamagable {
     
     
     public Transform Transform { get; }
-    public event Action DamagableDied;
-    public event Action DamagableSpawned;
+    public event Action<IDamagable> DamagableDied;
+    public event Action<IDamagable> DamagableSpawned;
     public event Action<int> HpUpdated;
 }
 

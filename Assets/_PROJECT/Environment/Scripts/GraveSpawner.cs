@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
+using SanyaBeerExtension;
 using UnityEngine;
-using UnityEngine.AI;
 using Zenject;
 
 
@@ -12,36 +11,57 @@ public class GraveSpawner : MonoBehaviour {
     [Inject] private MainGameStarter _gameStarter;
     [Inject] private RespawnManager _respawnManager;
     [Inject] private SpawnerInNavMesh _spawnerInNavMesh;
+    [Inject] private PlayerDiesObserver _diesObserver;
 
-    private readonly List<GameObject> _gravesInstances = new();
+    private readonly Dictionary<IPlayer, GameObject> _playerToGrave = new();
     
     
     private void OnEnable() {
-        _battleManager.PlayerDied += OnPlayerDied;
+        _diesObserver.PlayerDied += OnPlayerDied;
+        _diesObserver.PlayerSpawned += DestroyGraveAfterPlayerSpawn;
         _gameStarter.GameStarted += OnGameStarted;
     }
+
+    private void OnDisable() {
+        _diesObserver.PlayerDied -= OnPlayerDied;
+        _diesObserver.PlayerSpawned -= DestroyGraveAfterPlayerSpawn;
+        _gameStarter.GameStarted -= OnGameStarted;
+    }
+
 
     private void OnGameStarted(bool started) {
         RemoveAllGraves();
     }
 
     
-    private void OnPlayerDied(string _, Vector3 position) {
-        SpawnGraveAsync(position).Forget();
+    private void OnPlayerDied(IPlayer player) {
+        SpawnGrave(player);
     }
 
-    private async UniTask SpawnGraveAsync(Vector3 position) {
-        await UniTask.DelayFrame(5);
-        GameObject newGrave = _spawnerInNavMesh.SpawnObject(_gravePrefab, position);
-        _gravesInstances.Add(newGrave);
-        
+    
+    private void SpawnGrave(IPlayer player) {
+        GameObject newGrave = _spawnerInNavMesh.SpawnObject(_gravePrefab, player.Transform.position);
+        if (_playerToGrave.ContainsKey(player) == false) {
+            _playerToGrave[player] = newGrave;
+        }
+        else {
+            Debug.LogError("Grave already spawned");            
+        }
     }
     
+    
+    private void DestroyGraveAfterPlayerSpawn(IPlayer player) {
+        if (_playerToGrave.TryGetValue(player, out GameObject grave)) {
+            Destroy(grave);
+            _playerToGrave.Remove(player);
+        }
+    }
+
     
     
     private void RemoveAllGraves() {
-        _gravesInstances.ForEach(Destroy);
-        _gravesInstances.Clear();
+        _playerToGrave.ForEach(kvp => Destroy(kvp.Value));
+        _playerToGrave.Clear();
     } 
     
 }
