@@ -1,4 +1,6 @@
 ﻿
+using SanyaBeerExtension;
+
 public class DamageVisualizer : ProgressVisualizer {
     private IDamagable _damagable;
     
@@ -9,6 +11,10 @@ public class DamageVisualizer : ProgressVisualizer {
 
     private void OnEnable() {
         Subscribe();
+    }
+
+    public void HideVisual() {
+        _progressContainer.DisactiveSelf();
     }
     
     public void SetDamagable(IDamagable damagable) {

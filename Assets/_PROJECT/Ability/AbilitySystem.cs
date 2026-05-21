@@ -42,14 +42,17 @@ public class AbilitySystem : TickerBehaviour {
         _diContainer.QueueForInject(_atackCapacity);
     }
 
+    
     private void Awake() {
         _gizmosDrawer = _targetProvider as IGizmosDrawable;
     }
+    
 
     private void OnDrawGizmos() {
         // _gizmosDrawer.DrawGizmos(_origin.position);
     }
 
+    
     public void SetSame(IPlayer player) {
         _targetProvider.SetSame(player);
     }

@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: Local Save
   m_EditorClassIdentifier: Assembly-CSharp::GameSaveSO
   Save:
-    Money: 9991000
+    Money: 9986113
     IsBoughtPurchase: 0
     TutorialPassed: 1
     PlayerLevel: 1
     Modifiers:
     - Id: Damage
-      Level: 1
+      Level: 4
     - Id: RateOfFire
-      Level: 1
+      Level: 13
     - Id: Capacity
-      Level: 10
+      Level: 4
     Tasks:
     - Id: pass_bomb_10
       Count: 10
@@ -35,7 +35,7 @@ MonoBehaviour:
       Count: 15
       IsGetReward: 0
     - Id: win_count_5
-      Count: 2
+      Count: 3
       IsGetReward: 0
     - Id: use_speed_bonus_10
       Count: 10

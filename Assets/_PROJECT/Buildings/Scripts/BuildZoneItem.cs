@@ -1,4 +1,5 @@
 using System;
+using Cysharp.Threading.Tasks;
 using SanyaBeerExtension;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ public enum BuildingType {
 }
 
 public class BuildZoneItem : MonoBehaviour {
+    [SerializeField] private bool _permanent; 
     [SerializeField] private BuildingType _buildingType; 
     [SerializeField] private float _timeToBuild;
     [SerializeField] private Image _progressImage;
@@ -35,15 +37,27 @@ public class BuildZoneItem : MonoBehaviour {
 
 
     private void Start() {
-        SetDefault();
-
         InitBuilding();
+        
+        if (_permanent) {
+            EndBuildAsync().Forget();
+        }
+        else {
+            SetDefault();
+        }
+
     }
 
+
+    private async UniTask EndBuildAsync() {
+        await UniTask.WaitForSeconds(1f);
+        EndBuild();
+    }
+    
+    
     public void Destroy() {
         DestroyUnit(_damagable);
     }
-    
     
     
     private void DestroyUnit(IDamagable unit) {
@@ -80,7 +94,7 @@ public class BuildZoneItem : MonoBehaviour {
             _damagableVisual.SetDamagable(_damagable);
         }
         
-        InitValue();
+        InitAtackValue();
         InitHp();
     }
 
@@ -99,28 +113,29 @@ public class BuildZoneItem : MonoBehaviour {
         }
     }
 
-    private void InitValue() {
+    private void InitAtackValue() {
         _abilityBuilding.SetSame(_buildItem);
         var effect = _abilityBuilding.Effect as IValueGetter;
         switch (_buildingType) {
             case BuildingType.Mine:
                 effect.SetValueGetter(() => _buildingStatsCalculator.MineValue);
+                _abilityBuilding.SetValueGetter(() =>  _buildingStatsCalculator.MineIntervalAtack);
                 break;
             case BuildingType.Turret:
                 effect.SetValueGetter(() => _buildingStatsCalculator.TurretValue);
+                _abilityBuilding.SetValueGetter(() =>  _buildingStatsCalculator.TurretIntervalAtack);
                 break;
             case BuildingType.Heal:
                 effect.SetValueGetter(() => _buildingStatsCalculator.HealValue);
+                _abilityBuilding.SetValueGetter(() => _buildingStatsCalculator.HealIntervalAtack);
                 break;
         }
     }
 
 
 
-
-
     private void Update() {
-        if (_isBuilded) return;
+        if (_isBuilded || _permanent) return;
         
         if (_playerInZone) {
             _currentTime += Time.deltaTime;
@@ -163,18 +178,26 @@ public class BuildZoneItem : MonoBehaviour {
 
     private void CheckEndBuild() {
         if(_isBuilded || _currentTime < _timeToBuild) return;
-        _isBuilded = true;
         EndBuild();
     }
+    
 
     private void EndBuild() {
-        if (_buildingType != BuildingType.Mine) {
+        if (_buildingType != BuildingType.Mine && !_permanent) {
             _playerRegister.RegisterUnit(_buildItem, TargetType.Player);
         }
-        _abilityBuilding.Start();
+        _isBuilded = true;
+        _currentTime = _timeToBuild;
+        Debug.Log("Start ability build");
+
+        _abilityBuilding.StartSystem();
         _afterBuildVisual.ActiveSelf();
         _buildVisual.DisactiveSelf();
         _damagable.SetSpawned();
+        
+        if (_permanent) {
+            _damagableVisual.HideVisual();
+        }
     }
     
 }

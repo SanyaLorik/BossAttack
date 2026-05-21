@@ -32,7 +32,6 @@ public class BotAnimator : MonoBehaviour {
     }
 
     public void PlayMeleeAnimation() {
-        Debug.Log("PlayMeleeAnimation");
         _animator.SetTrigger(DoubleJump);
     }
     

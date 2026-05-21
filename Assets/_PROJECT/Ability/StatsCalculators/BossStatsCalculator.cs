@@ -11,6 +11,9 @@ public class BossStatsCalculator : IInitializable, IDisposable {
     public int ShootDamage { get; private set; }
     // HP
     public int BossHp { get; private set; }
+    // Interval
+    public float BossIntervalToAtackInMelee => _gameData.BossIntervalToAtackInMelee;
+    public float BossIntervalToAtackInShoot => _gameData.BossIntervalToAtackInShooting;
 
 
     public BossStatsCalculator(GameData gameData, PlayerLevel playerLevel) {

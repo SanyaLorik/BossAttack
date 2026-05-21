@@ -106,6 +106,8 @@ MonoBehaviour:
     <BossStoppingDistanceInShooting>k__BackingField: 5
     <BossSpeedInMelee>k__BackingField: 18
     <BossSpeedInShooting>k__BackingField: 12
+    <BossIntervalToAtackInMelee>k__BackingField: 0.5
+    <BossIntervalToAtackInShooting>k__BackingField: 0.4
     <BossHpBase>k__BackingField: 200
     <BossLevelAddHp>k__BackingField: 25
     <PlayerHpBase>k__BackingField: 100
@@ -119,6 +121,9 @@ MonoBehaviour:
     <HealBuildingAddLevelValue>k__BackingField: 1
     <MineBuildingValueBase>k__BackingField: 50
     <MineBuildingAddLevelValue>k__BackingField: 15
+    <MineIntervalAtack>k__BackingField: 0.3
+    <TurretIntervalAtack>k__BackingField: 0.5
+    <HealIntervalAtack>k__BackingField: 0.5
     <PlayerDamageBase>k__BackingField: 2
     <PlayerLevelAddDamage>k__BackingField: 1
     <PlayerRateOfFireBase>k__BackingField: 0.6

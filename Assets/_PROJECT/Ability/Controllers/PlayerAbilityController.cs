@@ -27,7 +27,8 @@ public class PlayerAbilityController : MonoBehaviour, IAbilityCotroller {
     }
 
     public void StartAbility() {
-        _ability.Start();
+        Debug.Log("Start ability player");
+        _ability.StartSystem();
     }
     
     

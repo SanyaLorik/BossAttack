@@ -185,32 +185,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 543f53ac372646c7b950add62c4bb7a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildItem
-  _interval: 1
+  _intervalToAtack: 1
+  _intervalToFindTarget: 0.5
   _origin: {fileID: 1520153112886831354}
   <Type>k__BackingField: 0
-  _targetProvider:
-    rid: 7634349180084289607
-  _targetFilters: []
+  _targetFilters:
+  - rid: 7634349521342300236
   _effect:
     rid: 7634349180084289606
   _tickBehaviour: []
   _atackCapacity:
     rid: 7634349317783289924
+  _targetProvider:
+    rid: 7634349180084289607
   references:
     version: 2
     RefIds:
     - rid: 7634349180084289606
       type: {class: HealEffect, ns: , asm: Assembly-CSharp}
       data:
-        _heal: 0
+        _heal: 5
     - rid: 7634349180084289607
       type: {class: GetRadiusTargets, ns: , asm: Assembly-CSharp}
       data:
         TargetType: 1
-        _radius: 10
+        _radius: 50
     - rid: 7634349317783289924
       type: {class: InfinitCapacity, ns: , asm: Assembly-CSharp}
       data: 
+    - rid: 7634349521342300236
+      type: {class: DistanceFilter, ns: , asm: Assembly-CSharp}
+      data:
+        _allowedDistance: 20
 --- !u!1 &3690621732092577188
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,6 +468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0010599ee3aefbf42b5b20098f32249b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildZoneItem
+  _permanent: 0
   _buildingType: 2
   _timeToBuild: 3
   _progressImage: {fileID: 147621517188980412}

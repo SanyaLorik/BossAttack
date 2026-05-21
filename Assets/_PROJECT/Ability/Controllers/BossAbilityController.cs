@@ -29,15 +29,17 @@ public class BossAbilityController : MonoBehaviour {
 
     private void InitDamage() {
         foreach (var ability in _abilitys) {
-            if (ability.Effect is not IValueGetter abilityValue) {
+            if (ability.Effect is not IValueGetter abilityEffectValue) {
                 continue;
             }
             switch (ability.Type) {
                 case (AbilityType.Melee):
-                    abilityValue.SetValueGetter(() => _bossStatsCalculator.MeleeDamage);
+                    abilityEffectValue.SetValueGetter(() => _bossStatsCalculator.MeleeDamage);
+                    ability.SetValueGetter(() => _bossStatsCalculator.BossIntervalToAtackInMelee);
                     break;
                 case (AbilityType.Shooting):
-                    abilityValue.SetValueGetter(() => _bossStatsCalculator.ShootDamage);
+                    abilityEffectValue.SetValueGetter(() => _bossStatsCalculator.ShootDamage);
+                    ability.SetValueGetter(() => _bossStatsCalculator.BossIntervalToAtackInShoot);
                     break;
             }
         }
@@ -58,7 +60,8 @@ public class BossAbilityController : MonoBehaviour {
         UniTaskHelper.DisposeTask(ref _tokenSource);
         _tokenSource = new CancellationTokenSource();
         TimerToChangeAbility(_tokenSource.Token).Forget();
-        _abilitys[_currentAbilityIndex].Start();
+        Debug.Log("Start ability boss");
+        _abilitys[_currentAbilityIndex].StartSystem();
         NewAbilitySystemEnabled?.Invoke(_abilitys[_currentAbilityIndex]);
         GameEvents.BossSwitchAbilityInvoke();
     }

@@ -101,7 +101,6 @@ public class BonusSpawner : MonoBehaviour {
     private Transform FindRandomPoint((Transform t, float dist)[] data) {
         int selectionSizeCuted = Math.Min(_selectionSize, data.Length);
         
-        Debug.Log($"Выборка из {data.Length} точек | индексы: ({_startIndex};{_startIndex + selectionSizeCuted})");
 
         int randomIndex = Random.Range(_startIndex, _startIndex + selectionSizeCuted);
         bool choosed = false;

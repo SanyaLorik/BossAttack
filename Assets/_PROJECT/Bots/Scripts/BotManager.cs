@@ -106,6 +106,7 @@ public class BotManager : MonoBehaviour, IPlayer {
 
 
     public void SetPlayStatus(bool goPlay) {
+        if(IsBoss) return;
         BonusUser.SetDefault();
         
         PlayerStatusChanged?.Invoke(goPlay);
@@ -119,9 +120,12 @@ public class BotManager : MonoBehaviour, IPlayer {
         if (goPlay) {
             ActiveBotInGame();
             SetBotStfu();
+            Debug.Log("Start ability bot");
+            Abilitys.ForEach(a => a.StartSystem());
         }
         // Возвращение на спавн
         else {
+            Abilitys.ForEach(a => a.Stop());
             Debug.Log($"Возвращение на спавн игрока {BotMonolog.NickName} in {_respawn.SpawnPoint.position}");
             Debug.Log($"Игрок play статус {IsPlaying} in {_respawn.SpawnPoint.position}");
             SetBotStateBeforeGame();
@@ -200,7 +204,6 @@ public class BotManager : MonoBehaviour, IPlayer {
     
 
     public void SetBotSpeak() {
-        Debug.Log("Set bot speak");
         if (!IsPlaying) {
             BotMonolog.SaySomething();
         }

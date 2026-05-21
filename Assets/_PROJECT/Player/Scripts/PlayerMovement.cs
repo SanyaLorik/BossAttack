@@ -157,10 +157,12 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
         
         if (goPlay) {
             _damagable.SetSpawned();
+            AbilityCotroller.StartAbility();
         }
         else {
             _damagable.SetDied();
             TeleportInSpawn(); 
+            AbilityCotroller.StopAbility();
         }
     }
 

@@ -14,7 +14,10 @@ public class BuildingStatsCalculator : IInitializable, IDisposable {
     public int TurretValue { get; private set; }
     public int MineValue { get; private set; }
     
-    
+    // Atack Interval 
+    public float MineIntervalAtack { get; private set; }
+    public float TurretIntervalAtack { get; private set; }
+    public float HealIntervalAtack { get; private set; }
     
     
     public BuildingStatsCalculator(
@@ -29,6 +32,7 @@ public class BuildingStatsCalculator : IInitializable, IDisposable {
     public void Initialize() {
         Subscribe();
         RecalculateStatsDependByPlayer(_playerLevel.CurrentLevel);
+        CalculateIntervalToAtack();
     }
 
     
@@ -81,6 +85,12 @@ public class BuildingStatsCalculator : IInitializable, IDisposable {
         MineValue = (int)
             (_gameData.MineBuildingValueBase + _gameData.MineBuildingAddLevelValue * (level-1));
         Debug.Log("CalculateMineValue: " + MineValue);
+    }
+    
+    private void CalculateIntervalToAtack() {
+        MineIntervalAtack = _gameData.MineIntervalAtack;
+        HealIntervalAtack = _gameData.HealIntervalAtack;
+        TurretIntervalAtack = _gameData.TurretIntervalAtack;
     }
     
 }

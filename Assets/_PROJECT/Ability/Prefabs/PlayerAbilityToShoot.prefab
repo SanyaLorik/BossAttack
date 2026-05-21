@@ -44,13 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 543f53ac372646c7b950add62c4bb7a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildItem
-  _intervalToAtack: 0
+  _intervalToAtack: 0.2
   _intervalToFindTarget: 0.4
   _origin: {fileID: 0}
   <Type>k__BackingField: 0
   _targetFilters:
   - rid: 7634349249449427014
-  - rid: 7634349521342300230
   _effect:
     rid: 7634349316450811974
   _tickBehaviour:
@@ -66,7 +65,7 @@ MonoBehaviour:
       type: {class: GetClosestTarget, ns: , asm: Assembly-CSharp}
       data:
         TargetType: 0
-        _distance: 20
+        _distance: 25
     - rid: 7634349187638493253
       type: {class: BulletsSpawner, ns: , asm: Assembly-CSharp}
       data:
@@ -87,7 +86,3 @@ MonoBehaviour:
       type: {class: Damage, ns: , asm: Assembly-CSharp}
       data:
         _damage: 0
-    - rid: 7634349521342300230
-      type: {class: DistanceFilter, ns: , asm: Assembly-CSharp}
-      data:
-        _allowedDistance: 20

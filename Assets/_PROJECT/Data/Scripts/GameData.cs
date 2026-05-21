@@ -121,7 +121,10 @@ public class GameData : GameDataBase
     [field: SerializeField] public float BossStoppingDistanceInShooting { get; private set; }    
     [field: SerializeField] public float BossSpeedInMelee { get; private set; }     
     [field: SerializeField] public float BossSpeedInShooting { get; private set; }    
-    
+   
+    [field: Header("Настройка скорости ударов босса")]
+    [field: SerializeField] public float BossIntervalToAtackInMelee { get; private set; }     
+    [field: SerializeField] public float BossIntervalToAtackInShooting { get; private set; } 
     
     
     [field: Header("Настройка хп у всех юнитов")]
@@ -147,6 +150,10 @@ public class GameData : GameDataBase
     [field: SerializeField] public int MineBuildingValueBase { get; private set; }
     [field: SerializeField] public int MineBuildingAddLevelValue { get; private set; }
     
+    [field: Header("Интервал атаки")]
+    [field: SerializeField] public float MineIntervalAtack { get; private set; }
+    [field: SerializeField] public float TurretIntervalAtack { get; private set; }
+    [field: SerializeField] public float HealIntervalAtack { get; private set; }
     
     
     [field: Header("Настройка Модификаторов игрока")]

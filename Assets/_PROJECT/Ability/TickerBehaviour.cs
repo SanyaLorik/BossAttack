@@ -7,8 +7,6 @@ using UnityEngine;
 using Zenject;
 
 public abstract class TickerBehaviour : MonoBehaviour, IValueGetter {
-
-    [SerializeField] private float _intervalToAtack;
     [SerializeField] private float _intervalToFindTarget;
     [SerializeField] protected Transform _origin;
     
@@ -16,11 +14,25 @@ public abstract class TickerBehaviour : MonoBehaviour, IValueGetter {
 
     private CancellationTokenSource _tokenSource;
     private Func<float> _intervalToAtackGetter;
+    private UniTask _waitForInitGetterTask;
+    private UniTask _waitForSecondToInitTask;
+    
     
     [Inject] GameData _gameData;
+
     
+    protected abstract void Tick();
+    protected abstract void FindNewTargets();
+    protected abstract void OnStart();
+    protected abstract void OnEnd();
+
+    public void SetValueGetter(Func<float> valueGetter) {
+        _intervalToAtackGetter = valueGetter;
+    }
     
-    public void Start() {
+
+    public void StartSystem() {
+        Debug.Log("Start ability");
         UniTaskHelper.DisposeTask(ref _tokenSource);
         _tokenSource = new  CancellationTokenSource();
         TickLoopAsync(_tokenSource.Token).Forget();
@@ -28,11 +40,6 @@ public abstract class TickerBehaviour : MonoBehaviour, IValueGetter {
         OnStart();
     }
 
-
-    private void OnDisable() {
-        Stop();
-    }
-    
     
     public void Stop() {
         UniTaskHelper.DisposeTask(ref _tokenSource);
@@ -41,7 +48,12 @@ public abstract class TickerBehaviour : MonoBehaviour, IValueGetter {
 
 
     private async UniTask TickLoopAsync(CancellationToken token) {
-        float interval = _intervalToAtackGetter == null ?  _intervalToAtack : _intervalToAtackGetter();
+        InitializeTasks();
+        await UniTask.WhenAny(_waitForInitGetterTask, _waitForSecondToInitTask);
+        if (_intervalToAtackGetter == null) {
+            Debug.LogError("_intervalToAtackGetter == null");
+        }
+        float interval = _intervalToAtackGetter();
         interval = MathF.Max(interval, _gameData.PlayerRateOfFireMinimum);
         while (!token.IsCancellationRequested) {
             Tick();
@@ -57,13 +69,11 @@ public abstract class TickerBehaviour : MonoBehaviour, IValueGetter {
             await UniTask.WaitForSeconds(interval, cancellationToken: token);
         }
     }
-    
-    protected abstract void Tick();
-    protected abstract void FindNewTargets();
-    protected abstract void OnStart();
-    protected abstract void OnEnd();
 
-    public void SetValueGetter(Func<float> valueGetter) {
-        _intervalToAtackGetter = valueGetter;
+    private void InitializeTasks() {
+        _waitForInitGetterTask = UniTask.WaitWhile(() => _intervalToAtackGetter == null);
+        _waitForSecondToInitTask = UniTask.WaitForSeconds(2f);
     }
+    
+   
 }

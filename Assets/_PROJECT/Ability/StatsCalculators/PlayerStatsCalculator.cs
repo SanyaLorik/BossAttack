@@ -10,7 +10,7 @@ public class PlayerStatsCalculator : IInitializable, IDisposable {
     
     public int PlayerHp { get; private set; }
     public int PlayerDamage { get; private set; }
-    public int PlayerRateOfFire { get; private set; }
+    public float PlayerRateOfFire { get; private set; }
     public int PlayerCapacity { get; private set; }
     
     
@@ -92,7 +92,7 @@ public class PlayerStatsCalculator : IInitializable, IDisposable {
     private void CalculatePlayerRateOfFire(int level) {
         // Значение скорости уменьшается т.к я еблан
         // и обозвал это скорость стрельбы но по сути это просто задержка между стрельбой
-        PlayerRateOfFire = (int)
+        PlayerRateOfFire =
             (_gameData.PlayerRateOfFireBase - _gameData.PlayerLevelAddRateOfFire * (level-1));
         Debug.Log($"PlayerRateOfFire: {PlayerRateOfFire}");
             
