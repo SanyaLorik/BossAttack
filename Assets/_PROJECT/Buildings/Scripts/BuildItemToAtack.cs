@@ -12,7 +12,7 @@ public class BuildItemToAtack : IPlayer {
     }
     
     public IDamagable Damagable { get; private set; }
-    public IAbilityCotroller AbilityCotroller { get; }
+    public AbilityCotrollerBase AbilityCotrollerBase { get; }
     public void SetPlayStatus(bool goPlay) { }
 
     public void TeleportToPoint(Vector3 point) { }
@@ -20,6 +20,8 @@ public class BuildItemToAtack : IPlayer {
     public void RotateToTarget(Vector3 point) { }
 
     public void SetMovingStatus(bool enable) { }
+    
+    public void SetVisualModelState(bool enable) { }
 
     public IPusher Pusher { get; }
     public IBonusUser BonusUser { get; }

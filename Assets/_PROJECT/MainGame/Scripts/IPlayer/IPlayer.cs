@@ -7,10 +7,12 @@ public interface IPlayer {
     public void TeleportToPoint(Vector3 point);
     public void RotateToTarget(Vector3 point);
     public void SetMovingStatus(bool enable);
+    public void SetVisualModelState(bool enable);
+    
     public IPusher Pusher { get; }
     public IBonusUser BonusUser { get; }
     public IDamagable Damagable { get; }
-    public IAbilityCotroller AbilityCotroller { get; }
+    public AbilityCotrollerBase AbilityCotrollerBase { get; }
     
     public bool IsPlaying { get; }
     Transform PointToAtack { get; }

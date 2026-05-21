@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Architecture_M;
 using UnityEngine;
 using Zenject;
@@ -41,7 +40,7 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
     public PlayerPush _pusher;
     public IBonusUser BonusUser => playerBonusUser;
     public IDamagable Damagable => _damagable;
-    public IAbilityCotroller AbilityCotroller => _abilityController;
+    public AbilityCotrollerBase AbilityCotrollerBase => _abilityController;
     private Damagable _damagable; 
     
     
@@ -157,12 +156,12 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
         
         if (goPlay) {
             _damagable.SetSpawned();
-            AbilityCotroller.StartAbility();
+            AbilityCotrollerBase.StartAbility();
         }
         else {
             _damagable.SetDied();
             TeleportInSpawn(); 
-            AbilityCotroller.StopAbility();
+            AbilityCotrollerBase.StopAbility();
         }
     }
 
@@ -178,8 +177,8 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
     
     
 
-    public void HideVisualModel(bool state) {
-        _playerVisual.SetActive(!state);
+    public void SetVisualModelState(bool state) {
+        _playerVisual.SetActive(state);
     }
 
     

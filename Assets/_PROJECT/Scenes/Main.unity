@@ -806,6 +806,62 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!1 &177850815
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 177850816}
+  - component: {fileID: 177850817}
+  m_Layer: 0
+  m_Name: PlayerManagers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &177850816
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177850815}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1883334078}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &177850817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177850815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26445d6d8218489e82ec7e04902b811e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MainPlayerDeathSystem
+  _progressContainer: {fileID: 2098603956}
+  _progressShowDurations:
+    <From>k__BackingField: 1
+    <To>k__BackingField: 1
+  _progressShowEase:
+    <From>k__BackingField: 27
+    <To>k__BackingField: 26
+  _bar: {fileID: 2098603958}
+  _barParent: {fileID: 2098603959}
+  _changeBarDuration: 1
+  CountText: {fileID: 2098603957}
+  _abilityCotroller: {fileID: 1930393706}
 --- !u!114 &180440459 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6931914094189062922, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
@@ -2259,7 +2315,23 @@ PrefabInstance:
     - target: {fileID: 1954807348930321206, guid: ee00e2868b257f64aa8f0017bb4ba443, type: 3}
       propertyPath: _walkPoint
       value: 
-      objectReference: {fileID: 1189014760}
+      objectReference: {fileID: 1189014761}
+    - target: {fileID: 1954807348930321206, guid: ee00e2868b257f64aa8f0017bb4ba443, type: 3}
+      propertyPath: _dampningWhlePlay.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1954807348930321206, guid: ee00e2868b257f64aa8f0017bb4ba443, type: 3}
+      propertyPath: _dampningWhlePlay.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1954807348930321206, guid: ee00e2868b257f64aa8f0017bb4ba443, type: 3}
+      propertyPath: _dampningInRandomPlayer.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1954807348930321206, guid: ee00e2868b257f64aa8f0017bb4ba443, type: 3}
+      propertyPath: _dampningInRandomPlayer.z
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3233720598023956395, guid: ee00e2868b257f64aa8f0017bb4ba443, type: 3}
       propertyPath: Target.TrackingTarget
       value: 
@@ -8143,6 +8215,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 177850816}
   - {fileID: 48979605}
   - {fileID: 880088265}
   - {fileID: 220291354}
@@ -8342,6 +8415,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &1930393706 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2544347247816584613, guid: 7c5e4d14ece8f6246808912708c29a12, type: 3}
+  m_PrefabInstance: {fileID: 1189014759}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c9ac287bb3148c4b4853d7e8a308ce2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAbilityController
 --- !u!114 &1934014902 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7986470759570427586, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
@@ -8904,6 +8988,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!224 &2098603956 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1196330825625117866, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
+  m_PrefabInstance: {fileID: 967158670}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2098603957 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6554093855179463193, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
+  m_PrefabInstance: {fileID: 967158670}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!224 &2098603958 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6420312368281528791, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
+  m_PrefabInstance: {fileID: 967158670}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &2098603959 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 467972155751940744, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
+  m_PrefabInstance: {fileID: 967158670}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2106050216 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4302567017174551325, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}

@@ -26,6 +26,7 @@ public abstract class TickerBehaviour : MonoBehaviour, IValueGetter {
     protected abstract void OnStart();
     protected abstract void OnEnd();
 
+    
     public void SetValueGetter(Func<float> valueGetter) {
         _intervalToAtackGetter = valueGetter;
     }
@@ -61,6 +62,7 @@ public abstract class TickerBehaviour : MonoBehaviour, IValueGetter {
         }
     }
     
+    
     private async UniTask FindTargetLoopAsync(CancellationToken token) {
         float interval = _intervalToFindTarget;
         interval = MathF.Max(interval, _gameData.MinimumTimeToFindNewTarget);
@@ -70,6 +72,7 @@ public abstract class TickerBehaviour : MonoBehaviour, IValueGetter {
         }
     }
 
+    
     private void InitializeTasks() {
         _waitForInitGetterTask = UniTask.WaitWhile(() => _intervalToAtackGetter == null);
         _waitForSecondToInitTask = UniTask.WaitForSeconds(2f);

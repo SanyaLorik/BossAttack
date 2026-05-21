@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerDiesObserver {
+public class PlayersDiesObserver {
     
     public event Action<IPlayer> PlayerDied;
     public event Action<IPlayer> PlayerSpawned;

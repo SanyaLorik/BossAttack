@@ -12,11 +12,11 @@ public class CameraOrbitalController : MonoBehaviour {
     [Header("Точка движения игрока")]
     [SerializeField] private Transform _walkPoint; 
 
-
     [SerializeField] private CinemachineOrbitalFollow _orbitalFollow;
     [SerializeField] private float _cameraSaveDelay = 1f;
     [SerializeField] private Vector3 _dampningWhlePlay;
-    [SerializeField] private Vector3 _dampningInWinnerWindow;
+    [SerializeField] private Vector3 _dampningInRandomPlayer;
+    
     [SerializeField] private CinemachineBasicMultiChannelPerlin _noise;
     [SerializeField] private float _intensity;
     [SerializeField] private float _frequency;
@@ -83,8 +83,7 @@ public class CameraOrbitalController : MonoBehaviour {
         ChangeCameraZoomPercent(_settings.CameraZoomValue);
         SetWalkToBack();
         SetDefaultZoom();
-        
-        _orbitalFollow.TrackerSettings.PositionDamping = Vector3.zero;
+        FollowPlayer();
         
         _walkZoom = CurrentFovPercent;
         if (IsMobile)
@@ -96,36 +95,21 @@ public class CameraOrbitalController : MonoBehaviour {
         }
         _defaultX = _orbitalFollow.HorizontalAxis.Value;
         _defaultY = _orbitalFollow.VerticalAxis.Value;
-        
-    }
-    
-    
-    
-    
-    public void WatchToPoint(Transform point) {
-        Debug.Log("WatchToPoint " + point.position);
-        _zoomBeforeGame = CurrentFovPercent;
-        SetFollowPoint(point);
-        SetDamping(_dampningInWinnerWindow);
-    }
-    
-    private void ShakeCamera() {
-        if (_noise == null) return;
-        _noise.enabled = true;
-        _noise.AmplitudeGain = _intensity;
-        _noise.FrequencyGain = _frequency;
-        
-        // Останавливаем тряску через duration секунд
-        CancelInvoke(nameof(StopShake));
-        Invoke(nameof(StopShake), _duration);
-    }
-    
-    
-    public void GoToWinner(Transform point) {
-        SetFollowPoint(point);
-        SetDamping(_dampningInWinnerWindow);
     }
 
+    public void SetFollowToBot(Transform target) {
+        SetFollowPoint(target);
+        SetDamping(_dampningInRandomPlayer);
+    }
+
+    
+    public void FollowPlayer() {
+        SetFollowPoint(_walkPoint);
+        SetDamping(_dampningWhlePlay);
+    }
+    
+
+    
     public void ResetCameraBeforePlay() {
         ForbidRotate(false);
         ForbidZoom(false);
@@ -188,13 +172,10 @@ public class CameraOrbitalController : MonoBehaviour {
     }
     
 
-    private void SetFollowPoint(Transform target) {
+    public void SetFollowPoint(Transform target) {
         _cinemachineCamera.Follow = target;
     }
     
-
-
-
 
     private void SetPoint(Transform point) {
         _cinemachineCamera.Follow = point;
@@ -330,5 +311,16 @@ public class CameraOrbitalController : MonoBehaviour {
 
     private void ForbidRotate(bool windowIsOpen) {
         _allowRotation = !windowIsOpen;
+    }
+    
+    private void ShakeCamera() {
+        if (_noise == null) return;
+        _noise.enabled = true;
+        _noise.AmplitudeGain = _intensity;
+        _noise.FrequencyGain = _frequency;
+        
+        // Останавливаем тряску через duration секунд
+        CancelInvoke(nameof(StopShake));
+        Invoke(nameof(StopShake), _duration);
     }
 }

@@ -104,6 +104,7 @@ public class GameData : GameDataBase
     [field: SerializeField] public float TimeToShowDieInfo { get; private set; }
     [field: SerializeField] public float TimeAfterEndRound { get; private set; }
     [field: SerializeField] public float MinimumTimeToFindNewTarget { get; private set; }
+    [field: SerializeField] public int TimeToRespawnPlayer { get; private set; }
 
 
     [field: Header("Визуал")] 

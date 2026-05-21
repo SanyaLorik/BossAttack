@@ -9,15 +9,16 @@ public class JumpParticlesController : MonoBehaviour  {
     
     private ParticleSystem.Particle[] particles;
     private bool _isPlaying = false;
+    private Coroutine _currentCoroutine;
+    
+    
     private void Start() {
         EnableTrails(false);
     }
-    private Coroutine _currentCoroutine;
     public void Play() {
         // Если уже играет - не запускаем новый
-        if (_isPlaying) 
-        {
-            Debug.Log("JumpParticles already playing, ignoring");
+        if (_isPlaying) {
+            // Debug.Log("JumpParticles already playing, ignoring");
             return;
         }
         

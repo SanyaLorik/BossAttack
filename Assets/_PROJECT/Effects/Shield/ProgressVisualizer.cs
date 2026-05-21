@@ -90,8 +90,12 @@ public abstract class ProgressVisualizer : MonoBehaviour {
         });
     }
 
+    public void FastHide() {
+        _progressContainer.localScale = Vector3.zero;
+    }
 
-    
+
+
     /// <summary>
     /// есть в RectTransformHelper просто приватное, саня верни доступ(((
     /// </summary>

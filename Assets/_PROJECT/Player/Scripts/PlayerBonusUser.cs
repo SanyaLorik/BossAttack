@@ -31,7 +31,7 @@ public class PlayerBonusUser : MonoBehaviour, IBonusUser {
     }
 
     public void ReloadClip() {
-        _playerMovement.AbilityCotroller.ReloadAbility();
+        _playerMovement.AbilityCotrollerBase.ReloadAbility();
     }
 
 

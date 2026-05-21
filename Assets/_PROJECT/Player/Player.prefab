@@ -233,15 +233,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5033114416352457734}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.117, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.1170001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4934005222201685765}
   - {fileID: 7505656706896123089}
   - {fileID: 6042079593434557596}
-  m_Father: {fileID: 6278525158390120559}
+  m_Father: {fileID: 4463336047555587298}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5489098205342789307
 GameObject:
@@ -336,6 +336,8 @@ Transform:
   - {fileID: 6898334647575053656}
   - {fileID: 1620515927870495697}
   - {fileID: 6080944733823715868}
+  - {fileID: 1969779792829351665}
+  - {fileID: 5304525108884347941}
   m_Father: {fileID: 6278525158390120559}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &3686266338711202666
@@ -450,7 +452,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c9ac287bb3148c4b4853d7e8a308ce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAbilityController
-  _ability: {fileID: 3300482349551387076}
+  <Abilitys>k__BackingField:
+  - {fileID: 3300482349551387076}
 --- !u!1 &6562678927932678563
 GameObject:
   m_ObjectHideFlags: 0
@@ -728,8 +731,6 @@ Transform:
   m_Children:
   - {fileID: 5443552119785286926}
   - {fileID: 4463336047555587298}
-  - {fileID: 5304525108884347941}
-  - {fileID: 1969779792829351665}
   - {fileID: 2442955559784721893}
   - {fileID: 1091855194919393618}
   - {fileID: 433382306219570691}
@@ -1090,7 +1091,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 6278525158390120559}
+    m_TransformParent: {fileID: 4463336047555587298}
     m_Modifications:
     - target: {fileID: 1100053802273287554, guid: c89499b2f2d418340b551fc09ea04516, type: 3}
       propertyPath: m_Name
@@ -1114,15 +1115,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3676528134308058562, guid: c89499b2f2d418340b551fc09ea04516, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3676528134308058562, guid: c89499b2f2d418340b551fc09ea04516, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3676528134308058562, guid: c89499b2f2d418340b551fc09ea04516, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3676528134308058562, guid: c89499b2f2d418340b551fc09ea04516, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

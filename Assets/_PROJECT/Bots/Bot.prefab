@@ -118,8 +118,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2669498892522294507}
-  - {fileID: 4604574056128746527}
-  - {fileID: 4005745868750855142}
   - {fileID: 7953180259397531146}
   - {fileID: 8775805619122131799}
   m_Father: {fileID: 0}
@@ -206,6 +204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09945d85a02ca6f4a8629ae68623f602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotStateManager
+  _playerSkin: {fileID: 1336081037049726119}
   <IsBoss>k__BackingField: 0
   <Abilitys>k__BackingField: []
   <ShowInSpawn>k__BackingField: 0
@@ -486,8 +485,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4604574056128746527}
   - {fileID: 4714152222721164009}
   - {fileID: 6986078075926337724}
+  - {fileID: 4005745868750855142}
   m_Father: {fileID: 3667074117147502011}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1945507509541419709
@@ -647,13 +648,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3662072456498197313}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.36754, y: 0, z: 4.86727}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4585896994629774536}
-  m_Father: {fileID: 3667074117147502011}
+  m_Father: {fileID: 7953180259397531146}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &921503598439039512
 MonoBehaviour:
@@ -750,14 +751,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4288806925868324768}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.36754, y: 1, z: 4.86727}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2360124181384550096}
   - {fileID: 6674921500675637912}
-  m_Father: {fileID: 3667074117147502011}
+  m_Father: {fileID: 7953180259397531146}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &8305540036435365303
 Animator:
@@ -795,7 +796,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BotAnimator
   _animator: {fileID: 8305540036435365303}
   _skinController: {fileID: 3179251272697559363}
-  _botManager: {fileID: 790296001332029354}
 --- !u!114 &7043408511254031771
 MonoBehaviour:
   m_ObjectHideFlags: 0

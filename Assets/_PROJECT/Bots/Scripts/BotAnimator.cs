@@ -2,6 +2,7 @@
 using _PROJECT.Scripts.Helpers;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using Zenject;
 
 public class BotAnimator : MonoBehaviour {
     private static readonly int Jump = Animator.StringToHash("jump");
@@ -10,11 +11,10 @@ public class BotAnimator : MonoBehaviour {
     private static readonly int Melee = Animator.StringToHash("melee");
     [SerializeField] private Animator _animator;
     [SerializeField] private SkinShadow _skinController;
-    [SerializeField] private BotManager _botManager;
 
     private CancellationTokenSource _tokenSource;
 
-
+    [Inject] private BotManager _botManager;
     
     
     public void OnEnable() {

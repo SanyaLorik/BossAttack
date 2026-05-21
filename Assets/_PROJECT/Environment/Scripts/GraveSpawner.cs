@@ -11,7 +11,7 @@ public class GraveSpawner : MonoBehaviour {
     [Inject] private MainGameStarter _gameStarter;
     [Inject] private RespawnManager _respawnManager;
     [Inject] private SpawnerInNavMesh _spawnerInNavMesh;
-    [Inject] private PlayerDiesObserver _diesObserver;
+    [Inject] private PlayersDiesObserver _diesObserver;
 
     private readonly Dictionary<IPlayer, GameObject> _playerToGrave = new();
     

@@ -8,27 +8,34 @@ using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
 
-public class BossAbilityController : MonoBehaviour {
-    [SerializeField] private List<AbilitySystem> _abilitys;
+public class BossAbilityController : AbilityCotrollerBase {
     [SerializeField] private int _startAbilityIndex;
     [SerializeField] private PairedValue<float> _diapasoneToChangeAbility;
     
     
-    private int _currentAbilityIndex;
     private CancellationTokenSource _tokenSource;
 
     public event Action<AbilitySystem> NewAbilitySystemEnabled;
     
-    
     [Inject] BattleManager _battleManager;
     [Inject] BossStatsCalculator _bossStatsCalculator;
 
-    private void Awake() {
+    
+    protected override void InitStartGetters() {
         InitDamage();
     }
+    
+    
+    
+    private void OnEnable() {
+        _currentAbilityIndex = _startAbilityIndex;
+        // Покачто сразу прям, потом врубать после отсчета
+        StartAbility();
+    }
+    
 
     private void InitDamage() {
-        foreach (var ability in _abilitys) {
+        foreach (var ability in Abilitys) {
             if (ability.Effect is not IValueGetter abilityEffectValue) {
                 continue;
             }
@@ -45,14 +52,9 @@ public class BossAbilityController : MonoBehaviour {
         }
     }
 
-    private void OnEnable() {
-        _currentAbilityIndex = _startAbilityIndex;
-        StartAbility();
-    }
-
     
     public List<AbilitySystem> GetAbilitys() {
-        return _abilitys;
+        return Abilitys;
     }
 
     
@@ -61,16 +63,18 @@ public class BossAbilityController : MonoBehaviour {
         _tokenSource = new CancellationTokenSource();
         TimerToChangeAbility(_tokenSource.Token).Forget();
         Debug.Log("Start ability boss");
-        _abilitys[_currentAbilityIndex].StartSystem();
-        NewAbilitySystemEnabled?.Invoke(_abilitys[_currentAbilityIndex]);
+        Abilitys[_currentAbilityIndex].StartSystem();
+        NewAbilitySystemEnabled?.Invoke(Abilitys[_currentAbilityIndex]);
         GameEvents.BossSwitchAbilityInvoke();
     }
 
-    
+
+
+
     private void SetNextAbilityIndex() {
-        _abilitys[_currentAbilityIndex].Stop();
+        Abilitys[_currentAbilityIndex].Stop();
         _currentAbilityIndex++;
-        if (_currentAbilityIndex == _abilitys.Count) {
+        if (_currentAbilityIndex == Abilitys.Count) {
             _currentAbilityIndex = 0;
         }
     }

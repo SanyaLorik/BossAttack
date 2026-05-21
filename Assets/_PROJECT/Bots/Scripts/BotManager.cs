@@ -8,6 +8,7 @@ using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class BotManager : MonoBehaviour, IPlayer {
+    [SerializeField] private GameObject _playerSkin;
     [field: SerializeField] public bool IsBoss { get; private set; }
     [field: SerializeField] public List<AbilitySystem> Abilitys { get; private set; }
     
@@ -26,6 +27,7 @@ public class BotManager : MonoBehaviour, IPlayer {
     [field: SerializeField] public Rigidbody Rb  { get; private set; }
     
     [field: SerializeField] public NavMeshAgent Agent  { get; private set; }
+    
     [field: Header("Particles")]
     [field: SerializeField] public JumpParticlesController JumpParticles  { get; private set; }
     [field: SerializeField] public JumpParticlesController LandParticles  { get; private set; }
@@ -37,9 +39,15 @@ public class BotManager : MonoBehaviour, IPlayer {
     public IDamagable Damagable => _damagable;
     
     // Пока нулл
-    public IAbilityCotroller AbilityCotroller { get; }
+    public AbilityCotrollerBase AbilityCotrollerBase { get; }
     
-    private Damagable _damagable; 
+    private Damagable _damagable;
+
+    
+    public void SetVisualModelState(bool enable) {
+        _playerSkin.SetActive(enable);
+    }
+
     
     public IPusher Pusher { get; private set; }
 

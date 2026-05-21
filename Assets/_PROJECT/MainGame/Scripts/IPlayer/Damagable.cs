@@ -8,8 +8,15 @@ public class Damagable : IDamagable {
     
     private bool IsDied => CurrentHp == 0;
     private Func<int> _maxHpGetter;
-    
-    
+
+
+    public void Respawn(bool silent) {
+        CurrentHp = _maxHpGetter();
+        if (!silent) {
+            DamagableSpawned?.Invoke(this);
+        }
+    }
+
     public Transform Transform { get; private set; }
     public event Action<IDamagable> DamagableDied;
     public event Action<IDamagable> DamagableSpawned;

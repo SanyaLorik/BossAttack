@@ -44,7 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 543f53ac372646c7b950add62c4bb7a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildItem
-  _intervalToAtack: 0.6
   _intervalToFindTarget: 3
   _origin: {fileID: 4750764167075588228}
   <Type>k__BackingField: 1
@@ -262,7 +261,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 543f53ac372646c7b950add62c4bb7a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildItem
-  _intervalToAtack: 0.4
   _intervalToFindTarget: 2
   _origin: {fileID: 4750764167075588228}
   <Type>k__BackingField: 0
@@ -410,9 +408,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ca744ad713c48699ee4eaa50c33ce32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossAbilityController
-  _abilitys:
-  - {fileID: 2780032709577342737}
+  <Abilitys>k__BackingField:
   - {fileID: 7761559491542740715}
+  - {fileID: 2780032709577342737}
   _startAbilityIndex: 0
   _diapasoneToChangeAbility:
     <From>k__BackingField: 5

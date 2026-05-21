@@ -39,7 +39,7 @@ public class BattleManager : MonoBehaviour {
     [Inject] private MapsToBattleChanger _mapsToBattleChanger;
     [Inject] private LocalizationData _localization;
     [Inject] private PlayerRegister _playerRegister;
-    [Inject] private PlayerDiesObserver _diesObserver;
+    [Inject] private PlayersDiesObserver _diesObserver;
     
     private void Awake() {
         _diesObserver.PlayerDied += OnPlayerDied;
@@ -114,14 +114,14 @@ public class BattleManager : MonoBehaviour {
         _playerMovement.SetMovingStatus(false);
 
         if (!playerWin) {
-            _playerMovement.HideVisualModel(true);
+            _playerMovement.SetVisualModelState(true);
         }
         
         _playerMovement.SetPlayStatusSilent(false);
         await UniTask.WaitWhile(() => _gameOver.ResultWindowShowing);
         
         if (!playerWin) {
-            _playerMovement.HideVisualModel(false);
+            _playerMovement.SetVisualModelState(false);
         }
         _playerMovement.SetPlayStatus(false);
         _playerMovement.SetMovingStatus(true);

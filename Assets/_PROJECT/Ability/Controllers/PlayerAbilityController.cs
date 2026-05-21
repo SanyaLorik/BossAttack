@@ -1,54 +1,33 @@
-﻿using UnityEngine;
-using Zenject;
+﻿using Zenject;
 
 
-public class PlayerAbilityController : MonoBehaviour, IAbilityCotroller {
-    [SerializeField] private AbilitySystem _ability;
+public class PlayerAbilityController : AbilityCotrollerBase {
 
     [Inject] PlayerStatsCalculator _playerStatsCalculator;
     [Inject] IPlayer _player;
     
-    public AbilitySystem AbilitySystem => _ability;
+    public AbilitySystem AbilitySystem => Abilitys[0];
+
     
-    
-    private void Awake() {
-        InitAbility();
+    protected override void InitStartGetters() {
         InitPlayerDamage();
         InitPlayerCapacity();
         InitPlayerRateOfFire();
     }
-    
-    public void ReloadAbility() {
-        _ability.ReloadClip();
-    }
-
-    public void StopAbility() {
-        _ability.Stop();
-    }
-
-    public void StartAbility() {
-        Debug.Log("Start ability player");
-        _ability.StartSystem();
-    }
-    
-    
-    private void InitAbility() {
-        _ability.SetSame(_player);
-    }
 
     private void InitPlayerDamage() {
-        var abilityValue = _ability.Effect as IValueGetter;
+        var abilityValue = AbilitySystem.Effect as IValueGetter;
         if (abilityValue != null) abilityValue.SetValueGetter(() => _playerStatsCalculator.PlayerDamage);
     }
     
     private void InitPlayerCapacity() {
-        var abilityCapacity = _ability.AtackCapacity as IValueGetter;
+        var abilityCapacity = AbilitySystem.AtackCapacity as IValueGetter;
         if (abilityCapacity != null) abilityCapacity.SetValueGetter(() => _playerStatsCalculator.PlayerCapacity);
         
     }
     
     private void InitPlayerRateOfFire() {
-        _ability.SetValueGetter(() => _playerStatsCalculator.PlayerRateOfFire);
+        AbilitySystem.SetValueGetter(() => _playerStatsCalculator.PlayerRateOfFire);
     }
 
 

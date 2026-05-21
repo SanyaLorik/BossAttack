@@ -96,6 +96,7 @@ MonoBehaviour:
     <TimeToShowDieInfo>k__BackingField: 2
     <TimeAfterEndRound>k__BackingField: 0
     <MinimumTimeToFindNewTarget>k__BackingField: 0.4
+    <TimeToRespawnPlayer>k__BackingField: 10
     <PaintTimeToWaitAfterDestroyBullet>k__BackingField: 0.5
     <YBulletOffset>k__BackingField: 1
     <BossMeleeDamageBase>k__BackingField: 10
