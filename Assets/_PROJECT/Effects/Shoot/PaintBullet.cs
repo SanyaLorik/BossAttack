@@ -24,9 +24,8 @@ public class PaintBullet : BulletBase {
     }
     
     public override void PlayToEnd() {
-        // _bulletModel.DisactiveSelf();
         _psWhileFlight.Stop();
-        // _psWhileFlight.DisactiveSelf();
+        _psWhileFlight.DisactiveSelf();
         _psToEnd.Play();
         _soundEmitter.Play(SoundType.Bullet);
     }

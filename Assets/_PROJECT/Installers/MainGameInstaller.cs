@@ -34,7 +34,7 @@ public class MainGameInstaller : MonoInstaller {
     }
 
     private void BindBuilds() {
-        Container.Bind<SpawnerInNavMesh>().AsSingle().NonLazy();
+        Container.Bind<SpawnerInFloor>().AsSingle().NonLazy();
     }
     
     private void BindModifiers() {

@@ -110,7 +110,6 @@ public class GameData : GameDataBase
 
 
     [field: Header("Визуал")] 
-    [field: SerializeField] public float PaintTimeToWaitAfterDestroyBullet { get; private set; }
     [field: SerializeField, Range(0f,1f)] public float YBulletOffset { get; private set; }
     
     

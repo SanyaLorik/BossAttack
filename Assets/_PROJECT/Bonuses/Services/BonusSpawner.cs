@@ -25,7 +25,7 @@ public class BonusSpawner : MonoBehaviour {
     [Inject] private MapsToBattleChanger _mapsChanger;
     [Inject] private GameData _gameData;
     [Inject] private DiContainer _container;
-    [Inject] private SpawnerInNavMesh _spawner;
+    [Inject] private SpawnerInFloor _spawner;
     [Inject] private PlayerMovement _player;
 
     private void Awake() {

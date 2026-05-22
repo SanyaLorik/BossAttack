@@ -10,7 +10,7 @@ public class GraveSpawner : MonoBehaviour {
     [Inject] private BattleManager _battleManager;  
     [Inject] private MainGameStarter _gameStarter;
     [Inject] private RespawnManager _respawnManager;
-    [Inject] private SpawnerInNavMesh _spawnerInNavMesh;
+    [Inject] private SpawnerInFloor _spawnerInFloor;
     [Inject] private PlayersDiesObserver _diesObserver;
 
     private readonly Dictionary<IPlayer, GameObject> _playerToGrave = new();
@@ -40,7 +40,7 @@ public class GraveSpawner : MonoBehaviour {
 
     
     private void SpawnGrave(IPlayer player) {
-        GameObject newGrave = _spawnerInNavMesh.SpawnObject(_gravePrefab, player.Transform.position);
+        GameObject newGrave = _spawnerInFloor.SpawnObject(_gravePrefab, player.Transform.position);
         if (_playerToGrave.ContainsKey(player) == false) {
             _playerToGrave[player] = newGrave;
         }

@@ -12,7 +12,8 @@ public class GuaranteedHitBulletsSpawner : IHitDelivery, ISoundPlayer {
     [SerializeField] private Transform _spawnPoint;
     [SerializeField] private BulletBase _bulletInstance;
     [SerializeField, Range(0f, 1f)] private float _progressToShowPaintVisual = 0.9f;
-    
+    [SerializeField] private float _bulletLifeSecAfterHit = 1f;
+
     [field: SerializeField] public SoundType SoundType { get; private set; }
 
 
@@ -40,7 +41,7 @@ public class GuaranteedHitBulletsSpawner : IHitDelivery, ISoundPlayer {
 
     private async UniTaskVoid BulletFlightAsync(BulletBase paintBullet, IPlayer target, IEffect effect) {
         // Полёт
-        Transform targetTransform = target.Transform;
+        Transform targetTransform = target.PointToAtack;
         
         float elapsedTime = 0;
         float distance = Vector3.Distance(paintBullet.gameObject.transform.position, targetTransform.position);
@@ -66,7 +67,7 @@ public class GuaranteedHitBulletsSpawner : IHitDelivery, ISoundPlayer {
         // Нанесение урона
         effect.ApplyEffect(target);
 
-        await UniTask.WaitForSeconds(_gameData.PaintTimeToWaitAfterDestroyBullet);
+        await UniTask.WaitForSeconds(_bulletLifeSecAfterHit);
         _poolManager.ReturnObjectToPool(paintBullet.gameObject, PoolType.Bullets);
     }
 

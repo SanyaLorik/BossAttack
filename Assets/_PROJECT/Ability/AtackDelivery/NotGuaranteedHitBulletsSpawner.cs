@@ -11,6 +11,7 @@ public class NotGuaranteedHitBulletsSpawner : IHitDelivery, ISoundPlayer {
     [SerializeField] private Transform _spawnPoint;
     [SerializeField] private BulletBase _bulletInstance;
     [SerializeField] private float _hitRadius = 1f;
+    [SerializeField] private float _bulletLifeSecAfterHit = 1f;
     
     [field: SerializeField] public SoundType SoundType { get; private set; }
 
@@ -39,7 +40,7 @@ public class NotGuaranteedHitBulletsSpawner : IHitDelivery, ISoundPlayer {
 
     private async UniTaskVoid BulletFlightAsync(BulletBase paintBullet, IPlayer target, List<IPlayer> targetList, IEffect effect) {
         // Полёт
-        Transform targetTransform = target.Transform;
+        Transform targetTransform = target.PointToAtack;
         
         Vector3 direction = (targetTransform.position - paintBullet.gameObject.transform.position);
         Vector3 directionNormalized = direction.normalized;
@@ -64,7 +65,7 @@ public class NotGuaranteedHitBulletsSpawner : IHitDelivery, ISoundPlayer {
             if (TryApplyEffect(targetList, paintBullet.transform, effect)) {
                 isHited = true;
                 paintBullet.PlayToEnd();
-                await UniTask.WaitForSeconds(_gameData.PaintTimeToWaitAfterDestroyBullet);
+                await UniTask.WaitForSeconds(_bulletLifeSecAfterHit);
                 _poolManager.ReturnObjectToPool(paintBullet.gameObject, PoolType.Bullets);
                 break;
             }
@@ -84,7 +85,7 @@ public class NotGuaranteedHitBulletsSpawner : IHitDelivery, ISoundPlayer {
                 continue;
 
             float sqrDistance =
-                (player.Transform.position - bullet.transform.position).sqrMagnitude; 
+                (player.PointToAtack.position - bullet.transform.position).sqrMagnitude; 
 
             if(sqrDistance <= _hitRadius * _hitRadius) {
                 effect.ApplyEffect(player);

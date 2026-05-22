@@ -91,6 +91,7 @@ MonoBehaviour:
         _spawnPoint: {fileID: 0}
         _bulletInstance: {fileID: 4117493534217919638, guid: bc77ae790f4f6b04a893d598d1b73f04, type: 3}
         _progressToShowPaintVisual: 1
+        _bulletLifeSecAfterHit: 2
         <SoundType>k__BackingField: 14
 --- !u!1 &5291476176109996897
 GameObject:

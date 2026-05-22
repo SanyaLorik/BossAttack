@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using SanyaBeerExtension;
 using UnityEngine;
 using Zenject;
+using Object = UnityEngine.Object;
 
 [Serializable]
 public class ParabolicProjectileDelivery : IHitDelivery, ISoundPlayer {
@@ -18,6 +19,11 @@ public class ParabolicProjectileDelivery : IHitDelivery, ISoundPlayer {
     [SerializeField] private BulletBase _bulletInstance;
     [Header("Радиус поражения")]
     [SerializeField] private float _hitRadius;
+    [Header("Визуал попадания")]
+    [SerializeField] private GameObject _warningVisual;
+    [SerializeField] private float _bulletLifeSecAfterHit = 1f;
+    
+    
     
     [SerializeField, Range(0f, 1f)] private float _progressToShowPaintVisual = 1f;
     [field: SerializeField] public SoundType SoundType { get; private set; }
@@ -25,12 +31,14 @@ public class ParabolicProjectileDelivery : IHitDelivery, ISoundPlayer {
     
     private ObjectPoolManager _poolManager;
     private GameData _gameData;
+    private SpawnerInFloor _spawner;
     
     
     [Inject]
-    public void Init(ObjectPoolManager poolManager, GameData gameData) {
+    public void Init(ObjectPoolManager poolManager, GameData gameData, SpawnerInFloor spawner) {
         _poolManager = poolManager;
         _gameData = gameData;
+        _spawner = spawner;
     }
     
     public void Deliver(Vector3 origin, IPlayer target, List<IPlayer> allTargets, IEffect effect) {
@@ -40,11 +48,19 @@ public class ParabolicProjectileDelivery : IHitDelivery, ISoundPlayer {
             return;
         }
         paintBulletInstance.SetPosition(_spawnPoint.position);
-        ParabolicBulletFlightAsync(paintBulletInstance, target.Transform, allTargets, effect).Forget();
+        GameObject warningVisual = _spawner.SpawnObjectByRaycast(_warningVisual, target.Transform.position, .5f);
+        ParabolicBulletFlightAsync(paintBulletInstance, target.PointToAtack, allTargets, effect, warningVisual).Forget();
+        
     }
     
 
-    private async UniTaskVoid ParabolicBulletFlightAsync(BulletBase paintBullet, Transform target, List<IPlayer> targetList, IEffect effect) {
+    private async UniTaskVoid ParabolicBulletFlightAsync(
+        BulletBase paintBullet, 
+        Transform target, 
+        List<IPlayer> targetList, 
+        IEffect effect,
+        GameObject warningVisual
+    ) {
         // Полёт
         
         float elapsedTime = 0;
@@ -80,8 +96,9 @@ public class ParabolicProjectileDelivery : IHitDelivery, ISoundPlayer {
         
         // Нанесение урона
         ApplyEffectToTargets(targetList, targetPosition, effect);
-
-        await UniTask.WaitForSeconds(_gameData.PaintTimeToWaitAfterDestroyBullet);
+        Object.Destroy(warningVisual);
+        
+        await UniTask.WaitForSeconds(_bulletLifeSecAfterHit);
         _poolManager.ReturnObjectToPool(paintBullet.gameObject, PoolType.Bullets);
     }
     
