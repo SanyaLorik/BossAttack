@@ -185,19 +185,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 543f53ac372646c7b950add62c4bb7a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildItem
-  _intervalToAtack: 1
   _intervalToFindTarget: 0.5
   _origin: {fileID: 1520153112886831354}
+  TargetType: 1
   <Type>k__BackingField: 0
-  _targetFilters:
-  - rid: 7634349521342300236
-  _effect:
-    rid: 7634349180084289606
-  _tickBehaviour: []
-  _atackCapacity:
-    rid: 7634349317783289924
   _targetProvider:
     rid: 7634349180084289607
+  _targetFilters:
+  - rid: 7634349521342300236
+  _atackVisuals: []
+  _hitDelivery:
+    rid: 7634349546795434058
+  _effect:
+    rid: 7634349180084289606
+  _atackCapacity:
+    rid: 7634349317783289924
   references:
     version: 2
     RefIds:
@@ -208,7 +210,6 @@ MonoBehaviour:
     - rid: 7634349180084289607
       type: {class: GetRadiusTargets, ns: , asm: Assembly-CSharp}
       data:
-        TargetType: 1
         _radius: 50
     - rid: 7634349317783289924
       type: {class: InfinitCapacity, ns: , asm: Assembly-CSharp}
@@ -217,6 +218,9 @@ MonoBehaviour:
       type: {class: DistanceFilter, ns: , asm: Assembly-CSharp}
       data:
         _allowedDistance: 20
+    - rid: 7634349546795434058
+      type: {class: MomentalHit, ns: , asm: Assembly-CSharp}
+      data: 
 --- !u!1 &3690621732092577188
 GameObject:
   m_ObjectHideFlags: 0

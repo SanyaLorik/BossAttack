@@ -2,9 +2,9 @@
 using UnityEngine;
 
 [Serializable]
-public class Melee : ITickBehaviour {
+public class Melee : IAtackVisual {
     [SerializeField] private BotAnimator _animator;
-    public void OnTick(Vector3 origin, IPlayer _) {
+    public void Play(Vector3 origin, IPlayer _) {
         _animator.PlayMeleeAnimation();
     }
 }

@@ -67,6 +67,11 @@ public class BotHuntingBehaviour : MonoBehaviour {
             case AbilityType.Melee:
                 _botManager.Agent.speed = _gameData.BossSpeedInMelee;
                 _botManager.Agent.stoppingDistance = _gameData.BossStoppingDistanceInMelee;
+                break; 
+            
+            case AbilityType.ParabolicShoot:
+                _botManager.Agent.speed = _gameData.BossSpeedInParabolicShooting;
+                _botManager.Agent.stoppingDistance = _gameData.BossStoppingDistanceInShooting;
                 break;
         }
         

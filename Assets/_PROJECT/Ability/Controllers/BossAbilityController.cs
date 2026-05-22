@@ -48,6 +48,10 @@ public class BossAbilityController : AbilityCotrollerBase {
                     abilityEffectValue.SetValueGetter(() => _bossStatsCalculator.ShootDamage);
                     ability.SetValueGetter(() => _bossStatsCalculator.BossIntervalToAtackInShoot);
                     break;
+                case (AbilityType.ParabolicShoot):
+                    abilityEffectValue.SetValueGetter(() => _bossStatsCalculator.ShootDamage);
+                    ability.SetValueGetter(() => _bossStatsCalculator.BossIntervalToAtackInParabolicShoot);
+                    break;
             }
         }
     }

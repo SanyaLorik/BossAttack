@@ -42,7 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9108920927739747378}
   m_Layer: 0
-  m_Name: Origin
+  m_Name: BulletSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

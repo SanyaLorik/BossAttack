@@ -46,32 +46,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildItem
   _intervalToFindTarget: 3
   _origin: {fileID: 4750764167075588228}
+  TargetType: 1
   <Type>k__BackingField: 1
-  _targetFilters:
-  - rid: 7634349521342300232
-  _effect:
-    rid: 7634349316450811977
-  _tickBehaviour:
-  - rid: 7634349249449427016
-  - rid: 7634349249449427017
-  _atackCapacity:
-    rid: 7634349316450811975
   _targetProvider:
     rid: 7634349292691914825
+  _targetFilters:
+  - rid: 7634349521342300232
+  _atackVisuals:
+  - rid: 7634349546795434057
+  - rid: 7634349546795434068
+  _hitDelivery:
+    rid: 7634349546795434056
+  _effect:
+    rid: 7634349316450811977
+  _atackCapacity:
+    rid: 7634349316450811975
   references:
     version: 2
     RefIds:
-    - rid: 7634349249449427016
-      type: {class: Melee, ns: , asm: Assembly-CSharp}
-      data:
-        _animator: {fileID: 8874424681181607586}
-    - rid: 7634349249449427017
-      type: {class: Push, ns: , asm: Assembly-CSharp}
-      data: 
     - rid: 7634349292691914825
       type: {class: GetRadiusTargets, ns: , asm: Assembly-CSharp}
       data:
-        TargetType: 1
         _radius: 100
     - rid: 7634349316450811975
       type: {class: InfinitCapacity, ns: , asm: Assembly-CSharp}
@@ -84,6 +79,163 @@ MonoBehaviour:
       type: {class: DistanceFilter, ns: , asm: Assembly-CSharp}
       data:
         _allowedDistance: 5
+    - rid: 7634349546795434056
+      type: {class: MomentalHit, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 7634349546795434057
+      type: {class: Melee, ns: , asm: Assembly-CSharp}
+      data:
+        _animator: {fileID: 8874424681181607586}
+    - rid: 7634349546795434068
+      type: {class: Push, ns: , asm: Assembly-CSharp}
+      data: 
+--- !u!1 &851335175725544274
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2299360237317714469}
+  - component: {fileID: 343234142089898635}
+  - component: {fileID: 7098496998960349382}
+  m_Layer: 0
+  m_Name: Audio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2299360237317714469
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 851335175725544274}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3820787731064869598}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &343234142089898635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 851335175725544274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d8e91a30d9a4c7d89a4be03213ba41d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AbilitySoundListener
+  _abilitySystem: {fileID: 702414149581500604}
+  _emitter: {fileID: 7098496998960349382}
+--- !u!114 &7098496998960349382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 851335175725544274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d92acef1f49d44f79c4284cf8f4712b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sound3dEmitter
+  _sourcesCount: 10
+--- !u!1 &1100797319347731163
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3820787731064869598}
+  - component: {fileID: 702414149581500604}
+  m_Layer: 0
+  m_Name: NotGuarantedShoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3820787731064869598
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1100797319347731163}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.9159088, y: 5.04459, z: 9.955039}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2299360237317714469}
+  m_Father: {fileID: 6251649058428469576}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &702414149581500604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1100797319347731163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 543f53ac372646c7b950add62c4bb7a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildItem
+  _intervalToFindTarget: 2
+  _origin: {fileID: 4750764167075588228}
+  TargetType: 1
+  <Type>k__BackingField: 0
+  _targetProvider:
+    rid: 7634349249449427015
+  _targetFilters:
+  - rid: 7634349521342300231
+  _atackVisuals: []
+  _hitDelivery:
+    rid: 7634349546795434070
+  _effect:
+    rid: 7634349316450811978
+  _atackCapacity:
+    rid: 7634349316450811976
+  references:
+    version: 2
+    RefIds:
+    - rid: 7634349249449427015
+      type: {class: GetClosestTarget, ns: , asm: Assembly-CSharp}
+      data:
+        _distance: 100
+    - rid: 7634349316450811976
+      type: {class: InfinitCapacity, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 7634349316450811978
+      type: {class: Damage, ns: , asm: Assembly-CSharp}
+      data:
+        _damage: 0
+    - rid: 7634349521342300231
+      type: {class: DistanceFilter, ns: , asm: Assembly-CSharp}
+      data:
+        _allowedDistance: 70
+    - rid: 7634349546795434070
+      type: {class: NotGuaranteedHitBulletsSpawner, ns: , asm: Assembly-CSharp}
+      data:
+        _bulletSpeed: 70
+        _spawnPoint: {fileID: 7760716166025912791}
+        _bulletInstance: {fileID: 4117493534217919638, guid: bc77ae790f4f6b04a893d598d1b73f04, type: 3}
+        _maxDistance: 100
+        _hitRadius: 1
+        <SoundType>k__BackingField: 13
 --- !u!1 &1502980904877203840
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,6 +368,189 @@ MonoBehaviour:
   _barParent: {fileID: 2002147371375262575}
   _changeBarDuration: 1
   CountText: {fileID: 6791220677733197240}
+--- !u!1 &3676716790114463914
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2813985822766306152}
+  - component: {fileID: 6479800073998228898}
+  m_Layer: 0
+  m_Name: Parabolic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2813985822766306152
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3676716790114463914}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.9159088, y: 5.04459, z: 9.955039}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1508030265412980091}
+  m_Father: {fileID: 6251649058428469576}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6479800073998228898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3676716790114463914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 543f53ac372646c7b950add62c4bb7a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildItem
+  _intervalToFindTarget: 2
+  _origin: {fileID: 4750764167075588228}
+  TargetType: 1
+  <Type>k__BackingField: 2
+  _targetProvider:
+    rid: 7634349249449427015
+  _targetFilters:
+  - rid: 7634349521342300231
+  _atackVisuals: []
+  _hitDelivery:
+    rid: 7634349546795434069
+  _effect:
+    rid: 7634349316450811978
+  _atackCapacity:
+    rid: 7634349316450811976
+  references:
+    version: 2
+    RefIds:
+    - rid: 7634349249449427015
+      type: {class: GetClosestTarget, ns: , asm: Assembly-CSharp}
+      data:
+        _distance: 100
+    - rid: 7634349316450811976
+      type: {class: InfinitCapacity, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 7634349316450811978
+      type: {class: Damage, ns: , asm: Assembly-CSharp}
+      data:
+        _damage: 0
+    - rid: 7634349521342300231
+      type: {class: DistanceFilter, ns: , asm: Assembly-CSharp}
+      data:
+        _allowedDistance: 50
+    - rid: 7634349546795434069
+      type: {class: ParabolicProjectileDelivery, ns: , asm: Assembly-CSharp}
+      data:
+        _bulletSpeed: 20
+        _flyHeight: 20
+        _arcMultiplier: 1.3
+        _offsetToFloor: -1
+        _flightCurves:
+        - serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 2.0082302
+            outSlope: 2.0082302
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.49795088
+            value: 1
+            inSlope: 0.008196533
+            outSlope: 0.008196533
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: -1.9918371
+            outSlope: -1.9918371
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 0
+        _spawnPoint: {fileID: 7760716166025912791}
+        _bulletInstance: {fileID: 4117493534217919638, guid: 14870805f05ccaa42acb44f45cde1abd, type: 3}
+        _hitRadius: 5
+        _progressToShowPaintVisual: 1
+        <SoundType>k__BackingField: 13
+--- !u!1 &4017033913540077891
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1508030265412980091}
+  - component: {fileID: 1581016752980365136}
+  - component: {fileID: 4688238565477495853}
+  m_Layer: 0
+  m_Name: Audio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1508030265412980091
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4017033913540077891}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2813985822766306152}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1581016752980365136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4017033913540077891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d8e91a30d9a4c7d89a4be03213ba41d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AbilitySoundListener
+  _abilitySystem: {fileID: 6479800073998228898}
+  _emitter: {fileID: 4688238565477495853}
+--- !u!114 &4688238565477495853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4017033913540077891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d92acef1f49d44f79c4284cf8f4712b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sound3dEmitter
+  _sourcesCount: 10
 --- !u!1 &5904391397668033730
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,33 +598,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildItem
   _intervalToFindTarget: 2
   _origin: {fileID: 4750764167075588228}
+  TargetType: 1
   <Type>k__BackingField: 0
-  _targetFilters:
-  - rid: 7634349521342300231
-  _effect:
-    rid: 7634349316450811978
-  _tickBehaviour:
-  - rid: 7634349272913936456
-  _atackCapacity:
-    rid: 7634349316450811976
   _targetProvider:
     rid: 7634349249449427015
+  _targetFilters:
+  - rid: 7634349521342300231
+  _atackVisuals: []
+  _hitDelivery:
+    rid: 7634349546795434055
+  _effect:
+    rid: 7634349316450811978
+  _atackCapacity:
+    rid: 7634349316450811976
   references:
     version: 2
     RefIds:
     - rid: 7634349249449427015
       type: {class: GetClosestTarget, ns: , asm: Assembly-CSharp}
       data:
-        TargetType: 1
         _distance: 100
-    - rid: 7634349272913936456
-      type: {class: BulletsSpawner, ns: , asm: Assembly-CSharp}
-      data:
-        _bulletSpeed: 100
-        _spawnPoint: {fileID: 7760716166025912791}
-        _bulletInstance: {fileID: 4117493534217919638, guid: bc77ae790f4f6b04a893d598d1b73f04, type: 3}
-        _progressToShowPaintVisual: 1
-        <SoundType>k__BackingField: 13
     - rid: 7634349316450811976
       type: {class: InfinitCapacity, ns: , asm: Assembly-CSharp}
       data: 
@@ -301,6 +629,14 @@ MonoBehaviour:
       type: {class: DistanceFilter, ns: , asm: Assembly-CSharp}
       data:
         _allowedDistance: 19
+    - rid: 7634349546795434055
+      type: {class: GuaranteedHitBulletsSpawner, ns: , asm: Assembly-CSharp}
+      data:
+        _bulletSpeed: 100
+        _spawnPoint: {fileID: 7760716166025912791}
+        _bulletInstance: {fileID: 4117493534217919638, guid: bc77ae790f4f6b04a893d598d1b73f04, type: 3}
+        _progressToShowPaintVisual: 0.9
+        <SoundType>k__BackingField: 0
 --- !u!1 &6809717882046515082
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,8 +728,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2813985822766306152}
   - {fileID: 214776380270098423}
   - {fileID: 691425428045604554}
+  - {fileID: 3820787731064869598}
   m_Father: {fileID: 4750764167075588228}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2526074249050301841
@@ -409,8 +747,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossAbilityController
   <Abilitys>k__BackingField:
-  - {fileID: 7761559491542740715}
-  - {fileID: 2780032709577342737}
+  - {fileID: 702414149581500604}
   _startAbilityIndex: 0
   _diapasoneToChangeAbility:
     <From>k__BackingField: 5

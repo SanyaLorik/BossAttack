@@ -4,7 +4,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 [Serializable]
-public class TurretRotator : ITickBehaviour {
+public class TurretRotator : IAtackVisual {
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private Transform _rotateTransform;
     
@@ -12,7 +12,7 @@ public class TurretRotator : ITickBehaviour {
     private CancellationTokenSource _tokenSource;
     
     
-    public void OnTick(Vector3 origin, IPlayer player) {
+    public void Play(Vector3 origin, IPlayer player) {
         _target = player.Transform;
         if (_tokenSource == null) {
             _tokenSource = new CancellationTokenSource();

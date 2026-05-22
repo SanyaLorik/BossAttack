@@ -77,6 +77,7 @@ public class GameData : GameDataBase
     [field: SerializeField] public PairedValue<float> TimeToSpeak { get; private set; }
     [field: SerializeField, Range(0,1)] public float ChanceToBotChangeNicknameAfterPlay { get; private set; }
     
+    
     [field: Header("Боты в игре")]
     [field: SerializeField] public float DistanceToFloor { get; private set; }
     [field: SerializeField] public float DurationToHuntWithoutCheck { get; private set; }
@@ -105,6 +106,7 @@ public class GameData : GameDataBase
     [field: SerializeField] public float TimeAfterEndRound { get; private set; }
     [field: SerializeField] public float MinimumTimeToFindNewTarget { get; private set; }
     [field: SerializeField] public int TimeToRespawnPlayer { get; private set; }
+    [field: SerializeField] public int TimeToOneBoss { get; private set; }
 
 
     [field: Header("Визуал")] 
@@ -122,10 +124,12 @@ public class GameData : GameDataBase
     [field: SerializeField] public float BossStoppingDistanceInShooting { get; private set; }    
     [field: SerializeField] public float BossSpeedInMelee { get; private set; }     
     [field: SerializeField] public float BossSpeedInShooting { get; private set; }    
+    [field: SerializeField] public float BossSpeedInParabolicShooting { get; private set; }    
    
     [field: Header("Настройка скорости ударов босса")]
     [field: SerializeField] public float BossIntervalToAtackInMelee { get; private set; }     
     [field: SerializeField] public float BossIntervalToAtackInShooting { get; private set; } 
+    [field: SerializeField] public float BossIntervalToAtackInParabolicShoot { get; private set; } 
     
     
     [field: Header("Настройка хп у всех юнитов")]

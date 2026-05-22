@@ -8,16 +8,25 @@ using Zenject;
 public enum AbilityType {
     Shooting,
     Melee,
+    ParabolicShoot
+}
+
+[Serializable]
+public enum TargetType {
+    Enemy,
+    Player,
 }
 
 
 public class AbilitySystem : TickerBehaviour {
+    [SerializeField] private TargetType TargetType;
     [field: SerializeField] public AbilityType Type { get; private set; }
-    [SerializeReference, SubclassSelector] private List<ITargetFilter> _targetFilters;
-    [SerializeReference, SubclassSelector] private IEffect _effect;
-    [SerializeReference, SubclassSelector] private List<ITickBehaviour> _tickBehaviour;
-    [SerializeReference, SubclassSelector] private IAtackCapacity _atackCapacity;
     [SerializeReference, SubclassSelector] private ITargetProvider _targetProvider;
+    [SerializeReference, SubclassSelector] private List<ITargetFilter> _targetFilters;
+    [SerializeReference, SubclassSelector] private List<IAtackVisual> _atackVisuals;
+    [SerializeReference, SubclassSelector] private IHitDelivery _hitDelivery;
+    [SerializeReference, SubclassSelector] private IEffect _effect;
+    [SerializeReference, SubclassSelector] private IAtackCapacity _atackCapacity;
     
     
     public IEffect Effect => _effect;
@@ -31,14 +40,23 @@ public class AbilitySystem : TickerBehaviour {
     public event Action<IPlayer> NewTargetFinded;
     
     
+    private List<IPlayer> TargetList
+        => TargetType == TargetType.Enemy ? 
+            _battleInfo.Enemys 
+            : 
+            _battleInfo.Players;
+    
+    
     [Inject] private DiContainer _diContainer;
+    [Inject] private IBattleInfo _battleInfo;
     
     
     [Inject]
     private void Init() {
         _diContainer.QueueForInject(_effect);
         _diContainer.QueueForInject(_targetProvider);
-        _tickBehaviour.ForEach(t=> _diContainer.QueueForInject(t));
+        _atackVisuals.ForEach(t=> _diContainer.QueueForInject(t));
+        _diContainer.QueueForInject(_hitDelivery);
         _diContainer.QueueForInject(_atackCapacity);
     }
 
@@ -67,7 +85,6 @@ public class AbilitySystem : TickerBehaviour {
         if(!_atackCapacity.AllowToUse) return;
         foreach (IPlayer target in _targets) {
             if(target == null || target.Damagable.CurrentHp == 0) continue;
-
             
             bool allowed = true;
             foreach (var filter in _targetFilters) {
@@ -78,21 +95,40 @@ public class AbilitySystem : TickerBehaviour {
             }
 
             if (allowed) {
-                foreach (var beh in _tickBehaviour) {
-                    beh.OnTick(_origin.position, target);
-                    if (beh is ISoundPlayer soundPlayer) {
-                        SoundPlayed?.Invoke(soundPlayer);
-                    }
-                }
-                _effect.ApplyEffect(target);
+                // Визуал
+                PlayAtackVisual(target);
+                
+                // Атака
+                DelieveEffect(target);
+
                 _atackCapacity.SpendOne();
             }
         }
-        
+    }
+
+    private void DelieveEffect(IPlayer target) {
+        _hitDelivery.Deliver(
+            _origin.position,
+            target,
+            TargetList,
+            _effect
+        );
+        if (_hitDelivery is ISoundPlayer hitSoundPlayer) {
+            SoundPlayed?.Invoke(hitSoundPlayer);
+        }
+    }
+
+    private void PlayAtackVisual(IPlayer target) {
+        foreach (var atackVisual in _atackVisuals) {
+            atackVisual.Play(_origin.position, target);
+            if (atackVisual is ISoundPlayer soundPlayer) {
+                SoundPlayed?.Invoke(soundPlayer);
+            }
+        }
     }
 
     protected override void FindNewTargets() {
-        _targets = _targetProvider.GetTargets(_origin.position);
+        _targets = _targetProvider.GetTargets(_origin.position, TargetList);
         
         NewTargetFinded?.Invoke(_targets.Count > 0 ? _targets[0] : null);
     }

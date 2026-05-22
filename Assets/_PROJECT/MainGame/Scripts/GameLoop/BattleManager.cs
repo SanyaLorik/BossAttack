@@ -29,6 +29,7 @@ public class BattleManager : MonoBehaviour {
     // Views
     [Inject] private GameOver _gameOver;
     [Inject] private BattleStartVisualizer _battleStartVisualizer;
+    [Inject] private GameTimerToEnd _gameTimerToEnd;
     
     
     // Managers
@@ -44,9 +45,15 @@ public class BattleManager : MonoBehaviour {
     private void Awake() {
         _diesObserver.PlayerDied += OnPlayerDied;
         _diesObserver.PlayerSpawned += OnPlayerSpawned;
+        _gameTimerToEnd.GameEnded += TimeOver;
     }
 
     
+    private void TimeOver() {
+        throw new NotImplementedException();
+    }
+
+
     private void OnPlayerSpawned(IPlayer player) {
         // IN DEV...
     }
@@ -97,6 +104,9 @@ public class BattleManager : MonoBehaviour {
         RotatePlayersToBoss();
         await ShowStartAnimation(true, token);
         GameReadyToPlay?.Invoke();
+        // пока так
+        int bossCount = 1;
+        _gameTimerToEnd.StartGameTimerToEnd(bossCount);
     }
 
     

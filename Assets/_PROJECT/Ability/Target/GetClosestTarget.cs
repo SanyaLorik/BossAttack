@@ -3,16 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-[Serializable]
-public enum TargetType {
-    Enemy,
-    Player,
-}
+
 
 
 [Serializable]
 public class GetClosestTarget : ITargetProvider, IGizmosDrawable {
-    [SerializeField] private TargetType TargetType;
     [SerializeField] private float _distance;
     
     
@@ -22,12 +17,6 @@ public class GetClosestTarget : ITargetProvider, IGizmosDrawable {
     private float _bestSqr;
     private float _sqrRange;
     
-    private IEnumerable<IPlayer> TargetList
-        => TargetType == TargetType.Enemy ? 
-            _battleInfo.Enemys 
-            : 
-            _battleInfo.Players;
-    
     
     [Inject] IBattleInfo _battleInfo;
 
@@ -36,14 +25,14 @@ public class GetClosestTarget : ITargetProvider, IGizmosDrawable {
     }
 
    
-    public List<IPlayer> GetTargets(Vector3 origin) {
+    public List<IPlayer> GetTargets(Vector3 origin, List<IPlayer> targetList) {
         List<IPlayer> result = new();
         _closestUnit = null;
         _bestSqr = float.MaxValue;
         _sqrRange = _distance * _distance;
         
         
-        IEnumerable<IPlayer> targets = TargetList;
+        IEnumerable<IPlayer> targets = targetList;
         foreach (var target in targets) {
             if(target == Same || target.Damagable == null) continue;
             if (target.Damagable.CurrentHp == 0) {

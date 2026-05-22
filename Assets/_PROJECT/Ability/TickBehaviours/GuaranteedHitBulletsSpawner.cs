@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
 
+
 [Serializable]
-public class BulletsSpawner : ITickBehaviour, ISoundPlayer {
+public class GuaranteedHitBulletsSpawner : IHitDelivery, ISoundPlayer {
     [SerializeField] private float _bulletSpeed;
     [SerializeField] private Transform _spawnPoint;
     [SerializeField] private BulletBase _bulletInstance;
@@ -17,37 +19,31 @@ public class BulletsSpawner : ITickBehaviour, ISoundPlayer {
     private ObjectPoolManager _poolManager;
     private GameData _gameData;
     
+    
     [Inject]
     public void Init(ObjectPoolManager poolManager, GameData gameData) {
         _poolManager = poolManager;
         _gameData = gameData;
     }
 
-
-    public void OnTick(Vector3 origin, IPlayer damagable) {
-        ShootInTarget(damagable.PointToAtack);
-    }
-
     
-    private void ShootInTarget(Transform target) {
-        BulletBase paintBulletInstance = _poolManager.Spawn<BulletBase>(this._bulletInstance.gameObject, _spawnPoint.position, PoolType.Bullets);
+    public void Deliver(Vector3 origin, IPlayer target, List<IPlayer> targetList, IEffect effect) {
+        BulletBase paintBulletInstance = _poolManager.Spawn<BulletBase>(_bulletInstance.gameObject, _spawnPoint.position, PoolType.Bullets);
         if (paintBulletInstance == null) {
-            Debug.LogError("Пуля = " + paintBulletInstance);
+            Debug.LogError("Пуля = null");
             return;
         }
         paintBulletInstance.SetPosition(_spawnPoint.position);
-        BulletFlightAsync(paintBulletInstance, target).Forget();
+        BulletFlightAsync(paintBulletInstance, target, effect).Forget();
     }
 
-    private async UniTaskVoid BulletFlightAsync(BulletBase paintBullet, Transform target) {
+
+    private async UniTaskVoid BulletFlightAsync(BulletBase paintBullet, IPlayer target, IEffect effect) {
         // Полёт
+        Transform targetTransform = target.Transform;
         
         float elapsedTime = 0;
-        if (target == null) {
-            Debug.LogError("target = " + target);
-            return;
-        }
-        float distance = Vector3.Distance(paintBullet.gameObject.transform.position, target.position);
+        float distance = Vector3.Distance(paintBullet.gameObject.transform.position, targetTransform.position);
         float duration = distance / _bulletSpeed;
         Vector3 bulletStartPos = paintBullet.transform.position;
 
@@ -59,13 +55,16 @@ public class BulletsSpawner : ITickBehaviour, ISoundPlayer {
             if (progress > _progressToShowPaintVisual) {
                 break;
             }
-            paintBullet.SetPosition(Vector3.Lerp(bulletStartPos, target.position + Offset(), progress)); 
+            paintBullet.SetPosition(Vector3.Lerp(bulletStartPos, targetTransform.position + Offset(), progress)); 
             elapsedTime += Time.deltaTime;
             await UniTask.Yield();            
         }
 
-        paintBullet.transform.SetParent(target.transform, true);
+        paintBullet.transform.SetParent(targetTransform, true);
         paintBullet.PlayToEnd();
+        
+        // Нанесение урона
+        effect.ApplyEffect(target);
 
         await UniTask.WaitForSeconds(_gameData.PaintTimeToWaitAfterDestroyBullet);
         _poolManager.ReturnObjectToPool(paintBullet.gameObject, PoolType.Bullets);
@@ -77,4 +76,6 @@ public class BulletsSpawner : ITickBehaviour, ISoundPlayer {
         
         return new Vector3(0f, signY * yOffset, 0);
     }
+
+
 }

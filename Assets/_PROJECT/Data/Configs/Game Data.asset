@@ -97,18 +97,21 @@ MonoBehaviour:
     <TimeAfterEndRound>k__BackingField: 0
     <MinimumTimeToFindNewTarget>k__BackingField: 0.4
     <TimeToRespawnPlayer>k__BackingField: 10
+    <TimeToOneBoss>k__BackingField: 30
     <PaintTimeToWaitAfterDestroyBullet>k__BackingField: 0.5
     <YBulletOffset>k__BackingField: 1
-    <BossMeleeDamageBase>k__BackingField: 10
-    <BossShootDamageBase>k__BackingField: 2
+    <BossMeleeDamageBase>k__BackingField: 15
+    <BossShootDamageBase>k__BackingField: 5
     <BossMeleeLevelAddDamage>k__BackingField: 1
     <BossShootLevelAddDamage>k__BackingField: 0.2
     <BossStoppingDistanceInMelee>k__BackingField: 2
-    <BossStoppingDistanceInShooting>k__BackingField: 5
+    <BossStoppingDistanceInShooting>k__BackingField: 10
     <BossSpeedInMelee>k__BackingField: 18
     <BossSpeedInShooting>k__BackingField: 12
-    <BossIntervalToAtackInMelee>k__BackingField: 0.5
+    <BossSpeedInParabolicShooting>k__BackingField: 4
+    <BossIntervalToAtackInMelee>k__BackingField: 0.7
     <BossIntervalToAtackInShooting>k__BackingField: 0.4
+    <BossIntervalToAtackInParabolicShoot>k__BackingField: 1.4
     <BossHpBase>k__BackingField: 200
     <BossLevelAddHp>k__BackingField: 25
     <PlayerHpBase>k__BackingField: 100

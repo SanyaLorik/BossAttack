@@ -19,9 +19,9 @@ MonoBehaviour:
     PlayerLevel: 1
     Modifiers:
     - Id: Damage
-      Level: 4
+      Level: 1
     - Id: RateOfFire
-      Level: 13
+      Level: 1
     - Id: Capacity
       Level: 4
     Tasks:

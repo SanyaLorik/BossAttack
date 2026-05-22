@@ -5,6 +5,7 @@ using DG.Tweening;
 using SanyaBeerExtension;
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 public abstract class ProgressVisualizer : MonoBehaviour {
     [SerializeField] protected Transform _progressContainer;
@@ -23,6 +24,7 @@ public abstract class ProgressVisualizer : MonoBehaviour {
     private CancellationTokenSource _tokenSource;
     private Sequence _progressSequence;
 
+    [Inject] LocalizationData _localization;
     
     private void DisposeProgress() {
         _progressSequence?.Kill();
@@ -31,13 +33,15 @@ public abstract class ProgressVisualizer : MonoBehaviour {
 
 
     
-    public void SetProgressPercentage(float percentage, int value) {
+    protected void SetProgressPercentage(float percentage, int value, bool setPretty = false) {
         percentage = Mathf.Clamp01(percentage);
         UniTaskHelper.DisposeTask(ref _tokenSource);
         _tokenSource = new CancellationTokenSource();
         ChangeProgressPercentageAsync(percentage, _tokenSource.Token).Forget();
-        CountText.text = value.ToString();
+        CountText.text = setPretty ? _localization.GetPrettyTime(value) : value.ToString();
     }
+    
+
     
     
     private async UniTask ChangeProgressPercentageAsync(float percentage, CancellationToken token) {

@@ -393,16 +393,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 543f53ac372646c7b950add62c4bb7a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildItem
-  _interval: 0.7
+  _intervalToFindTarget: 0.3
   _origin: {fileID: 8018826651429653617}
   <Type>k__BackingField: 0
   _targetProvider:
     rid: 7634349317783289929
-  _targetFilters: []
+  _targetFilters:
+  - rid: 7634349546795434066
+  _atackVisuals:
+  - rid: 7634349546795434067
+  _hitDelivery:
+    rid: 7634349546795434065
   _effect:
     rid: 7634349317783289925
-  _tickBehaviour:
-  - rid: 7634349317783289930
   _atackCapacity:
     rid: 7634349317783289928
   references:
@@ -420,7 +423,14 @@ MonoBehaviour:
       data:
         TargetType: 0
         _radius: 7
-    - rid: 7634349317783289930
+    - rid: 7634349546795434065
+      type: {class: MomentalHit, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 7634349546795434066
+      type: {class: DistanceFilter, ns: , asm: Assembly-CSharp}
+      data:
+        _allowedDistance: 5
+    - rid: 7634349546795434067
       type: {class: ExplodeSpawn, ns: , asm: Assembly-CSharp}
       data:
         _explodePs: {fileID: 422816207297425691}
@@ -618,6 +628,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0010599ee3aefbf42b5b20098f32249b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildZoneItem
+  _permanent: 0
   _buildingType: 0
   _timeToBuild: 1
   _progressImage: {fileID: 3705583092175465705}
@@ -829,6 +840,10 @@ PrefabInstance:
     - target: {fileID: 5820407545871772735, guid: eae81174db02b9240901a3f321e414ce, type: 3}
       propertyPath: m_Name
       value: Canon
+      objectReference: {fileID: 0}
+    - target: {fileID: 5820407545871772735, guid: eae81174db02b9240901a3f321e414ce, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6961082496102430033, guid: eae81174db02b9240901a3f321e414ce, type: 3}
       propertyPath: m_ConstrainProportionsScale
