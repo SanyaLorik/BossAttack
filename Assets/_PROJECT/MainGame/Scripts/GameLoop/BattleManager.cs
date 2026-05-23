@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using _PROJECT.Scripts.Helpers;
 using Cysharp.Threading.Tasks;
+using SanyaBeerExtension;
 using UnityEngine;
 using Zenject;
 using ArrayExtension = SanyaBeerExtension.ArrayExtension;
@@ -36,32 +37,44 @@ public class BattleManager : MonoBehaviour {
     [Inject] private PlayerMovement _playerMovement;
     [Inject] private BotsMainManager _botsMainManager;
     [Inject] private MainGameStarter _gameStarter;
+    [Inject] private RespawnManager _respawn;
     [Inject] private GameData _gameData;
     [Inject] private MapsToBattleChanger _mapsToBattleChanger;
     [Inject] private LocalizationData _localization;
     [Inject] private PlayerRegister _playerRegister;
-    [Inject] private PlayersDiesObserver _diesObserver;
+    [Inject] private PlayersDiesObserver _playersDiesObserver;
+    [Inject] private MainPlayerDeathSystem _mainPlayerDeathSystem;
+    [Inject] private BossesDiesObserver _bossDiesObserver;
+
     
     private void Awake() {
-        _diesObserver.PlayerDied += OnPlayerDied;
-        _diesObserver.PlayerSpawned += OnPlayerSpawned;
+        _bossDiesObserver.BossDied += OnBossDied;
         _gameTimerToEnd.GameEnded += TimeOver;
     }
 
     
+    private void OnBossDied(IPlayer boss) {
+        if (_playerRegister.AllBossesDied() && !GameIsOver) {
+            Debug.Log("Боссы все погибли, игрок победил");
+            _gameTimerToEnd.StopTimer();
+            SetPlayerWin(true);
+        }
+    }
+
+
     private void TimeOver() {
-        throw new NotImplementedException();
+        Debug.Log("Время кончилось");
+        SetPlayerWin(false);
     }
 
-
-    private void OnPlayerSpawned(IPlayer player) {
-        // IN DEV...
+    private void SetPlayerWin(bool win) {
+        if(GameIsOver) return;
+        GameIsOver = true;
+        _mainPlayerDeathSystem.StopSystem();
+        MainPlayerWin?.Invoke(win);
+        WaitPlayerPressGameOverAsync().Forget();
     }
 
-
-    private void OnPlayerDied(IPlayer player) {
-        // IN DEV...
-    }
 
     
     public void InitForNewGame() {
@@ -79,8 +92,13 @@ public class BattleManager : MonoBehaviour {
         IEnumerable<IPlayer> bots = _botsMainManager.GetPlayBotsToGame(CountBotsToBattle);
         foreach (IPlayer bot in bots) {
             _playerRegister.RegisterUnit(bot, TargetType.Player);
+            Debug.Log("В бой идет бот " + bot.Transform.gameObject.name);
         }
-        _diesObserver.InitPlayersInBattle(_playerRegister.Players);
+        _playersDiesObserver.RemovePlayers();
+        _bossDiesObserver.RemoveBosses();
+        
+        _playersDiesObserver.InitPlayersInBattle(_playerRegister.Players);
+        _bossDiesObserver.InitBossesInBattle(_playerRegister.Bosses);
     }
 
     
@@ -120,30 +138,25 @@ public class BattleManager : MonoBehaviour {
     }
 
     
-    private async UniTask WaitPlayerPressGameOverAsync(bool playerWin) {
+    private async UniTask WaitPlayerPressGameOverAsync() {
         _playerMovement.SetMovingStatus(false);
-
-        if (!playerWin) {
-            _playerMovement.SetVisualModelState(true);
-        }
         
         _playerMovement.SetPlayStatusSilent(false);
         await UniTask.WaitWhile(() => _gameOver.ResultWindowShowing);
         
-        if (!playerWin) {
-            _playerMovement.SetVisualModelState(false);
-        }
+        
         _playerMovement.SetPlayStatus(false);
         _playerMovement.SetMovingStatus(true);
+
+        GameEnded();
     }
 
 
     
     public void PlayerFalled(IPlayer player) {
-        if(GameIsOver) return;
-        _diesObserver.RemovePlayers(_playerRegister.Players);
-        
-        // IN Dev...
+        player.TeleportToPoint(GameIsOver || !player.IsPlaying
+            ? _respawn.SpawnPoint.position
+            : _mapsToBattleChanger.CurrentMapSpawnPoints.GetRandomElement().position);
     }
     
     
@@ -158,21 +171,13 @@ public class BattleManager : MonoBehaviour {
     
     
     
-    private void GameEnded(bool setGameOver = true) {
+    private void GameEnded() {
         Debug.Log("Игра кончилась");
-        GameIsOver = true;
         foreach (IPlayer player in _playerRegister.Players) {
             player.SetPlayStatus(false);
-            _playerRegister.UnregisterUnit(player, TargetType.Player);
-            
         }
-        
-        _playerRegister.Players.Clear();
-        
-        if (setGameOver) {
-            _gameStarter.GameOver();
-        }
-        
+        _playerRegister.UnregisterAllUnits();
+        _gameStarter.GameOver();
     }
 
 }

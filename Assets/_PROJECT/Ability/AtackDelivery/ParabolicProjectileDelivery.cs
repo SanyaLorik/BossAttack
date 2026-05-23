@@ -12,7 +12,6 @@ public class ParabolicProjectileDelivery : IHitDelivery, ISoundPlayer {
     [SerializeField] private float _bulletSpeed;
     [SerializeField] private float _flyHeight;
     [SerializeField, Range(0,2)] private float _arcMultiplier = 1.3f;
-    [SerializeField] private float _offsetToFloor = -1f;
     [SerializeField] private AnimationCurve[] _flightCurves;
     [Header("Откуда и что вылетает")]
     [SerializeField] private Transform _spawnPoint;
@@ -22,6 +21,7 @@ public class ParabolicProjectileDelivery : IHitDelivery, ISoundPlayer {
     [Header("Визуал попадания")]
     [SerializeField] private GameObject _warningVisual;
     [SerializeField] private float _bulletLifeSecAfterHit = 1f;
+    [SerializeField] private float _offsetToFloor = 1f;
     
     
     
@@ -72,8 +72,9 @@ public class ParabolicProjectileDelivery : IHitDelivery, ISoundPlayer {
         float duration = distance * _arcMultiplier / _bulletSpeed;
         Vector3 bulletStartPos = paintBullet.transform.position;
         AnimationCurve flightCurve = _flightCurves.GetRandomElement();
-        
-        Vector3 targetPosition = target.position + new Vector3(0, _offsetToFloor, 0);
+
+        Vector3 targetPosition = target.position;
+        targetPosition.y = warningVisual.transform.position.y + _offsetToFloor;
         
         
         paintBullet.InitShoot();

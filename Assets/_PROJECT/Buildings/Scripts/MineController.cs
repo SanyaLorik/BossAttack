@@ -5,11 +5,11 @@ public class MineController : MonoBehaviour {
     [SerializeField] private BuildZoneItem _buildZoneItem;
 
     private void OnEnable() {
-        _abilitySystem.NewTargetFinded += MineExplode;
+        _abilitySystem.NewTargetAttacked += MineExplode;
     }
     
     private void OnDisable() {
-        _abilitySystem.NewTargetFinded -= MineExplode;
+        _abilitySystem.NewTargetAttacked -= MineExplode;
     }
     
     

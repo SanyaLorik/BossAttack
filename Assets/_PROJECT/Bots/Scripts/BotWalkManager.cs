@@ -44,6 +44,10 @@ public class BotWalkManager : MonoBehaviour {
         RotateByVelocity();
         MonitorMovement();
     }
+
+    public void SetSpeed(float speed) {
+        _manager.Agent.speed = speed;
+    }
     
     public void DisposeAllLogic() {
         UniTaskHelper.DisposeTask(ref _botTokenSource);

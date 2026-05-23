@@ -395,6 +395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildItem
   _intervalToFindTarget: 0.3
   _origin: {fileID: 8018826651429653617}
+  TargetType: 0
   <Type>k__BackingField: 0
   _targetProvider:
     rid: 7634349317783289929
@@ -421,15 +422,14 @@ MonoBehaviour:
     - rid: 7634349317783289929
       type: {class: GetRadiusTargets, ns: , asm: Assembly-CSharp}
       data:
-        TargetType: 0
-        _radius: 7
+        _radius: 10
     - rid: 7634349546795434065
       type: {class: MomentalHit, ns: , asm: Assembly-CSharp}
       data: 
     - rid: 7634349546795434066
       type: {class: DistanceFilter, ns: , asm: Assembly-CSharp}
       data:
-        _allowedDistance: 5
+        _allowedDistance: 11
     - rid: 7634349546795434067
       type: {class: ExplodeSpawn, ns: , asm: Assembly-CSharp}
       data:

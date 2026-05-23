@@ -33,7 +33,8 @@ public class BuildZoneItem : MonoBehaviour {
     [Inject] PlayerMovement _mainPlayer;
     [Inject] GameData _gameData;
     [Inject] PlayerRegister _playerRegister;
-    [Inject] private BuildingStatsCalculator _buildingStatsCalculator;
+    [Inject] private BuildingStaticStatsCalculator _buildingStaticStatsCalculator;
+    [Inject] private BattleManager _battleManager;
 
 
     private void Start() {
@@ -45,18 +46,42 @@ public class BuildZoneItem : MonoBehaviour {
         else {
             SetDefault();
         }
+    }
 
+    private void OnDisable() {
+        _battleManager.MainPlayerWin -= OnMainPlayerWin;
+        _battleManager.GameReadyToPlay -= OnGameReadyToPlay;
+    }
+    
+    private void OnEnable() {
+        _battleManager.MainPlayerWin += OnMainPlayerWin;
+        _battleManager.GameReadyToPlay += OnGameReadyToPlay;
+        
+    }
+    
+    public void Destroy() {
+        DestroyUnit(_damagable);
+    }
+
+    
+    private void OnGameReadyToPlay() {
+        if (_permanent) {
+            _abilityBuilding.StartSystem();
+        }
+    }
+
+
+    private void OnMainPlayerWin(bool win) {
+        _abilityBuilding.Stop();
+        if (!_permanent) {
+            Destroy();
+        }
     }
 
 
     private async UniTask EndBuildAsync() {
         await UniTask.WaitForSeconds(1f);
         EndBuild();
-    }
-    
-    
-    public void Destroy() {
-        DestroyUnit(_damagable);
     }
     
     
@@ -85,13 +110,13 @@ public class BuildZoneItem : MonoBehaviour {
         _buildItem = new BuildItemToAtack(transform);
         
         _damagable = new Damagable(transform, _buildItem);
-        _damagable.DamagableDied += DestroyUnit;
         
         _buildItem.InitDamagable(_damagable);
         
         
         if (_buildingType != BuildingType.Mine) {
             _damagableVisual.SetDamagable(_damagable);
+            _damagable.DamagableDied += DestroyUnit;
         }
         
         InitAtackValue();
@@ -102,13 +127,13 @@ public class BuildZoneItem : MonoBehaviour {
     private void InitHp() {
         switch (_buildingType) {
             case BuildingType.Mine:
-                _damagable.SetMaxHpGetter(() => _buildingStatsCalculator.TurretHp);
+                _damagable.SetMaxHpGetter(() => _buildingStaticStatsCalculator.TurretHp);
                 break;
             case BuildingType.Turret:
-                _damagable.SetMaxHpGetter(() => _buildingStatsCalculator.TurretHp);
+                _damagable.SetMaxHpGetter(() => _buildingStaticStatsCalculator.TurretHp);
                 break;
             case BuildingType.Heal:
-                _damagable.SetMaxHpGetter(() => _buildingStatsCalculator.HealBuildingHp);
+                _damagable.SetMaxHpGetter(() => _buildingStaticStatsCalculator.HealBuildingHp);
                 break;
         }
     }
@@ -118,16 +143,16 @@ public class BuildZoneItem : MonoBehaviour {
         var effect = _abilityBuilding.Effect as IValueGetter;
         switch (_buildingType) {
             case BuildingType.Mine:
-                effect.SetValueGetter(() => _buildingStatsCalculator.MineValue);
-                _abilityBuilding.SetValueGetter(() =>  _buildingStatsCalculator.MineIntervalAtack);
+                effect.SetValueGetter(() => _buildingStaticStatsCalculator.MineValue);
+                _abilityBuilding.SetValueGetter(() =>  _buildingStaticStatsCalculator.MineIntervalAtack);
                 break;
             case BuildingType.Turret:
-                effect.SetValueGetter(() => _buildingStatsCalculator.TurretValue);
-                _abilityBuilding.SetValueGetter(() =>  _buildingStatsCalculator.TurretIntervalAtack);
+                effect.SetValueGetter(() => _buildingStaticStatsCalculator.TurretValue);
+                _abilityBuilding.SetValueGetter(() =>  _buildingStaticStatsCalculator.TurretIntervalAtack);
                 break;
             case BuildingType.Heal:
-                effect.SetValueGetter(() => _buildingStatsCalculator.HealValue);
-                _abilityBuilding.SetValueGetter(() => _buildingStatsCalculator.HealIntervalAtack);
+                effect.SetValueGetter(() => _buildingStaticStatsCalculator.HealValue);
+                _abilityBuilding.SetValueGetter(() => _buildingStaticStatsCalculator.HealIntervalAtack);
                 break;
         }
     }

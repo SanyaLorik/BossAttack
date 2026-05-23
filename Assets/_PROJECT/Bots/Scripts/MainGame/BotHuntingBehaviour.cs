@@ -12,11 +12,11 @@ using Random = UnityEngine.Random;
 
 [Serializable]
 public class BotHuntingBehaviour : MonoBehaviour {
-    [SerializeField] private BossAbilityController _abilityController;
+    [SerializeField] private BossAbilityEnabler abilityEnabler;
     
     private CancellationTokenSource _tokenSource;
     
-    private List<AbilitySystem> _abilitySystems;
+    private AbilitySystem Ability =>  abilityEnabler.Ability;
     
     private IPlayer _targetToHunt;
     private BotWalkManager WalkManager => _manager.BotWalkManager;
@@ -26,21 +26,15 @@ public class BotHuntingBehaviour : MonoBehaviour {
     [Inject] BotManager _manager;
     [Inject] IBattleInfo _battleInfo;
 
-    
-    private void Awake() {
-        _abilitySystems = _abilityController.GetAbilitys();
-    }
 
     private void OnDisable() {
-        _abilitySystems.ForEachs(a => a.NewTargetFinded -= TrySetNewTargetToHunt);
-        _abilityController.NewAbilitySystemEnabled -= OnNewAbilitySystemEnabled;
+        Ability.NewTargetFinded -= TrySetNewTargetToHunt;
         StopHunting();
     }
     
     
     private void OnEnable() {
-        _abilitySystems.ForEachs(a => a.NewTargetFinded += TrySetNewTargetToHunt);
-        _abilityController.NewAbilitySystemEnabled += OnNewAbilitySystemEnabled;
+        Ability.NewTargetFinded += TrySetNewTargetToHunt;
         TrySetNewTargetToHunt(_targetToHunt);
         StartHunting();
     }
@@ -54,28 +48,6 @@ public class BotHuntingBehaviour : MonoBehaviour {
         return player;
     }
 
-
-
-    private void OnNewAbilitySystemEnabled(AbilitySystem abilitySystem) {
-        switch (abilitySystem.Type) {
-            
-            case AbilityType.Shooting:
-                _botManager.Agent.speed = _gameData.BossSpeedInShooting;
-                _botManager.Agent.stoppingDistance = _gameData.BossStoppingDistanceInShooting;
-                break;
-            
-            case AbilityType.Melee:
-                _botManager.Agent.speed = _gameData.BossSpeedInMelee;
-                _botManager.Agent.stoppingDistance = _gameData.BossStoppingDistanceInMelee;
-                break; 
-            
-            case AbilityType.ParabolicShoot:
-                _botManager.Agent.speed = _gameData.BossSpeedInParabolicShooting;
-                _botManager.Agent.stoppingDistance = _gameData.BossStoppingDistanceInShooting;
-                break;
-        }
-        
-    }
 
     private bool _findInAllPlace;
     private void TrySetNewTargetToHunt(IPlayer target) {

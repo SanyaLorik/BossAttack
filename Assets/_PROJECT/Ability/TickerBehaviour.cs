@@ -13,7 +13,7 @@ public abstract class TickerBehaviour : MonoBehaviour, IValueGetter {
     protected List<IPlayer> _targets = new();
 
     private CancellationTokenSource _tokenSource;
-    private Func<float> _intervalToAtackGetter;
+    private Func<float> _rateOfFire;
     private UniTask _waitForInitGetterTask;
     private UniTask _waitForSecondToInitTask;
     
@@ -28,7 +28,7 @@ public abstract class TickerBehaviour : MonoBehaviour, IValueGetter {
 
     
     public void SetValueGetter(Func<float> valueGetter) {
-        _intervalToAtackGetter = valueGetter;
+        _rateOfFire = valueGetter;
     }
     
 
@@ -51,10 +51,10 @@ public abstract class TickerBehaviour : MonoBehaviour, IValueGetter {
     private async UniTask TickLoopAsync(CancellationToken token) {
         InitializeTasks();
         await UniTask.WhenAny(_waitForInitGetterTask, _waitForSecondToInitTask);
-        if (_intervalToAtackGetter == null) {
-            Debug.LogError("_intervalToAtackGetter == null");
+        if (_rateOfFire == null) {
+            Debug.LogError("_rateOfFire == null");
         }
-        float interval = _intervalToAtackGetter();
+        float interval = _rateOfFire();
         interval = MathF.Max(interval, _gameData.PlayerRateOfFireMinimum);
         while (!token.IsCancellationRequested) {
             Tick();
@@ -74,7 +74,7 @@ public abstract class TickerBehaviour : MonoBehaviour, IValueGetter {
 
     
     private void InitializeTasks() {
-        _waitForInitGetterTask = UniTask.WaitWhile(() => _intervalToAtackGetter == null);
+        _waitForInitGetterTask = UniTask.WaitWhile(() => _rateOfFire == null);
         _waitForSecondToInitTask = UniTask.WaitForSeconds(2f);
     }
     

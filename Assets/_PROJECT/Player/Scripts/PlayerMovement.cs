@@ -7,7 +7,6 @@ using Zenject;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour, IPlayer {
     [SerializeField] private CharacterController _controller; // 
-    [SerializeField] private Transform _spawnPoint;
     [SerializeField] private GameObject _playerVisual;
     [SerializeField] private PlayerBonusUser playerBonusUser;
     [SerializeField] private DamageVisualizer _damagableVisual; 
@@ -40,7 +39,7 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
     public PlayerPush _pusher;
     public IBonusUser BonusUser => playerBonusUser;
     public IDamagable Damagable => _damagable;
-    public AbilityCotrollerBase AbilityCotrollerBase => _abilityController;
+    public AbilityEnablerBase AbilityEnablerBase => _abilityController;
     private Damagable _damagable; 
     
     
@@ -55,7 +54,8 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
     [Inject] private IInputJumping _inputJumping;
     [Inject] private GameData _gameData;
     [Inject] private PlayerStateManager _stateManager;
-    [Inject] private PlayerStatsCalculator _playerStatsCalculator;
+    [Inject] private PlayerStaticStatsCalculator _playerStaticStatsCalculator;
+    [Inject] private RespawnManager _respawn;
     
     
     // Для гравитации и прыжков
@@ -69,7 +69,7 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
 
     private void InitIPlayer() {
         _damagable = new Damagable(transform, this);
-        _damagable.SetMaxHpGetter(() => _playerStatsCalculator.PlayerHp);
+        _damagable.SetMaxHpGetter(() => _playerStaticStatsCalculator.PlayerHp);
         
         _damagableVisual.SetDamagable(_damagable);
         _pusher = new PlayerPush(_gameData, _controller);
@@ -156,12 +156,11 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
         
         if (goPlay) {
             _damagable.SetSpawned();
-            AbilityCotrollerBase.StartAbility();
+            AbilityEnablerBase.StartAbility();
         }
         else {
-            _damagable.SetDied();
             TeleportInSpawn(); 
-            AbilityCotrollerBase.StopAbility();
+            AbilityEnablerBase.StopAbility();
         }
     }
 
@@ -198,8 +197,8 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
 
     
     public void TeleportInSpawn() {
-        TeleportToPoint(_spawnPoint.position);
-        RotateToTarget(_spawnPoint.position);
+        TeleportToPoint(_respawn.SpawnPoint.position);
+        RotateToTarget(_respawn.SpawnPoint.position);
     }
 
 

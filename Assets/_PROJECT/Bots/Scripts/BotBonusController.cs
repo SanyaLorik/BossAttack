@@ -5,8 +5,6 @@ using Zenject;
 public class BotBonusController : MonoBehaviour, IBonusUser {
     [SerializeField] private BotJumpController botJumpController;
 
-
-
     public event Action<BonusStatus, bool> BonusStatusChanged;
     public event Action<bool> InvinsibleStatusChanged;
     public bool IsInvincibleAfterBonus { get; private set; }
@@ -28,7 +26,7 @@ public class BotBonusController : MonoBehaviour, IBonusUser {
     
     
     public void SetDefaultSpeed() {
-        _manager.Agent.speed = _gameData.BotSpeed;
+        _manager.BotWalkManager.SetSpeed(_gameData.BotSpeed);
         BonusStatusChanged?.Invoke(BonusStatus.SuperSpeed, false);
         // Debug.Log($"SetDefaultSpeed {BotMonolog.NickName}");
     }
@@ -39,7 +37,7 @@ public class BotBonusController : MonoBehaviour, IBonusUser {
 
 
     public void SetBonusSpeed() {
-        _manager.Agent.speed = _gameData.VelocityBonusSpeed;
+        _manager.BotWalkManager.SetSpeed(_gameData.VelocityBonusSpeed);
         BonusStatusChanged?.Invoke(BonusStatus.SuperSpeed, true);
     }
 

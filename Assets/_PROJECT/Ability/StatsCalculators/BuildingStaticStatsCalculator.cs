@@ -2,7 +2,7 @@
 using UnityEngine;
 using Zenject;
 
-public class BuildingStatsCalculator : IInitializable, IDisposable {
+public class BuildingStaticStatsCalculator : IInitializable, IDisposable {
     private readonly GameData _gameData;
     private readonly PlayerLevel _playerLevel;
     
@@ -20,7 +20,7 @@ public class BuildingStatsCalculator : IInitializable, IDisposable {
     public float HealIntervalAtack { get; private set; }
     
     
-    public BuildingStatsCalculator(
+    public BuildingStaticStatsCalculator(
         GameData gameData, 
         PlayerLevel playerLevel
     ) {

@@ -7,6 +7,7 @@ public class MainGameInstaller : MonoInstaller {
         BindBuilds();
         BindModifiers();
         BindBonus();
+        Container.Bind<BossCreateManager>().FromComponentInHierarchy().AsSingle().NonLazy();
     }
     
     
@@ -17,12 +18,12 @@ public class MainGameInstaller : MonoInstaller {
         Container.Bind<GameTimerToEnd>().FromComponentInHierarchy().AsSingle().NonLazy();
         Container.BindInterfacesAndSelfTo<PlayerRegister>().FromComponentInHierarchy().AsSingle().NonLazy();
         Container.Bind<PlayersDiesObserver>().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<BossesDiesObserver>().AsSingle().NonLazy();
     }
 
     private void BildStatsCalculators() {
-        Container.BindInterfacesAndSelfTo<BossStatsCalculator>().AsSingle().NonLazy();
-        Container.BindInterfacesAndSelfTo<PlayerStatsCalculator>().AsSingle().NonLazy();
-        Container.BindInterfacesAndSelfTo<BuildingStatsCalculator>().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<PlayerStaticStatsCalculator>().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<BuildingStaticStatsCalculator>().AsSingle().NonLazy();
     }
 
 

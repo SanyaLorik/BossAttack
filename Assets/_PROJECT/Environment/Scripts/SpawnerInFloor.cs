@@ -46,4 +46,14 @@ public class SpawnerInFloor {
             return grave;
         }
     }
+    
+    public float GetFloorCoordinate(Vector3 position) {
+        if (Physics.Raycast(position, Vector3.down * _gameData.DistanceToFindNavMeshToBuild, out RaycastHit hit)) {
+            return hit.point.y;
+        }
+        else {
+            Debug.Log("Земля не найдена");
+            return position.y;
+        }
+    }
 }

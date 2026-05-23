@@ -1,4 +1,3 @@
-using System;
 using Architecture_M;
 using SanyaBeerExtension;
 using TMPro;
@@ -41,6 +40,8 @@ public class GameOver : MonoBehaviour {
     }
 
     private void OnDisable() {
+        _battleManager.MainPlayerWin -= ShowResultWindow;
+        
         _continueButton.onClick.RemoveAllListeners();
         _continue2xButton.onClick.RemoveAllListeners();
     }

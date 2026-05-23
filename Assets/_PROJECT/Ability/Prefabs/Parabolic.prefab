@@ -144,7 +144,6 @@ MonoBehaviour:
         _bulletSpeed: 20
         _flyHeight: 20
         _arcMultiplier: 1.3
-        _offsetToFloor: -1
         _flightCurves:
         - serializedVersion: 2
           m_Curve:
@@ -183,5 +182,6 @@ MonoBehaviour:
         _hitRadius: 5
         _warningVisual: {fileID: 1100053802273287554, guid: 69570dd534136314e994f97b401da0f3, type: 3}
         _bulletLifeSecAfterHit: 15
+        _offsetToFloor: -0.2
         _progressToShowPaintVisual: 1
         <SoundType>k__BackingField: 13

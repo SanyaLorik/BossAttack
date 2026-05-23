@@ -5,8 +5,6 @@ using Zenject;
 
 public class BattleCanvasVisualiser : MonoBehaviour {
     [Header("Данные по канвасу")]
-    [SerializeField] private GameObject _youHaveBomb;
-    [SerializeField] private GameObject _bombPointer;
     [SerializeField] private TextMeshProUGUI _countPlayersText;
 
     
@@ -30,8 +28,6 @@ public class BattleCanvasVisualiser : MonoBehaviour {
     private void OnGameStarted(bool started) {
         if (started) {
             Debug.Log("OnGameStarted " + started);
-            _youHaveBomb.DisactiveSelf();
-            _bombPointer.DisactiveSelf();
         }
     }
 

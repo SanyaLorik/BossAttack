@@ -39,7 +39,7 @@ public class BotManager : MonoBehaviour, IPlayer {
     public IDamagable Damagable => _damagable;
     
     // Пока нулл
-    public AbilityCotrollerBase AbilityCotrollerBase { get; }
+    public AbilityEnablerBase AbilityEnablerBase { get; }
     
     private Damagable _damagable;
 
@@ -64,18 +64,13 @@ public class BotManager : MonoBehaviour, IPlayer {
     [Inject] private MapsToBattleChanger _mapsManager;
     [Inject] private NavMeshHelper _navMeshHelper;
     
-    [Inject] private PlayerStatsCalculator _playerStatsCalculator;
-    [Inject] private BossStatsCalculator _bossStatsCalculator;
+    [Inject] private PlayerStaticStatsCalculator _playerStaticStatsCalculator;
 
     
     private void Awake() {
         _damagable = new Damagable(Transform, this);
-        if (IsBoss) {
-            _damagable.SetMaxHpGetter(() => _bossStatsCalculator.BossHp);
-        }
-        else {
-            // пока хп как у игрока
-            _damagable.SetMaxHpGetter(() => _playerStatsCalculator.PlayerHp);
+        if (!IsBoss) {
+            _damagable.SetMaxHpGetter(() => _playerStaticStatsCalculator.PlayerHp);
         }
         _damageVisualizer.SetDamagable(_damagable);
         InitIPlayerToAbilitys();
@@ -129,11 +124,9 @@ public class BotManager : MonoBehaviour, IPlayer {
             ActiveBotInGame();
             SetBotStfu();
             Debug.Log("Start ability bot");
-            Abilitys.ForEach(a => a.StartSystem());
         }
         // Возвращение на спавн
         else {
-            Abilitys.ForEach(a => a.Stop());
             Debug.Log($"Возвращение на спавн игрока {BotMonolog.NickName} in {_respawn.SpawnPoint.position}");
             Debug.Log($"Игрок play статус {IsPlaying} in {_respawn.SpawnPoint.position}");
             SetBotStateBeforeGame();
@@ -180,8 +173,6 @@ public class BotManager : MonoBehaviour, IPlayer {
     public void SetMovingStatus(bool enable) {
         BotWalkManager.SetMovingStatus(enable);
     }
-
-    
 
 
     public void RotateToTarget(Vector3 targetPosition) {

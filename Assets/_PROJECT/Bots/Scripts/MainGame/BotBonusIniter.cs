@@ -24,7 +24,7 @@ public class BotBonusIniter : MonoBehaviour {
     //
     // private void Start() {
     //     CalculateValueDivider();
-    //     _gameStarter.GameStarted += GameStarted;
+    //     _gameStarter.GameStartedInitialize += GameStartedInitialize;
     //     _battleManager.GameReadyToPlay += OnGameReadyToPlay;
     //     _bot.PlayerStatusChanged += BotOnPlayerStatusChanged;
     // }
@@ -44,7 +44,7 @@ public class BotBonusIniter : MonoBehaviour {
     // }
     //
     //
-    // private void GameStarted(bool started) {
+    // private void GameStartedInitialize(bool started) {
     //     UniTaskHelper.DisposeTask(ref _tokenSource);
     //     StopPreviousBonus();
     // }

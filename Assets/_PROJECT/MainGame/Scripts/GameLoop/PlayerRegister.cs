@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -10,7 +9,7 @@ public class PlayerRegister : MonoBehaviour, IBattleInfo {
     [Header("Для теста прокидываю босов через инспектор")]
     [SerializeField] private List<BotManager> _boses;
 
-    public List<IPlayer> Enemys { get; private set; } = new (8);
+    public List<IPlayer> Bosses { get; private set; } = new (8);
     public List<IPlayer> Players { get; private set; } = new (8);
     
     public List<IPlayer> Buildings { get; private set; } = new (8);
@@ -42,23 +41,28 @@ public class PlayerRegister : MonoBehaviour, IBattleInfo {
                 break;
             
             case TargetType.Enemy:
-                if(Enemys.Contains(player)) return; 
-                Enemys.Add(player);
+                if(Bosses.Contains(player)) return; 
+                Bosses.Add(player);
                 break;
         }
     }
-
     
-    public void UnregisterUnit(IPlayer player, TargetType type) {
-        switch (type) {
-            case TargetType.Player:
-                Players.Remove(player);
-                break;
-            
-            case TargetType.Enemy:
-                Enemys.Remove(player);
-                break;
+
+    public void UnregisterAllUnits() {
+        Players.Clear();
+        Bosses.Clear();
+        Buildings.Clear();
+    }
+    
+
+    public bool AllBossesDied() {
+        foreach (var boss in Bosses) {
+            if (boss.Damagable.CurrentHp != 0) {
+                return false;
+            }
         }
+
+        return true;
     }
 
 }

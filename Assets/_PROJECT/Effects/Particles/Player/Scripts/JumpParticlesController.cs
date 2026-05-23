@@ -25,7 +25,6 @@ public class JumpParticlesController : MonoBehaviour  {
         // Останавливаем предыдущую корутину, если есть
         if (_currentCoroutine != null)
             StopCoroutine(_currentCoroutine);
-            
         _currentCoroutine = StartCoroutine(Sequence());
     }
 

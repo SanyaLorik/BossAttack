@@ -23,6 +23,11 @@ public class GameTimerToEnd : ProgressVisualizer {
         ShowBarAnimation(true);
     }
 
+    public void StopTimer() {
+        UniTaskHelper.DisposeTask(ref _tokenSource);
+        ShowBarAnimation(false);
+    }
+
     
     
     private async UniTask WaitWhileTimerAsync(int bossCount, CancellationToken token) {

@@ -6,7 +6,7 @@ using Zenject;
 
 public class BotRespawnTimer : MonoBehaviour {
     [SerializeField] BotManager _bot;
-    [SerializeField] private AbilityCotrollerBase _abilityCotroller;
+    [SerializeField] private AbilityEnablerBase abilityEnabler;
     
 
     private CancellationTokenSource _respawnTokenSource;
@@ -28,7 +28,7 @@ public class BotRespawnTimer : MonoBehaviour {
     
     private void OnPlayersSpawned(IPlayer player) {
         if (player != _bot) return;
-        _abilityCotroller.StartAbility();
+        abilityEnabler.StartAbility();
         _bot.SetMovingStatus(true);
         _bot.SetVisualModelState(true);
     }
@@ -36,7 +36,7 @@ public class BotRespawnTimer : MonoBehaviour {
  
     private void OnPlayersDied(IPlayer player) {
         if (player != _bot) return;
-        _abilityCotroller.StopAbility();
+        abilityEnabler.StopAbility();
         _bot.SetMovingStatus(false);
         _bot.SetVisualModelState(false);
         StartRespawnTimer();

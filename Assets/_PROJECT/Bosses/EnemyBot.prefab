@@ -312,7 +312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bedd2b546be448999adffef2b925d6fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HuntingBehaviour
-  _abilityController: {fileID: 2526074249050301841}
+  abilityEnabler: {fileID: 0}
 --- !u!1 &3513891808248829208
 GameObject:
   m_ObjectHideFlags: 0
@@ -525,7 +525,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6251649058428469576}
   - component: {fileID: 2526074249050301841}
-  - component: {fileID: 5156775832256639920}
   m_Layer: 7
   m_Name: AbilityController
   m_TagString: Untagged
@@ -564,27 +563,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ca744ad713c48699ee4eaa50c33ce32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossAbilityController
-  <Abilitys>k__BackingField:
-  - {fileID: 6479800073998228898}
-  _startAbilityIndex: 0
-  _diapasoneToChangeAbility:
-    <From>k__BackingField: 5
-    <To>k__BackingField: 8
---- !u!114 &5156775832256639920
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6894151039450942718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ef1823ef7054aa691ec106f88597efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BotAbilityVisual
-  _abilityController: {fileID: 2526074249050301841}
-  _shootingVisual:
-  - {fileID: 1502980904877203840}
+  <Ability>k__BackingField: {fileID: 6479800073998228898}
+  _config: {fileID: 0}
 --- !u!1001 &1574845273775521253
 PrefabInstance:
   m_ObjectHideFlags: 0

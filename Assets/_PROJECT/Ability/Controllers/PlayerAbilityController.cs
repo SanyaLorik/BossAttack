@@ -1,34 +1,52 @@
 ﻿using Zenject;
 
 
-public class PlayerAbilityController : AbilityCotrollerBase {
+public class PlayerAbilityController : AbilityEnablerBase {
 
-    [Inject] PlayerStatsCalculator _playerStatsCalculator;
+    [Inject] PlayerStaticStatsCalculator _playerStaticStatsCalculator;
     [Inject] IPlayer _player;
     
-    public AbilitySystem AbilitySystem => Abilitys[0];
-
     
-    protected override void InitStartGetters() {
+    private void OnDisable() {
+        _battleManager.MainPlayerWin -= OnMainPlayerWin;
+        _battleManager.GameReadyToPlay -= OnGameReadyToPlay;
+    }
+    
+    private void OnEnable() {
+        _battleManager.MainPlayerWin += OnMainPlayerWin;
+        _battleManager.GameReadyToPlay += OnGameReadyToPlay;
+    }
+
+    protected override void InitStartParams() {
         InitPlayerDamage();
         InitPlayerCapacity();
         InitPlayerRateOfFire();
     }
+    
+    private void OnGameReadyToPlay() {
+        StartAbility();
+    }
+
+    private void OnMainPlayerWin(bool _) {
+        StopAbility();
+    }
+
 
     private void InitPlayerDamage() {
-        var abilityValue = AbilitySystem.Effect as IValueGetter;
-        if (abilityValue != null) abilityValue.SetValueGetter(() => _playerStatsCalculator.PlayerDamage);
+        var abilityValue = Ability.Effect as IValueGetter;
+        if (abilityValue != null) abilityValue.SetValueGetter(() => _playerStaticStatsCalculator.PlayerDamage);
     }
     
     private void InitPlayerCapacity() {
-        var abilityCapacity = AbilitySystem.AtackCapacity as IValueGetter;
-        if (abilityCapacity != null) abilityCapacity.SetValueGetter(() => _playerStatsCalculator.PlayerCapacity);
+        var abilityCapacity = Ability.AtackCapacity as IValueGetter;
+        if (abilityCapacity != null) abilityCapacity.SetValueGetter(() => _playerStaticStatsCalculator.PlayerCapacity);
         
     }
     
     private void InitPlayerRateOfFire() {
-        AbilitySystem.SetValueGetter(() => _playerStatsCalculator.PlayerRateOfFire);
+        Ability.SetValueGetter(() => _playerStaticStatsCalculator.PlayerRateOfFire);
     }
+
 
 
 }

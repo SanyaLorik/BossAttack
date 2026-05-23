@@ -3,7 +3,7 @@ using Zenject;
 using UnityEngine;
 
 
-public class PlayerStatsCalculator : IInitializable, IDisposable {
+public class PlayerStaticStatsCalculator : IInitializable, IDisposable {
     private readonly GameData _gameData;
     private readonly PlayerLevel _playerLevel;
     private readonly ModifierShopManager _modifierShopManager;
@@ -14,7 +14,7 @@ public class PlayerStatsCalculator : IInitializable, IDisposable {
     public int PlayerCapacity { get; private set; }
     
     
-    public PlayerStatsCalculator(
+    public PlayerStaticStatsCalculator(
         GameData gameData, 
         PlayerLevel playerLevel, 
         ModifierShopManager modifierShopManager

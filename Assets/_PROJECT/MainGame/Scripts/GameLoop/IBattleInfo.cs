@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public interface IBattleInfo {
-    public List<IPlayer> Enemys { get; }
+    public List<IPlayer> Bosses { get; }
     public List<IPlayer> Players { get; }
     public List<IPlayer> Buildings { get; }
     public IPlayer MainPlayer { get; }

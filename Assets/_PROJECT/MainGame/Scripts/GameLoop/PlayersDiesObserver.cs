@@ -18,13 +18,11 @@ public class PlayersDiesObserver {
     }
 
     
-    public void RemovePlayers(List<IPlayer> players) {
-        foreach (var p in players) {
+    public void RemovePlayers() {
+        foreach (var p in _currentPlayers) {
             p.Damagable.DamagableDied -= OnPlayerDie;
             p.Damagable.DamagableSpawned -= OnPlayerSpawn;
         }
-
-        _currentPlayers = null;
     }
     
 

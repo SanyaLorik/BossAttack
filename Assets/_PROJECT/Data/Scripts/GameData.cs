@@ -113,28 +113,6 @@ public class GameData : GameDataBase
     [field: SerializeField, Range(0f,1f)] public float YBulletOffset { get; private set; }
     
     
-    [field: Header("Настройка урона босса")]
-    [field: SerializeField] public int BossMeleeDamageBase { get; private set; }
-    [field: SerializeField] public int BossShootDamageBase { get; private set; }
-    [field: SerializeField] public float BossMeleeLevelAddDamage { get; private set; }    
-    [field: SerializeField] public float BossShootLevelAddDamage { get; private set; }
-    [field: Header("Настройка босса")]
-    [field: SerializeField] public float BossStoppingDistanceInMelee { get; private set; }    
-    [field: SerializeField] public float BossStoppingDistanceInShooting { get; private set; }    
-    [field: SerializeField] public float BossSpeedInMelee { get; private set; }     
-    [field: SerializeField] public float BossSpeedInShooting { get; private set; }    
-    [field: SerializeField] public float BossSpeedInParabolicShooting { get; private set; }    
-   
-    [field: Header("Настройка скорости ударов босса")]
-    [field: SerializeField] public float BossIntervalToAtackInMelee { get; private set; }     
-    [field: SerializeField] public float BossIntervalToAtackInShooting { get; private set; } 
-    [field: SerializeField] public float BossIntervalToAtackInParabolicShoot { get; private set; } 
-    
-    
-    [field: Header("Настройка хп у всех юнитов")]
-    [field: SerializeField] public int BossHpBase { get; private set; }
-    [field: SerializeField] public float BossLevelAddHp { get; private set; }
-    
     [field: SerializeField] public int PlayerHpBase { get; private set; }
     [field: SerializeField] public float PlayerLevelAddHp { get; private set; }
     [field: SerializeField] public int HealBuildingHpBase { get; private set; }

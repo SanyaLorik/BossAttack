@@ -5,7 +5,7 @@ using UnityEngine;
 using Zenject;
 
 public class MainPlayerDeathSystem: ProgressVisualizer {
-    [SerializeField] private AbilityCotrollerBase _abilityCotroller;
+    [SerializeField] private AbilityEnablerBase abilityEnabler;
     
     [Inject] private PlayersDiesObserver _playersDiesObserver;
     [Inject] private PlayerMovement _mainPlayer;
@@ -39,15 +39,16 @@ public class MainPlayerDeathSystem: ProgressVisualizer {
     }
     
 
-    public void StopTimer() {
+    public void StopSystem() {
         UniTaskHelper.DisposeTask(ref _respawnTokenSource);
         ShowBarAnimation(false);
+        RespawnMainPlayer();
     }
 
     
     private void OnPlayersSpawned(IPlayer player) {
         if (player != _mainPlayer) return;
-        _abilityCotroller.StartAbility();
+        abilityEnabler.StartAbility();
         _mainPlayer.SetMovingStatus(true);
         _mainPlayer.SetVisualModelState(true);
         _camera.FollowPlayer();
@@ -57,7 +58,7 @@ public class MainPlayerDeathSystem: ProgressVisualizer {
  
     private void OnPlayersDied(IPlayer player) {
        if (player != _mainPlayer) return;
-        _abilityCotroller.StopAbility();
+        abilityEnabler.StopAbility();
         _mainPlayer.SetMovingStatus(false);
         _mainPlayer.SetVisualModelState(false);
         SetCameraFollowToRandomPlayer();

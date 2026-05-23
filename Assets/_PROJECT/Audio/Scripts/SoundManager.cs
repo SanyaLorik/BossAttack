@@ -78,7 +78,6 @@ public class SoundManager : MonoBehaviour {
         GameEvents.BonusUsed -= PlayBonuseUse;
         _battleManager.MainPlayerWin -= PlayerWin;
         GameEvents.TriggerUsed -= UiButtonClick;
-        GameEvents.BossSwitchedAbility -= OnBossSwitchedAbility;
         GameEvents.PlayerPushed -= OnPlayerHited;
         _petOpenView.PetCanasOpen -= PlayerMovementOnJumpPressed;
     }
@@ -102,16 +101,12 @@ public class SoundManager : MonoBehaviour {
         GameEvents.BonusUsed += PlayBonuseUse;
         _battleManager.MainPlayerWin += PlayerWin;
         GameEvents.TriggerUsed += UiButtonClick;
-        GameEvents.BossSwitchedAbility += OnBossSwitchedAbility;
         GameEvents.PlayerPushed += OnPlayerHited;
         
         _petOpenView.PetCanasOpen += PlayerMovementOnJumpPressed;
         _petOpenView.PetNewOpen += () => OnMoneyPlus(0);
     }
 
-    private void OnBossSwitchedAbility() {
-        PlaySoundByType(SoundType.BossSwitchAbility);
-    }
     
     
     private void Start() {

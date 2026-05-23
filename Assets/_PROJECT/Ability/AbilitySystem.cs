@@ -38,11 +38,12 @@ public class AbilitySystem : TickerBehaviour {
     
     public event Action<ISoundPlayer> SoundPlayed;
     public event Action<IPlayer> NewTargetFinded;
+    public event Action<IPlayer> NewTargetAttacked;
     
     
     private List<IPlayer> TargetList
         => TargetType == TargetType.Enemy ? 
-            _battleInfo.Enemys 
+            _battleInfo.Bosses 
             : 
             _battleInfo.Players;
     
@@ -116,6 +117,7 @@ public class AbilitySystem : TickerBehaviour {
         if (_hitDelivery is ISoundPlayer hitSoundPlayer) {
             SoundPlayed?.Invoke(hitSoundPlayer);
         }
+        NewTargetAttacked?.Invoke(target);
     }
 
     private void PlayAtackVisual(IPlayer target) {
