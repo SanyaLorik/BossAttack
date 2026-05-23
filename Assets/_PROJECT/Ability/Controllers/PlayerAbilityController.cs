@@ -3,34 +3,22 @@
 
 public class PlayerAbilityController : AbilityEnablerBase {
 
-    [Inject] PlayerStaticStatsCalculator _playerStaticStatsCalculator;
-    [Inject] IPlayer _player;
-    
-    
-    private void OnDisable() {
-        _battleManager.MainPlayerWin -= OnMainPlayerWin;
-        _battleManager.GameReadyToPlay -= OnGameReadyToPlay;
-    }
-    
-    private void OnEnable() {
-        _battleManager.MainPlayerWin += OnMainPlayerWin;
-        _battleManager.GameReadyToPlay += OnGameReadyToPlay;
-    }
+    private PlayerStaticStatsCalculator _playerStaticStatsCalculator;
 
-    protected override void InitStartParams() {
+
+    [Inject]
+    public void Initialize(PlayerStaticStatsCalculator playerStaticStatsCalculator) {
+        _playerStaticStatsCalculator = playerStaticStatsCalculator;
+        InitStartParams();
+    }
+   
+
+    private void InitStartParams() {
         InitPlayerDamage();
         InitPlayerCapacity();
         InitPlayerRateOfFire();
     }
     
-    private void OnGameReadyToPlay() {
-        StartAbility();
-    }
-
-    private void OnMainPlayerWin(bool _) {
-        StopAbility();
-    }
-
 
     private void InitPlayerDamage() {
         var abilityValue = Ability.Effect as IValueGetter;
@@ -46,7 +34,5 @@ public class PlayerAbilityController : AbilityEnablerBase {
     private void InitPlayerRateOfFire() {
         Ability.SetValueGetter(() => _playerStaticStatsCalculator.PlayerRateOfFire);
     }
-
-
 
 }

@@ -209,11 +209,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
---- !u!1 &31235858 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5527758018541367189, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
-  m_PrefabInstance: {fileID: 967158670}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &33503184
 GameObject:
   m_ObjectHideFlags: 0
@@ -856,7 +851,7 @@ MonoBehaviour:
   _barParent: {fileID: 2098603959}
   _changeBarDuration: 1
   CountText: {fileID: 2098603957}
-  _abilityCotroller: {fileID: 1930393706}
+  abilityEnabler: {fileID: 1930393706}
 --- !u!114 &180440459 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6931914094189062922, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
@@ -1075,11 +1070,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &210083585 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1063157433029759311, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
-  m_PrefabInstance: {fileID: 967158670}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &214413472
 GameObject:
   m_ObjectHideFlags: 0
@@ -3593,8 +3583,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 252f0711e86d4560bcb9d2757af224bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerRegister
-  _boses:
-  - {fileID: 1735834284}
 --- !u!114 &865709632 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 21999681984959208, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
@@ -4691,7 +4679,8 @@ PrefabInstance:
       value: '[DEMO]'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4197569772749998637, guid: c3770a4602ddc9b43b0f0ef9423b69ab, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c3770a4602ddc9b43b0f0ef9423b69ab, type: 3}
@@ -6251,8 +6240,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e82f20fb54c493ca447b3918bdf775d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleCanvasVisualiser
-  _youHaveBomb: {fileID: 210083585}
-  _bombPointer: {fileID: 31235858}
   _countPlayersText: {fileID: 1086810590}
 --- !u!1 &1441239718 stripped
 GameObject:
@@ -7852,17 +7839,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
---- !u!114 &1735834284 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4074407472123255173, guid: c3770a4602ddc9b43b0f0ef9423b69ab, type: 3}
-  m_PrefabInstance: {fileID: 986255327}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09945d85a02ca6f4a8629ae68623f602, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BotStateManager
 --- !u!114 &1754739374 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2470975155162544102, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
@@ -8155,6 +8131,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2116922384}
   - {fileID: 220291354}
   - {fileID: 177850816}
   - {fileID: 48979605}
@@ -8976,6 +8953,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!1 &2116922383
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2116922384}
+  - component: {fileID: 2116922385}
+  m_Layer: 0
+  m_Name: BossCreator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2116922384
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116922383}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1883334078}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2116922385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116922383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f07f754776d64b84940887c876750523, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossCreateManager
+  _bossRoot:
+  - {fileID: 5655819244037393353, guid: 9e92c27d76f7ff449919031164e86a22, type: 3}
 --- !u!33 &83981065760671030
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -49,8 +49,6 @@ public class PlayerSkinWearer : MonoBehaviour {
     }
 
 
-
-
     private void WearUpdate(IReadOnlyList<KeyValuePair<int, SkinData>> allSkins) {
         foreach (KeyValuePair<int, SkinData> skin in allSkins) {
             int tabId = skin.Key;

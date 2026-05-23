@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Threading;
 using _PROJECT.Scripts.Helpers;
@@ -7,6 +6,7 @@ using UnityEngine;
 using Zenject;
 
 public class DualLegParticles : MonoBehaviour {
+    // ЕБАНЫЙ УЖАС КАКУЮ Я ХУЙНЮ ПИСАЛ КРЧ ПОХУЙ РАБОТАЕТ ТРОГАТЬ НЕ БУДУ
     [SerializeField] private ParticleSystem _ps;
     private ParticleSystem.EmissionModule _emission;
     
@@ -23,6 +23,14 @@ public class DualLegParticles : MonoBehaviour {
     }
     
     private void OnEnable() {
+        if(_botBehaviour) return;
+        _playerMovement.JumpPressed += PlayerMovementOnOnJumpPressed;
+        _playerMovement.DoubleJumpPressed += PlayerMovementOnOnJumpPressed;
+        _playerMovement.Floored += PlayerMovementOnFloored;
+    }
+    
+    private void OnDisable() {
+        if(_botBehaviour) return;
         _playerMovement.JumpPressed += PlayerMovementOnOnJumpPressed;
         _playerMovement.DoubleJumpPressed += PlayerMovementOnOnJumpPressed;
         _playerMovement.Floored += PlayerMovementOnFloored;

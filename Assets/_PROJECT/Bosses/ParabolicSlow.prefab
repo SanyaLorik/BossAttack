@@ -312,7 +312,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bedd2b546be448999adffef2b925d6fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HuntingBehaviour
-  abilityEnabler: {fileID: 0}
+  abilityEnabler: {fileID: 2526074249050301841}
+  _manager: {fileID: 8790385094178400917}
 --- !u!1 &3513891808248829208
 GameObject:
   m_ObjectHideFlags: 0
@@ -526,7 +527,7 @@ GameObject:
   - component: {fileID: 6251649058428469576}
   - component: {fileID: 2526074249050301841}
   m_Layer: 7
-  m_Name: AbilityController
+  m_Name: AbilityEnabler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -564,7 +565,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossAbilityController
   <Ability>k__BackingField: {fileID: 6479800073998228898}
-  _config: {fileID: 0}
 --- !u!1001 &1574845273775521253
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -737,17 +737,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 70260345415751976, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 187920156318785180, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 227466612085693903, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 593425612949582850, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: m_Name
-      value: EnemyBot
+      value: ParabolicSlow
       objectReference: {fileID: 0}
     - target: {fileID: 593425612949582850, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 626249538969953792, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 789123316447599941, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: m_Enabled
@@ -762,6 +774,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 790296001332029354, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
+      propertyPath: <Ability>k__BackingField
+      value: 
+      objectReference: {fileID: 6479800073998228898}
+    - target: {fileID: 790296001332029354, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: <ShowInSpawn>k__BackingField
       value: 1
       objectReference: {fileID: 0}
@@ -771,19 +787,27 @@ PrefabInstance:
       objectReference: {fileID: 775716565450235496}
     - target: {fileID: 790296001332029354, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: <Abilitys>k__BackingField.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 790296001332029354, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: '<Abilitys>k__BackingField.Array.data[0]'
       value: 
-      objectReference: {fileID: 7761559491542740715}
+      objectReference: {fileID: 6479800073998228898}
     - target: {fileID: 790296001332029354, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: '<Abilitys>k__BackingField.Array.data[1]'
       value: 
       objectReference: {fileID: 2780032709577342737}
+    - target: {fileID: 801510668311480754, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 921503598439039512, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1199186454081500870, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1212541108296832897, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: m_Speed
@@ -801,6 +825,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1413892851224351910, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2341943219905390796, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -816,6 +844,10 @@ PrefabInstance:
     - target: {fileID: 2360124181384550096, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: m_LocalScale.z
       value: 6.6858864
+      objectReference: {fileID: 0}
+    - target: {fileID: 3543923592838772806, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3662072456498197313, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: m_IsActive
@@ -861,6 +893,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3672183628736044534, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
+      propertyPath: _monologText
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672183628736044534, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
+      propertyPath: _monologCloud
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672183628736044534, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
+      propertyPath: _botNicknameText
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4005745868750855142, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: m_LocalPosition.y
       value: 2.5
@@ -905,11 +949,27 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 0.29150152
       objectReference: {fileID: 0}
+    - target: {fileID: 5659472989429346093, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187618087676676485, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6307369438359554974, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7043408511254031771, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7976497961850215626, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8116189698217089004, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -919,7 +979,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 825609281890893363, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
-    m_RemovedGameObjects: []
+    - {fileID: 7043408511254031771, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
+    - {fileID: 3543923592838772806, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
+    m_RemovedGameObjects:
+    - {fileID: 7976497961850215626, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3667074117147502011, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       insertIndex: 0
@@ -933,7 +996,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1142684850993941281, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7211653158661788580}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 593425612949582850, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5655819244037393353}
   m_SourcePrefab: {fileID: 100100000, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
 --- !u!4 &775716565450235496 stripped
 Transform:
@@ -971,6 +1037,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &8790385094178400917 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 790296001332029354, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
+  m_PrefabInstance: {fileID: 8289449805959843135}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8878371533392755005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09945d85a02ca6f4a8629ae68623f602, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotStateManager
 --- !u!114 &8874424681181607586 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 586101920010288029, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
@@ -982,6 +1059,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9299749bf6cfe574d960c7e6da46cbee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotAnimator
+--- !u!1 &8878371533392755005 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 593425612949582850, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
+  m_PrefabInstance: {fileID: 8289449805959843135}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5655819244037393353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8878371533392755005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39af4847dbb14b039a26ced66461a8cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossRoot
+  _bossAbilityEnabler: {fileID: 2526074249050301841}
+  <BotManager>k__BackingField: {fileID: 8790385094178400917}
+  _config: {fileID: 11400000, guid: 883752debf6214143a7ca218f9553cae, type: 2}
 --- !u!4 &8994158482082760222 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1142684850993941281, guid: 12049685913cfbb43b6b01f917270f73, type: 3}

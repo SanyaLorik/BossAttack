@@ -9,4 +9,5 @@ public class BossConfig : ScriptableObject {
     // Not depends on the players level
     [field: SerializeField] public float MoveSpeed;
     [field: SerializeField] public float RateOfFire;
+    [field: SerializeField] public float StopingDistance;
 }

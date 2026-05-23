@@ -6,9 +6,6 @@ using Zenject;
 
 
 public class PlayerRegister : MonoBehaviour, IBattleInfo {
-    [Header("Для теста прокидываю босов через инспектор")]
-    [SerializeField] private List<BotManager> _boses;
-
     public List<IPlayer> Bosses { get; private set; } = new (8);
     public List<IPlayer> Players { get; private set; } = new (8);
     
@@ -20,17 +17,6 @@ public class PlayerRegister : MonoBehaviour, IBattleInfo {
 
     
     [Inject] private PlayerMovement _playerMovement;
-
-
-
-    private void Start() {
-        InitBoses();
-    }
-
-    
-    private void InitBoses() {
-        _boses.ForEach(b => RegisterUnit(b, TargetType.Enemy));
-    }
 
     
     public void RegisterUnit(IPlayer player, TargetType type) {

@@ -13,6 +13,7 @@ using Random = UnityEngine.Random;
 [Serializable]
 public class BotHuntingBehaviour : MonoBehaviour {
     [SerializeField] private BossAbilityEnabler abilityEnabler;
+    [SerializeField] private BotManager _manager;
     
     private CancellationTokenSource _tokenSource;
     
@@ -21,23 +22,22 @@ public class BotHuntingBehaviour : MonoBehaviour {
     private IPlayer _targetToHunt;
     private BotWalkManager WalkManager => _manager.BotWalkManager;
     
-    [Inject] BotManager _botManager;
-    [Inject] GameData _gameData;
-    [Inject] BotManager _manager;
-    [Inject] IBattleInfo _battleInfo;
 
+    private GameData _gameData;
+    private IBattleInfo _battleInfo;
 
-    private void OnDisable() {
-        Ability.NewTargetFinded -= TrySetNewTargetToHunt;
-        StopHunting();
-    }
     
     
-    private void OnEnable() {
+    [Inject]
+    public void Initialize(GameData gameData, IBattleInfo battleInfo) {
+        _gameData = gameData;
+        _battleInfo = battleInfo;
         Ability.NewTargetFinded += TrySetNewTargetToHunt;
         TrySetNewTargetToHunt(_targetToHunt);
         StartHunting();
     }
+    
+
 
 
     private IPlayer GetRandomPlayerToFollow() {

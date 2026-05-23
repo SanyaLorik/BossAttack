@@ -9,7 +9,16 @@ public class ColliderPush : MonoBehaviour {
     private float _lastRepulseTime = -999f;
   
     [Inject] GameData _gameData;
-    [Inject] private IPlayer Player;
+    
+    
+    private IPlayer _player;
+
+    private IPlayer Player {
+        get {
+            _player ??= GetComponentInParent<IPlayer>();
+            return _player;
+        }
+    }
     
     private void Awake() {
         _collider.enabled = false;
@@ -21,9 +30,9 @@ public class ColliderPush : MonoBehaviour {
         if (collidedPlayer.BonusUser.IsInvincibleAfterBonus) return;
         TryPush(collidedPlayer.Pusher, Player.Transform, collidedPlayer.Transform);
     }
-    
-    
-    public void TryPush(IPusher lastPlayerContact, Transform thisPlayer, Transform enemyPlayer) {
+
+
+    private void TryPush(IPusher lastPlayerContact, Transform thisPlayer, Transform enemyPlayer) {
         if (Time.time - _lastRepulseTime < _gameData.PushColldown)  return;
         
         Vector3 direction = (enemyPlayer.position - thisPlayer.position).normalized;

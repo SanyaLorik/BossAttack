@@ -9,12 +9,12 @@ public class BotAnimator : MonoBehaviour {
     private static readonly int DoubleJump = Animator.StringToHash("doubleJump");
     private static readonly int Run = Animator.StringToHash("isRunning");
     private static readonly int Melee = Animator.StringToHash("melee");
+    [SerializeField] private BotManager _botManager;
     [SerializeField] private Animator _animator;
     [SerializeField] private SkinShadow _skinController;
 
     private CancellationTokenSource _tokenSource;
 
-    [Inject] private BotManager _botManager;
     
     
     public void OnEnable() {

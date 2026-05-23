@@ -9,6 +9,7 @@ using Random = UnityEngine.Random;
 
 public class BotJumpController : MonoBehaviour {
     [SerializeField] private bool _allowToJump;
+    [SerializeField]  private BotManager _manager;
 
     
     private CancellationTokenSource _jumpTokenSource; 
@@ -22,13 +23,15 @@ public class BotJumpController : MonoBehaviour {
     public Action OnJump;
     public Action OnDoubleJump;
     
-    [Inject] private GameData _gameData;
-    [Inject] private BotManager _manager;
 
-    
-    private void Start() {
+     private GameData _gameData;
+
+    [Inject]
+    private void Initialize(GameData gameData) {
+        _gameData = gameData;
         SetBigJump(false);
     }
+    
     
     public void DisposeToken() {
         UniTaskHelper.DisposeTask(ref _jumpTokenSource);

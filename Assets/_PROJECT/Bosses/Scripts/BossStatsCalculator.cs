@@ -8,6 +8,7 @@
             Hp = config.BaseHp + config.LevelAddHp * level,
             MoveSpeed = config.MoveSpeed,
             RateOfFire = config.RateOfFire,
+            StopingDistance = config.StopingDistance,
         };
     }
 }

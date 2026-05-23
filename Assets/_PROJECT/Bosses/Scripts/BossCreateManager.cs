@@ -35,10 +35,10 @@ public class BossCreateManager : MonoBehaviour {
         int bossCount = 1;
         for (int i = 0; i < bossCount; i++) {
             BossRoot newBoss = Instantiate(_bossRoot.GetRandomElement());
-            newBoss.BotManager.TeleportToPoint(_maps.GetCurrentEnemySpawns[i].position);
             InitBoss(newBoss);
             newBoss.InitStats();
             _playerRegister.RegisterUnit(newBoss.BotManager, TargetType.Enemy);
+            newBoss.BotManager.TeleportToPoint(_maps.GetCurrentEnemySpawns[i].position);
         }
         
     }

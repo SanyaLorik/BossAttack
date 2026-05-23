@@ -1,0 +1,155 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2675936977587047266
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2556490406018308158}
+  - component: {fileID: 3793243273718159137}
+  m_Layer: 0
+  m_Name: NotGuarantedShoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2556490406018308158
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2675936977587047266}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7816036251034059631}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3793243273718159137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2675936977587047266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 543f53ac372646c7b950add62c4bb7a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildItem
+  _intervalToFindTarget: 0.4
+  _origin: {fileID: 0}
+  TargetType: 0
+  <Type>k__BackingField: 0
+  _targetProvider:
+    rid: 7634349180084289609
+  _targetFilters:
+  - rid: 7634349249449427014
+  - rid: 7634349521342300235
+  _atackVisuals: []
+  _hitDelivery:
+    rid: 7634349546795434072
+  _effect:
+    rid: 7634349316450811974
+  _atackCapacity:
+    rid: 7634349316450811973
+  references:
+    version: 2
+    RefIds:
+    - rid: 7634349180084289609
+      type: {class: GetClosestTarget, ns: , asm: Assembly-CSharp}
+      data:
+        _distance: 100
+    - rid: 7634349249449427014
+      type: {class: AngleTargetFilter, ns: , asm: Assembly-CSharp}
+      data:
+        _viewAngle: 90
+    - rid: 7634349316450811973
+      type: {class: ClipCapacity, ns: , asm: Assembly-CSharp}
+      data:
+        _capacityVisualizer: {fileID: 0}
+    - rid: 7634349316450811974
+      type: {class: Damage, ns: , asm: Assembly-CSharp}
+      data:
+        _damage: 0
+    - rid: 7634349521342300235
+      type: {class: DistanceFilter, ns: , asm: Assembly-CSharp}
+      data:
+        _allowedDistance: 30
+    - rid: 7634349546795434072
+      type: {class: NotGuaranteedHitBulletsSpawner, ns: , asm: Assembly-CSharp}
+      data:
+        _bulletSpeed: 80
+        _spawnPoint: {fileID: 0}
+        _bulletInstance: {fileID: 4117493534217919638, guid: bc77ae790f4f6b04a893d598d1b73f04, type: 3}
+        _hitRadius: 2
+        _bulletLifeSecAfterHit: 2
+        <SoundType>k__BackingField: 13
+--- !u!1 &4790339253772433222
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7816036251034059631}
+  - component: {fileID: 4561055880274888899}
+  - component: {fileID: 356656847351795320}
+  m_Layer: 0
+  m_Name: Audio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7816036251034059631
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4790339253772433222}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2556490406018308158}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4561055880274888899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4790339253772433222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d92acef1f49d44f79c4284cf8f4712b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundEmitter
+  _sourcesCount: 10
+--- !u!114 &356656847351795320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4790339253772433222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d8e91a30d9a4c7d89a4be03213ba41d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AbilitySoundListener
+  _abilitySystem: {fileID: 3793243273718159137}
+  _emitter: {fileID: 4561055880274888899}

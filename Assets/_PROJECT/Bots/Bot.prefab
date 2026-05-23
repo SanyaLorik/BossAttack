@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3d7443f29b344e992c521f60e1af6f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotPushBehaviour
+  _manager: {fileID: 790296001332029354}
 --- !u!1 &492240263867701132
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,9 +95,6 @@ GameObject:
   - component: {fileID: 9222768071546413318}
   - component: {fileID: 5080053104704692055}
   - component: {fileID: 790296001332029354}
-  - component: {fileID: 7549493157883875360}
-  - component: {fileID: 9127641706544184496}
-  - component: {fileID: 6651033758637188713}
   m_Layer: 6
   m_Name: Bot
   m_TagString: Untagged
@@ -206,7 +204,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BotStateManager
   _playerSkin: {fileID: 1336081037049726119}
   <IsBoss>k__BackingField: 0
-  <Abilitys>k__BackingField: []
+  <Ability>k__BackingField: {fileID: 0}
   <ShowInSpawn>k__BackingField: 0
   <Transform>k__BackingField: {fileID: 3667074117147502011}
   <PointToAtack>k__BackingField: {fileID: 8775805619122131799}
@@ -223,51 +221,6 @@ MonoBehaviour:
   <LandParticles>k__BackingField: {fileID: 6972192133631246126}
   <WalkingParticles>k__BackingField: {fileID: 8628414548119378546}
   _damageVisualizer: {fileID: 6636972830307882918}
---- !u!114 &7549493157883875360
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 593425612949582850}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08eca9f7688a0a24685b89133b020c8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Zenject::Zenject.GameObjectContext
-  _scriptableObjectInstallers: []
-  _monoInstallers:
-  - {fileID: 9127641706544184496}
-  - {fileID: 6651033758637188713}
-  _installerPrefabs: []
-  _autoRun: 1
-  _kernel: {fileID: 0}
---- !u!114 &9127641706544184496
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 593425612949582850}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b352489113747299a249ea613f985da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerPrefabInstaller
-  _target: {fileID: 593425612949582850}
---- !u!114 &6651033758637188713
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 593425612949582850}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 130e7b10f9fd4bc1906b61cfa2700c0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BotPrefabInstaller
-  _target: {fileID: 593425612949582850}
 --- !u!1 &734268474806474848
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,6 +362,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotJumpController
   _allowToJump: 1
+  _manager: {fileID: 790296001332029354}
 --- !u!114 &4852924930670296589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -421,6 +375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 439a80f070c34dca92326caac5099ca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimatedLinkTraversal
+  _manager: {fileID: 790296001332029354}
   jumpDuration: 0.7
   jumpHeight: 3
   horizontalCurve:
@@ -590,6 +545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf4b651628ff0b842b0ee90923173f52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotWander
+  _manager: {fileID: 790296001332029354}
   _spawnPlaces: []
   _yToFind: 10
 --- !u!1 &2341943219905390796
@@ -794,6 +750,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9299749bf6cfe574d960c7e6da46cbee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotAnimator
+  _botManager: {fileID: 790296001332029354}
   _animator: {fileID: 8305540036435365303}
   _skinController: {fileID: 3179251272697559363}
 --- !u!114 &7043408511254031771
@@ -936,7 +893,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2295842d22ef44909d150e6e1dfbdac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotBonusController
-  botJumpController: {fileID: 6621970460490440889}
+  _manager: {fileID: 790296001332029354}
 --- !u!114 &789123316447599941
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2,12 +2,12 @@
 using Zenject;
 
 public class AnimatedLinkTraversal : MonoBehaviour {
+    [SerializeField] private BotManager _manager;
     
     public float jumpDuration = 0.8f;
     public float jumpHeight = 2.5f;
     public AnimationCurve horizontalCurve = AnimationCurve.Linear(0, 0, 1, 1);
 
-    [Inject] BotManager _manager;
 
     public bool IsJumpingTraversal { get; private set; }
     private float timer;

@@ -10,7 +10,14 @@ public class PlayerTrailManager : MonoBehaviour {
     [SerializeField] private GameObject[] _invincibleTrails;
     
     
-    [Inject] IPlayer _player;
+    private IPlayer _player;
+
+    private IPlayer Player {
+        get {
+            _player ??= GetComponentInParent<IPlayer>();
+            return _player;
+        }
+    }
     
     private BonusStatus _currentBonusStatus = BonusStatus.Default;
 
@@ -22,12 +29,12 @@ public class PlayerTrailManager : MonoBehaviour {
 
     
     private void OnEnable() {
-        _player.BonusUser.BonusStatusChanged += OnBonusStatusChanged;
+        Player.BonusUser.BonusStatusChanged += OnBonusStatusChanged;
     }
 
     
     private void OnDisable() {
-        _player.BonusUser.BonusStatusChanged -= OnBonusStatusChanged;
+        Player.BonusUser.BonusStatusChanged -= OnBonusStatusChanged;
     }
 
 

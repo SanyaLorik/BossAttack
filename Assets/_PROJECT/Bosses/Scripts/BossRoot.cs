@@ -23,5 +23,6 @@ public class BossRoot : MonoBehaviour {
         Ability.SetValueGetter(() => stats.RateOfFire);
         Player.Damagable.SetMaxHpGetter(() => stats.Hp);
         BotManager.BotWalkManager.SetSpeed(stats.MoveSpeed);
+        BotManager.BotWalkManager.SetStoppingDistance(stats.StopingDistance);
     }
 }

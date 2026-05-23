@@ -7,6 +7,7 @@ using UnityEngine.AI;
 using Zenject;
 
 public class BotPushBehaviour  : MonoBehaviour {
+    [SerializeField] private BotManager _manager;
 
     
     public bool IsPushed { get; private set; }
@@ -20,7 +21,6 @@ public class BotPushBehaviour  : MonoBehaviour {
     [Inject] MapsToBattleChanger _mapsChanger;
     [Inject] GameData _gameData;
     [Inject] BotsMainManager _mainManager;
-    [Inject] BotManager _manager;
     
     
     public void PushAway(Vector3 direction) {

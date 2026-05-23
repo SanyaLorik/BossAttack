@@ -11,7 +11,8 @@ using Random = UnityEngine.Random;
 public class BotWalkManager : MonoBehaviour {
     private const float DESTINATION_CHANGE_THRESHOLD = 0.5f;
     
-    
+    [SerializeField] private BotManager _manager;
+
     [Header("Партиклы")]
     [SerializeField] private Transform[] _spawnPlaces;
     [SerializeField] private float _yToFind;
@@ -29,7 +30,6 @@ public class BotWalkManager : MonoBehaviour {
     [Inject] private GameData _gameData;
     [Inject] private NavMeshHelper _navMeshHelper;
     [Inject] private MapsToBattleChanger _mapsChanger;
-    [Inject] private BotManager _manager;
     
     
     private void Awake() {
@@ -47,6 +47,10 @@ public class BotWalkManager : MonoBehaviour {
 
     public void SetSpeed(float speed) {
         _manager.Agent.speed = speed;
+    }
+    
+    public void SetStoppingDistance(float distance) {
+        _manager.Agent.stoppingDistance = distance;
     }
     
     public void DisposeAllLogic() {

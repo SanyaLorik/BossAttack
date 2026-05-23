@@ -3,7 +3,7 @@ using UnityEngine;
 using Zenject;
 
 public class BotBonusController : MonoBehaviour, IBonusUser {
-    [SerializeField] private BotJumpController botJumpController;
+    [SerializeField] private BotManager _manager;
 
     public event Action<BonusStatus, bool> BonusStatusChanged;
     public event Action<bool> InvinsibleStatusChanged;
@@ -11,7 +11,7 @@ public class BotBonusController : MonoBehaviour, IBonusUser {
 
     
     [Inject] GameData _gameData;
-    [Inject] BotManager _manager;
+
     
     private void Start() {
         SetDefault();
@@ -42,7 +42,7 @@ public class BotBonusController : MonoBehaviour, IBonusUser {
     }
 
     public void SetBigJump(bool bigJump) {
-        botJumpController.SetBigJump(bigJump);
+        _manager.BotJumpController.SetBigJump(bigJump);
         BonusStatusChanged?.Invoke(BonusStatus.SuperJump, bigJump);
     }
 
