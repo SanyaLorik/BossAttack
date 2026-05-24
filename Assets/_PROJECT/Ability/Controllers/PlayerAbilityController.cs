@@ -1,7 +1,7 @@
 ﻿using Zenject;
 
 
-public class PlayerAbilityController : AbilityEnablerBase {
+public class PlayerAbilityController : AbilityControllerBase {
 
     private PlayerStaticStatsCalculator _playerStaticStatsCalculator;
 
@@ -34,5 +34,6 @@ public class PlayerAbilityController : AbilityEnablerBase {
     private void InitPlayerRateOfFire() {
         Ability.SetValueGetter(() => _playerStaticStatsCalculator.PlayerRateOfFire);
     }
+
 
 }

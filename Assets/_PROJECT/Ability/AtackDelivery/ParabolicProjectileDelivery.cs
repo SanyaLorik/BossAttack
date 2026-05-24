@@ -8,51 +8,65 @@ using Object = UnityEngine.Object;
 
 [Serializable]
 public class ParabolicProjectileDelivery : IHitDelivery, ISoundPlayer {
-    [Header("Параметры полёта")]
-    [SerializeField] private float _bulletSpeed;
+    [Header("Параметры полёта")] [SerializeField]
+    private float _bulletSpeed;
+
     [SerializeField] private float _flyHeight;
-    [SerializeField, Range(0,2)] private float _arcMultiplier = 1.3f;
+    [SerializeField, Range(0, 2)] private float _arcMultiplier = 1.3f;
     [SerializeField] private AnimationCurve[] _flightCurves;
-    [Header("Откуда и что вылетает")]
-    [SerializeField] private Transform _spawnPoint;
+
+    [Header("Откуда и что вылетает")] [SerializeField]
+    private Transform _spawnPoint;
+
     [SerializeField] private BulletBase _bulletInstance;
-    [Header("Радиус поражения")]
-    [SerializeField] private float _hitRadius;
-    [Header("Визуал попадания")]
-    [SerializeField] private GameObject _warningVisual;
+
+    [Header("Радиус поражения")] [SerializeField]
+    private float _hitRadius;
+
+    [Header("Визуал попадания")] [SerializeField]
+    private GameObject _warningVisual;
+
     [SerializeField] private float _bulletLifeSecAfterHit = 1f;
     [SerializeField] private float _offsetToFloor = 1f;
-    
-    
-    
+
+
+
     [SerializeField, Range(0f, 1f)] private float _progressToShowPaintVisual = 1f;
     [field: SerializeField] public SoundType SoundType { get; private set; }
-    
-    
+
+
     private ObjectPoolManager _poolManager;
     private GameData _gameData;
     private SpawnerInFloor _spawner;
-    
-    
+
+
     [Inject]
     public void Init(ObjectPoolManager poolManager, GameData gameData, SpawnerInFloor spawner) {
         _poolManager = poolManager;
         _gameData = gameData;
         _spawner = spawner;
     }
-    
+
+
     public void Deliver(Vector3 origin, IPlayer target, List<IPlayer> allTargets, IEffect effect) {
-        BulletBase paintBulletInstance = _poolManager.Spawn<BulletBase>(_bulletInstance.gameObject, _spawnPoint.position, PoolType.Bullets);
+        WaitWhileNull(origin, target, allTargets, effect).Forget();
+    }
+
+    private async UniTaskVoid WaitWhileNull(Vector3 origin, IPlayer target, List<IPlayer> allTargets, IEffect effect) {
+        await UniTask.WaitWhile(() => _poolManager == null && _gameData == null && _spawner == null);
+        BulletBase paintBulletInstance =
+            _poolManager.Spawn<BulletBase>(_bulletInstance.gameObject, _spawnPoint.position, PoolType.Bullets);
         if (paintBulletInstance == null) {
             Debug.LogError("Пуля = null");
             return;
         }
+
         paintBulletInstance.SetPosition(_spawnPoint.position);
         GameObject warningVisual = _spawner.SpawnObjectByRaycast(_warningVisual, target.Transform.position, .5f);
-        ParabolicBulletFlightAsync(paintBulletInstance, target.PointToAtack, allTargets, effect, warningVisual).Forget();
-        
+        ParabolicBulletFlightAsync(paintBulletInstance, target.PointToAtack, allTargets, effect, warningVisual)
+            .Forget();
     }
-    
+
 
     private async UniTaskVoid ParabolicBulletFlightAsync(
         BulletBase paintBullet, 

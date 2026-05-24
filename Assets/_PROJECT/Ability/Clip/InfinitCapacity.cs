@@ -6,6 +6,7 @@ public class InfinitCapacity : IAtackCapacity {
     public int MaxCount { get; }
     public int CurrentCount { get; }
     public void SpendOne() { }
+    public void SetVisualState(bool enable) { }
 
     public void StartCheckCapacity(bool start) { }
     public void ReloadFull() { }

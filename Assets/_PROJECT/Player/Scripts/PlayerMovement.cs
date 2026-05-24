@@ -6,6 +6,7 @@ using Zenject;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour, IPlayer {
+    [SerializeField] private AbilitySystem _ability; // 
     [SerializeField] private CharacterController _controller; // 
     [SerializeField] private GameObject _playerVisual;
     [SerializeField] private PlayerBonusUser playerBonusUser;
@@ -39,7 +40,6 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
     public PlayerPush _pusher;
     public IBonusUser BonusUser => playerBonusUser;
     public IDamagable Damagable => _damagable;
-    public AbilityEnablerBase AbilityEnablerBase => _abilityController;
     private Damagable _damagable; 
     
     
@@ -72,6 +72,8 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
         _damagable.SetMaxHpGetter(() => _playerStaticStatsCalculator.PlayerHp);
         
         _damagableVisual.SetDamagable(_damagable);
+        _damagableVisual.FastHide();
+        
         _pusher = new PlayerPush(_gameData, _controller);
     }
 
@@ -79,6 +81,7 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
 
 
     private void Update() {
+        ApplyAimRotation();
         Walk();
     }
     
@@ -100,13 +103,19 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
             _gameData.RotateSpeed * Time.deltaTime
         );
     }
-    
+
+    private Transform _currentTarget;
     
     private void OnEnable() {
         _inputJumping.OnJumped += OnJump;
+        _ability.NewTargetFinded += AbilityOnNewTargetAttacked;
     }
-    
-    
+
+    private void AbilityOnNewTargetAttacked(IPlayer player) {
+        _currentTarget = player != null ? player.PointToAtack : null;
+    }
+
+
     private void OnDisable() {
         _inputJumping.OnJumped -= OnJump;
     }
@@ -156,11 +165,10 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
         
         if (goPlay) {
             _damagable.SetSpawned();
-            AbilityEnablerBase.StartAbility();
         }
         else {
             TeleportInSpawn(); 
-            AbilityEnablerBase.StopAbility();
+            _damagableVisual.FastHide();
         }
     }
 
@@ -286,13 +294,12 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
 
         
         if (hasInput) {
-            WalkRotate(move);
+            // WalkRotate(move);
         }
         else {
-            RotateToCamera();
+            // RotateToCamera();
         }
     }
-    
     
     private void WalkRotate(Vector3 move) {
         if (move.sqrMagnitude > 0.0001f) {
@@ -311,6 +318,38 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
             );
         }
     }
+    
+    private void ApplyAimRotation()
+    {
+        Vector3 aimDir = GetAimDirection();
+
+        if (aimDir.sqrMagnitude < 0.001f)
+            return;
+
+        Quaternion targetRot = Quaternion.LookRotation(aimDir);
+
+        transform.rotation = Quaternion.Lerp(
+            transform.rotation,
+            targetRot,
+            _gameData.RotateSpeed * Time.deltaTime
+        );
+    }
+    
+    private Vector3 GetAimDirection()
+    {
+        if (_currentTarget != null)
+        {
+            Vector3 dir = _currentTarget.position - transform.position;
+            dir.y = 0;
+            return dir.normalized;
+        }
+
+        Vector3 camForward = Camera.main.transform.forward;
+        camForward.y = 0;
+
+        return camForward.normalized;
+    }
+    
     
     private void SetCharacterControllerState(bool state) {
         _controller.enabled = state;

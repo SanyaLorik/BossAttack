@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using SanyaBeerExtension;
 using UnityEngine;
 using Zenject;
 
@@ -36,7 +37,10 @@ public class PlayerRegister : MonoBehaviour, IBattleInfo {
 
     public void UnregisterAllUnits() {
         Players.Clear();
+        
+        Bosses.ForEach(b => Destroy(b.Transform.gameObject));
         Bosses.Clear();
+        
         Buildings.Clear();
     }
     

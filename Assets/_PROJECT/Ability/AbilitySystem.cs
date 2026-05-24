@@ -35,6 +35,7 @@ public class AbilitySystem : TickerBehaviour {
     private IGizmosDrawable _gizmosDrawer;
     private CancellationTokenSource _findTagetSource;
     private IPlayer _target;
+    private bool _injected;
     
     public event Action<ISoundPlayer> SoundPlayed;
     public event Action<IPlayer> NewTargetFinded;
@@ -54,11 +55,12 @@ public class AbilitySystem : TickerBehaviour {
     
     [Inject]
     private void Init() {
-        _diContainer.QueueForInject(_effect);
-        _diContainer.QueueForInject(_targetProvider);
-        _atackVisuals.ForEach(t=> _diContainer.QueueForInject(t));
-        _diContainer.QueueForInject(_hitDelivery);
-        _diContainer.QueueForInject(_atackCapacity);
+        _diContainer.Inject(_effect);
+        _diContainer.Inject(_targetProvider);
+        _atackVisuals.ForEach(t=> _diContainer.Inject(t));
+        _diContainer.Inject(_hitDelivery);
+        _diContainer.Inject(_atackCapacity);
+        _injected = true;
     }
 
     
@@ -83,7 +85,8 @@ public class AbilitySystem : TickerBehaviour {
     
 
     protected override void Tick() {
-        if(!_atackCapacity.AllowToUse) return;
+        if(!_injected) Debug.LogError("Waiting for injection");
+        if(!_atackCapacity.AllowToUse || !_injected) return;
         foreach (IPlayer target in _targets) {
             if(target == null || target.Damagable.CurrentHp == 0) continue;
             
@@ -136,10 +139,13 @@ public class AbilitySystem : TickerBehaviour {
     }
 
     protected override void OnStart() {
+        Debug.Log("OnStart" + gameObject.name);
         _atackCapacity.StartCheckCapacity(true);
+        // _atackCapacity.SetVisualState(true);
     }
 
     protected override void OnEnd() {
         _atackCapacity.StartCheckCapacity(false);
+        // _atackCapacity.SetVisualState(false);
     }
 }

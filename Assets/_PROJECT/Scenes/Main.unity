@@ -851,7 +851,7 @@ MonoBehaviour:
   _barParent: {fileID: 2098603959}
   _changeBarDuration: 1
   CountText: {fileID: 2098603957}
-  abilityEnabler: {fileID: 1930393706}
+  _abilityController: {fileID: 1930393706}
 --- !u!114 &180440459 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6931914094189062922, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
@@ -4626,6 +4626,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8851156972997885243, guid: 97dd70a5ec067624ba81c12446c68854, type: 3}
   m_PrefabInstance: {fileID: 415421058}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &981807630 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3887000631383385253, guid: 7c5e4d14ece8f6246808912708c29a12, type: 3}
+  m_PrefabInstance: {fileID: 1189014759}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 543f53ac372646c7b950add62c4bb7a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildItem
 --- !u!1001 &986255327
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5212,6 +5223,10 @@ PrefabInstance:
       propertyPath: _button
       value: 
       objectReference: {fileID: 168683845}
+    - target: {fileID: 3539183820512013210, guid: 7c5e4d14ece8f6246808912708c29a12, type: 3}
+      propertyPath: _ability
+      value: 
+      objectReference: {fileID: 981807630}
     - target: {fileID: 3539183820512013210, guid: 7c5e4d14ece8f6246808912708c29a12, type: 3}
       propertyPath: _spawnPoint
       value: 
@@ -8999,6 +9014,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossCreateManager
   _bossRoot:
   - {fileID: 5655819244037393353, guid: 9e92c27d76f7ff449919031164e86a22, type: 3}
+  - {fileID: 5655819244037393353, guid: 833dba73be90dc248a5b736acf6ec28d, type: 3}
+  _bossCount: 2
 --- !u!33 &83981065760671030
 MeshFilter:
   m_ObjectHideFlags: 0

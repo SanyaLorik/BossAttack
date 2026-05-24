@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotRespawnTimer
   _bot: {fileID: 4184218750056900768}
-  abilityEnabler: {fileID: 4931723493080934796}
+  abilityController: {fileID: 4931723493080934796}
 --- !u!1 &8085884504731566038
 GameObject:
   m_ObjectHideFlags: 0

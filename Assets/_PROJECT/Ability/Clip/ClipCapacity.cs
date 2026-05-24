@@ -22,7 +22,16 @@ public class ClipCapacity : IAtackCapacity, IValueGetter {
     public void SetValueGetter(Func<float> valueGetter) {
         _maxCountGetter = valueGetter;
     }
-    
+
+    public void SetVisualState(bool enable) {
+        if (enable) {
+            _capacityVisualizer.ShowBarAnimation(true);
+        }
+        else {
+            _capacityVisualizer.ShowBarAnimation(false);
+        }
+    }
+
     
     public void StartCheckCapacity(bool start) {
         UniTaskHelper.DisposeTask(ref _tokenSource);

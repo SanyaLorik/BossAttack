@@ -4,7 +4,6 @@ using UnityEngine;
 public class PaintBullet : BulletBase {
     [SerializeField] private GameObject _bulletModel;
     [SerializeField] private ParticleSystem _psToEnd;
-    [SerializeField] private ParticleSystem _psToShoot;
     [SerializeField] private ParticleSystem _psWhileFlight;
     [Header("Colors")]
     [SerializeField] private Color[] _particleColors;
@@ -33,7 +32,6 @@ public class PaintBullet : BulletBase {
     private void SetColorToAllParticles() {
         Color newColor = _particleColors.GetRandomElement();
         SetColor(_psToEnd, newColor);
-        SetColor(_psToShoot, newColor);
         SetColor(_psWhileFlight, newColor);
     }
     

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6b6f68eb8a6649fc80133fed78933f4f, type: 3}
-  m_Name: ParabolicSlow
+  m_Name: MeleeSlow
   m_EditorClassIdentifier: Assembly-CSharp::BossConfig
-  BaseDamage: 10
+  BaseDamage: 20
   LevelAddDamage: 1
-  BaseHp: 222
+  BaseHp: 500
   LevelAddHp: 10
-  MoveSpeed: 7
+  MoveSpeed: 3
   RateOfFire: 0.8
-  StopingDistance: 10
+  StopingDistance: 1

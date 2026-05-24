@@ -564,7 +564,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ca744ad713c48699ee4eaa50c33ce32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossAbilityController
-  <Ability>k__BackingField: {fileID: 6479800073998228898}
+  <Ability>k__BackingField: {fileID: 7761559491542740715}
 --- !u!1001 &1574845273775521253
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -775,7 +775,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 70260345415751976, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 187920156318785180, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: m_Enabled
@@ -787,7 +787,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 593425612949582850, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: m_Name
-      value: ParabolicSlow
+      value: MeleeSlow
       objectReference: {fileID: 0}
     - target: {fileID: 593425612949582850, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: m_Layer
@@ -847,7 +847,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1199186454081500870, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1212541108296832897, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: m_Speed
@@ -884,6 +884,10 @@ PrefabInstance:
     - target: {fileID: 2360124181384550096, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: m_LocalScale.z
       value: 6.6858864
+      objectReference: {fileID: 0}
+    - target: {fileID: 3423231085735081822, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3543923592838772806, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: m_Enabled
@@ -989,9 +993,17 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 0.29150152
       objectReference: {fileID: 0}
+    - target: {fileID: 5623386096163268848, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5659472989429346093, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5805910276499667689, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6187618087676676485, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: m_IsActive
@@ -1004,6 +1016,10 @@ PrefabInstance:
     - target: {fileID: 7043408511254031771, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7250847525990806075, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7976497961850215626, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: m_IsActive

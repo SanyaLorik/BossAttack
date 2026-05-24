@@ -38,8 +38,6 @@ public class BotManager : MonoBehaviour, IPlayer {
     public IBonusUser BonusUser => BotBonusController;
     public IDamagable Damagable => _damagable;
     
-    // Пока нулл
-    public AbilityEnablerBase AbilityEnablerBase { get; }
     
     private Damagable _damagable;
 
@@ -69,15 +67,11 @@ public class BotManager : MonoBehaviour, IPlayer {
     
     private void Awake() {
         _damagable = new Damagable(Transform, this);
+        _damageVisualizer.SetDamagable(_damagable);
         if (!IsBoss) {
             _damagable.SetMaxHpGetter(() => _playerStaticStatsCalculator.PlayerHp);
+            _damageVisualizer.FastHide();
         }
-        _damageVisualizer.SetDamagable(_damagable);
-        InitIPlayerToAbilitys();
-    }
-
-    private void InitIPlayerToAbilitys() {
-        Ability.SetSame(this);
     }
 
 
@@ -123,7 +117,7 @@ public class BotManager : MonoBehaviour, IPlayer {
         if (goPlay) {
             ActiveBotInGame();
             SetBotStfu();
-            Debug.Log("Start ability bot");
+            _damagable.SetSpawned();
         }
         // Возвращение на спавн
         else {
@@ -132,6 +126,7 @@ public class BotManager : MonoBehaviour, IPlayer {
             SetBotStateBeforeGame();
             TeleportToPoint(_respawn.SpawnPoint.position);
             ChangeNicknameByChance();
+            _damageVisualizer.FastHide();
         }
         SetStartWanderIfActive(!goPlay);
     }

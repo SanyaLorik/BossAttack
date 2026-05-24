@@ -97,7 +97,7 @@ MonoBehaviour:
     <TimeAfterEndRound>k__BackingField: 0
     <MinimumTimeToFindNewTarget>k__BackingField: 0.4
     <TimeToRespawnPlayer>k__BackingField: 10
-    <TimeToOneBoss>k__BackingField: 10
+    <TimeToOneBoss>k__BackingField: 30
     <YBulletOffset>k__BackingField: 1
     <PlayerHpBase>k__BackingField: 100
     <PlayerLevelAddHp>k__BackingField: 10

@@ -12,7 +12,6 @@ public interface IPlayer {
     public IPusher Pusher { get; }
     public IBonusUser BonusUser { get; }
     public IDamagable Damagable { get; }
-    public AbilityEnablerBase AbilityEnablerBase { get; }
     
     public bool IsPlaying { get; }
     Transform PointToAtack { get; }

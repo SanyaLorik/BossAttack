@@ -1,8 +1,18 @@
 ﻿
+using System;
 using SanyaBeerExtension;
 
 public class DamageVisualizer : ProgressVisualizer {
     private IDamagable _damagable;
+
+
+    public void SetDamagable(IDamagable damagable) {
+        Unsubscribe();
+        _damagable = damagable;
+        Subscribe();
+        // Убрать потом
+        OnDamagableSpawned(_damagable);
+    }
     
     
     private void OnDisable() {
@@ -14,16 +24,14 @@ public class DamageVisualizer : ProgressVisualizer {
     }
 
     public void HideVisual() {
-        _progressContainer.DisactiveSelf();
+        ShowVisual();
+    }
+
+    public void ShowVisual() {
+        _progressContainer.ActiveSelf();
     }
     
-    public void SetDamagable(IDamagable damagable) {
-        Unsubscribe();
-        _damagable = damagable;
-        Subscribe();
-        // Убрать потом
-        OnDamagableSpawned(_damagable);
-    }
+
 
     private void Subscribe() {
         if (_damagable == null) return;

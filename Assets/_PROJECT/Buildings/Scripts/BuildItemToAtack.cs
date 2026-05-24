@@ -12,7 +12,6 @@ public class BuildItemToAtack : IPlayer {
     }
     
     public IDamagable Damagable { get; private set; }
-    public AbilityEnablerBase AbilityEnablerBase { get; }
     public void SetPlayStatus(bool goPlay) { }
 
     public void TeleportToPoint(Vector3 point) { }

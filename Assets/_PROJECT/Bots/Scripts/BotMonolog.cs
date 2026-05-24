@@ -13,14 +13,9 @@ public class BotMonolog : MonoBehaviour {
     public string NickName { get; private set; }
 
 
-    private LocalizationData _localization; 
-    private NicknameRandomizer _nicknameRandomizer; 
+    [Inject] private LocalizationData _localization; 
+    [Inject] private NicknameRandomizer _nicknameRandomizer; 
     
-    [Inject]
-    private void Initialize(LocalizationData localization, NicknameRandomizer nicknameRandomizer) {
-        _localization = localization;
-        _nicknameRandomizer = nicknameRandomizer; 
-    }
 
     
     private void Start() {

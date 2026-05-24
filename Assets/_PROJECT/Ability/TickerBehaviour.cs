@@ -33,7 +33,6 @@ public abstract class TickerBehaviour : MonoBehaviour, IValueGetter {
     
 
     public void StartSystem() {
-        Debug.Log("Start ability");
         UniTaskHelper.DisposeTask(ref _tokenSource);
         _tokenSource = new  CancellationTokenSource();
         TickLoopAsync(_tokenSource.Token).Forget();
@@ -57,8 +56,8 @@ public abstract class TickerBehaviour : MonoBehaviour, IValueGetter {
         float interval = _rateOfFire();
         interval = MathF.Max(interval, _gameData.PlayerRateOfFireMinimum);
         while (!token.IsCancellationRequested) {
-            Tick();
             await UniTask.WaitForSeconds(interval, cancellationToken: token);
+            Tick();
         }
     }
     

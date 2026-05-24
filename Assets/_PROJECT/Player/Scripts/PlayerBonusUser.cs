@@ -3,6 +3,7 @@ using UnityEngine;
 using Zenject;
 
 public class PlayerBonusUser : MonoBehaviour, IBonusUser {
+    [SerializeField] private PlayerAbilityController _abilityController;
     
     public event Action<BonusStatus, bool> BonusStatusChanged;
     public event Action<bool> InvinsibleStatusChanged;
@@ -30,8 +31,9 @@ public class PlayerBonusUser : MonoBehaviour, IBonusUser {
         BonusStatusChanged?.Invoke(BonusStatus.SuperSpeed, false);
     }
 
+    
     public void ReloadClip() {
-        _playerMovement.AbilityEnablerBase.ReloadAbility();
+        _abilityController.ReloadAbility();
     }
 
 

@@ -67,11 +67,11 @@ MonoBehaviour:
     - rid: 7634349180084289609
       type: {class: GetClosestTarget, ns: , asm: Assembly-CSharp}
       data:
-        _distance: 100
+        _distance: 32
     - rid: 7634349249449427014
       type: {class: AngleTargetFilter, ns: , asm: Assembly-CSharp}
       data:
-        _viewAngle: 90
+        _viewAngle: 180
     - rid: 7634349316450811973
       type: {class: ClipCapacity, ns: , asm: Assembly-CSharp}
       data:
@@ -87,10 +87,10 @@ MonoBehaviour:
     - rid: 7634349546795434072
       type: {class: NotGuaranteedHitBulletsSpawner, ns: , asm: Assembly-CSharp}
       data:
-        _bulletSpeed: 80
+        _bulletSpeed: 100
         _spawnPoint: {fileID: 0}
         _bulletInstance: {fileID: 4117493534217919638, guid: bc77ae790f4f6b04a893d598d1b73f04, type: 3}
-        _hitRadius: 2
+        _hitRadius: 1
         _bulletLifeSecAfterHit: 2
         <SoundType>k__BackingField: 13
 --- !u!1 &4790339253772433222

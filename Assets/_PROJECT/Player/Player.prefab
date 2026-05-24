@@ -209,6 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68d5aa5890c34b389e158f98320421b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerBonusController
+  _abilityController: {fileID: 2544347247816584613}
 --- !u!1 &5033114416352457734
 GameObject:
   m_ObjectHideFlags: 0

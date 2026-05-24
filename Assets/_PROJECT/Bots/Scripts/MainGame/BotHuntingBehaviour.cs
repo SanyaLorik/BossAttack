@@ -12,12 +12,12 @@ using Random = UnityEngine.Random;
 
 [Serializable]
 public class BotHuntingBehaviour : MonoBehaviour {
-    [SerializeField] private BossAbilityEnabler abilityEnabler;
+    [SerializeField] private BossAbilityController abilityController;
     [SerializeField] private BotManager _manager;
     
     private CancellationTokenSource _tokenSource;
     
-    private AbilitySystem Ability =>  abilityEnabler.Ability;
+    private AbilitySystem Ability =>  abilityController.Ability;
     
     private IPlayer _targetToHunt;
     private BotWalkManager WalkManager => _manager.BotWalkManager;
