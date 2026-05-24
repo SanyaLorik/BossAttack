@@ -81,7 +81,6 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
 
 
     private void Update() {
-        ApplyAimRotation();
         Walk();
     }
     
@@ -104,16 +103,16 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
         );
     }
 
-    private Transform _currentTarget;
-    
-    private void OnEnable() {
-        _inputJumping.OnJumped += OnJump;
-        _ability.NewTargetFinded += AbilityOnNewTargetAttacked;
-    }
+    // private Transform _currentTarget;
+    //
+    // private void OnEnable() {
+    //     _inputJumping.OnJumped += OnJump;
+    //     _ability.NewTargetFinded += AbilityOnNewTargetAttacked;
+    // }
 
-    private void AbilityOnNewTargetAttacked(IPlayer player) {
-        _currentTarget = player != null ? player.PointToAtack : null;
-    }
+    // private void AbilityOnNewTargetAttacked(IPlayer player) {
+    //     _currentTarget = player != null ? player.PointToAtack : null;
+    // }
 
 
     private void OnDisable() {
@@ -294,10 +293,10 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
 
         
         if (hasInput) {
-            // WalkRotate(move);
+            WalkRotate(move);
         }
         else {
-            // RotateToCamera();
+            RotateToCamera();
         }
     }
     
@@ -319,36 +318,36 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
         }
     }
     
-    private void ApplyAimRotation()
-    {
-        Vector3 aimDir = GetAimDirection();
-
-        if (aimDir.sqrMagnitude < 0.001f)
-            return;
-
-        Quaternion targetRot = Quaternion.LookRotation(aimDir);
-
-        transform.rotation = Quaternion.Lerp(
-            transform.rotation,
-            targetRot,
-            _gameData.RotateSpeed * Time.deltaTime
-        );
-    }
-    
-    private Vector3 GetAimDirection()
-    {
-        if (_currentTarget != null)
-        {
-            Vector3 dir = _currentTarget.position - transform.position;
-            dir.y = 0;
-            return dir.normalized;
-        }
-
-        Vector3 camForward = Camera.main.transform.forward;
-        camForward.y = 0;
-
-        return camForward.normalized;
-    }
+    // private void ApplyAimRotation()
+    // {
+    //     Vector3 aimDir = GetAimDirection();
+    //
+    //     if (aimDir.sqrMagnitude < 0.001f)
+    //         return;
+    //
+    //     Quaternion targetRot = Quaternion.LookRotation(aimDir);
+    //
+    //     transform.rotation = Quaternion.Lerp(
+    //         transform.rotation,
+    //         targetRot,
+    //         _gameData.RotateSpeed * Time.deltaTime
+    //     );
+    // }
+    //
+    // private Vector3 GetAimDirection()
+    // {
+    //     if (_currentTarget != null)
+    //     {
+    //         Vector3 dir = _currentTarget.position - transform.position;
+    //         dir.y = 0;
+    //         return dir.normalized;
+    //     }
+    //
+    //     Vector3 camForward = Camera.main.transform.forward;
+    //     camForward.y = 0;
+    //
+    //     return camForward.normalized;
+    // }
     
     
     private void SetCharacterControllerState(bool state) {
