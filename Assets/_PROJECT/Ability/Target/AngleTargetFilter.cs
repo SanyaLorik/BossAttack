@@ -6,6 +6,7 @@ public class AngleTargetFilter : ITargetFilter {
     [SerializeField] private float _viewAngle;
     
     public bool CanApply(Transform origin, IPlayer target) {
+        if(target == null) return false;
         return EnemyVisible(origin, target.Transform);
     }
     

@@ -963,7 +963,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4714152222721164009, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 8.32
+      value: 9.62
       objectReference: {fileID: 0}
     - target: {fileID: 5080053104704692055, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: m_Size.x
@@ -1135,7 +1135,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossRoot
   _bossAbilityController: {fileID: 2526074249050301841}
   <BotManager>k__BackingField: {fileID: 8790385094178400917}
-  _config: {fileID: 11400000, guid: 883752debf6214143a7ca218f9553cae, type: 2}
+  _hunting: {fileID: 7103762417268212468}
+  _config: {fileID: 11400000, guid: 405a699f934356640b3d434b576e3985, type: 2}
 --- !u!4 &8994158482082760222 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1142684850993941281, guid: 12049685913cfbb43b6b01f917270f73, type: 3}

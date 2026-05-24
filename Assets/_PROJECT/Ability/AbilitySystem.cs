@@ -85,8 +85,7 @@ public class AbilitySystem : TickerBehaviour {
     
 
     protected override void Tick() {
-        if(!_injected) Debug.LogError("Waiting for injection");
-        if(!_atackCapacity.AllowToUse || !_injected) return;
+        if(!_atackCapacity.AllowToUse || !_injected || !_allowToUse) return;
         foreach (IPlayer target in _targets) {
             if(target == null || target.Damagable.CurrentHp == 0) continue;
             
@@ -138,14 +137,19 @@ public class AbilitySystem : TickerBehaviour {
         NewTargetFinded?.Invoke(_targets.Count > 0 ? _targets[0] : null);
     }
 
+    
+    private bool _allowToUse;
     protected override void OnStart() {
         Debug.Log("OnStart" + gameObject.name);
         _atackCapacity.StartCheckCapacity(true);
+        _allowToUse = true;
         // _atackCapacity.SetVisualState(true);
     }
 
     protected override void OnEnd() {
         _atackCapacity.StartCheckCapacity(false);
+        _allowToUse = false;
+        
         // _atackCapacity.SetVisualState(false);
     }
 }

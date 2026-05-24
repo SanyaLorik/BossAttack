@@ -4,10 +4,14 @@ using Zenject;
 public class BossRoot : MonoBehaviour {
     [SerializeField] private BossAbilityController _bossAbilityController;
     [field: SerializeField] public BotManager BotManager { get; private set; }
+    [SerializeField] private BossHuntingBehaviour _hunting;
     [SerializeField] private BossConfig _config;
     
     
     [Inject] PlayerLevel _playerLevel;
+    [Inject] BattleManager _battleManager;
+    
+    
 
     private AbilitySystem Ability => _bossAbilityController.Ability;
     private IPlayer Player => BotManager;
@@ -28,6 +32,12 @@ public class BossRoot : MonoBehaviour {
         BotManager.BotWalkManager.SetStoppingDistance(stats.StopingDistance);
     }
 
+
+    public void DisposeLogic() {
+        _hunting.DisposeLogic();
+        _bossAbilityController.Unsubsribe();
+        BotManager.BotWalkManager.ResetLogic();
+    }
     
 
 }

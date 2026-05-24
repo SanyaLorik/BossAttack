@@ -6,29 +6,38 @@ using Zenject;
 
 public class BotRespawnTimer : MonoBehaviour {
     [SerializeField] BotManager _bot;
-    [SerializeField] private AbilityControllerBase abilityController;
+    [SerializeField] private AbilityControllerBase _abilityController;
     
 
     private CancellationTokenSource _respawnTokenSource;
     
     [Inject] private PlayersDiesObserver _playersDiesObserver;
     [Inject] private GameData _gameData;
+    [Inject] private BattleManager _battleManager;
     
     
-    public void OnDestroy() {
+    public void OnDisable() {
         _playersDiesObserver.PlayerSpawned -= OnPlayersSpawned;   
         _playersDiesObserver.PlayerDied -= OnPlayersDied;   
+        _battleManager.MainPlayerWin -= OnBattleEnd;
     }
     
     
     public void OnEnable() {
         _playersDiesObserver.PlayerSpawned += OnPlayersSpawned;   
         _playersDiesObserver.PlayerDied += OnPlayersDied;  
+        _battleManager.MainPlayerWin += OnBattleEnd;
     }
+
+    private void OnBattleEnd(bool _) {
+        UniTaskHelper.DisposeTask(ref _respawnTokenSource);
+        _bot.Damagable.Respawn(false);
+    }
+
     
     private void OnPlayersSpawned(IPlayer player) {
         if (player != _bot) return;
-        abilityController.StartAbility();
+        _abilityController.StartAbility();
         _bot.SetMovingStatus(true);
         _bot.SetVisualModelState(true);
     }
@@ -36,7 +45,7 @@ public class BotRespawnTimer : MonoBehaviour {
  
     private void OnPlayersDied(IPlayer player) {
         if (player != _bot) return;
-        abilityController.StopAbility();
+        _abilityController.StopAbility();
         _bot.SetMovingStatus(false);
         _bot.SetVisualModelState(false);
         StartRespawnTimer();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Random = UnityEngine.Random;
 using UnityEngine;
@@ -18,7 +19,6 @@ public class NotGuaranteedHitBulletsSpawner : IHitDelivery, ISoundPlayer {
 
     private ObjectPoolManager _poolManager;
     private GameData _gameData;
-    
     
     [Inject]
     public void Init(ObjectPoolManager poolManager, GameData gameData) {
@@ -66,7 +66,8 @@ public class NotGuaranteedHitBulletsSpawner : IHitDelivery, ISoundPlayer {
                 isHited = true;
                 paintBullet.PlayToEnd();
                 await UniTask.WaitForSeconds(_bulletLifeSecAfterHit);
-                _poolManager.ReturnObjectToPool(paintBullet.gameObject, PoolType.Bullets);
+
+                if(paintBullet != null) _poolManager.ReturnObjectToPool(paintBullet.gameObject, PoolType.Bullets);
                 break;
             }
             
@@ -89,7 +90,7 @@ public class NotGuaranteedHitBulletsSpawner : IHitDelivery, ISoundPlayer {
 
             if(sqrDistance <= _hitRadius * _hitRadius) {
                 effect.ApplyEffect(player);
-                bullet.transform.SetParent(player.Transform, true);
+                // bullet.transform.SetParent(player.Transform, true);
                 return true;    
             }
         }

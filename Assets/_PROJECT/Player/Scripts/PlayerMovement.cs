@@ -105,10 +105,10 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
 
     // private Transform _currentTarget;
     //
-    // private void OnEnable() {
-    //     _inputJumping.OnJumped += OnJump;
-    //     _ability.NewTargetFinded += AbilityOnNewTargetAttacked;
-    // }
+    private void OnEnable() {
+        _inputJumping.OnJumped += OnJump;
+        // _ability.NewTargetFinded += AbilityOnNewTargetAttacked;
+    }
 
     // private void AbilityOnNewTargetAttacked(IPlayer player) {
     //     _currentTarget = player != null ? player.PointToAtack : null;

@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using _PROJECT.Scripts.Helpers;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -51,6 +52,7 @@ public class BotAnimator : MonoBehaviour {
         SetWalkLogicLater(isRunning, _tokenSource.Token).Forget();
     }
 
+    
     private async UniTask SetWalkLogicLater(bool isRunning, CancellationToken token) {
         // Ждем 5 кадров через счетчик чтоб анимка заработала
         int framesToWait = 5;
@@ -73,5 +75,10 @@ public class BotAnimator : MonoBehaviour {
     
     private void OnDoubleJump() {
         _animator.SetTrigger(DoubleJump);
+    }
+
+
+    private void OnDestroy() {
+        UniTaskHelper.DisposeTask(ref _tokenSource);
     }
 }

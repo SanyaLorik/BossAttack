@@ -6,20 +6,22 @@ using Zenject;
 
 public class GameTimerToEnd : ProgressVisualizer {
     [Inject] GameData _gameData;
+    [Inject] BossCreateManager _bossCreateManager;
     
     
     public event Action GameEnded;
 
     private CancellationTokenSource _tokenSource;
-
+    private int BossCount => _bossCreateManager.BossCount;
+    
     private void Start() {
         FastHide();
     }
 
-    public void StartGameTimerToEnd(int bossCount) {
+    public void StartGameTimerToEnd() {
         UniTaskHelper.DisposeTask(ref _tokenSource);
         _tokenSource = new CancellationTokenSource();
-        WaitWhileTimerAsync(bossCount, _tokenSource.Token).Forget();
+        WaitWhileTimerAsync(BossCount, _tokenSource.Token).Forget();
         ShowBarAnimation(true);
     }
 

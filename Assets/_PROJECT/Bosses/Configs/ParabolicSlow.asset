@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossConfig
   BaseDamage: 10
   LevelAddDamage: 1
-  BaseHp: 222
+  BaseHp: 20
   LevelAddHp: 10
   MoveSpeed: 7
   RateOfFire: 0.8

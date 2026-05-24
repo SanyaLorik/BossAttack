@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using _PROJECT.Scripts.Helpers;
 using Cysharp.Threading.Tasks;
-using SanyaBeerExtension;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
-using Random = UnityEngine.Random;
 
 
 [Serializable]
-public class BotHuntingBehaviour : MonoBehaviour {
+public class BossHuntingBehaviour : MonoBehaviour {
     [SerializeField] private BossAbilityController abilityController;
     [SerializeField] private BotManager _manager;
     
@@ -36,7 +33,11 @@ public class BotHuntingBehaviour : MonoBehaviour {
         TrySetNewTargetToHunt(_targetToHunt);
         StartHunting();
     }
+
     
+    public void DisposeLogic() {
+        StopHunting();
+    }
 
 
 

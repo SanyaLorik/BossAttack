@@ -1119,6 +1119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossRoot
   _bossAbilityController: {fileID: 2526074249050301841}
   <BotManager>k__BackingField: {fileID: 8790385094178400917}
+  _hunting: {fileID: 7103762417268212468}
   _config: {fileID: 11400000, guid: 883752debf6214143a7ca218f9553cae, type: 2}
 --- !u!4 &8994158482082760222 stripped
 Transform:

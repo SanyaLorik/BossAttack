@@ -416,7 +416,7 @@ GameObject:
   - component: {fileID: 2442955559784721893}
   - component: {fileID: 2544347247816584613}
   m_Layer: 0
-  m_Name: Ability
+  m_Name: AbilityController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -712,6 +712,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23ec2c0b4a919ad42b5b1e28fec4352a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+  _ability: {fileID: 0}
   _controller: {fileID: 6165380883207411591}
   _playerVisual: {fileID: 5928220643738429436}
   playerBonusUser: {fileID: 2728973940216989352}

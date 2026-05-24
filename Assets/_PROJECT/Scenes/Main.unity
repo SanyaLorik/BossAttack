@@ -9015,7 +9015,7 @@ MonoBehaviour:
   _bossRoot:
   - {fileID: 5655819244037393353, guid: 9e92c27d76f7ff449919031164e86a22, type: 3}
   - {fileID: 5655819244037393353, guid: 833dba73be90dc248a5b736acf6ec28d, type: 3}
-  _bossCount: 2
+  <BossCount>k__BackingField: 2
 --- !u!33 &83981065760671030
 MeshFilter:
   m_ObjectHideFlags: 0

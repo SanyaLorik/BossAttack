@@ -61,7 +61,10 @@ public abstract class ProgressVisualizer : MonoBehaviour {
             // Debug.Log("interp = " + interp);
             await UniTask.Yield();
         }
-        _bar.offsetMax = targetPos;
+
+        if (!token.IsCancellationRequested) {
+            _bar.offsetMax = targetPos;
+        }
     }
 
     private void SetProgressByElapsedTime(float elapsedTime, Vector2 initPos, Vector2 targetPos) {
@@ -119,4 +122,7 @@ public abstract class ProgressVisualizer : MonoBehaviour {
     }
 
 
+    private void OnDestroy() {
+        UniTaskHelper.DisposeTask(ref _tokenSource);
+    }
 }

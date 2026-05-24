@@ -32,6 +32,12 @@ public abstract class AbilityControllerBase: MonoBehaviour {
         CheckNeedToUseAbility();
     }
 
+    public void Unsubsribe() {
+        Debug.Log("Отписка у обьекта " + gameObject.name + " от событий");
+        _battleManager.GameReadyToPlay -= OnGameReadyToPlay;
+        _battleManager.MainPlayerWin -= OnMainPlayerWin;
+    }
+
     
     private void CheckNeedToUseAbility() {
         if (_mainGameStarter.GameIsStarted) {
@@ -67,6 +73,7 @@ public abstract class AbilityControllerBase: MonoBehaviour {
     }
 
     public void StartAbility() {
+        if(_battleManager.GameIsOver) return;
         Ability.StartSystem();
         Debug.Log("Start ability" + gameObject.name);
     }

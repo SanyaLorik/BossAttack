@@ -122,9 +122,7 @@ public class BattleManager : MonoBehaviour {
         RotatePlayersToBoss();
         await ShowStartAnimation(true, token);
         GameReadyToPlay?.Invoke();
-        // пока так
-        int bossCount = 1;
-        _gameTimerToEnd.StartGameTimerToEnd(bossCount);
+        _gameTimerToEnd.StartGameTimerToEnd();
     }
 
     
