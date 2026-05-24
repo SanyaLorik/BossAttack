@@ -28,12 +28,10 @@ public abstract class AbilityControllerBase: MonoBehaviour {
         _battleManager.GameReadyToPlay += OnGameReadyToPlay;
         _battleManager.MainPlayerWin += OnMainPlayerWin;
         InitAbility();
-        Debug.Log("Initialize");
         CheckNeedToUseAbility();
     }
 
     public void Unsubsribe() {
-        Debug.Log("Отписка у обьекта " + gameObject.name + " от событий");
         _battleManager.GameReadyToPlay -= OnGameReadyToPlay;
         _battleManager.MainPlayerWin -= OnMainPlayerWin;
     }
@@ -41,7 +39,6 @@ public abstract class AbilityControllerBase: MonoBehaviour {
     
     private void CheckNeedToUseAbility() {
         if (_mainGameStarter.GameIsStarted) {
-            Debug.Log("CheckNeedToUseAbility");
             OnGameReadyToPlay();
         }
     }
@@ -59,7 +56,6 @@ public abstract class AbilityControllerBase: MonoBehaviour {
 
     
     private void InitAbility() {
-        Debug.Log("_currentPlayer = " + Player);
         Ability.SetSame(Player);
     }
     
@@ -69,13 +65,11 @@ public abstract class AbilityControllerBase: MonoBehaviour {
 
     public void StopAbility() {
         Ability.Stop();
-        Debug.Log("Stop ability" + gameObject.name);
     }
 
     public void StartAbility() {
         if(_battleManager.GameIsOver) return;
         Ability.StartSystem();
-        Debug.Log("Start ability" + gameObject.name);
     }
 
 }

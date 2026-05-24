@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SanyaBeerExtension;
 using UnityEngine;
 using Zenject;
 
@@ -7,9 +8,12 @@ public class BossesDiesObserver {
     public event Action<IPlayer> BossDied;
     public event Action<IPlayer> BossSpawned;
 
-    
+    public int CountLifeBosses => _currentBosses.Count;
     
     private List<IPlayer> _currentBosses = new();
+    
+    
+    
     
     public void InitBossesInBattle(List<IPlayer> bosses) {
         foreach (var b in bosses) {
@@ -18,6 +22,8 @@ public class BossesDiesObserver {
         }
         _currentBosses = bosses;
     }
+
+
 
     
     public void RemoveBosses() {
@@ -33,7 +39,10 @@ public class BossesDiesObserver {
         if (boss == null) {
             Debug.LogError("Проблема с поиском игрока");
         }
-        BossDied?.Invoke(boss);
+        else {
+            boss.Transform.gameObject.DisactiveSelf();
+            BossDied?.Invoke(boss);
+        }
     }
     
     

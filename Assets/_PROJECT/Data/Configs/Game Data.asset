@@ -97,7 +97,7 @@ MonoBehaviour:
     <TimeAfterEndRound>k__BackingField: 0
     <MinimumTimeToFindNewTarget>k__BackingField: 0.4
     <TimeToRespawnPlayer>k__BackingField: 10
-    <TimeToOneBoss>k__BackingField: 5
+    <TimeToOneBoss>k__BackingField: 60
     <YBulletOffset>k__BackingField: 1
     <PlayerHpBase>k__BackingField: 100
     <PlayerLevelAddHp>k__BackingField: 10
@@ -111,13 +111,13 @@ MonoBehaviour:
     <MineBuildingValueBase>k__BackingField: 50
     <MineBuildingAddLevelValue>k__BackingField: 15
     <MineIntervalAtack>k__BackingField: 0.3
-    <TurretIntervalAtack>k__BackingField: 0.5
+    <TurretIntervalAtack>k__BackingField: 1
     <HealIntervalAtack>k__BackingField: 0.5
     <PlayerDamageBase>k__BackingField: 2
     <PlayerLevelAddDamage>k__BackingField: 1
     <PlayerRateOfFireBase>k__BackingField: 0.4
     <PlayerLevelAddRateOfFire>k__BackingField: 0.05
     <PlayerRateOfFireMinimum>k__BackingField: 0.2
-    <PlayerCapacityBase>k__BackingField: 6
+    <PlayerCapacityBase>k__BackingField: 8
     <PlayerLevelAddCapacity>k__BackingField: 2
     <ClipReloadOneBulletDuration>k__BackingField: 0.7

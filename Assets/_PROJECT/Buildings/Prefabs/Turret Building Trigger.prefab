@@ -649,6 +649,10 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2570064870296261947, guid: 9bedb1bc7f6e90649b9e3367a578904e, type: 3}
+      propertyPath: managedReferences[7634349546795434054]._bulletInstance
+      value: 
+      objectReference: {fileID: 636510325301730025, guid: 424ad6c098deda443a0881cc6352be09, type: 3}
+    - target: {fileID: 2570064870296261947, guid: 9bedb1bc7f6e90649b9e3367a578904e, type: 3}
       propertyPath: managedReferences[7634349546795434062]._rotateTransform
       value: 
       objectReference: {fileID: 1341268807576994267}

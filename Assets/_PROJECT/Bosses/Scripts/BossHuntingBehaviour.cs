@@ -21,14 +21,16 @@ public class BossHuntingBehaviour : MonoBehaviour {
     
 
     private GameData _gameData;
-    private IBattleInfo _battleInfo;
+    private PlayerRegister _playerRegister;
+    private BattleManager _battleManager;
 
     
     
     [Inject]
-    public void Initialize(GameData gameData, IBattleInfo battleInfo) {
+    public void Initialize(GameData gameData, PlayerRegister playerRegister, BattleManager battleManager) {
         _gameData = gameData;
-        _battleInfo = battleInfo;
+        _playerRegister = playerRegister;
+        _battleManager = battleManager;
         Ability.NewTargetFinded += TrySetNewTargetToHunt;
         TrySetNewTargetToHunt(_targetToHunt);
         StartHunting();
@@ -43,7 +45,7 @@ public class BossHuntingBehaviour : MonoBehaviour {
 
     private IPlayer GetRandomPlayerToFollow() {
         IPlayer player = EnumerableHelper.GetRandomElementInListWhere(
-            _battleInfo.Players,
+            _playerRegister.GetPlayers(),
             player => player.Damagable.CurrentHp != 0
         );
         return player;
@@ -98,7 +100,7 @@ public class BossHuntingBehaviour : MonoBehaviour {
     
     
     private async UniTask StartDefaultHuntingAsync(CancellationToken token) {
-        await UniTask.WaitWhile(() => _battleInfo.Players.Count == 0, cancellationToken: token);
+        await UniTask.WaitWhile(() => _battleManager.GameIsOver, cancellationToken: token);
         GetNextPlayerVictim();
         // Запускаем таймер каждый раз в фоне просто чекать ближайшего
         GetNextVictimByTimerAsync(token).Forget();
@@ -124,15 +126,15 @@ public class BossHuntingBehaviour : MonoBehaviour {
         //
         // // Выбор жертвой ГГ
         // if (Random.value < _gameData.ChanceToGoPlayerInHunt 
-        //     && _battleInfo.MainPlayerPlay 
+        //     && _playerRegister.MainPlayerPlay 
         //     && !_mainPlayer.BonusUser.IsInvincibleAfterBonus
         // ) {
-        //     _targetToHunt = _battleInfo.MainPlayer;
+        //     _targetToHunt = _playerRegister.MainPlayer;
         //     return;
         // }
         //
         // // Жертва не обязательно ГГ
-        // _units = _battleInfo.Players;
+        // _units = _playerRegister.Players;
         // IPlayer closest = _units[0];
         // float minSqrDistance = float.MaxValue;
         //

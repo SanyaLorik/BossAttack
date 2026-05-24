@@ -16,7 +16,7 @@ public class MainGameInstaller : MonoInstaller {
         Container.Bind<MainGameStarter>().FromComponentInHierarchy().AsSingle().NonLazy();
         Container.Bind<BattleManager>().FromComponentInHierarchy().AsSingle().NonLazy();
         Container.Bind<GameTimerToEnd>().FromComponentInHierarchy().AsSingle().NonLazy();
-        Container.BindInterfacesAndSelfTo<PlayerRegister>().FromComponentInHierarchy().AsSingle().NonLazy();
+        Container.Bind<PlayerRegister>().FromComponentInHierarchy().AsSingle().NonLazy();
         Container.Bind<PlayersDiesObserver>().AsSingle().NonLazy();
         Container.BindInterfacesAndSelfTo<BossesDiesObserver>().AsSingle().NonLazy();
     }
@@ -24,6 +24,7 @@ public class MainGameInstaller : MonoInstaller {
     private void BildStatsCalculators() {
         Container.BindInterfacesAndSelfTo<PlayerStaticStatsCalculator>().AsSingle().NonLazy();
         Container.BindInterfacesAndSelfTo<BuildingStaticStatsCalculator>().AsSingle().NonLazy();
+        Container.Bind<PlayerBoostBoxesSystem>().FromComponentInHierarchy().AsSingle().NonLazy();
     }
 
 

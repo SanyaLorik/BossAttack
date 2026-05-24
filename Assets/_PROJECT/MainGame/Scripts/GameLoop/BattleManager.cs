@@ -80,7 +80,7 @@ public class BattleManager : MonoBehaviour {
     public void InitForNewGame() {
         GameIsOver = false;
         RegisterAllPlayers();
-        InitPlayersInRandomPoints(_playerRegister.Players, PlayersSpawnPoints);
+        InitPlayersInRandomPoints(_playerRegister.GetPlayers(), PlayersSpawnPoints);
 
         _tokenSource = new CancellationTokenSource();
         StartBattleAsync(_tokenSource.Token).Forget();
@@ -88,17 +88,17 @@ public class BattleManager : MonoBehaviour {
     
     
     private void RegisterAllPlayers() {
-        _playerRegister.RegisterUnit(_playerMovement, TargetType.Player);
+        _playerRegister.RegisterUnit(_playerMovement);
         IEnumerable<IPlayer> bots = _botsMainManager.GetPlayBotsToGame(CountBotsToBattle);
         foreach (IPlayer bot in bots) {
-            _playerRegister.RegisterUnit(bot, TargetType.Player);
+            _playerRegister.RegisterUnit(bot);
             Debug.Log("В бой идет бот " + bot.Transform.gameObject.name);
         }
         _playersDiesObserver.RemovePlayers();
         _bossDiesObserver.RemoveBosses();
         
-        _playersDiesObserver.InitPlayersInBattle(_playerRegister.Players);
-        _bossDiesObserver.InitBossesInBattle(_playerRegister.Bosses);
+        _playersDiesObserver.InitPlayersInBattle(_playerRegister.GetPlayers());
+        _bossDiesObserver.InitBossesInBattle(_playerRegister.GetBosses());
     }
 
     
@@ -160,18 +160,18 @@ public class BattleManager : MonoBehaviour {
     
     
     private void EnablePlayersMove(bool enable) {
-        _playerRegister.Players.ForEach(p => p.SetMovingStatus(enable));
+        _playerRegister.GetPlayers().ForEach(p => p.SetMovingStatus(enable));
     }
 
     private void RotatePlayersToBoss() {
-        _playerRegister.Players.ForEach(p => p.RotateToTarget(RandomBossPoint));
+        _playerRegister.GetPlayers().ForEach(p => p.RotateToTarget(RandomBossPoint));
     }
     
     
     
     private void GameEnded() {
         Debug.Log("Игра кончилась");
-        foreach (IPlayer player in _playerRegister.Players) {
+        foreach (IPlayer player in _playerRegister.GetPlayers()) {
             player.SetPlayStatus(false);
         }
         _playerRegister.UnregisterAllUnits();

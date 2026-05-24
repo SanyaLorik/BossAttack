@@ -1081,7 +1081,7 @@ GameObject:
   - component: {fileID: 214413473}
   - component: {fileID: 214413474}
   m_Layer: 0
-  m_Name: RoundRewarder
+  m_Name: BossKillRewarder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1148,7 +1148,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _curveMultiplier: 100
+  _bossProgressCurveMultiplier: 500
 --- !u!114 &218509406 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2723324615258887272, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
@@ -4685,6 +4685,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5862983551935485420, guid: c3770a4602ddc9b43b0f0ef9423b69ab, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 65.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5862983551935485420, guid: c3770a4602ddc9b43b0f0ef9423b69ab, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -22.4
+      objectReference: {fileID: 0}
     - target: {fileID: 9130735015479195135, guid: c3770a4602ddc9b43b0f0ef9423b69ab, type: 3}
       propertyPath: m_Name
       value: '[DEMO]'
@@ -4711,6 +4719,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!1 &1000344861
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1000344862}
+  - component: {fileID: 1000344863}
+  m_Layer: 0
+  m_Name: Boosts
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1000344862
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000344861}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1883334078}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1000344863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000344861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3eda62439710497cbd254b2ba1cd420f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerBoostBoxesSystem
 --- !u!114 &1000695571 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3730649805114437260, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
@@ -8146,6 +8198,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1000344862}
   - {fileID: 2116922384}
   - {fileID: 220291354}
   - {fileID: 177850816}

@@ -68,7 +68,7 @@ public class MainPlayerDeathSystem: ProgressVisualizer {
 
     private void SetCameraFollowToRandomPlayer() {
         IPlayer randomBot = EnumerableHelper.GetRandomElementInListWhere(
-            _playerRegister.Players,
+            _playerRegister.GetPlayers(),
             bot => bot.Damagable.CurrentHp != 0
         );
         _camera.SetFollowToBot(randomBot.Transform);

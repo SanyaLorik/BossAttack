@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
     
     [field: SerializeField] public Transform PointToAtack { get; private set; }
     public Transform Transform => transform;
+    public TargetType TargetType => TargetType.Player;
 
     public Vector2 MoveInput => _inputDirection2.Direction2;
     private float _currentRoll;

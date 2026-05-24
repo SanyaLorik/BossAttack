@@ -10,7 +10,7 @@ using Zenject;
 public class GetClosestTarget : ITargetProvider, IGizmosDrawable {
     [SerializeField] private float _distance;
     
-    
+
     public IPlayer Same { get; private set; }
     
     private IPlayer _closestUnit;
@@ -18,14 +18,14 @@ public class GetClosestTarget : ITargetProvider, IGizmosDrawable {
     private float _sqrRange;
     
     
-    [Inject] IBattleInfo _battleInfo;
+    [Inject] PlayerRegister _playerRegister;
 
     public void SetSame(IPlayer player) {
         Same = player;
     }
 
    
-    public List<IPlayer> GetTargets(Vector3 origin, List<IPlayer> targetList) {
+    public List<IPlayer> GetTargets(Vector3 origin, List<IPlayer> targetList, TargetType targetType) {
         List<IPlayer> result = new();
         _closestUnit = null;
         _bestSqr = float.MaxValue;
@@ -34,7 +34,7 @@ public class GetClosestTarget : ITargetProvider, IGizmosDrawable {
         
         IEnumerable<IPlayer> targets = targetList;
         foreach (var target in targets) {
-            if(target == Same || target.Damagable == null) continue;
+            if(target == Same || target.Damagable == null || (target.TargetType & targetType) == 0) continue;
             if (target.Damagable.CurrentHp == 0) {
                 continue;
             }

@@ -8,6 +8,8 @@ using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class BotManager : MonoBehaviour, IPlayer {
+    [field: SerializeField] public TargetType TargetType { get; private set; }
+    
     [SerializeField] private GameObject _playerSkin;
     [field: SerializeField] public bool IsBoss { get; private set; }
     [field: SerializeField] public AbilitySystem Ability { get; private set; }

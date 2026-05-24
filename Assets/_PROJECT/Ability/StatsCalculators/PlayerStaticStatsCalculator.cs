@@ -7,9 +7,16 @@ public class PlayerStaticStatsCalculator : IInitializable, IDisposable {
     private readonly GameData _gameData;
     private readonly PlayerLevel _playerLevel;
     private readonly ModifierShopManager _modifierShopManager;
+    private readonly PlayerBoostBoxesSystem _playerBoostBoxesSystem;
     
-    public int PlayerHp { get; private set; }
-    public int PlayerDamage { get; private set; }
+    // Hp
+    public int PlayerHp => _playerHpByLevel + _playerBoostBoxesSystem.AccumulatedHp;
+    private int _playerHpByLevel;
+    
+    // Damage
+    private int _playerDamageByLevel;
+    public float PlayerDamage => _playerDamageByLevel + _playerBoostBoxesSystem.AccumulatedDamage;
+    
     public float PlayerRateOfFire { get; private set; }
     public int PlayerCapacity { get; private set; }
     
@@ -17,11 +24,13 @@ public class PlayerStaticStatsCalculator : IInitializable, IDisposable {
     public PlayerStaticStatsCalculator(
         GameData gameData, 
         PlayerLevel playerLevel, 
-        ModifierShopManager modifierShopManager
+        ModifierShopManager modifierShopManager,
+        PlayerBoostBoxesSystem playerBoostBoxesSystem
     ) {
         _gameData = gameData;
         _playerLevel = playerLevel;
         _modifierShopManager = modifierShopManager;
+        _playerBoostBoxesSystem = playerBoostBoxesSystem;
         RecalculateLevelStats(_playerLevel.CurrentLevel);
     }
     
@@ -68,16 +77,16 @@ public class PlayerStaticStatsCalculator : IInitializable, IDisposable {
     
     
     private void CalculatePlayerHp(int level) {
-        PlayerHp = (int)
+        _playerHpByLevel = (int)
             (_gameData.PlayerHpBase + _gameData.PlayerLevelAddHp * (level-1));
     }
     
     
     
     private void CalculatePlayerDamage(int level) {
-        PlayerDamage = (int)
+        _playerDamageByLevel = (int)
             (_gameData.PlayerDamageBase + _gameData.PlayerLevelAddDamage * (level-1));
-        Debug.Log($"PlayerDamage: {PlayerDamage}");
+        Debug.Log($"_playerDamageByLevel: {_playerDamageByLevel}");
             
     }
     

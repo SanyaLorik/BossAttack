@@ -35,6 +35,7 @@ public class BossRoot : MonoBehaviour {
 
     public void DisposeLogic() {
         _hunting.DisposeLogic();
+        _bossAbilityController.StopAbility();
         _bossAbilityController.Unsubsribe();
         BotManager.BotWalkManager.ResetLogic();
     }

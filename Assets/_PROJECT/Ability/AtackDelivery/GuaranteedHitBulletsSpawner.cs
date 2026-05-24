@@ -61,7 +61,7 @@ public class GuaranteedHitBulletsSpawner : IHitDelivery, ISoundPlayer {
             await UniTask.Yield();            
         }
 
-        paintBullet.transform.SetParent(targetTransform, true);
+        // paintBullet.transform.SetParent(targetTransform, true);
         paintBullet.PlayToEnd();
         
         // Нанесение урона

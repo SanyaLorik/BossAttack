@@ -209,7 +209,7 @@ public class BuildZoneItem : MonoBehaviour {
 
     private void EndBuild() {
         if (_buildingType != BuildingType.Mine && !_permanent) {
-            _playerRegister.RegisterUnit(_buildItem, TargetType.Player);
+            _playerRegister.RegisterUnit(_buildItem);
         }
         _isBuilded = true;
         _currentTime = _timeToBuild;

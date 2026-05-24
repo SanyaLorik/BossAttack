@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 
 public class BuildItemToAtack : IPlayer {
+    public TargetType TargetType => TargetType.Building;
+    
 
     public BuildItemToAtack(Transform origin) {
         Transform = origin;

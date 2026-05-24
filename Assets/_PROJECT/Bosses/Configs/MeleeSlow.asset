@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b6f68eb8a6649fc80133fed78933f4f, type: 3}
   m_Name: MeleeSlow
   m_EditorClassIdentifier: Assembly-CSharp::BossConfig
-  BaseDamage: 20
+  BaseDamage: 1
   LevelAddDamage: 1
   BaseHp: 500
   LevelAddHp: 10
-  MoveSpeed: 3
+  MoveSpeed: 6
   RateOfFire: 0.8
   StopingDistance: 1

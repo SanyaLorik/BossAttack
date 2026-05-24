@@ -15,14 +15,27 @@ public class BossCreateManager : MonoBehaviour {
     [Inject] private PlayerRegister _playerRegister;
     [Inject] private MapsToBattleChanger _maps;
     [Inject] private BattleManager _battleManager;
+    [Inject] private BossesDiesObserver _bossesDiesObserver;
     
 
     private void OnEnable() {
         _mainGameStarter.GameStarted += OnGameStarted;
         _battleManager.MainPlayerWin += DisposeBotsLogic;
+        _bossesDiesObserver.BossDied += OnBossDie;
     }
 
     
+    private void OnBossDie(IPlayer boss) {
+        BossRoot bossRoot = _bossInstances.Find(b => b.BotManager == boss);
+        if (bossRoot == null) {
+            Debug.LogError("Босс умер но не найден в списке");
+            return;
+        }
+        bossRoot.DisposeLogic();
+        _bossInstances.Remove(bossRoot);
+    }
+
+
     private void DisposeBotsLogic(bool win) {
         _bossInstances.ForEach(b => b.DisposeLogic());
         _bossInstances.Clear();
@@ -34,19 +47,18 @@ public class BossCreateManager : MonoBehaviour {
             InstanceNewBosses();
         }
         else {
-            ClearBosses();
+            DestroyBosses();
         }
     }
 
 
     private void InstanceNewBosses() {
-        
         for (int i = 0; i < BossCount; i++) {
             BossRoot newBoss = Instantiate(_bossRoot[i]);
             _bossInstances.Add(newBoss);
             InitBoss(newBoss);
             newBoss.InitStats();
-            _playerRegister.RegisterUnit(newBoss.BotManager, TargetType.Enemy);
+            _playerRegister.RegisterUnit(newBoss.BotManager);
             newBoss.BotManager.TeleportToPoint(_maps.GetCurrentEnemySpawns[i].position);
         }
     }
@@ -57,7 +69,11 @@ public class BossCreateManager : MonoBehaviour {
     }
 
     
-    private void ClearBosses() {
-        _playerRegister.Bosses.ForEach(b => Destroy(b.Transform.gameObject));
+    private void DestroyBosses() {
+        foreach (IPlayer boss in _playerRegister.PlayUnits) {
+            if (boss != null && (boss.TargetType & TargetType.Boss) != 0) {
+                Destroy(boss.Transform.gameObject);
+            }
+        }
     }
 }

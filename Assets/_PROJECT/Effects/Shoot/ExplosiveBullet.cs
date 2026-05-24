@@ -1,7 +1,8 @@
 ﻿using SanyaBeerExtension;
 using UnityEngine;
 
-public class PaintBullet : BulletBase {
+public class ExplosiveBullet : BulletBase {
+    [SerializeField] private TemporaryAbility _abilityOnEnd;
     [SerializeField] private ParticleSystem _psToEnd;
     [SerializeField] private ParticleSystem _psWhileFlight;
     [Header("Colors")]
@@ -14,7 +15,6 @@ public class PaintBullet : BulletBase {
     }
 
     public override void InitShoot() {
-        // _bulletModel.ActiveSelf();
         ParticleSystem.MainModule module = _psToEnd.main;
         SetColorToAllParticles();
         _psWhileFlight.ActiveSelf();
@@ -26,6 +26,7 @@ public class PaintBullet : BulletBase {
         _psWhileFlight.DisactiveSelf();
         _psToEnd.Play();
         _soundEmitter.Play(SoundType.Bullet);
+        _abilityOnEnd.Use();
     }
     
     private void SetColorToAllParticles() {

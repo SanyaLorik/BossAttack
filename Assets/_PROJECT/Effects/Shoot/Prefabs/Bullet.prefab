@@ -14924,7 +14924,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7b355f74c8a41c9b769629443878214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
-  _bulletModel: {fileID: 1039038934375527988}
   _psToEnd: {fileID: 869170371635895703}
   _psWhileFlight: {fileID: 913635187997768106}
   _particleColors:

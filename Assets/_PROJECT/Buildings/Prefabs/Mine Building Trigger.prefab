@@ -358,7 +358,7 @@ GameObject:
   - component: {fileID: 8540255199710625996}
   - component: {fileID: 2970806039191099265}
   m_Layer: 0
-  m_Name: Mine
+  m_Name: MineAbility
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -434,6 +434,7 @@ MonoBehaviour:
       type: {class: ExplodeSpawn, ns: , asm: Assembly-CSharp}
       data:
         _explodePs: {fileID: 422816207297425691}
+        _shake: 1
         <SoundType>k__BackingField: 10
 --- !u!1 &5315898922650781916
 GameObject:
@@ -882,6 +883,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7778344509571721475}
     m_Modifications:
+    - target: {fileID: 1816414604180300124, guid: a4988cdd5937e2646b58930c61e5904b, type: 3}
+      propertyPath: LocalSize
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1816414604180300124, guid: a4988cdd5937e2646b58930c61e5904b, type: 3}
+      propertyPath: RandomizeRotation
+      value: 64.8
+      objectReference: {fileID: 0}
     - target: {fileID: 1845511328934671395, guid: a4988cdd5937e2646b58930c61e5904b, type: 3}
       propertyPath: m_LocalScale.x
       value: 1

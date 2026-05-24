@@ -11,11 +11,6 @@ public enum AbilityType {
     ParabolicShoot
 }
 
-[Serializable]
-public enum TargetType {
-    Enemy,
-    Player,
-}
 
 
 public class AbilitySystem : TickerBehaviour {
@@ -40,17 +35,14 @@ public class AbilitySystem : TickerBehaviour {
     public event Action<ISoundPlayer> SoundPlayed;
     public event Action<IPlayer> NewTargetFinded;
     public event Action<IPlayer> NewTargetAttacked;
-    
-    
+
+
     private List<IPlayer> TargetList
-        => TargetType == TargetType.Enemy ? 
-            _battleInfo.Bosses 
-            : 
-            _battleInfo.Players;
+        => _playerRegister.PlayUnits;
     
     
     [Inject] private DiContainer _diContainer;
-    [Inject] private IBattleInfo _battleInfo;
+    [Inject] private PlayerRegister _playerRegister;
     
     
     [Inject]
@@ -132,7 +124,7 @@ public class AbilitySystem : TickerBehaviour {
     }
 
     protected override void FindNewTargets() {
-        _targets = _targetProvider.GetTargets(_origin.position, TargetList);
+        _targets = _targetProvider.GetTargets(_origin.position, TargetList, TargetType);
         
         NewTargetFinded?.Invoke(_targets.Count > 0 ? _targets[0] : null);
     }
