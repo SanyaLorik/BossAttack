@@ -1125,6 +1125,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RadiusToAtack
       objectReference: {fileID: 0}
+    - target: {fileID: 1100053802273287554, guid: c89499b2f2d418340b551fc09ea04516, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3676528134308058562, guid: c89499b2f2d418340b551fc09ea04516, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

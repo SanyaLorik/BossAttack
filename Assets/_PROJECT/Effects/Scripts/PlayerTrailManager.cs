@@ -1,6 +1,5 @@
 using SanyaBeerExtension;
 using UnityEngine;
-using Zenject;
 
 
 public class PlayerTrailManager : MonoBehaviour {

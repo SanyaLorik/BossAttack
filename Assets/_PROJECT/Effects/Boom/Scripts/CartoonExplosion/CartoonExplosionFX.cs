@@ -2,7 +2,7 @@
 
 namespace RavingBots.CartoonExplosion
 {
-	public class CartoonExplosionFX : MonoBehaviour
+	public class CartoonExplosionFX : VisualEffectPlayer
 	{
 		public bool PlayOnStart;
 		public bool Loop;
@@ -32,7 +32,7 @@ namespace RavingBots.CartoonExplosion
 		}
 
 		[ContextMenu("Play")]
-		public void Play()
+		public override void Play()
 		{
             // Debug.Log("Play animation");
 			Play(Time.time);

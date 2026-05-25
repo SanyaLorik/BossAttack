@@ -4,6 +4,7 @@ using UnityEngine;
 public class PaintBullet : BulletBase {
     [SerializeField] private ParticleSystem _psToEnd;
     [SerializeField] private ParticleSystem _psWhileFlight;
+    [SerializeField] private VisualEffectPlayer[] _effectsToEnd;
     [Header("Colors")]
     [SerializeField] private Color[] _particleColors;
     [SerializeField] private Sound3dEmitter _soundEmitter;
@@ -26,6 +27,9 @@ public class PaintBullet : BulletBase {
         _psWhileFlight.DisactiveSelf();
         _psToEnd.Play();
         _soundEmitter.Play(SoundType.Bullet);
+        foreach (var effect in _effectsToEnd) {
+            effect.Play();
+        }
     }
     
     private void SetColorToAllParticles() {

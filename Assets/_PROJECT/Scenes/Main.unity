@@ -4168,6 +4168,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1063157433029759311, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1192304545371801911, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
       propertyPath: _purchaseSlot
       value: 
