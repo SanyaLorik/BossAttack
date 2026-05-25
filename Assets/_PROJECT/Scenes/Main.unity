@@ -4729,6 +4729,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1000344862}
   - component: {fileID: 1000344863}
+  - component: {fileID: 1000344864}
   m_Layer: 0
   m_Name: Boosts
   m_TagString: Untagged
@@ -4763,6 +4764,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eda62439710497cbd254b2ba1cd420f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerBoostBoxesSystem
+--- !u!114 &1000344864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000344861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 755e824c27004e978c66b8b07a06e34f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoostCollectItemSpawner
+  _boostPrefab: {fileID: 3994027863610561539, guid: 9e28a0cdec2f8f64d972b92748c6f1de, type: 3}
 --- !u!114 &1000695571 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3730649805114437260, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}

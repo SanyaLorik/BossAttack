@@ -121,3 +121,4 @@ MonoBehaviour:
     <PlayerCapacityBase>k__BackingField: 8
     <PlayerLevelAddCapacity>k__BackingField: 2
     <ClipReloadOneBulletDuration>k__BackingField: 0.7
+    <BoostBoxHp>k__BackingField: 25

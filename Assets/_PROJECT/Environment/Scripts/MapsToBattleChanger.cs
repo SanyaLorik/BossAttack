@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using SanyaBeerExtension;
@@ -20,8 +21,8 @@ public class MapsToBattleChanger : MonoBehaviour {
     public Transform GetCurrentMapFloor => _mapitems[MapIndex].Floor;
     public float CurrentMapYToFind => _mapitems[MapIndex].YToFind;
     public float FallBotFindSamplePosition => _mapitems[MapIndex].FallBotFindSamplePosition;
-    
-    
+
+    public event Action NewMapChanged;
     
     [Inject] private MainGameStarter _mainGameStarter;
     [Inject] private TutorialManager _tutorialManager;
@@ -66,6 +67,7 @@ public class MapsToBattleChanger : MonoBehaviour {
     private void OnGameStarted(bool started) {
         if (started) {
             ChooseNextMap();
+            NewMapChanged?.Invoke();
         }
     }
 
@@ -77,7 +79,6 @@ public class MapsToBattleChanger : MonoBehaviour {
         else {
             MapIndex = _tutorialMapIndex;
         }
-        
         
         _mapitems.ForEach(m => m.DisactiveSelf());
         _mapitems[MapIndex].gameObject.ActiveSelf();

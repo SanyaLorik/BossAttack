@@ -2,7 +2,7 @@
 using UnityEngine;
 
 public class ExplosiveBullet : BulletBase {
-    [SerializeField] private TemporaryAbility _abilityOnEnd;
+    // [SerializeField] private TemporaryAbility _abilityOnEnd;
     [SerializeField] private ParticleSystem _psToEnd;
     [SerializeField] private ParticleSystem _psWhileFlight;
     [Header("Colors")]
@@ -26,7 +26,7 @@ public class ExplosiveBullet : BulletBase {
         _psWhileFlight.DisactiveSelf();
         _psToEnd.Play();
         _soundEmitter.Play(SoundType.Bullet);
-        _abilityOnEnd.Use();
+        // _abilityOnEnd.Use();
     }
     
     private void SetColorToAllParticles() {

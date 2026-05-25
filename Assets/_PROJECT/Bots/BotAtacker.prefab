@@ -418,7 +418,7 @@ PrefabInstance:
       objectReference: {fileID: 6962497297520591178}
     - target: {fileID: 790296001332029354, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: <TargetType>k__BackingField
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 790296001332029354, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: <Abilitys>k__BackingField.Array.size
@@ -609,6 +609,10 @@ PrefabInstance:
       propertyPath: _origin
       value: 
       objectReference: {fileID: 144949397107387057}
+    - target: {fileID: 3793243273718159137, guid: 71dfb2bcb38e5534f80d8be7552e395d, type: 3}
+      propertyPath: TargetType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3793243273718159137, guid: 71dfb2bcb38e5534f80d8be7552e395d, type: 3}
       propertyPath: managedReferences[7634349546795434072]._spawnPoint
       value: 

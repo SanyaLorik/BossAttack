@@ -14910,7 +14910,6 @@ Transform:
   m_Children:
   - {fileID: 8957159588641187295}
   - {fileID: 5974348964415494229}
-  - {fileID: 8294955337766089822}
   - {fileID: 912055934417639643}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14939,7 +14938,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fae8c321862d4d1ba1ae053e44c6c051, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExplosiveBullet
-  _abilityOnEnd: {fileID: 2856969137330788495}
+  _abilityOnEnd: {fileID: 0}
   _psToEnd: {fileID: 869170371635895703}
   _psWhileFlight: {fileID: 913635187997768106}
   _particleColors:
@@ -14952,82 +14951,6 @@ MonoBehaviour:
   - {r: 0.5176471, g: 0.4392157, b: 1, a: 1}
   - {r: 0, g: 0.9803922, b: 0.6039216, a: 1}
   _soundEmitter: {fileID: 4849289452042637998}
---- !u!1 &7778002683372018826
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8294955337766089822}
-  - component: {fileID: 2856969137330788495}
-  m_Layer: 0
-  m_Name: TempAbility
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8294955337766089822
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7778002683372018826}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7563818678837808040}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2856969137330788495
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7778002683372018826}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21b75d1091444c69a86b0cb518b89349, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TemporaryAbility
-  TargetType: 0
-  <Type>k__BackingField: 0
-  _targetProvider:
-    rid: 7634349588910702664
-  _atackVisuals:
-  - rid: 7634349588910702669
-  _hitDelivery:
-    rid: 7634349588910702667
-  _effect:
-    rid: 7634349588910702668
-  _origin: {fileID: 7563818678837808040}
-  _damage: 4
-  references:
-    version: 2
-    RefIds:
-    - rid: 7634349588910702664
-      type: {class: GetRadiusTargets, ns: , asm: Assembly-CSharp}
-      data:
-        _radius: 15
-    - rid: 7634349588910702667
-      type: {class: MomentalHit, ns: , asm: Assembly-CSharp}
-      data: 
-    - rid: 7634349588910702668
-      type: {class: Damage, ns: , asm: Assembly-CSharp}
-      data:
-        _damage: 0
-    - rid: 7634349588910702669
-      type: {class: ExplodeSpawn, ns: , asm: Assembly-CSharp}
-      data:
-        _explodePs: {fileID: 2651698782002916209}
-        _shake: 0
-        <SoundType>k__BackingField: 10
 --- !u!1001 &1528080149786668280
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15110,14 +15033,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1845511328934671395, guid: a4988cdd5937e2646b58930c61e5904b, type: 3}
   m_PrefabInstance: {fileID: 1528080149786668280}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2651698782002916209 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3600747967436457865, guid: a4988cdd5937e2646b58930c61e5904b, type: 3}
-  m_PrefabInstance: {fileID: 1528080149786668280}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 683e615f3ac673a45966983a36be7206, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

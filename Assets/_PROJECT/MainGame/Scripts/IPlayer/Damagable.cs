@@ -1,5 +1,4 @@
 ﻿using System;
-using Cysharp.Threading.Tasks.Triggers;
 using UnityEngine;
 
 public class Damagable : IDamagable {

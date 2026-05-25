@@ -40,7 +40,7 @@ public class DamageVisualizer : ProgressVisualizer {
         _damagable.DamagableSpawned += OnDamagableSpawned;
     }
 
-    private void Unsubscribe() {
+    public void Unsubscribe() {
         if (_damagable == null) return;
         _damagable.HpUpdated -= OnHpUpdated;
         _damagable.DamagableDied -= OnDamagableDied;

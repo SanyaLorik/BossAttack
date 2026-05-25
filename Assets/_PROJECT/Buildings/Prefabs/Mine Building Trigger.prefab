@@ -395,7 +395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildItem
   _intervalToFindTarget: 0.3
   _origin: {fileID: 8018826651429653617}
-  TargetType: 0
+  TargetType: 2
   <Type>k__BackingField: 0
   _targetProvider:
     rid: 7634349317783289929

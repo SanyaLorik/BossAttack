@@ -7,11 +7,7 @@ using Zenject;
 public class PlayerRegister : MonoBehaviour {
     public List<IPlayer> PlayUnits { get; private set; } = new();
     
-    public IPlayer MainPlayer => _playerMovement;
     public bool MainPlayerPlay { get; private set; }
-
-    
-    [Inject] private PlayerMovement _playerMovement;
 
     
     public void RegisterUnit(IPlayer player) {
