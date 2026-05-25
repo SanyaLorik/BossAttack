@@ -62,7 +62,7 @@ public class ParabolicProjectileDelivery : IHitDelivery, ISoundPlayer {
         }
 
         paintBulletInstance.SetPosition(_spawnPoint.position);
-        GameObject warningVisual = _spawner.SpawnObjectByRaycast(_warningVisual, target.Transform.position, .5f);
+        GameObject warningVisual = _spawner.SpawnObjectByRaycast(_warningVisual, target.Transform.position, .05f);
         ParabolicBulletFlightAsync(paintBulletInstance, target.PointToAtack, allTargets, effect, warningVisual)
             .Forget();
     }

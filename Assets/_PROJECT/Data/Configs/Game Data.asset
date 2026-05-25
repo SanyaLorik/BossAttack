@@ -88,7 +88,7 @@ MonoBehaviour:
       <To>k__BackingField: 8
     <BotChanceToUseBonus>k__BackingField: 0.2
     <TimeDividerToUnbild>k__BackingField: 2
-    <DistanceToFindNavMeshToBuild>k__BackingField: 5
+    <DistanceToFindNavMeshToBuild>k__BackingField: 10
     <NewGameTimer>k__BackingField: 1488
     <DelayAfterGameOverToNewTimer>k__BackingField: 5
     <DefaultSpeedInRound>k__BackingField: 12
@@ -122,3 +122,5 @@ MonoBehaviour:
     <PlayerLevelAddCapacity>k__BackingField: 2
     <ClipReloadOneBulletDuration>k__BackingField: 0.7
     <BoostBoxHp>k__BackingField: 25
+    <BoostHpAdd>k__BackingField: 5
+    <BoostDamageAdd>k__BackingField: 1

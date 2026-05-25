@@ -132,7 +132,6 @@ public class AbilitySystem : TickerBehaviour {
     
     private bool _allowToUse;
     protected override void OnStart() {
-        Debug.Log("OnStart" + gameObject.name);
         _atackCapacity.StartCheckCapacity(true);
         _allowToUse = true;
         // _atackCapacity.SetVisualState(true);

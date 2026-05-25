@@ -157,5 +157,7 @@ public class GameData : GameDataBase
     
     [field: Header("Коробки с бустами")]
     [field: SerializeField] public int BoostBoxHp { get; private set; }
+    [field: SerializeField] public int BoostHpAdd { get; private set; }
+    [field: SerializeField] public int BoostDamageAdd { get; private set; }
 
 }

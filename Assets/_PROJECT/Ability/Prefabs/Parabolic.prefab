@@ -85,7 +85,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3370838473875880811}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.9159088, y: 5.04459, z: 9.955039}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -107,7 +107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildItem
   _intervalToFindTarget: 2
   _origin: {fileID: 0}
-  TargetType: 1
+  TargetType: 2
   <Type>k__BackingField: 2
   _targetProvider:
     rid: 7634349249449427015
@@ -126,7 +126,7 @@ MonoBehaviour:
     - rid: 7634349249449427015
       type: {class: GetClosestTarget, ns: , asm: Assembly-CSharp}
       data:
-        _distance: 100
+        _distance: 120
     - rid: 7634349316450811976
       type: {class: InfinitCapacity, ns: , asm: Assembly-CSharp}
       data: 
@@ -137,7 +137,7 @@ MonoBehaviour:
     - rid: 7634349521342300231
       type: {class: DistanceFilter, ns: , asm: Assembly-CSharp}
       data:
-        _allowedDistance: 50
+        _allowedDistance: 100
     - rid: 7634349546795434069
       type: {class: ParabolicProjectileDelivery, ns: , asm: Assembly-CSharp}
       data:
@@ -179,9 +179,9 @@ MonoBehaviour:
           m_RotationOrder: 0
         _spawnPoint: {fileID: 0}
         _bulletInstance: {fileID: 4117493534217919638, guid: 14870805f05ccaa42acb44f45cde1abd, type: 3}
-        _hitRadius: 5
+        _hitRadius: 10
         _warningVisual: {fileID: 1100053802273287554, guid: 69570dd534136314e994f97b401da0f3, type: 3}
-        _bulletLifeSecAfterHit: 15
-        _offsetToFloor: -0.2
+        _bulletLifeSecAfterHit: 7
+        _offsetToFloor: 0
         _progressToShowPaintVisual: 1
         <SoundType>k__BackingField: 13

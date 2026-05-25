@@ -15,6 +15,7 @@ public class BoostCollectItemSpawner : MonoBehaviour {
     [Inject] DiContainer _diContainer;
 
     
+    
     private void OnDisable() {
         _mainGameStarter.GameStarted -= OnGameStarted;
         _mapsChanger.NewMapChanged -= OnNewMapChanged;

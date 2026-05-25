@@ -5,7 +5,7 @@ using UnityEngine;
 public enum TargetType {
     None      = 0,
     Player    = 1 << 0,
-    Boss     = 1 << 1,
+    Boss      = 1 << 1,
     Boost     = 1 << 2,
     Building  = 1 << 3,
 }

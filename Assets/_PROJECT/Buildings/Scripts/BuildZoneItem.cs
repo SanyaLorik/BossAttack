@@ -213,7 +213,7 @@ public class BuildZoneItem : MonoBehaviour {
         }
         _isBuilded = true;
         _currentTime = _timeToBuild;
-        Debug.Log("Start ability build");
+        // Debug.Log("Start ability build");
 
         _abilityBuilding.StartSystem();
         _afterBuildVisual.ActiveSelf();

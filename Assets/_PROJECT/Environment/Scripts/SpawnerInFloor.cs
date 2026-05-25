@@ -37,7 +37,7 @@ public class SpawnerInFloor {
         if (Physics.Raycast(position, Vector3.down * _gameData.DistanceToFindNavMeshToBuild, out RaycastHit hit)) {
             Vector3 pointToInstance = new Vector3(hit.point.x, hit.point.y + offset, hit.point.z);
             GameObject grave = Object.Instantiate(prefab, pointToInstance, Quaternion.identity);
-            Debug.Log("Спавн успешен");
+            // Debug.Log("Спавн успешен");
             return grave;
         }
         else {

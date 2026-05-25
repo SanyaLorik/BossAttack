@@ -399,7 +399,7 @@ GameObject:
   - component: {fileID: 374021865770013718}
   - component: {fileID: 4568785495120099130}
   m_Layer: 0
-  m_Name: Health Building Trigger
+  m_Name: Health Building
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

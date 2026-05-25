@@ -571,7 +571,7 @@ GameObject:
   - component: {fileID: 4765160198991928016}
   - component: {fileID: 1376350344280223978}
   m_Layer: 0
-  m_Name: Mine Building Trigger
+  m_Name: Mine Building
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
