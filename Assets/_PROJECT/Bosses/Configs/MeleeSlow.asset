@@ -16,6 +16,6 @@ MonoBehaviour:
   LevelAddDamage: 1
   BaseHp: 500
   LevelAddHp: 10
-  MoveSpeed: 6
+  MoveSpeed: 15
   RateOfFire: 0.8
   StopingDistance: 1

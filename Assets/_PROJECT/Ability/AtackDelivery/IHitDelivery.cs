@@ -2,5 +2,5 @@
 using UnityEngine;
 
 public interface IHitDelivery {
-    void Deliver(Vector3 origin, IPlayer target, List<IPlayer> targetList, IEffect effect);
+    void Deliver(Vector3 origin, IPlayer target, TargetType typeToAtack, List<IPlayer> targetList, IEffect effect);
 }

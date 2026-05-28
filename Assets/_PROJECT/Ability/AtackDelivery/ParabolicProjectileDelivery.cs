@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using SanyaBeerExtension;
 using UnityEngine;
 using Zenject;
@@ -29,9 +30,6 @@ public class ParabolicProjectileDelivery : IHitDelivery, ISoundPlayer {
     [SerializeField] private float _bulletLifeSecAfterHit = 1f;
     [SerializeField] private float _offsetToFloor = 1f;
 
-
-
-    [SerializeField, Range(0f, 1f)] private float _progressToShowPaintVisual = 1f;
     [field: SerializeField] public SoundType SoundType { get; private set; }
 
 
@@ -48,29 +46,22 @@ public class ParabolicProjectileDelivery : IHitDelivery, ISoundPlayer {
     }
 
 
-    public void Deliver(Vector3 origin, IPlayer target, List<IPlayer> allTargets, IEffect effect) {
-        WaitWhileNull(origin, target, allTargets, effect).Forget();
-    }
-
-    private async UniTaskVoid WaitWhileNull(Vector3 origin, IPlayer target, List<IPlayer> allTargets, IEffect effect) {
-        await UniTask.WaitWhile(() => _poolManager == null && _gameData == null && _spawner == null);
+    public void Deliver(Vector3 origin, IPlayer target, TargetType typeToAtack, List<IPlayer> allTargets, IEffect effect) {
         BulletBase paintBulletInstance =
             _poolManager.Spawn<BulletBase>(_bulletInstance.gameObject, _spawnPoint.position, PoolType.Bullets);
-        if (paintBulletInstance == null) {
-            Debug.LogError("Пуля = null");
-            return;
-        }
-
         paintBulletInstance.SetPosition(_spawnPoint.position);
         GameObject warningVisual = _spawner.SpawnObjectByRaycast(_warningVisual, target.Transform.position, .05f);
-        ParabolicBulletFlightAsync(paintBulletInstance, target.PointToAtack, allTargets, effect, warningVisual)
+        ParabolicBulletFlightAsync(paintBulletInstance, target.Transform, typeToAtack, allTargets, effect, warningVisual)
             .Forget();
+        
     }
+
 
 
     private async UniTaskVoid ParabolicBulletFlightAsync(
         BulletBase paintBullet, 
         Transform target, 
+        TargetType typeToAtack, 
         List<IPlayer> targetList, 
         IEffect effect,
         GameObject warningVisual
@@ -94,10 +85,6 @@ public class ParabolicProjectileDelivery : IHitDelivery, ISoundPlayer {
         paintBullet.InitShoot();
         while (elapsedTime <  duration) {
             float progress = elapsedTime / duration;
-            if (progress > _progressToShowPaintVisual) {
-                break;
-            }
-            
             float height = flightCurve.Evaluate(progress) * _flyHeight;
             Vector3 newPos = Vector3.Lerp(bulletStartPos, targetPosition, progress);
             newPos += new Vector3(0, height, 0);
@@ -110,7 +97,7 @@ public class ParabolicProjectileDelivery : IHitDelivery, ISoundPlayer {
         paintBullet.PlayToEnd();
         
         // Нанесение урона
-        ApplyEffectToTargets(targetList, targetPosition, effect);
+        ApplyEffectToTargets(targetList, typeToAtack, targetPosition, effect);
         Object.Destroy(warningVisual);
         
         await UniTask.WaitForSeconds(_bulletLifeSecAfterHit);
@@ -118,7 +105,7 @@ public class ParabolicProjectileDelivery : IHitDelivery, ISoundPlayer {
     }
     
     
-    private void ApplyEffectToTargets(List<IPlayer> targetList, Vector3 targetPosition, IEffect effect) {
+    private void ApplyEffectToTargets(List<IPlayer> targetList, TargetType typeToAtack, Vector3 targetPosition, IEffect effect) {
 
         foreach (IPlayer player in targetList) {
 
@@ -128,7 +115,7 @@ public class ParabolicProjectileDelivery : IHitDelivery, ISoundPlayer {
             float sqrDistance =
                 (player.Transform.position - targetPosition).sqrMagnitude; 
 
-            if(sqrDistance <= _hitRadius * _hitRadius) {
+            if((player.TargetType & typeToAtack) != 0 && sqrDistance <= _hitRadius * _hitRadius) {
                 effect.ApplyEffect(player);
             }
         }

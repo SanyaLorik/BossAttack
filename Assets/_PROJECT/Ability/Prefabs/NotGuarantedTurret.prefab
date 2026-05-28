@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3779787496599984676}
   - component: {fileID: 2570064870296261947}
   m_Layer: 0
-  m_Name: TurretAbilityToGuarantedShoot
+  m_Name: NotGuarantedTurret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildItem
   _intervalToFindTarget: 0.4
   _origin: {fileID: 0}
-  TargetType: 0
+  TargetType: 2
   <Type>k__BackingField: 0
   _targetProvider:
     rid: 7634349180084289609
@@ -56,22 +56,18 @@ MonoBehaviour:
   _atackVisuals:
   - rid: 7634349546795434062
   _hitDelivery:
-    rid: 7634349546795434054
+    rid: 7634349612117524482
   _effect:
     rid: 7634349316450811974
   _atackCapacity:
-    rid: 7634349316450811973
+    rid: 7634349546795434063
   references:
     version: 2
     RefIds:
     - rid: 7634349180084289609
       type: {class: GetClosestTarget, ns: , asm: Assembly-CSharp}
       data:
-        _distance: 100
-    - rid: 7634349316450811973
-      type: {class: ClipCapacity, ns: , asm: Assembly-CSharp}
-      data:
-        _capacityVisualizer: {fileID: 0}
+        _distance: 70
     - rid: 7634349316450811974
       type: {class: Damage, ns: , asm: Assembly-CSharp}
       data:
@@ -79,21 +75,24 @@ MonoBehaviour:
     - rid: 7634349521342300235
       type: {class: DistanceFilter, ns: , asm: Assembly-CSharp}
       data:
-        _allowedDistance: 20
-    - rid: 7634349546795434054
-      type: {class: GuaranteedHitBulletsSpawner, ns: , asm: Assembly-CSharp}
-      data:
-        _bulletSpeed: 100
-        _spawnPoint: {fileID: 0}
-        _bulletInstance: {fileID: 4117493534217919638, guid: bc77ae790f4f6b04a893d598d1b73f04, type: 3}
-        _progressToShowPaintVisual: 1
-        _bulletLifeSecAfterHit: 2
-        <SoundType>k__BackingField: 14
+        _allowedDistance: 50
     - rid: 7634349546795434062
       type: {class: TurretRotator, ns: , asm: Assembly-CSharp}
       data:
-        _rotationSpeed: 10
+        _rotationSpeed: 100
         _rotateTransform: {fileID: 0}
+    - rid: 7634349546795434063
+      type: {class: InfinitCapacity, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 7634349612117524482
+      type: {class: NotGuaranteedHitBulletsSpawner, ns: , asm: Assembly-CSharp}
+      data:
+        _bulletSpeed: 100
+        _spawnPoint: {fileID: 0}
+        _bulletInstance: {fileID: 4117493534217919638, guid: 14870805f05ccaa42acb44f45cde1abd, type: 3}
+        _hitRadius: 10
+        _bulletLifeSecAfterHit: 2
+        <SoundType>k__BackingField: 14
 --- !u!1 &6157633326473770332
 GameObject:
   m_ObjectHideFlags: 0

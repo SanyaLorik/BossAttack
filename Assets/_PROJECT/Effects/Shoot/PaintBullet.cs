@@ -2,6 +2,7 @@
 using UnityEngine;
 
 public class PaintBullet : BulletBase {
+    [SerializeField] private TemporaryAbility _abilityToEnd;
     [SerializeField] private ParticleSystem _psToEnd;
     [SerializeField] private ParticleSystem _psWhileFlight;
     [SerializeField] private VisualEffectPlayer[] _effectsToEnd;
@@ -30,6 +31,10 @@ public class PaintBullet : BulletBase {
         foreach (var effect in _effectsToEnd) {
             effect.Play();
         }
+        
+        // После долетания взрыв 
+        if (_abilityToEnd != null) _abilityToEnd.Use();
+        
     }
     
     private void SetColorToAllParticles() {

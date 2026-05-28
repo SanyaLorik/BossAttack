@@ -395,7 +395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildItem
   _intervalToFindTarget: 0.3
   _origin: {fileID: 8018826651429653617}
-  TargetType: 2
+  TypeToAtack: 2
   <Type>k__BackingField: 0
   _targetProvider:
     rid: 7634349317783289929
@@ -433,7 +433,7 @@ MonoBehaviour:
     - rid: 7634349546795434067
       type: {class: ExplodeSpawn, ns: , asm: Assembly-CSharp}
       data:
-        _explodePs: {fileID: 422816207297425691}
+        _explodeVisual: {fileID: 422816207297425691}
         _shake: 1
         <SoundType>k__BackingField: 10
 --- !u!1 &5315898922650781916

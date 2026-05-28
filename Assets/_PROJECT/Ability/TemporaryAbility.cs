@@ -5,7 +5,7 @@ using UnityEngine;
 using Zenject;
 
 public class TemporaryAbility : MonoBehaviour {
-    [SerializeField] private TargetType TargetType;
+    [SerializeField] private TargetType TypeToAtack;
     [field: SerializeField] public AbilityType Type { get; private set; }
     [SerializeReference, SubclassSelector] private ITargetProvider _targetProvider;
     [SerializeReference, SubclassSelector] private List<IAtackVisual> _atackVisuals;
@@ -69,6 +69,7 @@ public class TemporaryAbility : MonoBehaviour {
         _hitDelivery.Deliver(
             _origin.position,
             target,
+            TypeToAtack,
             TargetList,
             _effect
         );
@@ -87,7 +88,7 @@ public class TemporaryAbility : MonoBehaviour {
     }
 
     private void FindNewTargets() {
-        _targets = _targetProvider.GetTargets(_origin.position, TargetList, TargetType);
+        _targets = _targetProvider.GetTargets(_origin.position, TargetList, TypeToAtack);
     }
     
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 [Serializable]
 public class MomentalHit : IHitDelivery {
-    public void Deliver(Vector3 origin, IPlayer target, List<IPlayer> targetList, IEffect effect) {
+    public void Deliver(Vector3 origin, IPlayer target, TargetType typeToAtack, List<IPlayer> targetList, IEffect effect) {
         effect.ApplyEffect(target);
     }
 }

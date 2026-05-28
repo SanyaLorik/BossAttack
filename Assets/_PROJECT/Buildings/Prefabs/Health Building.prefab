@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 1520153112886831354}
   - component: {fileID: 7372823353895176044}
   m_Layer: 0
-  m_Name: Building
+  m_Name: Ability
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -187,7 +187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildItem
   _intervalToFindTarget: 0.5
   _origin: {fileID: 1520153112886831354}
-  TargetType: 1
+  TypeToAtack: 1
   <Type>k__BackingField: 0
   _targetProvider:
     rid: 7634349180084289607

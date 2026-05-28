@@ -677,6 +677,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2076115730848257332}
     - target: {fileID: 4912602691724449379, guid: 7bfb922cdedc4664ab3ea0dc7abe62e6, type: 3}
+      propertyPath: TypeToAtack
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4912602691724449379, guid: 7bfb922cdedc4664ab3ea0dc7abe62e6, type: 3}
       propertyPath: managedReferences[7634349546795434069]._spawnPoint
       value: 
       objectReference: {fileID: 2936903512998288965}

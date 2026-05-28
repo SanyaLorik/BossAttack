@@ -53,11 +53,12 @@ public abstract class TickerBehaviour : MonoBehaviour, IValueGetter {
         if (_rateOfFire == null) {
             Debug.LogError("_rateOfFire == null");
         }
+        
         float interval = _rateOfFire();
         interval = MathF.Max(interval, _gameData.PlayerRateOfFireMinimum);
         while (!token.IsCancellationRequested) {
-            await UniTask.WaitForSeconds(interval, cancellationToken: token);
             Tick();
+            await UniTask.WaitForSeconds(interval, cancellationToken: token);
         }
     }
     

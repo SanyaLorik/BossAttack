@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 543f53ac372646c7b950add62c4bb7a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildItem
-  _intervalToFindTarget: 0.4
+  _intervalToFindTarget: 1
   _origin: {fileID: 0}
-  TargetType: 0
+  TypeToAtack: 2
   <Type>k__BackingField: 0
   _targetProvider:
     rid: 7634349180084289609
@@ -67,11 +67,11 @@ MonoBehaviour:
     - rid: 7634349180084289609
       type: {class: GetClosestTarget, ns: , asm: Assembly-CSharp}
       data:
-        _distance: 32
+        _distance: 35
     - rid: 7634349249449427014
       type: {class: AngleTargetFilter, ns: , asm: Assembly-CSharp}
       data:
-        _viewAngle: 180
+        _viewAngle: 90
     - rid: 7634349316450811973
       type: {class: ClipCapacity, ns: , asm: Assembly-CSharp}
       data:
@@ -89,7 +89,7 @@ MonoBehaviour:
       data:
         _bulletSpeed: 100
         _spawnPoint: {fileID: 0}
-        _bulletInstance: {fileID: 4117493534217919638, guid: bc77ae790f4f6b04a893d598d1b73f04, type: 3}
+        _bulletInstance: {fileID: 2371869794996538148, guid: bc77ae790f4f6b04a893d598d1b73f04, type: 3}
         _hitRadius: 1
         _bulletLifeSecAfterHit: 2
         <SoundType>k__BackingField: 13

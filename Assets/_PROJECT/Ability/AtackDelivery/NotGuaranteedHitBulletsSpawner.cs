@@ -27,18 +27,18 @@ public class NotGuaranteedHitBulletsSpawner : IHitDelivery, ISoundPlayer {
     }
 
     
-    public void Deliver(Vector3 origin, IPlayer target, List<IPlayer> targetList, IEffect effect) {
+    public void Deliver(Vector3 origin, IPlayer target, TargetType typeToAtack, List<IPlayer> targetList, IEffect effect) {
         BulletBase paintBulletInstance = _poolManager.Spawn<BulletBase>(_bulletInstance.gameObject, _spawnPoint.position, PoolType.Bullets);
         if (paintBulletInstance == null) {
             Debug.LogError("Пуля = null");
             return;
         }
         paintBulletInstance.SetPosition(_spawnPoint.position);
-        BulletFlightAsync(paintBulletInstance, target, targetList,  effect).Forget();
+        BulletFlightAsync(paintBulletInstance, target, typeToAtack, targetList,  effect).Forget();
     }
 
 
-    private async UniTaskVoid BulletFlightAsync(BulletBase paintBullet, IPlayer target, List<IPlayer> targetList, IEffect effect) {
+    private async UniTaskVoid BulletFlightAsync(BulletBase paintBullet, IPlayer target, TargetType typeToAtack, List<IPlayer> targetList, IEffect effect) {
         // Полёт
         Transform targetTransform = target.PointToAtack;
         
@@ -62,7 +62,7 @@ public class NotGuaranteedHitBulletsSpawner : IHitDelivery, ISoundPlayer {
             traveledDistance += _bulletSpeed * Time.deltaTime;
             
             // Проверка попадания
-            if (TryApplyEffect(targetList, paintBullet.transform, effect)) {
+            if (TryApplyEffect(targetList, typeToAtack, paintBullet.transform, effect)) {
                 isHited = true;
                 paintBullet.PlayToEnd();
                 await UniTask.WaitForSeconds(_bulletLifeSecAfterHit);
@@ -78,7 +78,7 @@ public class NotGuaranteedHitBulletsSpawner : IHitDelivery, ISoundPlayer {
     }
 
     
-    private bool TryApplyEffect(List<IPlayer> targetList, Transform bullet, IEffect effect) {
+    private bool TryApplyEffect(List<IPlayer> targetList, TargetType targetType, Transform bullet, IEffect effect) {
 
         foreach (IPlayer player in targetList) {
 
@@ -88,9 +88,9 @@ public class NotGuaranteedHitBulletsSpawner : IHitDelivery, ISoundPlayer {
             float sqrDistance =
                 (player.PointToAtack.position - bullet.transform.position).sqrMagnitude; 
 
-            if(sqrDistance <= _hitRadius * _hitRadius) {
+            if((player.TargetType & targetType) != 0 &&  sqrDistance <= _hitRadius * _hitRadius) {
                 effect.ApplyEffect(player);
-                // bullet.transform.SetParent(player.Transform, true);
+                bullet.transform.SetParent(player.Transform, true);
                 return true;    
             }
         }

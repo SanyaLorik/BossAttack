@@ -14,7 +14,7 @@ public enum AbilityType {
 
 
 public class AbilitySystem : TickerBehaviour {
-    [SerializeField] private TargetType TargetType;
+    [SerializeField] private TargetType TypeToAtack;
     [field: SerializeField] public AbilityType Type { get; private set; }
     [SerializeReference, SubclassSelector] private ITargetProvider _targetProvider;
     [SerializeReference, SubclassSelector] private List<ITargetFilter> _targetFilters;
@@ -105,6 +105,7 @@ public class AbilitySystem : TickerBehaviour {
         _hitDelivery.Deliver(
             _origin.position,
             target,
+            TypeToAtack,
             TargetList,
             _effect
         );
@@ -124,8 +125,10 @@ public class AbilitySystem : TickerBehaviour {
     }
 
     protected override void FindNewTargets() {
-        _targets = _targetProvider.GetTargets(_origin.position, TargetList, TargetType);
-        
+        _targets = _targetProvider.GetTargets(_origin.position, TargetList, TypeToAtack);
+        // if (_targets.Count > 0 ) {
+        //     Debug.Log($"Найдена цель {_targets[0].TargetType} для {TypeToAtack}");
+        // }
         NewTargetFinded?.Invoke(_targets.Count > 0 ? _targets[0] : null);
     }
 

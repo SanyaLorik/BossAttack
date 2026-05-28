@@ -57,7 +57,7 @@ MonoBehaviour:
     <BotPetCountDiapasone>k__BackingField:
       <From>k__BackingField: 0
       <To>k__BackingField: 3
-    <CountBotsToGame>k__BackingField: 4
+    <CountBotsToGame>k__BackingField: 0
     <BotSpeed>k__BackingField: 8
     <CountSpeakingBotsPerTime>k__BackingField:
       <From>k__BackingField: 1
