@@ -9182,8 +9182,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossCreateManager
   _bossRoot:
-  - {fileID: 5655819244037393353, guid: 9e92c27d76f7ff449919031164e86a22, type: 3}
-  - {fileID: 5655819244037393353, guid: 833dba73be90dc248a5b736acf6ec28d, type: 3}
+  - {fileID: 725078164772712106, guid: 6943132940a71ef42a78501ecc8707e9, type: 3}
+  - {fileID: 725078164772712106, guid: 17f199d18c80521478afe9f2b7c3df60, type: 3}
   <BossCount>k__BackingField: 2
 --- !u!33 &83981065760671030
 MeshFilter:

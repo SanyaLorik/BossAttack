@@ -177,6 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7b355f74c8a41c9b769629443878214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
+  _abilityToEnd: {fileID: 0}
   _psToEnd: {fileID: 9218465918714650551}
   _psWhileFlight: {fileID: 9192880931365472329}
   _effectsToEnd:
