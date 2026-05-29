@@ -40,7 +40,6 @@ public class BossesDiesObserver {
             Debug.LogError("Проблема с поиском игрока");
         }
         else {
-            boss.Transform.gameObject.DisactiveSelf();
             BossDied?.Invoke(boss);
         }
     }

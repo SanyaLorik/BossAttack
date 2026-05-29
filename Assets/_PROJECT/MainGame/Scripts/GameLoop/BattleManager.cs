@@ -25,6 +25,7 @@ public class BattleManager : MonoBehaviour {
     public event Action<int> PlayersCountChanged;
     public event Action GameReadyToPlay;
     public event Action<bool> MainPlayerWin;
+    public event Action MainPlayerReturnedToSpawn;
 
     
     // Views
@@ -141,7 +142,7 @@ public class BattleManager : MonoBehaviour {
         
         _playerMovement.SetPlayStatusSilent(false);
         await UniTask.WaitWhile(() => _gameOver.ResultWindowShowing);
-        
+        MainPlayerReturnedToSpawn?.Invoke();
         
         _playerMovement.SetPlayStatus(false);
         _playerMovement.SetMovingStatus(true);

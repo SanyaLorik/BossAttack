@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using SanyaBeerExtension;
 using UnityEngine;
 using Zenject;
 
@@ -22,6 +23,7 @@ public class BossCreateManager : MonoBehaviour {
         _mainGameStarter.GameStarted += OnGameStarted;
         _battleManager.MainPlayerWin += DisposeBotsLogic;
         _bossesDiesObserver.BossDied += OnBossDie;
+        _battleManager.MainPlayerReturnedToSpawn += OnPlayerReturnToSpawn;
     }
 
     
@@ -31,14 +33,13 @@ public class BossCreateManager : MonoBehaviour {
             Debug.LogError("Босс умер но не найден в списке");
             return;
         }
+        boss.Transform.gameObject.DisactiveSelf();
         bossRoot.DisposeLogic();
-        _bossInstances.Remove(bossRoot);
     }
 
 
     private void DisposeBotsLogic(bool win) {
         _bossInstances.ForEach(b => b.DisposeLogic());
-        _bossInstances.Clear();
     }
 
     
@@ -49,6 +50,10 @@ public class BossCreateManager : MonoBehaviour {
         else {
             DestroyBosses();
         }
+    }
+    
+    private void OnPlayerReturnToSpawn() {
+        DestroyBosses();
     }
 
 
@@ -75,5 +80,6 @@ public class BossCreateManager : MonoBehaviour {
                 Destroy(boss.Transform.gameObject);
             }
         }
+        _bossInstances.Clear();
     }
 }
