@@ -45,7 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TemporaryAbility
   TypeToAtack: 2
-  <Type>k__BackingField: 0
   _targetProvider:
     rid: 7634349681683464262
   _atackVisuals: []

@@ -6,7 +6,6 @@ using Zenject;
 
 public class TemporaryAbility : MonoBehaviour {
     [SerializeField] private TargetType TypeToAtack;
-    [field: SerializeField] public AbilityType Type { get; private set; }
     [SerializeReference, SubclassSelector] private ITargetProvider _targetProvider;
     [SerializeReference, SubclassSelector] private List<IAtackVisual> _atackVisuals;
     [SerializeReference, SubclassSelector] private IHitDelivery _hitDelivery;

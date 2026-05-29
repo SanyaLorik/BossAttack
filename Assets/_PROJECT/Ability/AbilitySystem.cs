@@ -5,17 +5,9 @@ using UnityEngine;
 using Zenject;
 
 
-public enum AbilityType {
-    Shooting,
-    Melee,
-    ParabolicShoot
-}
-
-
 
 public class AbilitySystem : TickerBehaviour {
     [SerializeField] private TargetType TypeToAtack;
-    [field: SerializeField] public AbilityType Type { get; private set; }
     [SerializeReference, SubclassSelector] private ITargetProvider _targetProvider;
     [SerializeReference, SubclassSelector] private List<ITargetFilter> _targetFilters;
     [SerializeReference, SubclassSelector] private List<IAtackVisual> _atackVisuals;

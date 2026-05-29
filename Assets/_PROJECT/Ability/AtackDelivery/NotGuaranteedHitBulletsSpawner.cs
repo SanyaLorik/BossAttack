@@ -90,7 +90,7 @@ public class NotGuaranteedHitBulletsSpawner : IHitDelivery, ISoundPlayer {
 
             if((player.TargetType & targetType) != 0 &&  sqrDistance <= _hitRadius * _hitRadius) {
                 effect.ApplyEffect(player);
-                bullet.transform.SetParent(player.Transform, true);
+                // bullet.transform.SetParent(player.Transform, true);
                 return true;    
             }
         }
