@@ -9,7 +9,9 @@ using Zenject;
 [Serializable]
 public class GetClosestTarget : ITargetProvider, IGizmosDrawable {
     [SerializeField] private float _distance;
-    
+    [SerializeField] private bool _checkLineOfSight;
+    [SerializeReference, SubclassSelector] private List<ITargetFilter> _targetFilters;
+
 
     public IPlayer Same { get; private set; }
     
@@ -25,7 +27,7 @@ public class GetClosestTarget : ITargetProvider, IGizmosDrawable {
     }
 
    
-    public List<IPlayer> GetTargets(Vector3 origin, List<IPlayer> targetList, TargetType targetType) {
+    public List<IPlayer> GetTargets(Transform origin, List<IPlayer> targetList, TargetType targetType) {
         List<IPlayer> result = new();
         _closestUnit = null;
         _bestSqr = float.MaxValue;
@@ -47,17 +49,25 @@ public class GetClosestTarget : ITargetProvider, IGizmosDrawable {
         return result;
     }
 
-    private bool CheckTarget(IPlayer target, Vector3 origin) {
-        Vector3 direction = target.Transform.position - origin;
+    private bool CheckTarget(IPlayer target, Transform origin) {
+        Vector3 direction = target.Transform.position - origin.position;
         float sqrDistance = Vector3.SqrMagnitude(direction);
             
         // Скип если далеко
         if (sqrDistance > _sqrRange) 
             return false;
+        
  
         // Проверка что между нами стенка
-        if(!HasLineOfSight(origin, direction, target)) 
+        if(_checkLineOfSight && !HasLineOfSight(origin.position, direction, target)) 
             return false;
+        
+        
+        foreach (var filter in _targetFilters) {
+            if (filter.CanApply(origin, target) == false) {
+                return false;
+            }
+        }
 
         if (sqrDistance <= _bestSqr) {
             _bestSqr = sqrDistance;

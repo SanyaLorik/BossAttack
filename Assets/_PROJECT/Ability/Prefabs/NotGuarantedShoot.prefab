@@ -51,9 +51,7 @@ MonoBehaviour:
   <Type>k__BackingField: 0
   _targetProvider:
     rid: 7634349180084289609
-  _targetFilters:
-  - rid: 7634349249449427014
-  - rid: 7634349521342300235
+  _targetFilters: []
   _atackVisuals: []
   _hitDelivery:
     rid: 7634349546795434072
@@ -68,10 +66,9 @@ MonoBehaviour:
       type: {class: GetClosestTarget, ns: , asm: Assembly-CSharp}
       data:
         _distance: 35
-    - rid: 7634349249449427014
-      type: {class: AngleTargetFilter, ns: , asm: Assembly-CSharp}
-      data:
-        _viewAngle: 90
+        _checkLineOfSight: 1
+        _targetFilters:
+        - rid: 7634349701429461062
     - rid: 7634349316450811973
       type: {class: ClipCapacity, ns: , asm: Assembly-CSharp}
       data:
@@ -80,10 +77,6 @@ MonoBehaviour:
       type: {class: Damage, ns: , asm: Assembly-CSharp}
       data:
         _damage: 0
-    - rid: 7634349521342300235
-      type: {class: DistanceFilter, ns: , asm: Assembly-CSharp}
-      data:
-        _allowedDistance: 30
     - rid: 7634349546795434072
       type: {class: NotGuaranteedHitBulletsSpawner, ns: , asm: Assembly-CSharp}
       data:
@@ -93,6 +86,10 @@ MonoBehaviour:
         _hitRadius: 1
         _bulletLifeSecAfterHit: 2
         <SoundType>k__BackingField: 13
+    - rid: 7634349701429461062
+      type: {class: AngleTargetFilter, ns: , asm: Assembly-CSharp}
+      data:
+        _viewAngle: 100
 --- !u!1 &4790339253772433222
 GameObject:
   m_ObjectHideFlags: 0

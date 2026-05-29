@@ -107,7 +107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildItem
   _intervalToFindTarget: 2
   _origin: {fileID: 0}
-  TargetType: 2
+  TypeToAtack: 0
   <Type>k__BackingField: 2
   _targetProvider:
     rid: 7634349249449427015
@@ -127,6 +127,8 @@ MonoBehaviour:
       type: {class: GetClosestTarget, ns: , asm: Assembly-CSharp}
       data:
         _distance: 120
+        _checkLineOfSight: 0
+        _targetFilters: []
     - rid: 7634349316450811976
       type: {class: InfinitCapacity, ns: , asm: Assembly-CSharp}
       data: 
@@ -137,7 +139,7 @@ MonoBehaviour:
     - rid: 7634349521342300231
       type: {class: DistanceFilter, ns: , asm: Assembly-CSharp}
       data:
-        _allowedDistance: 100
+        _allowedDistance: 70
     - rid: 7634349546795434069
       type: {class: ParabolicProjectileDelivery, ns: , asm: Assembly-CSharp}
       data:
@@ -183,5 +185,4 @@ MonoBehaviour:
         _warningVisual: {fileID: 1100053802273287554, guid: 69570dd534136314e994f97b401da0f3, type: 3}
         _bulletLifeSecAfterHit: 7
         _offsetToFloor: 0
-        _progressToShowPaintVisual: 1
         <SoundType>k__BackingField: 13

@@ -90,7 +90,9 @@ public class BuildZoneItem : MonoBehaviour {
         // Не буду делать тк модификация списка 
         // _playerRegister.UnregisterUnit(_buildItem, TargetType.Player);
         Debug.Log($"Destroy unit  {_buildingType}");
-        _psOnDestroy?.Play();
+        if (_psOnDestroy != null) {
+            _psOnDestroy.Play();
+        }
         SetDefault();
     }
 

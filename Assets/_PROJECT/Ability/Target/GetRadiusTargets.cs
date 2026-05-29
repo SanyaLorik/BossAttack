@@ -20,11 +20,11 @@ public class GetRadiusTargets : ITargetProvider, IGizmosDrawable {
     
     
     
-    public List<IPlayer> GetTargets(Vector3 origin, List<IPlayer> targetList, TargetType targetType) {
+    public List<IPlayer> GetTargets(Transform origin, List<IPlayer> targetList, TargetType targetType) {
         List<IPlayer> result = new ();
         foreach (var target in targetList) {
             if (target.Damagable.CurrentHp == 0 || (target.TargetType & targetType) == 0) continue;
-            float distance = Vector3.SqrMagnitude(origin - target.Transform.position);
+            float distance = Vector3.SqrMagnitude(origin.position - target.Transform.position);
             if (distance <= _radius * _radius && target != Same) {
                 result.Add(target);
             }

@@ -125,7 +125,7 @@ public class AbilitySystem : TickerBehaviour {
     }
 
     protected override void FindNewTargets() {
-        _targets = _targetProvider.GetTargets(_origin.position, TargetList, TypeToAtack);
+        _targets = _targetProvider.GetTargets(_origin, TargetList, TypeToAtack);
         // if (_targets.Count > 0 ) {
         //     Debug.Log($"Найдена цель {_targets[0].TargetType} для {TypeToAtack}");
         // }

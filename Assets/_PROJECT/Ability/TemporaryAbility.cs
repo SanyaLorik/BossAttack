@@ -88,7 +88,7 @@ public class TemporaryAbility : MonoBehaviour {
     }
 
     private void FindNewTargets() {
-        _targets = _targetProvider.GetTargets(_origin.position, TargetList, TypeToAtack);
+        _targets = _targetProvider.GetTargets(_origin, TargetList, TypeToAtack);
     }
     
 }
