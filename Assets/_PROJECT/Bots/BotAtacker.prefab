@@ -1,5 +1,50 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &238951087261848517
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2961672589657676119}
+  - component: {fileID: 8403709619597825177}
+  m_Layer: 6
+  m_Name: WanderingInBattle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2961672589657676119
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238951087261848517}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1579938659534242785}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8403709619597825177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238951087261848517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b1311cfa95e4aedb81321ebf59da1a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotWanderingInBattle
+  _botWalkManager: {fileID: 2488747619669158920}
 --- !u!1 &1739448805627197724
 GameObject:
   m_ObjectHideFlags: 0
@@ -413,6 +458,10 @@ PrefabInstance:
       value: BotAtacker
       objectReference: {fileID: 0}
     - target: {fileID: 790296001332029354, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
+      propertyPath: _botWanderingInBattle
+      value: 
+      objectReference: {fileID: 8403709619597825177}
+    - target: {fileID: 790296001332029354, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: <Ability>k__BackingField
       value: 
       objectReference: {fileID: 6962497297520591178}
@@ -496,6 +545,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3667074117147502011, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2907578688408222491}
+    - targetCorrespondingSourceObject: {fileID: 2669498892522294507, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2961672589657676119}
     - targetCorrespondingSourceObject: {fileID: 7953180259397531146, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       insertIndex: 1
       addedObject: {fileID: 5115374377790419766}
@@ -509,6 +561,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3667074117147502011, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
   m_PrefabInstance: {fileID: 3523757532669873930}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1579938659534242785 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2669498892522294507, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
+  m_PrefabInstance: {fileID: 3523757532669873930}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2149254248894621581 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3257590806755272839, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
@@ -520,6 +577,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &2488747619669158920 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1328324431073747714, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
+  m_PrefabInstance: {fileID: 3523757532669873930}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf4b651628ff0b842b0ee90923173f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotWander
 --- !u!114 &4184218750056900768 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 790296001332029354, guid: 12049685913cfbb43b6b01f917270f73, type: 3}

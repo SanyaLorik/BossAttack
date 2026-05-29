@@ -1,10 +1,10 @@
 using System;
-using System.Collections.Generic;
 using SanyaBeerExtension;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
 using Random = UnityEngine.Random;
+
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class BotManager : MonoBehaviour, IPlayer {
@@ -35,6 +35,7 @@ public class BotManager : MonoBehaviour, IPlayer {
     [field: SerializeField] public JumpParticlesController LandParticles  { get; private set; }
     [field: SerializeField] public DualLegParticles WalkingParticles  { get; private set; }
     [SerializeField] private DamageVisualizer _damageVisualizer;
+    [SerializeField] private BotWanderingInBattle _botWanderingInBattle;
     
     
     public IBonusUser BonusUser => BotBonusController;
@@ -120,9 +121,11 @@ public class BotManager : MonoBehaviour, IPlayer {
             ActiveBotInGame();
             SetBotStfu();
             _damagable.SetSpawned();
+            _botWanderingInBattle.StartWandering();
         }
         // Возвращение на спавн
         else {
+            _botWanderingInBattle.StopWandering();
             Debug.Log($"Возвращение на спавн игрока {BotMonolog.NickName} in {_respawn.SpawnPoint.position}");
             Debug.Log($"Игрок play статус {IsPlaying} in {_respawn.SpawnPoint.position}");
             SetBotStateBeforeGame();

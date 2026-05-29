@@ -73,6 +73,8 @@ public class GameData : GameDataBase
     [field: SerializeField] public float RotationSpeed { get; private set; }
     [field: SerializeField, Range(0,1)] public float ChanceToJump { get; private set; }
     [field: SerializeField] public PairedValue<float> TimeToStayOnPoint { get; private set; }
+    [field: SerializeField] public PairedValue<float> TimeToStayOnPointInBattle { get; private set; }
+    
     [field: SerializeField] public PairedValue<float> TimeToStayAfterSpawn { get; private set; }
     [field: SerializeField] public PairedValue<float> TimeToSpeak { get; private set; }
     [field: SerializeField, Range(0,1)] public float ChanceToBotChangeNicknameAfterPlay { get; private set; }

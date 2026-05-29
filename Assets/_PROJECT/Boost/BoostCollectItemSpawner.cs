@@ -43,7 +43,9 @@ public class BoostCollectItemSpawner : MonoBehaviour {
         foreach (var point in _mapsChanger.GetBoostSpawnPoints) {
             BoostCollectItem newBoost =
                 _diContainer.InstantiatePrefabForComponent<BoostCollectItem>(_boostPrefab);
-
+            
+            _boostCollectItems.Add(newBoost);
+            
             newBoost.TeleportToPoint(point.position);
             _playerRegister.RegisterUnit(newBoost);;
         }
