@@ -15,10 +15,10 @@ MonoBehaviour:
   <SoundType>k__BackingField: 12
   <AudioClips>k__BackingField:
   - {fileID: 8300000, guid: 6a3052eb37e161045b2fe846d002855f, type: 3}
-  <Volume>k__BackingField: 0.365
+  <Volume>k__BackingField: 0.468
   <PitchDiapasone>k__BackingField:
-    <From>k__BackingField: 0.9
-    <To>k__BackingField: 1.5
+    <From>k__BackingField: 1
+    <To>k__BackingField: 1.3
   <MixerGroup>k__BackingField: {fileID: 750195993760700612, guid: 4dbd4f10ca94e134a8a090e3394d5f41, type: 2}
   <Loop>k__BackingField: 0
   <SpatialBlend>k__BackingField: 0
