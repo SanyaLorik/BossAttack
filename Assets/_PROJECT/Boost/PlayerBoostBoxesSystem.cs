@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Zenject;
 
 public class PlayerBoostBoxesSystem : MonoBehaviour {
     public int AccumulatedDamage { get; private set; }
     public int AccumulatedHp { get; private set; }
     
+    public event Action PlayerBoosted; 
     
     
     [Inject] BattleManager _battleManager;
@@ -28,6 +30,7 @@ public class PlayerBoostBoxesSystem : MonoBehaviour {
         AccumulatedDamage += _gameData.BoostDamageAdd;
         AccumulatedHp += _gameData.BoostHpAdd;
         _playerDamagable.ApplyHeal(_gameData.BoostHpAdd);
+        PlayerBoosted?.Invoke();
     }
 
     private void OnGameStarted(bool obj) {

@@ -21,6 +21,7 @@ public class BuildZoneItem : MonoBehaviour {
     [SerializeField] private GameObject _afterBuildVisual;
     [SerializeField] private AbilitySystem _abilityBuilding;
     [SerializeField] private DamageVisualizer _damagableVisual; 
+    [SerializeField] private ParticleSystem _psOnDestroy; 
 
 
     private bool _isBuilded;
@@ -89,6 +90,7 @@ public class BuildZoneItem : MonoBehaviour {
         // Не буду делать тк модификация списка 
         // _playerRegister.UnregisterUnit(_buildItem, TargetType.Player);
         Debug.Log($"Destroy unit  {_buildingType}");
+        _psOnDestroy?.Play();
         SetDefault();
     }
 

@@ -1,8 +1,12 @@
-﻿using UnityEngine;
+﻿using SanyaBeerExtension;
+using UnityEngine;
 using Zenject;
 
 public class BoostCollectItem : MonoBehaviour, IPlayer {
     [SerializeField] private DamageVisualizer _damageVisualizer;
+    [SerializeField] private ParticleSystem _psToDestroy;
+    [SerializeField] private GameObject[] _visualToHide;
+    [SerializeField] private Collider _colliderToHide;
     
     private PlayerBoostBoxesSystem _playerBoostBoxesSystem;
     private GameData _gameData;
@@ -41,11 +45,18 @@ public class BoostCollectItem : MonoBehaviour, IPlayer {
         Damagable.DamagableDied -= OnDamagableDied;
         
         _playerBoostBoxesSystem.PlusOne();
+        _psToDestroy.Play();
         SetVisualModelState(false);
     }
 
     public void SetVisualModelState(bool enable) {
-        gameObject.SetActive(enable);
+        _colliderToHide.enabled = enable;
+        if (enable) {
+            _visualToHide.ActiveSelf();
+        }
+        else {
+            _visualToHide.DisactiveSelf();
+        }
     }
     
 

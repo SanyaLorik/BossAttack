@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b6f68eb8a6649fc80133fed78933f4f, type: 3}
   m_Name: ParabolicSlow
   m_EditorClassIdentifier: Assembly-CSharp::BossConfig
-  BaseDamage: 1
+  BaseDamage: 10
   LevelAddDamage: 1
   BaseHp: 350
   LevelAddHp: 10
-  MoveSpeed: 7
+  MoveSpeed: 5
   RateOfFire: 1
   StopingDistance: 10

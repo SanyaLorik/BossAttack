@@ -5399,6 +5399,10 @@ PrefabInstance:
       propertyPath: _intervalToFindTarget
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 3887000631383385253, guid: 7c5e4d14ece8f6246808912708c29a12, type: 3}
+      propertyPath: managedReferences[7634349249449427014]._viewAngle
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 6278525158390120559, guid: 7c5e4d14ece8f6246808912708c29a12, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.06

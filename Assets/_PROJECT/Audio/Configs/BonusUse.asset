@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoundConfig
   <SoundType>k__BackingField: 12
   <AudioClips>k__BackingField:
-  - {fileID: 8300000, guid: f46792824171e1543ad46f0558264f2f, type: 3}
+  - {fileID: 8300000, guid: 6a3052eb37e161045b2fe846d002855f, type: 3}
   <Volume>k__BackingField: 0.365
   <PitchDiapasone>k__BackingField:
     <From>k__BackingField: 0.9
@@ -22,3 +22,6 @@ MonoBehaviour:
   <MixerGroup>k__BackingField: {fileID: 750195993760700612, guid: 4dbd4f10ca94e134a8a090e3394d5f41, type: 2}
   <Loop>k__BackingField: 0
   <SpatialBlend>k__BackingField: 0
+  <DistanceDiapasone>k__BackingField:
+    <From>k__BackingField: 0
+    <To>k__BackingField: 0

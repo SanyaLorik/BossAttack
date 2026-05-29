@@ -23,7 +23,6 @@ public class BonusCollectItem : MonoBehaviour {
 
     
     private void UseBonus() {
-        GameEvents.BonusUseInvoke(Bonus);
         _bonusService.TryAddBonus(this);
     }
     
