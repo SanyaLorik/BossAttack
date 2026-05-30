@@ -1987,7 +1987,7 @@ MonoBehaviour:
   <CentralTeleport>k__BackingField: {fileID: 977837456}
   _mapitems:
   - {fileID: 415421060}
-  - {fileID: 415421061}
+  - {fileID: 1906734439}
   _tutorialMapIndex: 0
 --- !u!114 &350261723 stripped
 MonoBehaviour:
@@ -2579,7 +2579,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4343414195835875579, guid: 97dd70a5ec067624ba81c12446c68854, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4368202496714112144, guid: 97dd70a5ec067624ba81c12446c68854, type: 3}
       propertyPath: m_IsActive
@@ -2597,13 +2597,9 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8260203418882863019, guid: 97dd70a5ec067624ba81c12446c68854, type: 3}
-      propertyPath: m_NavMeshData
-      value: 
-      objectReference: {fileID: 23800000, guid: b2a2344389c66d342940fa5c8e17d3f2, type: 2}
     - target: {fileID: 8372530636349311775, guid: 97dd70a5ec067624ba81c12446c68854, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9103216526810284478, guid: 97dd70a5ec067624ba81c12446c68854, type: 3}
       propertyPath: m_IsActive
@@ -2622,17 +2618,6 @@ Transform:
 --- !u!114 &415421060 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2834198610941107288, guid: 97dd70a5ec067624ba81c12446c68854, type: 3}
-  m_PrefabInstance: {fileID: 415421058}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c49814a82ff64f07af8266e8a5d7cee7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MapItem
---- !u!114 &415421061 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8243420688989026265, guid: 97dd70a5ec067624ba81c12446c68854, type: 3}
   m_PrefabInstance: {fileID: 415421058}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -4806,10 +4791,6 @@ PrefabInstance:
     - target: {fileID: 9130735015479195135, guid: c3770a4602ddc9b43b0f0ef9423b69ab, type: 3}
       propertyPath: m_Name
       value: '[DEMO]'
-      objectReference: {fileID: 0}
-    - target: {fileID: 9130735015479195135, guid: c3770a4602ddc9b43b0f0ef9423b69ab, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -8337,13 +8318,13 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 349319953}
   - {fileID: 1000344862}
   - {fileID: 2116922384}
   - {fileID: 220291354}
   - {fileID: 177850816}
   - {fileID: 48979605}
   - {fileID: 880088265}
+  - {fileID: 349319953}
   - {fileID: 1319422669}
   - {fileID: 1624858872}
   - {fileID: 196757133}
@@ -8501,6 +8482,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6732716492818924200, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}
   m_PrefabInstance: {fileID: 967158670}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1906734439 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6517862186695322618, guid: c3770a4602ddc9b43b0f0ef9423b69ab, type: 3}
+  m_PrefabInstance: {fileID: 986255327}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c49814a82ff64f07af8266e8a5d7cee7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MapItem
 --- !u!114 &1907366798 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2430155683549716430, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}

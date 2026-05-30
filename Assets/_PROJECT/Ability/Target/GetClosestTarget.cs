@@ -80,12 +80,12 @@ public class GetClosestTarget : ITargetProvider, IGizmosDrawable {
 
 
     private bool HasLineOfSight(Vector3 origin, Vector3 direction, IPlayer target) {
-        // if (Physics.Raycast(origin, direction.normalized, out RaycastHit hitInfo, _distance)) {
-        //     if (hitInfo.transform == target.Transform) {
-        //         return true;
-        //     }
-        // }
-        // return false;
+        if (Physics.Raycast(origin, direction.normalized, out RaycastHit hitInfo, _distance)) {
+            if (hitInfo.transform == target.Transform) {
+                return true;
+            }
+        }
+        return false;
         return true;
     }
 

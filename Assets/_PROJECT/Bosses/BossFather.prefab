@@ -47,7 +47,6 @@ MonoBehaviour:
   _intervalToFindTarget: 3
   _origin: {fileID: 4750764167075588228}
   TypeToAtack: 0
-  <Type>k__BackingField: 1
   _targetProvider:
     rid: 7634349292691914825
   _targetFilters:
@@ -197,7 +196,6 @@ MonoBehaviour:
   _intervalToFindTarget: 2
   _origin: {fileID: 4750764167075588228}
   TypeToAtack: 0
-  <Type>k__BackingField: 0
   _targetProvider:
     rid: 7634349249449427015
   _targetFilters:
@@ -216,6 +214,8 @@ MonoBehaviour:
       type: {class: GetClosestTarget, ns: , asm: Assembly-CSharp}
       data:
         _distance: 100
+        _checkLineOfSight: 0
+        _targetFilters: []
     - rid: 7634349316450811976
       type: {class: InfinitCapacity, ns: , asm: Assembly-CSharp}
       data: 
@@ -608,6 +608,14 @@ PrefabInstance:
       propertyPath: managedReferences[7634349546795434069]._arcMultiplier
       value: 1.74
       objectReference: {fileID: 0}
+    - target: {fileID: 4912602691724449379, guid: 7bfb922cdedc4664ab3ea0dc7abe62e6, type: 3}
+      propertyPath: managedReferences[7634349588910702663]._checkLineOfSight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4912602691724449379, guid: 7bfb922cdedc4664ab3ea0dc7abe62e6, type: 3}
+      propertyPath: managedReferences[7634349588910702663]._targetFilters.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -839,7 +847,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5080053104704692055, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5080053104704692055, guid: 12049685913cfbb43b6b01f917270f73, type: 3}
       propertyPath: m_Center.x
@@ -1011,7 +1019,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4828039368617044, guid: 0ac4543fb4f8b4c459fb43df156b534b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.23
+      value: -0.06
       objectReference: {fileID: 0}
     - target: {fileID: 4828039368617044, guid: 0ac4543fb4f8b4c459fb43df156b534b, type: 3}
       propertyPath: m_LocalPosition.z
