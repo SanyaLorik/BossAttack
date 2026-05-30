@@ -2514,6 +2514,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 1735668838670433196, guid: 6ba3d558b52490643ac8138276cfb368, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1735668838670433196, guid: 6ba3d558b52490643ac8138276cfb368, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1735668838670433196, guid: 6ba3d558b52490643ac8138276cfb368, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2824753990463299226, guid: 6ba3d558b52490643ac8138276cfb368, type: 3}
       propertyPath: CountText
       value: 

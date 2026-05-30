@@ -11,7 +11,6 @@ public class JumpParticlesController : MonoBehaviour  {
     private bool _isPlaying = false;
     private Coroutine _currentCoroutine;
     
-    
     private void Start() {
         EnableTrails(false);
     }
@@ -25,9 +24,10 @@ public class JumpParticlesController : MonoBehaviour  {
         // Останавливаем предыдущую корутину, если есть
         if (_currentCoroutine != null)
             StopCoroutine(_currentCoroutine);
-        if (gameObject.activeSelf) {
-            _currentCoroutine = StartCoroutine(Sequence());
-        }
+        if (!gameObject.activeInHierarchy) // 
+            return;
+    
+        _currentCoroutine = StartCoroutine(Sequence());
     }
 
     private void EnableTrails(bool state) {

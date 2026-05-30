@@ -83,7 +83,9 @@ public class PlayerStateManager : MonoBehaviour{
 
 
     private void PlayerMovementOnFloored() {
-        _flooringParticlesController.Play();
+        if (_flooringParticlesController.gameObject.activeSelf) {
+            _flooringParticlesController.Play();
+        }
     }
 
 
