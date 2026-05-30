@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using SanyaBeerExtension;
 using UnityEngine;
-using Zenject;
 
 public class BossesDiesObserver {
     public event Action<IPlayer> BossDied;

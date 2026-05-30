@@ -5,27 +5,41 @@ using Zenject;
 
 
 public class GraveSpawner : MonoBehaviour {
-    [SerializeField] private GameObject _gravePrefab;
+    [SerializeField] private GameObject _gravePrefabForPlayer;
+    [SerializeField] private GameObject _gravePrefabForBoss;
 
+    
     [Inject] private BattleManager _battleManager;  
     [Inject] private MainGameStarter _gameStarter;
     [Inject] private RespawnManager _respawnManager;
     [Inject] private SpawnerInFloor _spawnerInFloor;
-    [Inject] private PlayersDiesObserver _diesObserver;
+    [Inject] private PlayersDiesObserver _playerDies;
+    [Inject] private BossesDiesObserver _bossesDies;
 
     private readonly Dictionary<IPlayer, GameObject> _playerToGrave = new();
+    private readonly List<GameObject> _bossesGraves = new(8);
     
     
     private void OnEnable() {
-        _diesObserver.PlayerDied += OnPlayerDied;
-        _diesObserver.PlayerSpawned += DestroyGraveAfterPlayerSpawn;
+        _playerDies.PlayerDied += OnPlayerDied;
+        _bossesDies.BossDied += OnBossDied;
+        
+        _playerDies.PlayerSpawned += DestroyGraveAfterPlayerSpawn;
         _gameStarter.GameStarted += OnGameStarted;
     }
 
+
     private void OnDisable() {
-        _diesObserver.PlayerDied -= OnPlayerDied;
-        _diesObserver.PlayerSpawned -= DestroyGraveAfterPlayerSpawn;
+        _playerDies.PlayerDied -= OnPlayerDied;
+        _bossesDies.BossDied -= OnBossDied;
+        
+        
+        _playerDies.PlayerSpawned -= DestroyGraveAfterPlayerSpawn;
         _gameStarter.GameStarted -= OnGameStarted;
+    }
+    
+    private void OnBossDied(IPlayer player) {
+        SpawnGraveForBoss(player);
     }
 
 
@@ -35,18 +49,23 @@ public class GraveSpawner : MonoBehaviour {
 
     
     private void OnPlayerDied(IPlayer player) {
-        SpawnGrave(player);
+        SpawnGraveForPlayer(player);
     }
 
     
-    private void SpawnGrave(IPlayer player) {
-        GameObject newGrave = _spawnerInFloor.SpawnObject(_gravePrefab, player.Transform.position);
+    private void SpawnGraveForPlayer(IPlayer player) {
+        GameObject newGrave = _spawnerInFloor.SpawnObject(_gravePrefabForPlayer, player.Transform.position);
         if (_playerToGrave.ContainsKey(player) == false) {
             _playerToGrave[player] = newGrave;
         }
         else {
             Debug.LogError("Grave already spawned");            
         }
+    }
+    
+    private void SpawnGraveForBoss(IPlayer player) {
+        GameObject newGrave = _spawnerInFloor.SpawnObject(_gravePrefabForBoss, player.Transform.position);
+       _bossesGraves.Add(newGrave);
     }
     
     
@@ -62,6 +81,10 @@ public class GraveSpawner : MonoBehaviour {
     private void RemoveAllGraves() {
         _playerToGrave.ForEach(kvp => Destroy(kvp.Value));
         _playerToGrave.Clear();
+        
+        _bossesGraves.ForEach(Destroy);
+        _bossesGraves.Clear();
+
     } 
     
 }

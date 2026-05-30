@@ -20,6 +20,8 @@ public class Damagable : IDamagable {
     public event Action<IDamagable> DamagableDied;
     public event Action<IDamagable> DamagableSpawned;
     public event Action<int> HpUpdated;
+    public event Action<int> HpMinus;
+    public event Action<int> HpPlus;
     
 
     public int CurrentHp { get; private set; }
@@ -46,6 +48,7 @@ public class Damagable : IDamagable {
         CurrentHp -= damage;
         CurrentHp = Mathf.Clamp(CurrentHp, 0, _maxHpGetter());
         HpUpdated?.Invoke(CurrentHp);
+        HpMinus?.Invoke(damage);
         CheckDied();
     }
     
@@ -56,6 +59,7 @@ public class Damagable : IDamagable {
         CurrentHp += hp;
         CurrentHp = Mathf.Clamp(CurrentHp, 0, _maxHpGetter());
         HpUpdated?.Invoke(CurrentHp);
+        HpPlus?.Invoke(hp);
     }
     
     public void SetSpawned() {

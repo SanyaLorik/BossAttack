@@ -2411,6 +2411,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 360952959}
     m_Modifications:
+    - target: {fileID: 103812477461505064, guid: ee00e2868b257f64aa8f0017bb4ba443, type: 3}
+      propertyPath: TrackerSettings.PositionDamping.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 103812477461505064, guid: ee00e2868b257f64aa8f0017bb4ba443, type: 3}
+      propertyPath: TrackerSettings.PositionDamping.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 103812477461505064, guid: ee00e2868b257f64aa8f0017bb4ba443, type: 3}
+      propertyPath: TrackerSettings.PositionDamping.z
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1954807348930321206, guid: ee00e2868b257f64aa8f0017bb4ba443, type: 3}
       propertyPath: _frequency
       value: 4
@@ -6254,7 +6266,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 070c7094af1d4871ad8cdc4f67666cd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GraveSpawner
-  _gravePrefab: {fileID: 6151491399947140989, guid: 0a28c2289ddee3043a9a12f9946503a4, type: 3}
+  _gravePrefabForPlayer: {fileID: 6151491399947140989, guid: 0a28c2289ddee3043a9a12f9946503a4, type: 3}
+  _gravePrefabForBoss: {fileID: 6151491399947140989, guid: 87982dacc9b9cf1469ff8d4e24afb993, type: 3}
 --- !u!224 &1416741191 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1591113126571504886, guid: 776d8e27a07b4864182ee7a91abd1de2, type: 3}

@@ -86,7 +86,6 @@ public class GetClosestTarget : ITargetProvider, IGizmosDrawable {
             }
         }
         return false;
-        return true;
     }
 
     public void DrawGizmos(Vector3 origin) {
