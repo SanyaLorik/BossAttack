@@ -179,7 +179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
   _abilityToEnd: {fileID: 0}
   _psToEnd: {fileID: 9109709370072229337}
-  _psWhileFlight: {fileID: 1470032365221119379}
+  _psWhileFlight: {fileID: 9084056222163513895}
   _effectsToEnd: []
   _particleColors:
   - {r: 1, g: 0, b: 0, a: 1}
@@ -293,11 +293,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: caae0978cecfd4c4389c9a627887fd50, type: 3}
---- !u!198 &1470032365221119379 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 5472907610259324504, guid: caae0978cecfd4c4389c9a627887fd50, type: 3}
-  m_PrefabInstance: {fileID: 6887471524851022795}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7243267909366274534 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4256032580909900333, guid: caae0978cecfd4c4389c9a627887fd50, type: 3}
@@ -380,6 +375,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198804212326411082, guid: 604be756a75f19a48bce8d7c4f928d5d, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 198804212326411082, guid: 604be756a75f19a48bce8d7c4f928d5d, type: 3}
       propertyPath: UVModule.frameOverTime.maxCurve.m_Curve.Array.data[0].value
       value: 0.65591115
       objectReference: {fileID: 0}
@@ -407,6 +406,11 @@ PrefabInstance:
 --- !u!4 &8989832633448502997 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4797478012653496, guid: 604be756a75f19a48bce8d7c4f928d5d, type: 3}
+  m_PrefabInstance: {fileID: 8994610265465723245}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &9084056222163513895 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 198804212326411082, guid: 604be756a75f19a48bce8d7c4f928d5d, type: 3}
   m_PrefabInstance: {fileID: 8994610265465723245}
   m_PrefabAsset: {fileID: 0}
 --- !u!198 &9109709370072229337 stripped
