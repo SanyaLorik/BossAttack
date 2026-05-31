@@ -110,7 +110,6 @@ public class BotWalkManager : MonoBehaviour {
     public void ResetLogic()
     {
         DisposeAllLogic();
-
         if (_manager.Agent != null && _manager.Agent.enabled && _manager.Agent.isOnNavMesh)
         {
             _manager.Agent.velocity = Vector3.zero;

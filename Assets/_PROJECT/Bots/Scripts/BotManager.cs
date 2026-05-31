@@ -35,9 +35,9 @@ public class BotManager : MonoBehaviour, IPlayer {
     [field: SerializeField] public JumpParticlesController LandParticles  { get; private set; }
     [field: SerializeField] public DualLegParticles WalkingParticles  { get; private set; }
     [SerializeField] private DamageVisualizer _damageVisualizer;
-    [SerializeField] private BotWanderingInBattle _botWanderingInBattle;
-    
-    
+    [field: SerializeField] public BotWanderingInBattle BotWanderingInBattle { get; private set; }
+
+
     public IBonusUser BonusUser => BotBonusController;
     public IDamagable Damagable => _damagable;
     
@@ -48,7 +48,7 @@ public class BotManager : MonoBehaviour, IPlayer {
     public void SetVisualModelState(bool enable) {
         _playerSkin.SetActive(enable);
     }
-
+    
     
     public IPusher Pusher { get; private set; }
 
@@ -118,24 +118,33 @@ public class BotManager : MonoBehaviour, IPlayer {
         gameObject.SetActive(ShowInSpawn || goPlay);
         
         if (goPlay) {
-            ActiveBotInGame();
-            SetBotStfu();
-            _damagable.SetSpawned();
-            _botWanderingInBattle.StartWandering();
+            EnterInBattle();
         }
-        // Возвращение на спавн
         else {
-            _botWanderingInBattle.StopWandering();
-            Debug.Log($"Возвращение на спавн игрока {BotMonolog.NickName} in {_respawn.SpawnPoint.position}");
-            Debug.Log($"Игрок play статус {IsPlaying} in {_respawn.SpawnPoint.position}");
-            SetBotStateBeforeGame();
-            TeleportToPoint(_respawn.SpawnPoint.position);
-            ChangeNicknameByChance();
-            _damageVisualizer.FastHide();
+            ExitBattle();
         }
         SetStartWanderIfActive(!goPlay);
     }
 
+    private void ExitBattle() {
+        BotWanderingInBattle.StopWandering();
+        Debug.Log($"Возвращение на спавн игрока {BotMonolog.NickName} in {_respawn.SpawnPoint.position}");
+        Debug.Log($"Игрок play статус {IsPlaying} in {_respawn.SpawnPoint.position}");
+        SetBotStateBeforeGame();
+        TeleportToPoint(_respawn.SpawnPoint.position);
+        ChangeNicknameByChance();
+        _damageVisualizer.FastHide();
+    }
+
+    
+    private void EnterInBattle() {
+        ActiveBotInGame();
+        SetBotStfu();
+        _damagable.SetSpawned();
+        BotWanderingInBattle.StartWandering();
+    }
+
+    
     private void ChangeNicknameByChance() {
         if(Random.value > _gameData.ChanceToBotChangeNicknameAfterPlay) return;
         BotMonolog.ChangeNickname();

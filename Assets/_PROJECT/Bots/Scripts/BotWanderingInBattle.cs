@@ -4,23 +4,28 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
+
+
 public class BotWanderingInBattle : MonoBehaviour {
-    [SerializeField] private BotWalkManager _botWalkManager;
-    
+    [SerializeField] private BotManager _botManager;
     
     private CancellationTokenSource _tokenSource;
+    private bool _allowToWander;
     
     [Inject] GameData _gameData;
     [Inject] MapsToBattleChanger _mapsChanger;
     
+    
     public void StartWandering() {
+        StopWandering();
         _tokenSource = new CancellationTokenSource();
         WanderingInPlace(_tokenSource.Token).Forget();
     }
 
+    
     public void StopWandering() {
         UniTaskHelper.DisposeTask(ref _tokenSource);
-        _botWalkManager.ResetLogic();
+        _botManager.BotWalkManager.ResetLogic();
     }
     
     
@@ -28,7 +33,7 @@ public class BotWanderingInBattle : MonoBehaviour {
         while (!token.IsCancellationRequested) {
             // await UniTask.WaitWhile(() => _botWalkManager.IsPushed, cancellationToken: token);
             Vector3 target = GetRandomPointInMap();
-            _botWalkManager.SetAgentGoToPoint(target);
+            await _botManager.BotWalkManager.SetAgentGoToPointAsync(target, token);
             await UniTask.WaitForSeconds(GetRandomTimingToStayInPoint(), cancellationToken: token);
         }
     }
@@ -38,7 +43,7 @@ public class BotWanderingInBattle : MonoBehaviour {
     }
 
     private Vector3 GetRandomPointInMap() {
-        Vector3 target = _botWalkManager.GetTargetPoint(_mapsChanger.GetCurrentMapFloor, _mapsChanger.CurrentMapYToFind);
+        Vector3 target = _botManager.BotWalkManager.GetTargetPoint(_mapsChanger.GetCurrentMapFloor, _mapsChanger.CurrentMapYToFind);
         return target;
     }
 }

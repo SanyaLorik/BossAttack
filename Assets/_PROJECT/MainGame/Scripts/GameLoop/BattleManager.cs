@@ -22,7 +22,6 @@ public class BattleManager : MonoBehaviour {
 
     private CancellationTokenSource _tokenSource;
 
-    public event Action<int> PlayersCountChanged;
     public event Action GameReadyToPlay;
     public event Action<bool> MainPlayerWin;
     public event Action MainPlayerReturnedToSpawn;

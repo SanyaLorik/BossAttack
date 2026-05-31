@@ -4,7 +4,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
-public class BotRespawnTimer : MonoBehaviour {
+public class BotLifecycleController : MonoBehaviour {
     [SerializeField] BotManager _bot;
     [SerializeField] private AbilityControllerBase _abilityController;
     
@@ -32,6 +32,7 @@ public class BotRespawnTimer : MonoBehaviour {
     private void OnBattleEnd(bool _) {
         UniTaskHelper.DisposeTask(ref _respawnTokenSource);
         _bot.Damagable.Respawn(false);
+        _bot.BotWanderingInBattle.StopWandering();
     }
 
     
@@ -40,6 +41,13 @@ public class BotRespawnTimer : MonoBehaviour {
         _abilityController.StartAbility();
         _bot.SetMovingStatus(true);
         _bot.SetVisualModelState(true);
+        
+        if (_battleManager.GameIsOver == false) {
+            _bot.BotWanderingInBattle.StartWandering();
+        }
+        else {
+            _bot.BotWanderingInBattle.StopWandering();
+        }
     }
 
  
@@ -49,6 +57,7 @@ public class BotRespawnTimer : MonoBehaviour {
         _bot.SetMovingStatus(false);
         _bot.SetVisualModelState(false);
         StartRespawnTimer();
+        _bot.BotWanderingInBattle.StopWandering();
     }
         
     
@@ -76,3 +85,5 @@ public class BotRespawnTimer : MonoBehaviour {
    
     
 }
+
+

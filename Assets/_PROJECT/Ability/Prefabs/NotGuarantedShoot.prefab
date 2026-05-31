@@ -48,7 +48,6 @@ MonoBehaviour:
   _intervalToFindTarget: 1
   _origin: {fileID: 0}
   TypeToAtack: 2
-  <Type>k__BackingField: 0
   _targetProvider:
     rid: 7634349180084289609
   _targetFilters: []
@@ -80,7 +79,7 @@ MonoBehaviour:
     - rid: 7634349546795434072
       type: {class: NotGuaranteedHitBulletsSpawner, ns: , asm: Assembly-CSharp}
       data:
-        _bulletSpeed: 100
+        _bulletSpeed: 70
         _spawnPoint: {fileID: 0}
         _bulletInstance: {fileID: 2371869794996538148, guid: bc77ae790f4f6b04a893d598d1b73f04, type: 3}
         _hitRadius: 1

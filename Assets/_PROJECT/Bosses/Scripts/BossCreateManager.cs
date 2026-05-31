@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SanyaBeerExtension;
 using UnityEngine;
 using Zenject;
@@ -8,8 +9,13 @@ public class BossCreateManager : MonoBehaviour {
     [SerializeField] private List<BossRoot> _bossRoot;
     [field: SerializeField] public int BossCount { get; private set; }  = 2;
 
+    public event Action<int> BossesCreated;
+        
+        
     private List<BossRoot> _bossInstances = new List<BossRoot>();
-
+    
+    
+    
     [Inject] private PlayerLevel _playerLevel;
     [Inject] private MainGameStarter _mainGameStarter;
     [Inject] private DiContainer _diContainer;
@@ -66,6 +72,7 @@ public class BossCreateManager : MonoBehaviour {
             _playerRegister.RegisterUnit(newBoss.BotManager);
             newBoss.BotManager.TeleportToPoint(_maps.GetCurrentEnemySpawns[i].position);
         }
+        BossesCreated?.Invoke(BossCount);
     }
 
     
