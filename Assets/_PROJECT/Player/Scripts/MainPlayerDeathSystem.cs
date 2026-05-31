@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using _PROJECT.Scripts.Helpers;
 using Cysharp.Threading.Tasks;
+using SanyaBeerExtension;
 using UnityEngine;
 using Zenject;
 
@@ -71,6 +72,9 @@ public class MainPlayerDeathSystem: ProgressVisualizer {
             _playerRegister.GetPlayers(),
             bot => bot.Damagable.CurrentHp != 0
         );
+        if (randomBot == null) {
+            randomBot = _mainPlayer;
+        }
         _camera.SetFollowToBot(randomBot.Transform);
     }
 

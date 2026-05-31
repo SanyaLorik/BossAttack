@@ -7,6 +7,7 @@ public class BoostCollectItem : MonoBehaviour, IPlayer {
     [SerializeField] private ParticleSystem _psToDestroy;
     [SerializeField] private GameObject[] _visualToHide;
     [SerializeField] private Collider _colliderToHide;
+    [SerializeField] private Transform _pointToAtack;
     
     private PlayerBoostBoxesSystem _playerBoostBoxesSystem;
     private GameData _gameData;
@@ -17,7 +18,7 @@ public class BoostCollectItem : MonoBehaviour, IPlayer {
     private Damagable _damagable;
 
 
-    public Transform PointToAtack => transform;
+    public Transform PointToAtack => _pointToAtack;
     public Transform Transform  => transform;
 
     public void TeleportToPoint(Vector3 point) {

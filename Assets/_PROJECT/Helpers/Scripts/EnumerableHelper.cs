@@ -44,7 +44,8 @@ public static class EnumerableHelper {
                 return element;
             }
         }
-        return list[startIndex];
+        // Debug.LogError("Элементов в списке не нашлось, ошибка");
+        return  default;
     }
     
     
