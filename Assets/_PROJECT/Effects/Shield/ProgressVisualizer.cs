@@ -101,6 +101,10 @@ public abstract class ProgressVisualizer : MonoBehaviour {
         _progressContainer.localScale = Vector3.zero;
     }
 
+    public void FastShow() {
+        _progressContainer.localScale = Vector3.one;
+    }
+
 
 
     /// <summary>

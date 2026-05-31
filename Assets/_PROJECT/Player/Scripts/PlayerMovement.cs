@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
     [SerializeField] private CharacterController _controller; // 
     [SerializeField] private GameObject _playerVisual;
     [SerializeField] private PlayerBonusUser playerBonusUser;
-    [SerializeField] private DamageVisualizer _damagableVisual; 
+    [SerializeField] private DamagableProvider _damagableProvider; 
     [SerializeField] private PlayerAbilityController _abilityController; 
 
     
@@ -67,13 +67,13 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
     private void Awake() {
         InitIPlayer();
     }
+    
 
     private void InitIPlayer() {
         _damagable = new Damagable(transform, this);
         _damagable.SetMaxHpGetter(() => _playerStaticStatsCalculator.PlayerHp);
         
-        _damagableVisual.SetDamagable(_damagable);
-        _damagableVisual.FastHide();
+        _damagableProvider.SetDamagable(_damagable);
         
         _pusher = new PlayerPush(_gameData, _controller);
     }
@@ -168,7 +168,6 @@ public class PlayerMovement : MonoBehaviour, IPlayer {
         }
         else {
             TeleportInSpawn(); 
-            _damagableVisual.FastHide();
         }
     }
 

@@ -34,7 +34,7 @@ public class BotManager : MonoBehaviour, IPlayer {
     [field: SerializeField] public JumpParticlesController JumpParticles  { get; private set; }
     [field: SerializeField] public JumpParticlesController LandParticles  { get; private set; }
     [field: SerializeField] public DualLegParticles WalkingParticles  { get; private set; }
-    [SerializeField] private DamageVisualizer _damageVisualizer;
+    [SerializeField] private DamagableProvider _damagableProvider;
     [field: SerializeField] public BotWanderingInBattle BotWanderingInBattle { get; private set; }
 
 
@@ -70,10 +70,9 @@ public class BotManager : MonoBehaviour, IPlayer {
     
     private void Awake() {
         _damagable = new Damagable(Transform, this);
-        _damageVisualizer.SetDamagable(_damagable);
+        _damagableProvider.SetDamagable(_damagable);
         if (!IsBoss) {
             _damagable.SetMaxHpGetter(() => _playerStaticStatsCalculator.PlayerHp);
-            _damageVisualizer.FastHide();
         }
     }
 
@@ -133,7 +132,6 @@ public class BotManager : MonoBehaviour, IPlayer {
         SetBotStateBeforeGame();
         TeleportToPoint(_respawn.SpawnPoint.position);
         ChangeNicknameByChance();
-        _damageVisualizer.FastHide();
     }
 
     

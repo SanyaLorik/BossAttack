@@ -99,6 +99,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8219805980954244565}
+  - component: {fileID: 6218206222648102038}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -119,12 +120,30 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5530526457991081139}
+  - {fileID: 8809653176419363344}
   - {fileID: 1750832617311858533}
   - {fileID: 2773510961341429903}
   - {fileID: 6627103410723866565}
   m_Father: {fileID: 6950699500598587055}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6218206222648102038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1690203778156041715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dc2b6b8c3c84590988a2969fb1af445, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitShakingAnimate
+  _damagableProvider: {fileID: 3988809996936333384}
+  _scaleToShake: 1.2
+  _source: {fileID: 8809653176419363344}
+  _easeToShake: 1
+  _easeToUnshake: 1
+  _timeToShake: 0.1
 --- !u!1 &5155407911945860617
 GameObject:
   m_ObjectHideFlags: 0
@@ -157,7 +176,7 @@ Transform:
   m_Children:
   - {fileID: 2876803410914771505}
   - {fileID: 4485626959877698526}
-  m_Father: {fileID: 8219805980954244565}
+  m_Father: {fileID: 8809653176419363344}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!114 &2193656846891240216
 MonoBehaviour:
@@ -189,7 +208,7 @@ GameObject:
   - component: {fileID: 1929669786341266007}
   - component: {fileID: 681730537895583674}
   m_Layer: 0
-  m_Name: crate_1_destroyed
+  m_Name: CrateDestroyed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -267,6 +286,38 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &5749270734978746341
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8809653176419363344}
+  m_Layer: 0
+  m_Name: CrateModel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8809653176419363344
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5749270734978746341}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5530526457991081139}
+  m_Father: {fileID: 8219805980954244565}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5768222412504235594
 GameObject:
   m_ObjectHideFlags: 0
@@ -298,6 +349,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5530526457991081139}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5819859645368781185
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4967734306064170515}
+  - component: {fileID: 3988809996936333384}
+  m_Layer: 0
+  m_Name: DamagableProvider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4967734306064170515
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5819859645368781185}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6950699500598587055}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3988809996936333384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5819859645368781185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec5c0fbc536c4f4aac046c7d5063194c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamagableProvider
 --- !u!1 &6076770314637681481
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,6 +425,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4480610595595604907}
+  - {fileID: 4967734306064170515}
   - {fileID: 8219805980954244565}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -366,7 +462,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 793ba3e74a014bf191dee5af04975e82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BoostCollectItem
-  _damageVisualizer: {fileID: 9092536128844321012}
+  _damagableProvider: {fileID: 3988809996936333384}
+  _damagableVisualizer: {fileID: 9092536128844321012}
   _psToDestroy: {fileID: 2773510961322032591}
   _visualToHide:
   - {fileID: 4185410542580720826}
@@ -428,6 +525,7 @@ MonoBehaviour:
   _barParent: {fileID: 8239124171808256892}
   _changeBarDuration: 1
   CountText: {fileID: 4008611160590511531}
+  _damagableProvider: {fileID: 3988809996936333384}
 --- !u!1001 &2773510961341817357
 PrefabInstance:
   m_ObjectHideFlags: 0

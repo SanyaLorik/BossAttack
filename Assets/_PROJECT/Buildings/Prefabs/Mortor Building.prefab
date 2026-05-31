@@ -1,5 +1,49 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &744558855164190991
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6914672500096637614}
+  - component: {fileID: 8734848207824460443}
+  m_Layer: 0
+  m_Name: DamagableProvider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6914672500096637614
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 744558855164190991}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -18.689524, y: -0.26, z: -56.473053}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7491435633213374312}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8734848207824460443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 744558855164190991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec5c0fbc536c4f4aac046c7d5063194c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamagableProvider
 --- !u!1 &3429012240207951712
 GameObject:
   m_ObjectHideFlags: 0
@@ -34,7 +78,7 @@ Transform:
   - {fileID: 4690553325404466858}
   - {fileID: 2076115730848257332}
   - {fileID: 4838310509684691716}
-  - {fileID: 7658220721172434498}
+  - {fileID: 7491435633213374312}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &134461985583639130
@@ -77,7 +121,8 @@ MonoBehaviour:
   _buildVisual: {fileID: 4540843493132531759}
   _afterBuildVisual: {fileID: 3644223614457152839}
   _abilityBuilding: {fileID: 5434061456559014331}
-  _damagableVisual: {fileID: 4905734718052232377}
+  _damagableProvider: {fileID: 8734848207824460443}
+  damagableVisualizer: {fileID: 4905734718052232377}
   _psOnDestroy: {fileID: 4690553325423864810}
 --- !u!1 &3644223614457152839
 GameObject:
@@ -305,12 +350,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4795502606418812862}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3521995528156331619}
+  m_Father: {fileID: 7491435633213374312}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4905734718052232377
 MonoBehaviour:
@@ -335,6 +380,7 @@ MonoBehaviour:
   _barParent: {fileID: 7905686285694088480}
   _changeBarDuration: 1
   CountText: {fileID: 2900580525907897335}
+  _damagableProvider: {fileID: 8734848207824460443}
 --- !u!1 &6374153820092526745
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,6 +531,39 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 0.72
+--- !u!1 &7370839002631671798
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7491435633213374312}
+  m_Layer: 0
+  m_Name: Damagable
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7491435633213374312
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7370839002631671798}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6914672500096637614}
+  - {fileID: 7658220721172434498}
+  m_Father: {fileID: 3521995528156331619}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7813482357609673775
 GameObject:
   m_ObjectHideFlags: 0

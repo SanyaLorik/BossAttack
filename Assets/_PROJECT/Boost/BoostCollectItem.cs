@@ -3,7 +3,8 @@ using UnityEngine;
 using Zenject;
 
 public class BoostCollectItem : MonoBehaviour, IPlayer {
-    [SerializeField] private DamageVisualizer _damageVisualizer;
+    [SerializeField] private DamagableProvider _damagableProvider;
+    [SerializeField] private DamagableVisualizer _damagableVisualizer;
     [SerializeField] private ParticleSystem _psToDestroy;
     [SerializeField] private GameObject[] _visualToHide;
     [SerializeField] private Collider _colliderToHide;
@@ -36,13 +37,13 @@ public class BoostCollectItem : MonoBehaviour, IPlayer {
         _damagable.Respawn(true);
         _damagable.DamagableDied += OnDamagableDied;
         
-        _damageVisualizer.SetDamagable(_damagable);
+        _damagableProvider.SetDamagable(_damagable);
     }
 
 
 
     private void OnDamagableDied(IDamagable damagable) {
-        _damageVisualizer.Unsubscribe();
+        _damagableVisualizer.DamagableUnsubscribe();
         Damagable.DamagableDied -= OnDamagableDied;
         
         _playerBoostBoxesSystem.PlusOne();

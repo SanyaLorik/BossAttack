@@ -20,7 +20,8 @@ public class BuildZoneItem : MonoBehaviour {
     [SerializeField] private GameObject _buildVisual;
     [SerializeField] private GameObject _afterBuildVisual;
     [SerializeField] private AbilitySystem _abilityBuilding;
-    [SerializeField] private DamageVisualizer _damagableVisual; 
+    [SerializeField] private DamagableProvider _damagableProvider; 
+    [SerializeField] private DamagableVisualizer damagableVisualizer; 
     [SerializeField] private ParticleSystem _psOnDestroy; 
 
 
@@ -119,7 +120,7 @@ public class BuildZoneItem : MonoBehaviour {
         
         
         if (_buildingType != BuildingType.Mine) {
-            _damagableVisual.SetDamagable(_damagable);
+            _damagableProvider.SetDamagable(_damagable);
             _damagable.DamagableDied += DestroyUnit;
         }
         
@@ -226,7 +227,7 @@ public class BuildZoneItem : MonoBehaviour {
         _damagable.SetSpawned();
         
         if (_permanent) {
-            _damagableVisual.HideVisual();
+            damagableVisualizer.HideVisual();
         }
     }
     

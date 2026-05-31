@@ -75,6 +75,50 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 0.72
+--- !u!1 &841842865003413541
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2007814831516272268}
+  - component: {fileID: 8252625412516800907}
+  m_Layer: 0
+  m_Name: DamagableProvider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2007814831516272268
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 841842865003413541}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -10.189524, y: 0, z: -67.63005}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7778344509571721475}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8252625412516800907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 841842865003413541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec5c0fbc536c4f4aac046c7d5063194c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamagableProvider
 --- !u!1 &1684131659126133808
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,7 +440,6 @@ MonoBehaviour:
   _intervalToFindTarget: 0.3
   _origin: {fileID: 8018826651429653617}
   TypeToAtack: 2
-  <Type>k__BackingField: 0
   _targetProvider:
     rid: 7634349317783289929
   _targetFilters:
@@ -590,6 +633,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 2007814831516272268}
   - {fileID: 8540255199710625996}
   - {fileID: 4788997341388228189}
   - {fileID: 3295186792103477937}
@@ -636,7 +680,9 @@ MonoBehaviour:
   _buildVisual: {fileID: 5315898922650781916}
   _afterBuildVisual: {fileID: 2833439702286696917}
   _abilityBuilding: {fileID: 2970806039191099265}
-  _damagableVisual: {fileID: 0}
+  _damagableProvider: {fileID: 8252625412516800907}
+  damagableVisualizer: {fileID: 0}
+  _psOnDestroy: {fileID: 0}
 --- !u!114 &1376350344280223978
 MonoBehaviour:
   m_ObjectHideFlags: 0

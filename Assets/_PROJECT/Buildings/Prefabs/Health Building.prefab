@@ -138,6 +138,39 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 0.72
+--- !u!1 &2935534041289648504
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5280748865876915136}
+  m_Layer: 0
+  m_Name: Damage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5280748865876915136
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2935534041289648504}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3183291239810551194}
+  - {fileID: 9107235890870179766}
+  m_Father: {fileID: 5060845134860457226}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3008346971703728508
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,7 +221,6 @@ MonoBehaviour:
   _intervalToFindTarget: 0.5
   _origin: {fileID: 1520153112886831354}
   TypeToAtack: 1
-  <Type>k__BackingField: 0
   _targetProvider:
     rid: 7634349180084289607
   _targetFilters:
@@ -386,6 +418,50 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &3794720164334060828
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9107235890870179766}
+  - component: {fileID: 9017912027742201510}
+  m_Layer: 0
+  m_Name: DamagableProvider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9107235890870179766
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3794720164334060828}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -14.689524, y: -0.26, z: -56.473053}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5280748865876915136}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9017912027742201510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3794720164334060828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec5c0fbc536c4f4aac046c7d5063194c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamagableProvider
 --- !u!1 &3887695957504358304
 GameObject:
   m_ObjectHideFlags: 0
@@ -421,7 +497,7 @@ Transform:
   - {fileID: 4323041307829400244}
   - {fileID: 4200281033756163592}
   - {fileID: 7698152080678172142}
-  - {fileID: 3183291239810551194}
+  - {fileID: 5280748865876915136}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &7776395855799678705
@@ -480,7 +556,8 @@ MonoBehaviour:
   _buildVisual: {fileID: 2113175926147916173}
   _afterBuildVisual: {fileID: 8216471984253408364}
   _abilityBuilding: {fileID: 7372823353895176044}
-  _damagableVisual: {fileID: 2753655473747207465}
+  _damagableProvider: {fileID: 9017912027742201510}
+  damagableVisualizer: {fileID: 2753655473747207465}
   _psOnDestroy: {fileID: 4323041307848800244}
 --- !u!1 &4383300975249325238
 GameObject:
@@ -700,7 +777,7 @@ GameObject:
   - component: {fileID: 3183291239810551194}
   - component: {fileID: 2753655473747207465}
   m_Layer: 0
-  m_Name: DamageVisualizer
+  m_Name: DamagableVisualizer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -715,11 +792,11 @@ Transform:
   m_GameObject: {fileID: 5078830856314520552}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14.689524, y: -0.26, z: -56.47305}
+  m_LocalPosition: {x: -14.689524, y: -0.26, z: -56.473053}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5060845134860457226}
+  m_Father: {fileID: 5280748865876915136}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2753655473747207465
 MonoBehaviour:
@@ -744,6 +821,7 @@ MonoBehaviour:
   _barParent: {fileID: 7086080768295681896}
   _changeBarDuration: 1
   CountText: {fileID: 2855455607394361791}
+  _damagableProvider: {fileID: 9017912027742201510}
 --- !u!1 &6719783190765091435
 GameObject:
   m_ObjectHideFlags: 0

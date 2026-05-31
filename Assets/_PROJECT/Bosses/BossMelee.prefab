@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 575555086539749400, guid: 9e92c27d76f7ff449919031164e86a22, type: 3}
+      propertyPath: _damagableProvider
+      value: 
+      objectReference: {fileID: 5986469343228711766}
     - target: {fileID: 1705216938438393604, guid: 9e92c27d76f7ff449919031164e86a22, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -81,7 +85,8 @@ PrefabInstance:
       value: BossMelee
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3513891808248829208, guid: 9e92c27d76f7ff449919031164e86a22, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e92c27d76f7ff449919031164e86a22, type: 3}
@@ -96,3 +101,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 543f53ac372646c7b950add62c4bb7a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildItem
+--- !u!114 &5986469343228711766 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1686115629639693877, guid: 9e92c27d76f7ff449919031164e86a22, type: 3}
+  m_PrefabInstance: {fileID: 4932144305377748323}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec5c0fbc536c4f4aac046c7d5063194c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamagableProvider
