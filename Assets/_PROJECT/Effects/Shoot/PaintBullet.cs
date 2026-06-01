@@ -6,6 +6,7 @@ public class PaintBullet : BulletBase {
     [SerializeField] private ParticleSystem _psToEnd;
     [SerializeField] private ParticleSystem _psWhileFlight;
     [SerializeField] private VisualEffectPlayer[] _effectsToEnd;
+    [SerializeField] private TrailRenderer _trail;
     [Header("Colors")]
     [SerializeField] private Color[] _particleColors;
     [SerializeField] private Sound3dEmitter _soundEmitter;
@@ -21,9 +22,14 @@ public class PaintBullet : BulletBase {
         SetColorToAllParticles();
         _psWhileFlight.ActiveSelf();
         _psWhileFlight.Play();
+        
+        
+        
+        SetTrail(true);
     }
     
     public override void PlayToEnd() {
+        SetTrail(false);
         _psWhileFlight.Stop();
         _psWhileFlight.DisactiveSelf();
         _psToEnd.Play();
@@ -34,7 +40,6 @@ public class PaintBullet : BulletBase {
         
         // После долетания взрыв 
         if (_abilityToEnd != null) _abilityToEnd.Use();
-        
     }
     
     private void SetColorToAllParticles() {
@@ -48,4 +53,12 @@ public class PaintBullet : BulletBase {
         main.startColor = color;
     }
 
+    private void SetTrail(bool state) {
+        if(_trail == null) return;
+        _trail.enabled = state;
+        _trail.Clear();
+    }
+    
 }
+
+

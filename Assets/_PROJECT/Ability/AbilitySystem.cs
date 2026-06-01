@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using SanyaBeerExtension;
 using UnityEngine;
 using Zenject;
 
@@ -126,7 +127,7 @@ public class AbilitySystem : TickerBehaviour {
         // if (_targets.Count > 0 ) {
         //     Debug.Log($"Найдена цель {_targets[0].TargetType} для {TypeToAtack}");
         // }
-        NewTargetFinded?.Invoke(_targets.Count > 0 ? _targets[0] : null);
+        NewTargetFinded?.Invoke(_targets.Count > 0 ? _targets.GetRandomElement() : null);
     }
 
     

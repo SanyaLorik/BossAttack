@@ -82,6 +82,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9d5d8cf8e11a5ab4ca115aabac3e6f5b, type: 3}
   m_PrefabInstance: {fileID: 3368491659440385825}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &8365796690105550717 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -2691447693167941540, guid: 9d5d8cf8e11a5ab4ca115aabac3e6f5b, type: 3}
+  m_PrefabInstance: {fileID: 3368491659440385825}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4932144305377748323
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -110,6 +115,10 @@ PrefabInstance:
       propertyPath: <Ability>k__BackingField
       value: 
       objectReference: {fileID: 5044910908030385923}
+    - target: {fileID: 2539532456124104069, guid: 9e92c27d76f7ff449919031164e86a22, type: 3}
+      propertyPath: _source
+      value: 
+      objectReference: {fileID: 8365796690105550717}
     - target: {fileID: 2565000165327353814, guid: 9e92c27d76f7ff449919031164e86a22, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -258,6 +267,10 @@ PrefabInstance:
     - target: {fileID: 2489716778079630731, guid: 3f034f0425ba6324b818723865e2d328, type: 3}
       propertyPath: TypeToAtack
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489716778079630731, guid: 3f034f0425ba6324b818723865e2d328, type: 3}
+      propertyPath: _intervalToFindTarget
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2489716778079630731, guid: 3f034f0425ba6324b818723865e2d328, type: 3}
       propertyPath: _atackVisuals.Array.size

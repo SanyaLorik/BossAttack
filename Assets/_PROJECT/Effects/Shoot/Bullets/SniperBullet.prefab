@@ -182,6 +182,7 @@ MonoBehaviour:
   _psToEnd: {fileID: 9109709370072229337}
   _psWhileFlight: {fileID: 9084056222163513895}
   _effectsToEnd: []
+  _trail: {fileID: 5136505587312797093}
   _particleColors:
   - {r: 1, g: 0, b: 0, a: 1}
   - {r: 0, g: 1, b: 0, a: 1}
@@ -262,6 +263,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8394366362186865689, guid: 614fdca6fd5dc2a4d889f6223663b37b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8394366362186865689, guid: 614fdca6fd5dc2a4d889f6223663b37b, type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -298,6 +303,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 614fdca6fd5dc2a4d889f6223663b37b, type: 3}
+--- !u!96 &5136505587312797093 stripped
+TrailRenderer:
+  m_CorrespondingSourceObject: {fileID: 8394366362186865689, guid: 614fdca6fd5dc2a4d889f6223663b37b, type: 3}
+  m_PrefabInstance: {fileID: 3690223965717166524}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6552069361135206498 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7627953708463765982, guid: 614fdca6fd5dc2a4d889f6223663b37b, type: 3}

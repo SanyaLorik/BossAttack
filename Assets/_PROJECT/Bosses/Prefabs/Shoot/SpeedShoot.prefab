@@ -13,6 +13,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 404309993021525479}
     - target: {fileID: 195869732784215658, guid: a8b24b099ea28904abf3878efcf056d4, type: 3}
+      propertyPath: _intervalToFindTarget
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 195869732784215658, guid: a8b24b099ea28904abf3878efcf056d4, type: 3}
       propertyPath: managedReferences[7634349546795434072]._spawnPoint
       value: 
       objectReference: {fileID: 3441283520479790260}
