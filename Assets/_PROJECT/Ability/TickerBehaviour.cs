@@ -30,6 +30,8 @@ public abstract class TickerBehaviour : MonoBehaviour, IValueGetter {
     public void SetValueGetter(Func<float> valueGetter) {
         _rateOfFire = valueGetter;
     }
+
+
     
 
     public void StartSystem() {

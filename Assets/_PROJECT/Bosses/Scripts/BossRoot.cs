@@ -25,6 +25,8 @@ public class BossRoot : MonoBehaviour {
         
         abilityEffectValue.SetValueGetter(() => stats.Damage);
         Ability.SetValueGetter(() => stats.RateOfFire);
+        Ability.SetDistanceToAtack(stats.DistanceToAtack);
+        
         
         Player.Damagable.SetMaxHpGetter(() => stats.Hp);
         Player.Damagable.Respawn(false);

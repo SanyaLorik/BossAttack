@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c82936931e992644aaf1500c865c36a7, type: 3}
   m_Name: Dirty
   m_EditorClassIdentifier: Assembly-CSharp::SoundConfig
-  <SoundType>k__BackingField: 14
+  <SoundType>k__BackingField: 16
   <AudioClips>k__BackingField:
   - {fileID: 8300000, guid: f02c768666218ad44b8dee6ddaf345c5, type: 3}
   - {fileID: 8300000, guid: 698870245bdf89744a72c768e1a674e5, type: 3}

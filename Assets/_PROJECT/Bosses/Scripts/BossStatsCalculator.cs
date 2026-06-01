@@ -9,6 +9,7 @@
             MoveSpeed = config.MoveSpeed,
             RateOfFire = config.RateOfFire,
             StopingDistance = config.StopingDistance,
+            DistanceToAtack = config.DistanceToAtack,
         };
     }
 }

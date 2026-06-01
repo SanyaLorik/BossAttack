@@ -1045,6 +1045,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 109ac57c601a742469cea6422b12d4e5, type: 2}
   - {fileID: 11400000, guid: 92ed5cf7185bb6a44bb640770d009c3a, type: 2}
   - {fileID: 11400000, guid: d718d6a9253af644cb21f0ca75ff6c34, type: 2}
+  - {fileID: 11400000, guid: 96e4922632d770844a808bbc1b069c5f, type: 2}
   _poolSize: 0
   _fadeTime: 1
   _stepTiming: 0.3
@@ -9261,8 +9262,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossCreateManager
   _bossRoot:
-  - {fileID: 725078164772712106, guid: 6943132940a71ef42a78501ecc8707e9, type: 3}
-  - {fileID: 725078164772712106, guid: 17f199d18c80521478afe9f2b7c3df60, type: 3}
+  - {fileID: 725078164772712106, guid: cb20e1fe198fd3c44a03fffcce3928e4, type: 3}
+  - {fileID: 725078164772712106, guid: cb20e1fe198fd3c44a03fffcce3928e4, type: 3}
   <BossCount>k__BackingField: 2
 --- !u!33 &83981065760671030
 MeshFilter:

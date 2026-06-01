@@ -10,4 +10,5 @@ public class BossConfig : ScriptableObject {
     [field: SerializeField] public float MoveSpeed;
     [field: SerializeField] public float RateOfFire;
     [field: SerializeField] public float StopingDistance;
+    [field: SerializeField] public float DistanceToAtack;
 }

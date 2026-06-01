@@ -13,6 +13,8 @@
     ReloadBonus,
     BonusUse,
     Shoot,
+    SniperShoot,
+    MortorShoot,
     Bullet,
     BossSwitchAbility
 }

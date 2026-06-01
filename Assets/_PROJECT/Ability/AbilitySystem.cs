@@ -21,16 +21,16 @@ public class AbilitySystem : TickerBehaviour {
     
     private IGizmosDrawable _gizmosDrawer;
     private CancellationTokenSource _findTagetSource;
-    private IPlayer _target;
     private bool _injected;
+
+    private List<IPlayer> TargetList
+        => _playerRegister.PlayUnits;
+    
     
     public event Action<ISoundPlayer> SoundPlayed;
     public event Action<IPlayer> NewTargetFinded;
     public event Action<IPlayer> NewTargetAttacked;
 
-
-    private List<IPlayer> TargetList
-        => _playerRegister.PlayUnits;
     
     
     [Inject] private DiContainer _diContainer;
@@ -64,6 +64,11 @@ public class AbilitySystem : TickerBehaviour {
 
     public void ReloadClip() {
         _atackCapacity.ReloadFull();
+    }
+    
+    public void SetDistanceToAtack(float distance) {
+        if (_targetFilters.Find(f => f is DistanceFilter) is DistanceFilter distanceFilter) 
+            distanceFilter.SetDistanceToAtack(distance);
     }
     
     

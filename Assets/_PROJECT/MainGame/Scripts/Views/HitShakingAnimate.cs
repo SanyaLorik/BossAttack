@@ -37,7 +37,7 @@ public class HitShakingAnimate : MonoBehaviour {
         _sequence.Append(
             _source.DOScale(_scaleToShake, _timeToShake).SetEase(_easeToShake)
         );
-        _sequence.Append(
+        _sequence.Append( 
             _source.DOScale(_startScale, _timeToShake).SetEase(_easeToUnshake)
         );
     }

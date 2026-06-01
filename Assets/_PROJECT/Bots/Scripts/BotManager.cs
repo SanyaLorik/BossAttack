@@ -12,7 +12,6 @@ public class BotManager : MonoBehaviour, IPlayer {
     
     [SerializeField] private GameObject _playerSkin;
     [field: SerializeField] public bool IsBoss { get; private set; }
-    [field: SerializeField] public AbilitySystem Ability { get; private set; }
     
     [field: SerializeField] public bool ShowInSpawn { get; private set; }
     [field: SerializeField] public Transform Transform { get; private set; }
