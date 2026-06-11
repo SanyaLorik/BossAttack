@@ -1,29 +1,9 @@
 fileFormatVersion: 2
-guid: fea1ce414811e184585077e339a1b2c5
+guid: 8c9e6aaa61130ab4286ff4d92e2a0236
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: RG_WG_blue
-    second: {fileID: 2100000, guid: 6c21cd10ea4e5df4d951f5bd0b03cba2, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: RG_WG_cyan
-    second: {fileID: 2100000, guid: 8f464d2812d8b984ab18c8f7d4af4ba1, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: RG_WG_red
-    second: {fileID: 2100000, guid: f9138f0af4fcf1c40bad0bf151b53214, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: RG_WG_yellow
-    second: {fileID: 2100000, guid: 182d8fba9cf524842940d90cbe682916, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0

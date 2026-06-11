@@ -4794,17 +4794,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8851156972997885243, guid: 97dd70a5ec067624ba81c12446c68854, type: 3}
   m_PrefabInstance: {fileID: 415421058}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &981807630 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3887000631383385253, guid: 7c5e4d14ece8f6246808912708c29a12, type: 3}
-  m_PrefabInstance: {fileID: 1189014759}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 543f53ac372646c7b950add62c4bb7a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BuildItem
 --- !u!1001 &986255327
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5532,22 +5521,6 @@ PrefabInstance:
       propertyPath: _button
       value: 
       objectReference: {fileID: 168683845}
-    - target: {fileID: 3539183820512013210, guid: 7c5e4d14ece8f6246808912708c29a12, type: 3}
-      propertyPath: _ability
-      value: 
-      objectReference: {fileID: 981807630}
-    - target: {fileID: 3539183820512013210, guid: 7c5e4d14ece8f6246808912708c29a12, type: 3}
-      propertyPath: _spawnPoint
-      value: 
-      objectReference: {fileID: 1276183571}
-    - target: {fileID: 3887000631383385253, guid: 7c5e4d14ece8f6246808912708c29a12, type: 3}
-      propertyPath: _intervalToFindTarget
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3887000631383385253, guid: 7c5e4d14ece8f6246808912708c29a12, type: 3}
-      propertyPath: managedReferences[7634349249449427014]._viewAngle
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 6278525158390120559, guid: 7c5e4d14ece8f6246808912708c29a12, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.06

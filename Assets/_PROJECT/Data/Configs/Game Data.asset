@@ -40,10 +40,10 @@ MonoBehaviour:
     <VelocityBonusSpeed>k__BackingField: 25
     <JumpBonusHeight>k__BackingField: 24
     <DoubleJumpBonusHeight>k__BackingField: 30
-    <SpeedBonusDuration>k__BackingField: 50
-    <JumpBonusDuration>k__BackingField: 50
-    <ReloadBonusDuration>k__BackingField: 10
-    <InvincibleBonusDuration>k__BackingField: 50
+    <SpeedBonusDuration>k__BackingField: 5
+    <JumpBonusDuration>k__BackingField: 5
+    <ReloadBonusDuration>k__BackingField: 1
+    <InvincibleBonusDuration>k__BackingField: 5
     <MaxCountBonusesInMap>k__BackingField: 5
     <DurationToSpawnNewBonus>k__BackingField: 5
     <BotPushForce>k__BackingField: 25
