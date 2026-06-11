@@ -9,17 +9,17 @@ public class PlayerCollectUpgradesVisual : MonoBehaviour {
 
     private void OnDisable() {
         _playerBoostBoxesSystem.PlayerBoosted -= OnPlayerBoosted;
-        _playerBonusService.BonusActive -= OnBonusActive; 
+        _playerBonusService.BonusActivated -= OnBonusActivated; 
     }
     
     
     private void OnEnable() {
         _playerBoostBoxesSystem.PlayerBoosted += OnPlayerBoosted;
-        _playerBonusService.BonusActive += OnBonusActive; 
+        _playerBonusService.BonusActivated += OnBonusActivated; 
     }
 
     
-    private void OnBonusActive(ActiveBonus bonus) {
+    private void OnBonusActivated(ActiveBonus bonus) {
         _onBoostedPs.Play(true);
         GameEvents.BonusUseInvoke(bonus.Bonus);
     }

@@ -284,6 +284,7 @@ MonoBehaviour:
   _psWhileFlight: {fileID: 9192880931365472329}
   _effectsToEnd:
   - {fileID: 4374727176301104170}
+  _trail: {fileID: 0}
   _particleColors:
   - {r: 1, g: 0, b: 0, a: 1}
   - {r: 0, g: 1, b: 0, a: 1}

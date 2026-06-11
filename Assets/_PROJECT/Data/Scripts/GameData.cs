@@ -12,7 +12,6 @@ public class GameData : GameDataBase
     [field: SerializeField] public float SecondJumpForce { get; private set; }
     [field: SerializeField] public float RotateSpeed { get; private set; }
     [field: SerializeField] public float GravityScale { get; private set; }
-    [field: SerializeField] public int InitBonusCounts { get; private set; }
     
     
     [field: Header("Camera")]

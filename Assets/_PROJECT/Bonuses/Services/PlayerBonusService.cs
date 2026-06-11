@@ -21,8 +21,8 @@ public class PlayerBonusService : ITickable  {
     }
     
     
-    public event Action<ActiveBonus> BonusActive;
-    public event Action<ActiveBonus> BonusDisactive;
+    public event Action<ActiveBonus> BonusActivated;
+    public event Action<ActiveBonus> BonusDisactivated;
     
     
     public void TryAddBonus(BonusCollectItem bonusItem) {
@@ -37,7 +37,7 @@ public class PlayerBonusService : ITickable  {
         bonusItem.Bonus.Use(_mainPlayer.BonusUser);
         ActiveBonus newActiveBonus = _bonusCreator.InitNewBonus(bonusItem.Bonus);
         _bonuses[bonusItem.Bonus.Type] = newActiveBonus;
-        BonusActive?.Invoke(newActiveBonus);
+        BonusActivated?.Invoke(newActiveBonus);
     }
     
 
@@ -48,7 +48,7 @@ public class PlayerBonusService : ITickable  {
         foreach (ActiveBonus runtimeBonus in _bonuses.Values) {
             if (runtimeBonus.Progress == 1) {
                 
-                BonusDisactive?.Invoke(runtimeBonus);
+                BonusDisactivated?.Invoke(runtimeBonus);
                 runtimeBonus.Bonus.StopWork(_mainPlayer.BonusUser);
                 onDelete.Add(runtimeBonus.Bonus.Type);
                 

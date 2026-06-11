@@ -24,7 +24,6 @@ MonoBehaviour:
     <SecondJumpForce>k__BackingField: 16
     <RotateSpeed>k__BackingField: 16
     <GravityScale>k__BackingField: 3
-    <InitBonusCounts>k__BackingField: 10
     <MobileCameraFov>k__BackingField: 0.452
     <DesktopCameraFov>k__BackingField: 0.474
     <DefaultCameraSens>k__BackingField: 0.137
@@ -41,10 +40,10 @@ MonoBehaviour:
     <VelocityBonusSpeed>k__BackingField: 25
     <JumpBonusHeight>k__BackingField: 24
     <DoubleJumpBonusHeight>k__BackingField: 30
-    <SpeedBonusDuration>k__BackingField: 5
-    <JumpBonusDuration>k__BackingField: 5
-    <ReloadBonusDuration>k__BackingField: 1
-    <InvincibleBonusDuration>k__BackingField: 5
+    <SpeedBonusDuration>k__BackingField: 50
+    <JumpBonusDuration>k__BackingField: 50
+    <ReloadBonusDuration>k__BackingField: 10
+    <InvincibleBonusDuration>k__BackingField: 50
     <MaxCountBonusesInMap>k__BackingField: 5
     <DurationToSpawnNewBonus>k__BackingField: 5
     <BotPushForce>k__BackingField: 25

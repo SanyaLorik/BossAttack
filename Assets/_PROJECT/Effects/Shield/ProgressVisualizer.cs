@@ -26,53 +26,7 @@ public abstract class ProgressVisualizer : MonoBehaviour {
 
     [Inject] LocalizationData _localization;
     
-    private void DisposeProgress() {
-        _progressSequence?.Kill();
-        UniTaskHelper.DisposeTask(ref _tokenSource);
-    }
-
-
     
-    protected void SetProgressPercentage(float percentage, int value, bool setPretty = false) {
-        percentage = Mathf.Clamp01(percentage);
-        UniTaskHelper.DisposeTask(ref _tokenSource);
-        _tokenSource = new CancellationTokenSource();
-        ChangeProgressPercentageAsync(percentage, _tokenSource.Token).Forget();
-        CountText.text = setPretty ? _localization.GetPrettyTime(value) : value.ToString();
-    }
-    
-
-    
-    
-    private async UniTask ChangeProgressPercentageAsync(float percentage, CancellationToken token) {
-        float elapsedTime = 0f;
-
-        Vector2 initPos = _bar.offsetMax;
-        Vector2 targetPos = new Vector2(GetXPoseByPercent(percentage, _barParent), 0);
-        
-        // Debug.Log("percentage = " + percentage);
-        // Debug.Log("initPos = " + initPos);
-        // Debug.Log("targetPos = " + targetPos);
-        
-        
-        while (!token.IsCancellationRequested && elapsedTime < _changeBarDuration) {
-            elapsedTime += Time.deltaTime;
-            SetProgressByElapsedTime(elapsedTime, initPos, targetPos);
-            // Debug.Log("interp = " + interp);
-            await UniTask.Yield();
-        }
-
-        if (!token.IsCancellationRequested) {
-            _bar.offsetMax = targetPos;
-        }
-    }
-
-    private void SetProgressByElapsedTime(float elapsedTime, Vector2 initPos, Vector2 targetPos) {
-        float progress = elapsedTime / _changeBarDuration;
-        Vector2 interp = Vector2.Lerp(initPos, targetPos, progress);
-        _bar.offsetMax = interp;
-    }
-
     public void ShowBarAnimation(bool show) {
         // Целевой масштаб
         float targetScale = show ? 1f : 0f;
@@ -96,15 +50,73 @@ public abstract class ProgressVisualizer : MonoBehaviour {
                 _progressSequence = null;
         });
     }
+    
+    
+    protected void SetPercentage(float percentage, bool horizontal = true) {
+        percentage = Mathf.Clamp01(percentage);
+        Vector2 targetPos = default;
+        if (horizontal) {
+            Vector2 offset = _bar.offsetMax;
+            offset.x = GetXPoseByPercent(percentage, _barParent);
+            targetPos = offset;
+        }
+        else {
+            Vector2 offset = _bar.offsetMax;
+            offset.y = GetYPoseByPercent(percentage, _barParent);
+            targetPos = offset;
+        }
+        _bar.offsetMax = targetPos;
+        
+    }
 
-    public void FastHide() {
+
+    protected void FastHide() {
         _progressContainer.localScale = Vector3.zero;
     }
 
-    public void FastShow() {
+    protected void FastShow() {
         _progressContainer.localScale = Vector3.one;
     }
+    
+    
+    protected void SetProgressPercentage(float percentage, int value, bool setPretty = false) {
+        percentage = Mathf.Clamp01(percentage);
+        UniTaskHelper.DisposeTask(ref _tokenSource);
+        _tokenSource = new CancellationTokenSource();
+        ChangeProgressPercentageAsync(percentage, _tokenSource.Token).Forget();
+        CountText.text = setPretty ? _localization.GetPrettyTime(value) : value.ToString();
+    }
+    
+    
+    private void DisposeProgress() {
+        _progressSequence?.Kill();
+        UniTaskHelper.DisposeTask(ref _tokenSource);
+    }
+    
+    
+    private async UniTask ChangeProgressPercentageAsync(float percentage, CancellationToken token) {
+        float elapsedTime = 0f;
 
+        Vector2 initPos = _bar.offsetMax;
+        Vector2 targetPos = new Vector2(GetXPoseByPercent(percentage, _barParent), 0);
+        
+        while (!token.IsCancellationRequested && elapsedTime < _changeBarDuration) {
+            elapsedTime += Time.deltaTime;
+            SetProgressByElapsedTime(elapsedTime, initPos, targetPos);
+            // Debug.Log("interp = " + interp);
+            await UniTask.Yield();
+        }
+
+        if (!token.IsCancellationRequested) {
+            _bar.offsetMax = targetPos;
+        }
+    }
+
+    private void SetProgressByElapsedTime(float elapsedTime, Vector2 initPos, Vector2 targetPos) {
+        float progress = elapsedTime / _changeBarDuration;
+        Vector2 interp = Vector2.Lerp(initPos, targetPos, progress);
+        _bar.offsetMax = interp;
+    }
 
 
     /// <summary>
@@ -114,15 +126,22 @@ public abstract class ProgressVisualizer : MonoBehaviour {
     /// <param name="xEnd"></param>
     /// <param name="parent"></param>
     /// <returns></returns>
-    private static float GetXPoseByPercent(float percent, RectTransform parent)
-    {
+    private float GetXPoseByPercent(float percent, RectTransform parent) {
         float xEnd =  parent.rect.width;
-        if (xEnd < 0)
-        {
+        if (xEnd < 0) {
             Canvas.ForceUpdateCanvases();
             xEnd = parent.rect.width;
         }
         return -xEnd * (1f - percent);
+    }
+    
+    private float GetYPoseByPercent(float percent, RectTransform parent) {
+        float yEnd = parent.rect.height;
+        if (yEnd < 0) {
+            Canvas.ForceUpdateCanvases();
+            yEnd = parent.rect.height;
+        }
+        return -yEnd * (1f - percent);
     }
 
 

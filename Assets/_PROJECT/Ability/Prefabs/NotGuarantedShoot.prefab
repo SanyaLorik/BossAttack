@@ -79,7 +79,7 @@ MonoBehaviour:
     - rid: 7634349546795434072
       type: {class: NotGuaranteedHitBulletsSpawner, ns: , asm: Assembly-CSharp}
       data:
-        _bulletSpeed: 70
+        _bulletSpeed: 100
         _spawnPoint: {fileID: 0}
         _bulletInstance: {fileID: 2371869794996538148, guid: bc77ae790f4f6b04a893d598d1b73f04, type: 3}
         _hitRadius: 1

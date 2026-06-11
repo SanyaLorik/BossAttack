@@ -7,7 +7,6 @@ public class DamagableProvider : MonoBehaviour {
     public event Action DamageInitialized; 
     
     public void SetDamagable(IDamagable damagable) {
-        Debug.Log("AWAKE SetDamagable " +  GetInstanceID());
         Damagable = damagable;
         DamageInitialized?.Invoke();
     }
