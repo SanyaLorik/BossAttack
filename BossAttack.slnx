@@ -7,9 +7,9 @@
   <Project Path="Assembly-CSharp-Editor-firstpass.csproj" />
   <Project Path="UniTask.Addressables.csproj" />
   <Project Path="MackySoft.SerializeReferenceExtensions.Editor.csproj" />
+  <Project Path="Assembly-CSharp-Editor.csproj" />
   <Project Path="MackySoft.SerializeReferenceExtensions.csproj" />
   <Project Path="Assembly-CSharp-firstpass.csproj" />
-  <Project Path="Assembly-CSharp-Editor.csproj" />
   <Project Path="UniTask.TextMeshPro.csproj" />
   <Project Path="CustomPlayButton.Editor.csproj" />
   <Project Path="UniTask.Editor.csproj" />
